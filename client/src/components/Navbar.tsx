@@ -349,9 +349,11 @@ export function Navbar() {
             <Button variant="ghost" size="icon" className="rounded-full h-10 w-10">
               <Search className="h-5 w-5" />
             </Button>
-            <Button className="rounded-full font-bold bg-primary hover:bg-primary/90 text-white px-6 h-10 shadow-lg shadow-primary/25 hover:shadow-primary/30 transition-shadow">
-              {t('nav.donate')}
-            </Button>
+            <Link href="/donate">
+              <Button className="rounded-full font-bold bg-primary hover:bg-primary/90 text-white px-6 h-10 shadow-lg shadow-primary/25 hover:shadow-primary/30 transition-shadow">
+                {t('nav.donate')}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -386,9 +388,11 @@ export function Navbar() {
                       </Button>
                     </div>
                   </div>
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full font-bold">
-                    {t('nav.donate')}
-                  </Button>
+                  <Link href="/donate">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full font-bold">
+                      {t('nav.donate')}
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </SheetContent>

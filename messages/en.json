@@ -335,6 +335,223 @@
     "multimedia": "Multimedia",
     "events": "Events"
   },
+  "actualitesPage": {
+    "title": "News & Stories",
+    "subtitle": "Latest Updates from the Field",
+    "intro": "Stay informed about our daily work, achievements, and the impactful stories from the communities we serve.",
+    "categories": {
+      "all": "All",
+      "press": "Press Release",
+      "field": "Field Report",
+      "impact": "Impact Story"
+    },
+    "readMore": "Read Full Story",
+    "loadMore": "Load More Articles",
+    "articles": {
+      "1": {
+        "title": "The Dignity of Human Beings to Work",
+        "excerpt": "Exploring how dignity in labor transforms communities and builds self-reliance.",
+        "author": "Jean-Pierre Kabangu",
+        "date": "Feb 14, 2024"
+      },
+      "2": {
+        "title": "The Power of People Against Poverty",
+        "excerpt": "Community-led initiatives are showing remarkable results in the fight against extreme poverty.",
+        "author": "Marie-Louise Mambo",
+        "date": "Feb 10, 2024"
+      },
+      "3": {
+        "title": "Driving Force Out of Poverty",
+        "excerpt": "Education remains the single most effective tool for breaking the cycle of poverty.",
+        "author": "Paul Bakenga",
+        "date": "Jan 28, 2024"
+      },
+      "4": {
+        "title": "Sustainable Agriculture Techniques for Rural Households",
+        "excerpt": "New workshops are helping farmers adapt to climate change while increasing yields.",
+        "author": "Alice Zola",
+        "date": "Jan 15, 2024"
+      },
+      "5": {
+        "title": "Joint Initiative Launched for Clean Water",
+        "excerpt": "AMEN partners with local authorities to build 10 new solar-powered wells.",
+        "author": "Jean-Pierre Kabangu",
+        "date": "Jan 05, 2024"
+      },
+      "6": {
+        "title": "Success Story: How Cooperative Markets Changed Lives",
+        "excerpt": "A look at the transformative impact of community-led market systems on local economy.",
+        "author": "Sarah Mbizi",
+        "date": "Dec 20, 2023"
+      }
+    }
+  },
+  "publicationsPage": {
+    "title": "Publications",
+    "subtitle": "Reports, Guides & Research",
+    "intro": "Our publications provide in-depth analysis and technical guidance on sustainable development in the Congo Basin.",
+    "categories": {
+      "all": "All Publications",
+      "annual": "Annual Reports",
+      "technical": "Technical Guides",
+      "research": "Research Papers"
+    },
+    "download": "Download PDF",
+    "fileSize": "Size",
+    "publishDate": "Published on",
+    "items": {
+      "1": {
+        "title": "Annual Impact Report 2023",
+        "description": "A comprehensive overview of our activities, financial performance, and impact across all programs in 2023."
+      },
+      "2": {
+        "title": "Community Forestry Management Guide",
+        "description": "A technical guide for local communities on sustainable forest management and biodiversity conservation."
+      },
+      "3": {
+        "title": "Sustainable Agriculture Best Practices",
+        "description": "An illustrated manual for smallholder farmers on organic composting and pest management."
+      },
+      "4": {
+        "title": "Congo Basin Environmental Data Analysis",
+        "description": "In-depth research on forest cover change and carbon sequestration across our project sites."
+      },
+      "5": {
+        "title": "Strategic Plan 2022-2025",
+        "description": "The roadmap for AMEN's growth and intervention strategy for the coming years."
+      },
+      "6": {
+        "title": "Technical Brief: Solar Water Systems",
+        "description": "Field analysis of solar-powered water infrastructure in remote communities."
+      }
+    }
+  },
+  "multimediaPage": {
+    "title": "Multimedia Gallery",
+    "subtitle": "Impact Through the Lens",
+    "intro": "Explore our work through photos and videos capturing the essence of community resilience and environmental beauty.",
+    "tabs": {
+      "photos": "Photos",
+      "videos": "Videos"
+    },
+    "viewLarge": "View Larger",
+    "watchVideo": "Watch Video",
+    "gallery": {
+      "1": {
+        "title": "Renewable Energy Installation",
+        "category": "Community"
+      },
+      "2": {
+        "title": "Empowering Rural Households",
+        "category": "Impact"
+      },
+      "3": {
+        "title": "Sustainable Agriculture Workshop",
+        "category": "Education"
+      },
+      "4": {
+        "title": "Local Market Day",
+        "category": "Economy"
+      },
+      "5": {
+        "title": "Healing Nature Story",
+        "category": "Nature"
+      },
+      "6": {
+        "title": "Women Vocational Training",
+        "category": "Education"
+      },
+      "7": {
+        "title": "Forest Monitoring Drone Team",
+        "category": "Technology"
+      },
+      "8": {
+        "title": "Community Water Access",
+        "category": "Health"
+      }
+    }
+  },
+  "eventsPage": {
+    "title": "Events & Workshops",
+    "subtitle": "Join Our Upcoming Activities",
+    "intro": "Participate in our workshops, community meetings, and global awareness events.",
+    "calendar": "Event Calendar",
+    "upcoming": "Upcoming Events",
+    "past": "Past Events",
+    "details": "View Details",
+    "register": "Register for Event",
+    "location": "Location",
+    "date": "Date & Time",
+    "items": {
+      "1": {
+        "title": "Congo Basin Conservation Summit 2024",
+        "description": "A gathering of environmental experts, government officials, and community leaders to discuss sustainable forest management.",
+        "location": "Kinshasa, DRC & Virtual",
+        "date": "March 15-17, 2024",
+        "time": "09:00 AM - 05:00 PM",
+        "badgeDay": "15",
+        "badgeMonth": "Mar"
+      },
+      "2": {
+        "title": "Sustainable Agriculture Workshop",
+        "description": "Hands-on training for local farmers on organic fertilizer production and pest management techniques.",
+        "location": "Lubumbashi Region",
+        "date": "March 22, 2024",
+        "time": "10:00 AM - 02:00 PM",
+        "badgeDay": "22",
+        "badgeMonth": "Mar"
+      },
+      "3": {
+        "title": "Women Business Literacy Program",
+        "description": "A series of workshops focused on financial management and market access for women entrepreneurs.",
+        "location": "Goma Field Office",
+        "date": "April 05, 2024",
+        "time": "08:30 AM - 04:00 PM",
+        "badgeDay": "05",
+        "badgeMonth": "Apr"
+      },
+      "4": {
+        "title": "World Environment Day Celebration",
+        "description": "Community-led tree planting and awareness campaigns across our project sites.",
+        "location": "Multiple Locations",
+        "date": "June 05, 2024",
+        "time": "07:00 AM - 12:00 PM",
+        "badgeDay": "05",
+        "badgeMonth": "Jun"
+      }
+    }
+  },
+  "contactPage": {
+    "title": "Get in Touch",
+    "subtitle": "We'd Love to Hear From You",
+    "intro": "Have questions or want to collaborate? Reach out to our team through any of our channels.",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Your Message",
+      "send": "Send Message",
+      "placeholders": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "subject": "How can we help?",
+        "message": "Write your message here..."
+      },
+      "success": "Message sent successfully!",
+      "error": "There was an error sending your message. Please try again."
+    },
+    "info": {
+      "address": "Our Address",
+      "phone": "Phone Number",
+      "email": "Email",
+      "addressVal": "123 Main Street, Kinshasa, DRC",
+      "phoneVal": "+243 999 999 999",
+      "emailVal": "info@amen-ngo.org",
+      "office": "Main Office",
+      "hours": "Working Hours",
+      "hoursVal": "Mon - Fri: 8:00 AM - 5:00 PM"
+    }
+  },
   "hero": {
     "badge": "Community Development Organization",
     "slide1": {
@@ -467,6 +684,55 @@
     "learnMore": "Learn More",
     "readMore": "Read More",
     "viewAll": "View All"
+  },
+  "donatePage": {
+    "title": "Empower Change",
+    "subtitle": "Your Support Saves Lives",
+    "intro": "Every contribution, no matter the size, helps us support vulnerable households, protect the environment, and build a more resilient Congo Basin.",
+    "waysToGive": "Ways to Give",
+    "oneTime": "One-Time Donation",
+    "monthly": "Monthly Giving",
+    "heroImpact": "Your gift provides tools, training, and hope to those who need it most.",
+    "impactSection": {
+      "title": "Where Your Money Goes",
+      "subtitle": "Direct Impact, Real Results",
+      "items": {
+        "1": {
+          "title": "Sustainable Agriculture",
+          "desc": "$50 provides seeds and tools for a rural farming family."
+        },
+        "2": {
+          "title": "Clean Water",
+          "desc": "$100 contributes to the maintenance of a solar-powered well."
+        },
+        "3": {
+          "title": "Women Empowerment",
+          "desc": "$200 funds a vocational training workshop for 10 women."
+        }
+      }
+    },
+    "form": {
+      "amountLabel": "Select Amount",
+      "customAmount": "Custom Amount",
+      "nextStep": "Continue to Payment",
+      "personalInfo": "Personal Information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "frequency": "Donation Frequency"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "card": "Credit/Debit Card",
+      "mobileMoney": "Mobile Money (M-Pesa, Orange Money)",
+      "bankTransfer": "Bank Transfer",
+      "secure": "Your donation is processed through a secure, encrypted connection."
+    },
+    "transparency": {
+      "title": "Transparency & Trust",
+      "desc": "We are committed to full financial accountability. 90% of your donation goes directly to our programs on the ground.",
+      "report": "View our latest Impact Report"
+    }
   },
   "metadata": {
     "title": "AMEN - Alternatives Ménages, Nature et Marchés",

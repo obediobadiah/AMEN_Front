@@ -21,5 +21,11 @@ export const images = {
   // News and Activities
   news1: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80",
   news2: "https://images.unsplash.com/photo-1489641493513-ba4ee84ccea9?w=800&q=80",
-  news3: "https://images.unsplash.com/photo-1493676303531-9252541893c5?w=800&q=80",
+  news3: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80",
+  heroPrograms: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80",
+  heroProjects: "https://images.unsplash.com/photo-1516937941344-00b4e0337589?w=1920&q=80",
+  heroActivities: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1920&q=80",
+  heroContact: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1920&q=80",
+  heroResources: "https://images.unsplash.com/photo-1501503060800-3fa87a55ff3e?w=1920&q=80",
+  heroDonate: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80",
 };

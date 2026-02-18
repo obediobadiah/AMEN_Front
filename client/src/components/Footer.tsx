@@ -10,11 +10,12 @@ export function Footer() {
   // Define nav links locally to use translations
   const footerLinks = [
     { name: t('nav.home'), href: "/" },
-    { name: t('nav.about'), href: "/about" },
-    { name: t('nav.activities'), href: "/programs" }, // Using programs as main link for activities
+    { name: t('nav.about'), href: "/about/vision-mission" },
+    { name: t('nav.activities'), href: "/activities/programs" }, // Using programs as main link for activities
     { name: t('nav.getInvolved'), href: "/get-involved" },
-    { name: t('nav.news'), href: "/news" },
+    { name: t('nav.news'), href: "/news/actualites" },
     { name: t('nav.contact'), href: "/contact" },
+    { name: t('nav.donate'), href: "/donate" },
   ];
 
   return (
@@ -73,11 +74,11 @@ export function Footer() {
           <div>
             <h3 className="text-secondary-foreground font-heading text-xl mb-6">{t('footer.ourCauses')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.womenEmpowerment')}</a></li>
-              <li><a href="#" className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.cleanWater')}</a></li>
-              <li><a href="#" className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.education')}</a></li>
-              <li><a href="#" className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.environmentalProtection')}</a></li>
-              <li><a href="#" className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.emergencyRelief')}</a></li>
+              <li className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.womenEmpowerment')}</li>
+              <li className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.cleanWater')}</li>
+              <li className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.education')}</li>
+              <li className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.environmentalProtection')}</li>
+              <li className="text-secondary-foreground/70 hover:text-primary transition-colors text-sm">{t('footer.causes.emergencyRelief')}</li>
             </ul>
           </div>
 

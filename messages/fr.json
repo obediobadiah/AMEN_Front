@@ -330,25 +330,228 @@
       "updatedWeekly": "Mise à jour hebdomadaire"
     }
   },
-  "subscription": {
-    "title": "Ne manquez pas une {emphasis}",
-    "emphasis": "Mise à jour d'Impact",
-    "description": "Abonnez-vous à notre liste de partage de connaissances pour recevoir directement dans votre boîte de réception les derniers rapports, guides et recherches.",
-    "recentItems": [
-      "Pack de Données sur les Pêches Durables",
-      "Boîte à Outils d'Agriculture Biologique v2.0",
-      "Note sur le Reboisement du Bassin du Congo"
-    ]
-  },
-  "common": {
-    "varies": "Variable",
-    "updatedWeekly": "Mise à jour hebdomadaire"
-  },
   "newsSection": {
     "actualites": "Actualités",
     "publications": "Publications",
     "multimedia": "Multimédia",
     "events": "Événements"
+  },
+  "actualitesPage": {
+    "title": "Nouvelles & Histoires",
+    "subtitle": "Dernières Mises à Jour du Terrain",
+    "intro": "Restez informé de notre travail quotidien, de nos réalisations et des histoires percutantes des communautés que nous servons.",
+    "categories": {
+      "all": "Tout",
+      "press": "Communiqué de Presse",
+      "field": "Rapport de Terrain",
+      "impact": "Histoire d'Impact"
+    },
+    "readMore": "Lire l'histoire complète",
+    "loadMore": "Charger plus d'articles",
+    "articles": {
+      "1": {
+        "title": "La Dignité des Êtres Humains au Travail",
+        "excerpt": "Explorer comment la dignité dans le travail transforme les communautés et renforce l'autonomie.",
+        "author": "Jean-Pierre Kabangu",
+        "date": "14 fév. 2024"
+      },
+      "2": {
+        "title": "Le Pouvoir des Gens Contre la Pauvreté",
+        "excerpt": "Les initiatives dirigées par la communauté montrent des résultats remarquables dans la lutte contre l'extrême pauvreté.",
+        "author": "Marie-Louise Mambo",
+        "date": "10 fév. 2024"
+      },
+      "3": {
+        "title": "Force motrice hors de la pauvreté",
+        "excerpt": "L'éducation reste l'outil le plus efficace pour briser le cycle de la pauvreté.",
+        "author": "Paul Bakenga",
+        "date": "28 janv. 2024"
+      },
+      "4": {
+        "title": "Techniques d'Agriculture Durable pour les Ménages Ruraux",
+        "excerpt": "De nouveaux ateliers aident les agriculteurs à s'adapter au changement climatique tout en augmentant les rendements.",
+        "author": "Alice Zola",
+        "date": "15 janv. 2024"
+      },
+      "5": {
+        "title": "Lancement d'une Initiative Conjointe pour l'Eau Potable",
+        "excerpt": "AMEN s'associe aux autorités locales pour construire 10 nouveaux puits à énergie solaire.",
+        "author": "Jean-Pierre Kabangu",
+        "date": "5 janv. 2024"
+      },
+      "6": {
+        "title": "Success Story : Comment les Marchés Coopératifs ont Changé des Vies",
+        "excerpt": "Un regard sur l'impact transformateur des systèmes de marché dirigés par la communauté sur l'économie locale.",
+        "author": "Sarah Mbizi",
+        "date": "20 déc. 2023"
+      }
+    }
+  },
+  "publicationsPage": {
+    "title": "Publications",
+    "subtitle": "Rapports, Guides & Recherche",
+    "intro": "Nos publications fournissent une analyse approfondie et des conseils techniques sur le développement durable dans le bassin du Congo.",
+    "categories": {
+      "all": "Toutes les Publications",
+      "annual": "Rapports Annuels",
+      "technical": "Guides Techniques",
+      "research": "Documents de Recherche"
+    },
+    "download": "Télécharger le PDF",
+    "fileSize": "Taille",
+    "publishDate": "Publié le",
+    "items": {
+      "1": {
+        "title": "Rapport d'Impact Annuel 2023",
+        "description": "Un aperçu complet de nos activités, de notre performance financière et de notre impact sur tous les programmes en 2023."
+      },
+      "2": {
+        "title": "Guide de Gestion Forestière Communautaire",
+        "description": "Un guide technique pour les communautés locales sur la gestion durable des forêts et la conservation de la biodiversité."
+      },
+      "3": {
+        "title": "Meilleures Pratiques d'Agriculture Durable",
+        "description": "Un manuel illustré pour les petits agriculteurs sur le compostage biologique et la gestion des ravageurs."
+      },
+      "4": {
+        "title": "Analyse des Données Environnementales du Bassin du Congo",
+        "description": "Recherche approfondie sur le changement de la couverture forestière et la séquestration du carbone sur nos sites de projet."
+      },
+      "5": {
+        "title": "Plan Stratégique 2022-2025",
+        "description": "La feuille de route pour la croissance d'AMEN et la stratégie d'intervention pour les années à venir."
+      },
+      "6": {
+        "title": "Note Technique : Systèmes d'Eau Solaire",
+        "description": "Analyse de terrain de l'infrastructure hydraulique à énergie solaire dans les communautés reculées."
+      }
+    }
+  },
+  "multimediaPage": {
+    "title": "Galerie Multimédia",
+    "subtitle": "L'Impact à travers l'Objectif",
+    "intro": "Explorez notre travail à travers des photos et des vidéos capturant l'essence de la résilience communautaire et la beauté environnementale.",
+    "tabs": {
+      "photos": "Photos",
+      "videos": "Vidéos"
+    },
+    "viewLarge": "Agrandir",
+    "watchVideo": "Regarder la Vidéo",
+    "gallery": {
+      "1": {
+        "title": "Installation d'Énergie Renouvelable",
+        "category": "Communauté"
+      },
+      "2": {
+        "title": "Autonomisation des Ménages Ruraux",
+        "category": "Impact"
+      },
+      "3": {
+        "title": "Atelier d'Agriculture Durable",
+        "category": "Éducation"
+      },
+      "4": {
+        "title": "Journée du Marché Local",
+        "category": "Économie"
+      },
+      "5": {
+        "title": "Histoire de la Nature qui Guérit",
+        "category": "Nature"
+      },
+      "6": {
+        "title": "Formation Professionnelle des Femmes",
+        "category": "Éducation"
+      },
+      "7": {
+        "title": "Équipe de Drones de Surveillance des Forêts",
+        "category": "Technologie"
+      },
+      "8": {
+        "title": "Accès à l'Eau Communautaire",
+        "category": "Santé"
+      }
+    }
+  },
+  "eventsPage": {
+    "title": "Événements & Ateliers",
+    "subtitle": "Rejoignez nos Prochaines Activités",
+    "intro": "Participez à nos ateliers, réunions communautaires et événements de sensibilisation mondiale.",
+    "calendar": "Calendrier des Événements",
+    "upcoming": "Événements à Venir",
+    "past": "Événements Passés",
+    "details": "Voir les Détails",
+    "register": "S'inscrire à l'Événement",
+    "location": "Lieu",
+    "date": "Date & Heure",
+    "items": {
+      "1": {
+        "title": "Sommet sur la Conservation du Bassin du Congo 2024",
+        "description": "Un rassemblement d'experts en environnement, de responsables gouvernementaux et de chefs communautaires pour discuter de la gestion durable des forêts.",
+        "location": "Kinshasa, RDC & Virtuel",
+        "date": "15-17 mars 2024",
+        "time": "09:00 - 17:00",
+        "badgeDay": "15",
+        "badgeMonth": "Mar"
+      },
+      "2": {
+        "title": "Atelier d'Agriculture Durable",
+        "description": "Formation pratique pour les agriculteurs locaux sur la production d'engrais organiques et les techniques de gestion des ravageurs.",
+        "location": "Région de Lubumbashi",
+        "date": "22 mars 2024",
+        "time": "10:00 - 14:00",
+        "badgeDay": "22",
+        "badgeMonth": "Mar"
+      },
+      "3": {
+        "title": "Programme d'Alphabétisation Commerciale des Femmes",
+        "description": "Une série d'ateliers axés sur la gestion financière et l'accès au marché pour les femmes entrepreneures.",
+        "location": "Bureau de terrain de Goma",
+        "date": "5 avril 2024",
+        "time": "08:30 - 16:00",
+        "badgeDay": "05",
+        "badgeMonth": "Avr"
+      },
+      "4": {
+        "title": "Célébration de la Journée Mondiale de l'Environnement",
+        "description": "Plantation d'arbres dirigée par la communauté et campagnes de sensibilisation sur nos sites de projet.",
+        "location": "Emplacements multiples",
+        "date": "5 juin 2024",
+        "time": "07:00 - 12:00",
+        "badgeDay": "05",
+        "badgeMonth": "Juin"
+      }
+    }
+  },
+  "contactPage": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous serions ravis de vous entendre",
+    "intro": "Vous avez des questions ou souhaitez collaborer ? Contactez notre équipe via l'un de nos canaux.",
+    "form": {
+      "name": "Nom Complet",
+      "email": "Adresse E-mail",
+      "subject": "Sujet",
+      "message": "Votre Message",
+      "send": "Envoyer le Message",
+      "placeholders": {
+        "name": "Jean Dupont",
+        "email": "jean@exemple.com",
+        "subject": "Comment pouvons-nous vous aider ?",
+        "message": "Écrivez votre message ici..."
+      },
+      "success": "Message envoyé avec succès !",
+      "error": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
+    },
+    "info": {
+      "address": "Notre Adresse",
+      "phone": "Numéro de Téléphone",
+      "email": "E-mail",
+      "addressVal": "123 Rue Principale, Kinshasa, RDC",
+      "phoneVal": "+243 999 999 999",
+      "emailVal": "info@amen-ngo.org",
+      "office": "Bureau Principal",
+      "hours": "Heures de Travail",
+      "hoursVal": "Lun - Ven : 08:00 - 17:00"
+    }
   },
   "hero": {
     "badge": "Organisation de Développement Communautaire",
@@ -482,6 +685,55 @@
     "learnMore": "En Savoir Plus",
     "readMore": "Lire la suite",
     "viewAll": "Voir Tout"
+  },
+  "donatePage": {
+    "title": "Soutenir le Changement",
+    "subtitle": "Votre Soutien Sauve des Vies",
+    "intro": "Chaque contribution, peu importe sa taille, nous aide à soutenir les ménages vulnérables, à protéger l'environnement et à construire un bassin du Congo plus résilient.",
+    "waysToGive": "Façons de Donner",
+    "oneTime": "Don Ponctuel",
+    "monthly": "Don Mensuel",
+    "heroImpact": "Votre don fournit des outils, une formation et de l'espoir à ceux qui en ont le plus besoin.",
+    "impactSection": {
+      "title": "Où Va Votre Argent",
+      "subtitle": "Impact Direct, Résultats Réels",
+      "items": {
+        "1": {
+          "title": "Agriculture Durable",
+          "desc": "50 $ fournissent des semences et des outils à une famille d'agriculteurs ruraux."
+        },
+        "2": {
+          "title": "Eau Potable",
+          "desc": "100 $ contribuent à l'entretien d'un puits à énergie solaire."
+        },
+        "3": {
+          "title": "Autonomisation des Femmes",
+          "desc": "200 $ financent un atelier de formation professionnelle pour 10 femmes."
+        }
+      }
+    },
+    "form": {
+      "amountLabel": "Sélectionner le Montant",
+      "customAmount": "Montant Personnalisé",
+      "nextStep": "Continuer vers le Paiement",
+      "personalInfo": "Informations Personnelles",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse Email",
+      "frequency": "Fréquence du Don"
+    },
+    "payment": {
+      "title": "Mode de Paiement",
+      "card": "Carte de Crédit/Débit",
+      "mobileMoney": "Mobile Money (M-Pesa, Orange Money)",
+      "bankTransfer": "Virement Bancaire",
+      "secure": "Votre don est traité via une connexion sécurisée et cryptée."
+    },
+    "transparency": {
+      "title": "Transparence et Confiance",
+      "desc": "Nous nous engageons à une pleine responsabilité financière. 90 % de votre don va directement à nos programmes sur le terrain.",
+      "report": "Consulter notre dernier rapport d'impact"
+    }
   },
   "metadata": {
     "title": "AMEN - Alternatives Ménages, Nature et Marchés",
