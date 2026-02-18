@@ -17,6 +17,7 @@ export const images = {
   heroObjectives: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1920&q=80",
   heroGovernance: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80",
   heroStrategy: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80",
+  heroGetInvolved: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1920&q=80",
   // News and Activities
   news1: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80",
   news2: "https://images.unsplash.com/photo-1489641493513-ba4ee84ccea9?w=800&q=80",

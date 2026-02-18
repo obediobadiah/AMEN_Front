@@ -159,6 +159,54 @@
       "contactUs": "Contact Us"
     }
   },
+  "getInvolvedPage": {
+    "title": "Get Involved",
+    "subtitle": "Be the Change You Want to See",
+    "intro": "Join our community of dedicated individuals and organizations working together to create sustainable impact. There are many ways you can contribute to our mission.",
+    "volunteer": {
+      "title": "Volunteer Your Time",
+      "description": "Whether you're a student, a professional, or a retiree, your skills can help us make a difference on the ground.",
+      "cta": "Apply as Volunteer"
+    },
+    "careers": {
+      "title": "Careers & Internships",
+      "description": "Join our team of experts and dedicated staff members. We offer opportunities for growth and meaningful work.",
+      "cta": "View Openings"
+    },
+    "partnerships": {
+      "title": "Partner With Us",
+      "description": "We collaborate with corporations, NGOs, and governments to scale our impact and reach more people.",
+      "cta": "Explore Partnerships"
+    },
+    "advocacy": {
+      "title": "Spread the Word",
+      "description": "Use your voice to advocate for sustainable development and community empowerment. Share our story.",
+      "cta": "Follow Our Journey"
+    },
+    "impactTitle": "Why Join AMEN?",
+    "impactDesc": "When you join us, you become part of a movement that prioritizes local solutions and long-term sustainability.",
+    "stats": {
+      "volunteers": "Active Volunteers",
+      "partners": "Global Partners",
+      "communities": "Communities Reached"
+    },
+    "process": {
+      "title": "Your {emphasis} Starts Here",
+      "emphasis": "Journey",
+      "step1": {
+        "title": "Express Interest",
+        "desc": "Fill out our simple interest form to let us know how you'd like to contribute."
+      },
+      "step2": {
+        "title": "Wait for Match",
+        "desc": "We review your skills and align them with our current community priorities for maximum impact."
+      },
+      "step3": {
+        "title": "Start Impacting",
+        "desc": "Once matched, you'll receive a briefing and start your journey with AMEN."
+      }
+    }
+  },
   "projectsPage": {
     "title": "Projects & Initiatives",
     "subtitle": "Real Action on the Ground",

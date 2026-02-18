@@ -159,6 +159,54 @@
       "contactUs": "Contactez-nous"
     }
   },
+  "getInvolvedPage": {
+    "title": "S'Impliquer",
+    "subtitle": "Soyez le changement que vous voulez voir",
+    "intro": "Rejoignez notre communauté de personnes et d'organisations dévouées travaillant ensemble pour créer un impact durable. Il existe de nombreuses façons de contribuer à notre mission.",
+    "volunteer": {
+      "title": "Donnez de votre temps",
+      "description": "Que vous soyez étudiant, professionnel ou retraité, vos compétences peuvent nous aider à faire une différence sur le terrain.",
+      "cta": "Postuler comme bénévole"
+    },
+    "careers": {
+      "title": "Carrières & Stages",
+      "description": "Rejoignez notre équipe d'experts et de personnel dévoué. Nous offrons des opportunités de croissance et un travail porteur de sens.",
+      "cta": "Voir les offres"
+    },
+    "partnerships": {
+      "title": "Partenariat avec nous",
+      "description": "Nous collaborons avec des entreprises, des ONG et des gouvernements pour accroître notre impact et atteindre plus de personnes.",
+      "cta": "Explorer les partenariats"
+    },
+    "advocacy": {
+      "title": "Faites passer le message",
+      "description": "Utilisez votre voix pour plaider en faveur du développement durable et de l'autonomisation des communautés. Partagez notre histoire.",
+      "cta": "Suivez notre parcours"
+    },
+    "impactTitle": "Pourquoi rejoindre AMEN ?",
+    "impactDesc": "En nous rejoignant, vous faites partie d'un mouvement qui privilégie les solutions locales et la durabilité à long terme.",
+    "stats": {
+      "volunteers": "Bénévoles Actifs",
+      "partners": "Partenaires Mondiaux",
+      "communities": "Communautés Atteintes"
+    },
+    "process": {
+      "title": "Votre {emphasis} commence ici",
+      "emphasis": "Voyage",
+      "step1": {
+        "title": "Exprimez votre intérêt",
+        "desc": "Remplissez notre formulaire d'intérêt simple pour nous faire savoir comment vous souhaitez contribuer."
+      },
+      "step2": {
+        "title": "Attendez le jumelage",
+        "desc": "Nous examinons vos compétences et les alignons avec nos priorités communautaires actuelles pour un impact maximal."
+      },
+      "step3": {
+        "title": "Commencez à impacter",
+        "desc": "Une fois jumelé, vous recevrez un briefing et commencerez votre voyage avec AMEN."
+      }
+    }
+  },
   "projectsPage": {
     "title": "Projets & Initiatives",
     "subtitle": "Action réelle sur le terrain",

@@ -208,9 +208,7 @@ const resources = [
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10">
                             <div className="space-y-8">
                                 <h2 className="text-4xl md:text-6xl font-heading font-bold text-white leading-tight">
-                                    {t('resourcesPage.subscription.title', {
-                                        emphasis: `<br /><span class="text-primary italic">${t('resourcesPage.subscription.emphasis')}</span>`
-                                    })}
+                                    {t('resourcesPage.subscription.title')}
                                 </h2>
                                 <p className="text-xl text-white/70 leading-relaxed max-w-xl">
                                     {t('resourcesPage.subscription.description')}
