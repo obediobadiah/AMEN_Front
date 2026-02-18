@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@shared/*": ["./shared/src/*"],
+      "@server/*": ["./server/src/*"]
+    },
+    "target": "ES2017",
+    "allowJs": true,
+    "plugins": [{ "name": "next" }]
+  },
+  "include": [
+    "app/**/*",
+    "client/**/*",
+    "shared/**/*",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "**/dist/*",
+    "**/build/*",
+    "**/coverage/*",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "server",
+    "script",
+    "drizzle.config.ts"
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "activities": "Activities",
+    "getInvolved": "Get Involved",
+    "news": "News",
+    "contact": "Contact",
+    "donate": "Donate Now",
+    "followUs": "Follow us:",
+    "language": "Language"
+  },
+  "about": {
+    "history": "History",
+    "visionMission": "Vision and Mission",
+    "objectives": "Objectives",
+    "governance": "Governance & Organization",
+    "strategicOrientations": "Strategic Orientations"
+  },
+  "aboutPage": {
+    "history": {
+      "title": "Our History",
+      "subtitle": "A Decade of Impact & Resilience",
+      "intro": "Founded in 2012, Alternatives Ménages, Nature et Marchés (AMEN) began as a grassroots initiative to support rural households in the Congo Basin. What started as a small group of volunteers has grown into a recognized organization driving sustainable development across the region.",
+      "journey": "Our journey has been defined by resilience, partnership, and an unwavering commitment to the communities we serve. We believe in local solutions for local challenges.",
+      "milestones": {
+        "2012": "Foundation of AMEN as a local initiative.",
+        "2015": "Expansion to 3 new provinces.",
+        "2018": "Launch of major reforestation project.",
+        "2023": "Reached 50,000 beneficiaries."
+      },
+      "milestonesTitle": "Milestones & Achievements",
+      "milestonesDesc": "Key moments that defined our journey."
+    },
+    "visionMission": {
+      "title": "Vision & Mission",
+      "subtitle": "Guiding Our Path forward",
+      "visionTitle": "Our Vision",
+      "visionText": "A world where communities live in harmony with nature, enjoying food security, economic dignity, and social justice, free from the shackles of poverty.",
+      "missionTitle": "Our Mission",
+      "missionText": "To empower vulnerable households by strengthening their economic capacities, promoting sustainable agriculture, and protecting the environment, while ensuring equitable access to markets.",
+      "futureLabel": "A Future We Build Together",
+      "empowermentLabel": "Empowerment & Action",
+      "natureLabel": "Nature & Community",
+      "natureDesc": "Working hand in hand to restore balance and provide sustainable futures."
+    },
+    "objectives": {
+      "title": "Our Objectives",
+      "subtitle": "Tangible Goals for Sustainable Change",
+      "intro": "We are committed to achieving concrete results that improve lives and protect our planet.",
+      "list": {
+        "1": {
+          "title": "Food Security",
+          "desc": "Ensure access to sufficient, safe, and nutritious food for all."
+        },
+        "2": {
+          "title": "Economic Empowerment",
+          "desc": "Create income-generating opportunities for women and youth."
+        },
+        "3": {
+          "title": "Environmental Sustainability",
+          "desc": "Promote practices that conserve natural resources and biodiversity."
+        },
+        "4": {
+          "title": "Social Justice",
+          "desc": "Advocate for the rights and dignity of marginalized groups."
+        }
+      },
+      "commitmentsLabel": "Our Commitments",
+      "goalLabel": "Goal",
+      "stats": {
+        "beneficiaries": "Beneficiaries",
+        "years": "Years Impact",
+        "projects": "Projects",
+        "commitment": "Commitment"
+      }
+    },
+    "governance": {
+      "title": "Governance & Organization",
+      "subtitle": "Leadership with Integrity",
+      "intro": "Our governance structure ensures transparency, accountability, and effective decision-making.",
+      "board": "Board of Directors",
+      "executive": "Executive Team",
+      "roles": {
+        "director": "Executive Director",
+        "program": "Program Director",
+        "chair": "Board Chair",
+        "finance": "Finance Manager",
+        "member": "Member"
+      },
+      "transparentLeadership": "Transparent Leadership",
+      "structureTitle": "Our Structure",
+      "members": {
+        "ahmed": {
+          "bio": "Experienced leader in global health."
+        },
+        "sarah": {
+          "bio": "Advocate for women's rights."
+        },
+        "mbella": {
+          "bio": "Expert in rural development."
+        },
+        "jean": {
+          "bio": "Dedicated to community empowerment."
+        },
+        "marie": {
+          "bio": "Leading programs with passion."
+        },
+        "paul": {
+          "bio": "Ensuring financial transparency."
+        }
+      }
+    },
+    "strategic": {
+      "title": "Strategic Orientations",
+      "subtitle": "Our Pillars of Action",
+      "intro": "Our work is guided by four main pillars that ensure our interventions are holistic and sustainable.",
+      "pillars": {
+        "agriculture": "Sustainable Agriculture",
+        "environment": "Environmental Protection",
+        "economy": "Economic Empowerment",
+        "governance": "Good Governance"
+      },
+      "pillarIntro": "Our approach ensures long-term impact through four key pillars of sustainable development.",
+      "pillarDesc": "We are committed to advancing {pillar} to build resilient communities."
+    }
+  },
+  "activities": {
+    "programs": "Programs",
+    "projectsInitiatives": "Projects & Initiatives",
+    "resources": "Resources"
+  },
+  "newsSection": {
+    "actualites": "News",
+    "publications": "Publications",
+    "multimedia": "Multimedia",
+    "events": "Events"
+  },
+  "hero": {
+    "badge": "Community Development Organization",
+    "slide1": {
+      "title": "Together We Can",
+      "highlight": "Heal The World",
+      "description": "AMEN is dedicated to sustainable development, empowering communities through education, health, and environmental protection.",
+      "cta": "Donate Now"
+    },
+    "slide2": {
+      "title": "Protecting Our",
+      "highlight": "Environment",
+      "description": "Join us in preserving nature and creating sustainable solutions for future generations.",
+      "cta": "Learn More"
+    },
+    "slide3": {
+      "title": "Empowering",
+      "highlight": "Communities",
+      "description": "Support our initiatives to provide education and resources to underprivileged communities.",
+      "cta": "Get Involved"
+    },
+    "watchVideo": "Watch Video"
+  },
+  "home": {
+    "aboutSection": {
+      "badge": "About AMEN",
+      "title": "We Are Here To Help",
+      "titleHighlight": "The Needy People",
+      "description": "AMEN (Alternatives Ménages, Nature et Marchés) is a non-profit organization committed to creating sustainable change. We focus on empowering vulnerable households, protecting our natural environment, and fostering fair market access for small producers.",
+      "feature1": "Community-led development initiatives",
+      "feature2": "Sustainable agriculture & environmental protection",
+      "feature3": "Women and youth empowerment programs",
+      "cta": "Discover More",
+      "totalDonation": "Total Donation",
+      "latestContribution": "Latest Contribution"
+    },
+    "stats": {
+      "projectsCompleted": "Projects Completed",
+      "happyBeneficiaries": "Happy Beneficiaries",
+      "volunteers": "Volunteers",
+      "yearsActive": "Years Active"
+    },
+    "programs": {
+      "badge": "Our Causes",
+      "title": "Check Our Popular Causes",
+      "description": "We focus on the most critical needs of our communities. From clean water to education, your support makes a direct impact.",
+      "womenEmpowerment": {
+        "title": "Women Empowerment",
+        "description": "Supporting women through vocational training and micro-finance initiatives to build sustainable livelihoods.",
+        "category": "Community"
+      },
+      "environmentalProtection": {
+        "title": "Environmental Protection",
+        "description": "Reforestation projects and sustainable agriculture workshops to combat climate change and preserve biodiversity.",
+        "category": "Nature"
+      },
+      "cleanWater": {
+        "title": "Clean Water Access",
+        "description": "Installing wells and water purification systems in remote villages to ensure access to safe drinking water.",
+        "category": "Health"
+      },
+      "raised": "Raised",
+      "goal": "Goal",
+      "donateNow": "Donate Now"
+    },
+    "newsSection": {
+      "badge": "From the Blog",
+      "title": "Latest News & Articles",
+      "viewAll": "View All News",
+      "by": "By",
+      "news": "News",
+      "readMore": "Read More",
+      "article1": {
+        "title": "The Dignity of Human Beings to Work",
+        "excerpt": "Exploring how dignity in labor transforms communities and builds self-reliance."
+      },
+      "article2": {
+        "title": "The Power of People Against Poverty",
+        "excerpt": "Community-led initiatives are showing remarkable results in the fight against extreme poverty."
+      },
+      "article3": {
+        "title": "Driving Force Out of Poverty",
+        "excerpt": "Education remains the single most effective tool for breaking the cycle of poverty."
+      }
+    },
+    "cta": {
+      "badge": "Join Our Community",
+      "title": "Ready to Make a",
+      "titleHighlight": "Difference?",
+      "description": "Join our community of change-makers. Your time and skills can create lasting impact in the lives of those who need it most.",
+      "joinNow": "Join Us Now",
+      "contactUs": "Contact Us",
+      "volunteersCount": "1,000+ Volunteers",
+      "communitiesServed": "50+ Communities Served"
+    }
+  },
+  "footer": {
+    "description": "Alternatives Ménages, Nature et Marchés (AMEN) is dedicated to sustainable development, empowering communities, and protecting our environment for future generations.",
+    "quickLinks": "Quick Links",
+    "ourCauses": "Our Causes",
+    "causes": {
+      "womenEmpowerment": "Women Empowerment",
+      "cleanWater": "Clean Water",
+      "education": "Education",
+      "environmentalProtection": "Environmental Protection",
+      "emergencyRelief": "Emergency Relief"
+    },
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Subscribe to our newsletter to get the latest news and updates.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "copyright": "All rights reserved.",
+    "adminLogin": "Admin Login",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewAll": "View All"
+  },
+  "metadata": {
+    "title": "AMEN - Alternatives Ménages, Nature et Marchés",
+    "description": "Humanitarian Organization dedicated to community empowerment, environmental protection, and sustainable development."
+  }
+}

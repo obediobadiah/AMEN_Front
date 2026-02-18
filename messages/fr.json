@@ -1,0 +1,276 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "activities": "Activités",
+    "getInvolved": "S'Impliquer",
+    "news": "Actualités",
+    "contact": "Contact",
+    "donate": "Faire un Don",
+    "followUs": "Suivez-nous :",
+    "language": "Langue"
+  },
+  "about": {
+    "history": "Historique",
+    "visionMission": "Vision et Mission",
+    "objectives": "Objectifs",
+    "governance": "Gouvernance & Organisation",
+    "strategicOrientations": "Orientations stratégiques"
+  },
+  "aboutPage": {
+    "history": {
+      "title": "Notre Historique",
+      "subtitle": "Une décennie d'impact et de résilience",
+      "intro": "Fondée en 2012, Alternatives Ménages, Nature et Marchés (AMEN) a commencé comme une initiative locale pour soutenir les ménages ruraux du bassin du Congo. Ce qui a débuté comme un petit groupe de bénévoles est devenu une organisation reconnue stimulant le développement durable dans toute la région.",
+      "journey": "Notre parcours a été défini par la résilience, le partenariat et un engagement indéfectible envers les communautés que nous servons. Nous croyons aux solutions locales pour les défis locaux.",
+      "milestones": {
+        "2012": "Fondation de AMEN en tant qu'initiative locale.",
+        "2015": "Expansion vers 3 nouvelles provinces.",
+        "2018": "Lancement d'un projet majeur de reforestation.",
+        "2023": "50 000 bénéficiaires atteints."
+      },
+      "milestonesTitle": "Jalons et Réalisations",
+      "milestonesDesc": "Les moments clés qui ont défini notre parcours."
+    },
+    "visionMission": {
+      "title": "Vision & Mission",
+      "subtitle": "Guider notre chemin vers l'avenir",
+      "visionTitle": "Notre Vision",
+      "visionText": "Un monde où les communautés vivent en harmonie avec la nature, jouissant de la sécurité alimentaire, de la dignité économique et de la justice sociale, libérées des chaînes de la pauvreté.",
+      "missionTitle": "Notre Mission",
+      "missionText": "Autonomiser les ménages vulnérables en renforçant leurs capacités économiques, en promouvant une agriculture durable et en protégeant l'environnement, tout en assurant un accès équitable aux marchés.",
+      "futureLabel": "Un avenir que nous bâtissons ensemble",
+      "empowermentLabel": "Autonomisation et Action",
+      "natureLabel": "Nature et Communauté",
+      "natureDesc": "Travailler main dans la main pour rétablir l'équilibre et assurer un avenir durable."
+    },
+    "objectives": {
+      "title": "Nos Objectifs",
+      "subtitle": "Des objectifs tangibles pour un changement durable",
+      "intro": "Nous nous engageons à obtenir des résultats concrets qui améliorent les vies et protègent notre planète.",
+      "list": {
+        "1": {
+          "title": "Sécurité Alimentaire",
+          "desc": "Assurer l'accès à une alimentation suffisante, sûre et nutritive pour tous."
+        },
+        "2": {
+          "title": "Autonomisation Économique",
+          "desc": "Créer des opportunités génératrices de revenus pour les femmes et les jeunes."
+        },
+        "3": {
+          "title": "Durabilité Environnementale",
+          "desc": "Promouvoir des pratiques qui conservent les ressources naturelles et la biodiversité."
+        },
+        "4": {
+          "title": "Justice Sociale",
+          "desc": "Défendre les droits et la dignité des groupes marginalisés."
+        }
+      },
+      "commitmentsLabel": "Nos Engagements",
+      "goalLabel": "Objectif",
+      "stats": {
+        "beneficiaries": "Bénéficiaires",
+        "years": "Années d'Impact",
+        "projects": "Projets",
+        "commitment": "Engagement"
+      }
+    },
+    "governance": {
+      "title": "Gouvernance & Organisation",
+      "subtitle": "Leadership avec intégrité",
+      "intro": "Notre structure de gouvernance garantit la transparence, la responsabilité et une prise de décision efficace.",
+      "board": "Conseil d'Administration",
+      "executive": "Équipe Exécutive",
+      "roles": {
+        "director": "Directeur Exécutif",
+        "program": "Directeur de Programme",
+        "chair": "Président du Conseil",
+        "finance": "Responsable Financier",
+        "member": "Membre"
+      },
+      "transparentLeadership": "Leadership Transparent",
+      "structureTitle": "Notre Structure",
+      "members": {
+        "ahmed": {
+          "bio": "Leader expérimenté en santé mondiale."
+        },
+        "sarah": {
+          "bio": "Défenseure des droits des femmes."
+        },
+        "mbella": {
+          "bio": "Expert en développement rural."
+        },
+        "jean": {
+          "bio": "Dédié à l'autonomisation des communautés."
+        },
+        "marie": {
+          "bio": "Diriger des programmes avec passion."
+        },
+        "paul": {
+          "bio": "Assurer la transparence financière."
+        }
+      }
+    },
+    "strategic": {
+      "title": "Orientations Stratégiques",
+      "subtitle": "Nos piliers d'action",
+      "intro": "Notre travail est guidé par quatre piliers principaux qui garantissent que nos interventions sont holistiques et durables.",
+      "pillars": {
+        "agriculture": "Agriculture Durable",
+        "environment": "Protection de l'Environnement",
+        "economy": "Autonomisation Économique",
+        "governance": "Bonne Gouvernance"
+      },
+      "pillarIntro": "Notre approche garantit un impact à long terme à travers quatre piliers clés du développement durable.",
+      "pillarDesc": "Nous nous engageons à faire progresser {pillar} pour bâtir des communautés résilientes."
+    }
+  },
+  "activities": {
+    "programs": "Programmes",
+    "projectsInitiatives": "Projets & Initiatives",
+    "resources": "Ressources"
+  },
+  "newsSection": {
+    "actualites": "Actualités",
+    "publications": "Publications",
+    "multimedia": "Multimédia",
+    "events": "Événements"
+  },
+  "hero": {
+    "badge": "Organisation de Développement Communautaire",
+    "slide1": {
+      "title": "Ensemble Nous Pouvons",
+      "highlight": "Guérir Le Monde",
+      "description": "AMEN est dédiée au développement durable, autonomisant les communautés par l'éducation, la santé et la protection de l'environnement.",
+      "cta": "Faire un Don"
+    },
+    "slide2": {
+      "title": "Protéger Notre",
+      "highlight": "Environnement",
+      "description": "Rejoignez-nous pour préserver la nature et créer des solutions durables pour les générations futures.",
+      "cta": "En Savoir Plus"
+    },
+    "slide3": {
+      "title": "Autonomiser les",
+      "highlight": "Communautés",
+      "description": "Soutenez nos initiatives pour fournir éducation et ressources aux communautés défavorisées.",
+      "cta": "S'Impliquer"
+    },
+    "watchVideo": "Regarder la Vidéo"
+  },
+  "home": {
+    "aboutSection": {
+      "badge": "À Propos de AMEN",
+      "title": "Nous Sommes Ici Pour Aider",
+      "titleHighlight": "Les Personnes Nécessiteuses",
+      "description": "AMEN (Alternatives Ménages, Nature et Marchés) est une organisation à but non lucratif engagée à créer un changement durable. Nous nous concentrons sur l'autonomisation des ménages vulnérables, la protection de notre environnement naturel et la promotion d'un accès équitable au marché pour les petits producteurs.",
+      "feature1": "Initiatives de développement dirigées par la communauté",
+      "feature2": "Agriculture durable et protection de l'environnement",
+      "feature3": "Programmes d'autonomisation des femmes et des jeunes",
+      "cta": "Découvrir Plus",
+      "totalDonation": "Don Total",
+      "latestContribution": "Dernière Contribution"
+    },
+    "stats": {
+      "projectsCompleted": "Projets Réalisés",
+      "happyBeneficiaries": "Bénéficiaires Satisfaits",
+      "volunteers": "Bénévoles",
+      "yearsActive": "Années d'Activité"
+    },
+    "programs": {
+      "badge": "Nos Causes",
+      "title": "Découvrez Nos Causes Populaires",
+      "description": "Nous nous concentrons sur les besoins les plus critiques de nos communautés. De l'eau potable à l'éducation, votre soutien a un impact direct.",
+      "womenEmpowerment": {
+        "title": "Autonomisation des Femmes",
+        "description": "Soutenir les femmes par la formation professionnelle et les initiatives de micro-finance pour construire des moyens de subsistance durables.",
+        "category": "Communauté"
+      },
+      "environmentalProtection": {
+        "title": "Protection de l'Environnement",
+        "description": "Projets de reforestation et ateliers d'agriculture durable pour lutter contre le changement climatique et préserver la biodiversité.",
+        "category": "Nature"
+      },
+      "cleanWater": {
+        "title": "Accès à l'Eau Potable",
+        "description": "Installation de puits et de systèmes de purification d'eau dans les villages reculés pour assurer l'accès à l'eau potable.",
+        "category": "Santé"
+      },
+      "raised": "Levez",
+      "goal": "Objectif",
+      "donateNow": "Faire un Don"
+    },
+    "newsSection": {
+      "badge": "Du Blog",
+      "title": "Dernières Nouvelles & Articles",
+      "viewAll": "Voir Toutes les Nouvelles",
+      "by": "Par",
+      "news": "Nouvelles",
+      "readMore": "Lire la suite",
+      "article1": {
+        "title": "La Dignité des Êtres Humains au Travail",
+        "excerpt": "Explorer comment la dignité dans le travail transforme les communautés et renforce l'autonomie."
+      },
+      "article2": {
+        "title": "Le Pouvoir des Gens Contre la Pauvreté",
+        "excerpt": "Les initiatives dirigées par la communauté montrent des résultats remarquables dans la lutte contre l'extrême pauvreté."
+      },
+      "article3": {
+        "title": "Force motrice hors de la pauvreté",
+        "excerpt": "L'éducation reste l'outil le plus efficace pour briser le cycle de la pauvreté."
+      }
+    },
+    "cta": {
+      "badge": "Rejoignez Notre Communauté",
+      "title": "Prêt à Faire une",
+      "titleHighlight": "Différence ?",
+      "description": "Rejoignez notre communauté d'acteurs du changement. Votre temps et vos compétences peuvent créer un impact durable dans la vie de ceux qui en ont le plus besoin.",
+      "joinNow": "Rejoignez-nous Maintenant",
+      "contactUs": "Contactez-nous",
+      "volunteersCount": "1 000+ Bénévoles",
+      "communitiesServed": "50+ Communautés Servies"
+    }
+  },
+  "footer": {
+    "description": "Alternatives Ménages, Nature et Marchés (AMEN) est dédiée au développement durable, à l'autonomisation des communautés et à la protection de notre environnement pour les générations futures.",
+    "quickLinks": "Liens Rapides",
+    "ourCauses": "Nos Causes",
+    "causes": {
+      "womenEmpowerment": "Autonomisation des Femmes",
+      "cleanWater": "Eau Potable",
+      "education": "Éducation",
+      "environmentalProtection": "Protection de l'Environnement",
+      "emergencyRelief": "Secours d'Urgence"
+    },
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Abonnez-vous à notre newsletter pour recevoir les dernières nouvelles et mises à jour.",
+    "emailPlaceholder": "Votre adresse email",
+    "subscribe": "S'abonner",
+    "copyright": "Tous droits réservés.",
+    "adminLogin": "Connexion Admin",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfService": "Conditions d'Utilisation"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "search": "Rechercher",
+    "submit": "Soumettre",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "learnMore": "En Savoir Plus",
+    "readMore": "Lire la suite",
+    "viewAll": "Voir Tout"
+  },
+  "metadata": {
+    "title": "AMEN - Alternatives Ménages, Nature et Marchés",
+    "description": "Organisation humanitaire dédiée à l'autonomisation des communautés, à la protection de l'environnement et au développement durable."
+  }
+}

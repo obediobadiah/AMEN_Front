@@ -1,0 +1,93 @@
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles and variables */
+@layer base {
+  :root {
+    /* Font families */
+    --font-sans: 'Yeseva One', serif;
+    
+    /* Radius variables */
+    --radius: 0.5rem;
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    
+    /* Light theme colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    
+    /* Primary: rgb(83,155,110) */
+    --primary: 144 30% 47%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary: rgb(0,0,0) */
+    --secondary: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 45%;
+    
+    --accent: 150 30% 95%;
+    --accent-foreground: 144 30% 30%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 144 30% 47%;
+  }
+
+  /* Dark theme colors */
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+    
+    /* Primary in dark mode - slightly lighter */
+    --primary: 144 30% 55%;
+    --primary-foreground: 0 0% 10%;
+    
+    /* Secondary in dark mode - dark gray instead of pure black */
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 10%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+    
+    --accent: 144 30% 15%;
+    --accent-foreground: 144 30% 90%;
+    
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 144 30% 55%;
+  }
+
+  /* Base element styles */
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
