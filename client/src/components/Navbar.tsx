@@ -179,9 +179,9 @@ export function Navbar() {
       name: t('nav.activities'),
       // href removed
       children: [
-        { name: t('activities.programs'), href: "/programs" },
-        { name: t('activities.projectsInitiatives'), href: "/projects" },
-        { name: t('activities.resources'), href: "/resources" }
+        { name: t('activities.programs'), href: "/activities/programs" },
+        { name: t('activities.projectsInitiatives'), href: "/activities/projects" },
+        { name: t('activities.resources'), href: "/activities/resources" }
       ]
     },
     {

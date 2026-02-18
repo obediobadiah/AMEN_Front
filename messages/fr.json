@@ -130,6 +130,172 @@
     "projectsInitiatives": "Projets & Initiatives",
     "resources": "Ressources"
   },
+  "programsPage": {
+    "title": "Nos Programmes",
+    "subtitle": "Solutions durables pour les défis mondiaux",
+    "intro": "Nous mettons en œuvre des programmes à long terme qui s'attaquent aux causes profondes de la pauvreté et de la dégradation de l'environnement. Notre approche est holistique, axée sur la communauté et concentrée sur un impact durable.",
+    "categories": {
+      "community": "Développement Communautaire",
+      "nature": "Conservation de la Nature",
+      "health": "Santé & Assainissement",
+      "education": "Éducation & Formation"
+    },
+    "impact": "Points Forts de l'Impact",
+    "joinProgram": "S'impliquer dans ce Programme",
+    "readyToSupport": "Prêt à soutenir notre mission ?",
+    "supportDescription": "Votre contribution peut nous aider à étendre ces programmes et à atteindre plus de communautés dans le besoin.",
+    "joinNow": "Nous Rejoindre",
+    "contactUs": "Contactez-nous",
+    "impactSection": {
+      "title": "Faire une {emphasis} durable dans chaque communauté",
+      "emphasis": "différence",
+      "focusTitle": "Domaine d'impact {number}",
+      "focusDescription": "Description détaillée du point d'impact."
+    },
+    "cta": {
+      "title": "Prêt à soutenir notre mission ?",
+      "description": "Votre contribution peut nous aider à étendre ces programmes et à atteindre plus de communautés dans le besoin.",
+      "joinNow": "Nous Rejoindre",
+      "contactUs": "Contactez-nous"
+    }
+  },
+  "projectsPage": {
+    "title": "Projets & Initiatives",
+    "subtitle": "Action réelle sur le terrain",
+    "intro": "Explorez nos projets actifs et nos initiatives récentes dans toute la région. Chaque projet est conçu pour autonomiser les ménages locaux et protéger notre patrimoine naturel.",
+    "status": {
+      "active": "Actif",
+      "completed": "Terminé",
+      "upcoming": "À venir"
+    },
+    "viewLocation": "Voir sur la carte",
+    "projectDetails": "Détails du Projet",
+    "innovation": {
+      "title": "Autonomiser les communautés par l'innovation",
+      "subtitle": "Nous croyons que le développement durable nécessite de sortir des sentiers battus. Nos initiatives combinent sagesse traditionnelle et technologie moderne pour créer des solutions résilientes.",
+      "ourApproach": "Notre Approche",
+      "stats": {
+        "sustainability": "Taux de Durabilité",
+        "partnerships": "Partenariats Locaux",
+        "evolution": "Évolution Continue",
+        "delivery": "Livraison dans les Délais"
+      },
+      "items": [
+        "Surveillance des ressources naturelles basée sur la technologie",
+        "Systèmes de marchés coopératifs dirigés par la communauté",
+        "Intégration des énergies renouvelables dans les infrastructures sociales",
+        "Formation à l'entrepreneuriat vert pour les jeunes"
+      ]
+    },
+    "globalFootprint": {
+      "title": "Notre Empreinte Mondiale",
+      "description": "Partout où il y a un besoin, nous sommes prêts à répondre. Nos projets s'étendent sur plusieurs provinces, atteignant les coins les plus reculés de la région.",
+      "cta": "Voir sur la carte"
+    },
+    "stats": {
+      "activeProjects": "{count} Projets Actifs",
+      "completedInitiatives": "{count} Initiatives Terminées"
+    },
+    "resourceHighlights": "Points forts des ressources",
+    "recentPublications": "Publications et ensembles de données récemment ajoutés à notre centre."
+  },
+  "resourcesPage": {
+    "title": "Centre de Ressources",
+    "subtitle": "Connaissances pour le développement durable",
+    "intro": "Accédez à notre bibliothèque de rapports, de guides et de matériel pédagogique. Nous croyons au partage des connaissances pour favoriser un changement plus large dans tout le bassin du Congo.",
+    "types": {
+      "report": "Rapport Annuel",
+      "guide": "Guide Technique",
+      "infographic": "Infographie",
+      "policy": "Note d'Orientation",
+      "database": "Base de Données"
+    },
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "download": "Télécharger",
+    "knowledgeHub": {
+      "title": "Centre de Connaissances pour l'Action",
+      "searchPlaceholder": "Rechercher des ressources...",
+      "filterButton": "Filtrer",
+      "searchButton": "Rechercher",
+      "contactCta": "Vous cherchez quelque chose de spécifique ? Contactez-nous"
+    },
+    "subscription": {
+      "title": "Ne manquez pas une Mise à jour d'Impact",
+      "description": "Abonnez-vous à notre liste de partage de connaissances pour recevoir directement dans votre boîte de réception les derniers rapports, guides et recherches.",
+      "emailPlaceholder": "Votre adresse e-mail",
+      "subscribeButton": "S'abonner",
+      "highlights": {
+        "title": "Ressources en Vedette",
+        "description": "Publications et ensembles de données récemment ajoutés à notre centre.",
+        "items": [
+          "Pack de Données sur la Pêche Durable",
+          "Boîte à Outils d'Agriculture Biologique v2.0",
+          "Note sur le Reboisement du Bassin du Congo"
+        ]
+      }
+    },
+    "fileInfo": {
+      "fileType": "Type de Fichier",
+      "fileSize": "Taille du Fichier",
+      "lastUpdated": "Dernière Mise à Jour"
+    },
+    "impactUpdateTitle": "Ne manquez pas une Mise à Jour d'Impact",
+    "impactUpdateSubtitle": "Abonnez-vous à notre liste de partage de connaissances pour recevoir directement dans votre boîte de réception les derniers rapports, guides et recherches.",
+    "emailPlaceholder": "Votre adresse e-mail",
+    "subscribe": "S'abonner",
+    "resourceHighlights": "Ressources en Vedette",
+    "recentPublications": "Publications et ensembles de données récemment ajoutés à notre centre.",
+    "recentItems": [
+      "Pack de Données sur la Pêche Durable",
+      "Boîte à Outils d'Agriculture Biologique v2.0",
+      "Note sur le Reboisement du Bassin du Congo"
+    ],
+    "resources": {
+      "annualReport": {
+        "title": "Rapport d'Impact Annuel 2023",
+        "description": "Aperçu complet de nos activités, performances financières et impact sur tous nos programmes en 2023."
+      },
+      "forestryGuide": {
+        "title": "Guide de Gestion Forestière Communautaire",
+        "description": "Guide technique pour les communautés locales sur la gestion durable des forêts et la conservation de la biodiversité."
+      },
+      "agricultureGuide": {
+        "title": "Meilleures Pratiques d'Agriculture Durable",
+        "description": "Manuel illustré pour les petits exploitants agricoles sur le compostage biologique et la gestion des ravageurs."
+      },
+      "policyBrief": {
+        "title": "Note d'Orientation sur l'Eau et l'Assainissement",
+        "description": "Recommandations politiques pour les gouvernements locaux sur l'amélioration des infrastructures hydrauliques en milieu rural."
+      },
+      "environmentalData": {
+        "title": "Données Environnementales du Bassin du Congo",
+        "description": "Ensembles de données en accès libre sur l'évolution du couvert forestier et la séquestration du carbone sur nos sites de projet."
+      },
+      "businessToolkit": {
+        "title": "Boîte à Outils de Formation Commerciale pour les Femmes",
+        "description": "Ensemble d'outils et de modèles pour les formateurs animant des ateliers professionnels pour les femmes entrepreneures."
+      }
+    },
+    "common": {
+      "varies": "Variable",
+      "updatedWeekly": "Mise à jour hebdomadaire"
+    }
+  },
+  "subscription": {
+    "title": "Ne manquez pas une {emphasis}",
+    "emphasis": "Mise à jour d'Impact",
+    "description": "Abonnez-vous à notre liste de partage de connaissances pour recevoir directement dans votre boîte de réception les derniers rapports, guides et recherches.",
+    "recentItems": [
+      "Pack de Données sur les Pêches Durables",
+      "Boîte à Outils d'Agriculture Biologique v2.0",
+      "Note sur le Reboisement du Bassin du Congo"
+    ]
+  },
+  "common": {
+    "varies": "Variable",
+    "updatedWeekly": "Mise à jour hebdomadaire"
+  },
   "newsSection": {
     "actualites": "Actualités",
     "publications": "Publications",

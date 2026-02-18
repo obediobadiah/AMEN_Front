@@ -130,6 +130,157 @@
     "projectsInitiatives": "Projects & Initiatives",
     "resources": "Resources"
   },
+  "programsPage": {
+    "title": "Our Programs",
+    "subtitle": "Sustainable Solutions for Global Challenges",
+    "intro": "We implement long-term programs that address the root causes of poverty and environmental degradation. Our approach is holistic, community-driven, and focused on lasting impact.",
+    "categories": {
+      "community": "Community Development",
+      "nature": "Nature Conservation",
+      "health": "Health & Sanitation",
+      "education": "Education & Training"
+    },
+    "impact": "Impact Highlights",
+    "joinProgram": "Get Involved with this Program",
+    "readyToSupport": "Ready to Support Our Mission?",
+    "supportDescription": "Your contribution can help us expand these programs and reach more communities in need.",
+    "joinNow": "Join Now",
+    "contactUs": "Contact Us",
+    "impactSection": {
+      "title": "Making a Lasting {emphasis} in Every Community",
+      "emphasis": "Difference",
+      "focusTitle": "Impact Focus {number}",
+      "focusDescription": "Detailed description of the impact point."
+    },
+    "cta": {
+      "title": "Ready to Support Our Mission?",
+      "description": "Your contribution can help us expand these programs and reach more communities in need.",
+      "joinNow": "Join Now",
+      "contactUs": "Contact Us"
+    }
+  },
+  "projectsPage": {
+    "title": "Projects & Initiatives",
+    "subtitle": "Real Action on the Ground",
+    "intro": "Explore our active projects and recent initiatives across the region. Each project is designed to empower local households and protect our natural heritage.",
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "upcoming": "Upcoming"
+    },
+    "viewLocation": "View on Map",
+    "projectDetails": "Project Details",
+    "innovation": {
+      "title": "Empowering Communities Through {emphasis}",
+      "emphasis": "Innovation",
+      "subtitle": "We believe that sustainable development requires thinking outside the box. Our initiatives combine traditional wisdom with modern technology to create resilient solutions.",
+      "ourApproach": "Our Approach",
+      "stats": {
+        "sustainability": "Sustainability Rate",
+        "partnerships": "Local Partnerships",
+        "evolution": "Constant Evolution",
+        "delivery": "Timely Delivery"
+      },
+      "items": [
+        "Technology-driven monitoring of natural resources",
+        "Community-led cooperative market systems",
+        "Renewable energy integration in social infrastructure",
+        "Youth-focused green entrepreneurship training"
+      ]
+    },
+    "globalFootprint": {
+      "title": "Our Global Footprint",
+      "description": "Wherever there is a need, we are ready to respond. Our projects span across multiple provinces, reaching the most remote corners of the region.",
+      "cta": "View on Map"
+    },
+    "stats": {
+      "activeProjects": "{count} Active Projects",
+      "completedInitiatives": "{count} Completed Initiatives"
+    }
+  },
+  "resourcesPage": {
+    "title": "Resource Center",
+    "subtitle": "Knowledge for Sustainable Development",
+    "intro": "Access our library of reports, guides, and educational materials. We believe in sharing knowledge to foster broader change across the Congo Basin.",
+    "types": {
+      "report": "Annual Report",
+      "guide": "Technical Guide",
+      "infographic": "Infographic",
+      "policy": "Policy Brief",
+      "database": "Database"
+    },
+    "search": "Search",
+    "filter": "Filter",
+    "download": "Download",
+    "knowledgeHub": {
+      "title": "Knowledge Hub for Action",
+      "searchPlaceholder": "Search resources...",
+      "filterButton": "Filter",
+      "searchButton": "Search",
+      "contactCta": "Looking for something specific? Contact us"
+    },
+    "subscription": {
+      "title": "Never Miss An Impact Update",
+      "description": "Subscribe to our knowledge sharing list to receive the latest reports, guides, and research directly in your inbox.",
+      "emailPlaceholder": "Your email address",
+      "subscribeButton": "Subscribe",
+      "highlights": {
+        "title": "Resource Highlights",
+        "description": "Recent publications and data sets added to our hub.",
+        "items": [
+          "Sustainable Fisheries Data Pack",
+          "Organic Farming Toolkit v2.0",
+          "Congo Basin Reforestation Brief"
+        ]
+      }
+    },
+    "fileInfo": {
+      "fileType": "File Type",
+      "fileSize": "File Size",
+      "lastUpdated": "Last Updated"
+    },
+    "impactUpdateTitle": "Never Miss An Impact Update",
+    "impactUpdateSubtitle": "Subscribe to our knowledge sharing list to receive the latest reports, guides, and research directly in your inbox.",
+    "emailPlaceholder": "Your email address",
+    "subscribe": "Subscribe",
+    "resourceHighlights": "Resource Highlights",
+    "recentPublications": "Recent publications and data sets added to our hub.",
+    "recentItems": [
+      "Sustainable Fisheries Data Pack",
+      "Organic Farming Toolkit v2.0",
+      "Congo Basin Reforestation Brief"
+    ],
+    "resources": {
+      "annualReport": {
+        "title": "Annual Impact Report 2023",
+        "description": "A comprehensive overview of our activities, financial performance, and impact across all programs in 2023."
+      },
+      "forestryGuide": {
+        "title": "Community Forestry Management Guide",
+        "description": "A technical guide for local communities on sustainable forest management and biodiversity conservation."
+      },
+      "agricultureGuide": {
+        "title": "Sustainable Agriculture Best Practices",
+        "description": "An illustrated manual for smallholder farmers on organic composting and pest management."
+      },
+      "policyBrief": {
+        "title": "Water & Sanitation Policy Brief",
+        "description": "Policy recommendations for local governments on improving rural water infrastructure."
+      },
+      "environmentalData": {
+        "title": "Congo Basin Environmental Data",
+        "description": "Open access datasets on forest cover change and carbon sequestration across our project sites."
+      },
+      "businessToolkit": {
+        "title": "Women Business Training Toolkit",
+        "description": "A set of tools and templates for trainers leading vocational workshops for women entrepreneurs."
+      }
+    },
+    "common": {
+      "varies": "Varies",
+      "updatedWeekly": "Updated Weekly"
+    }
+  },
   "newsSection": {
     "actualites": "News",
     "publications": "Publications",
