@@ -4,33 +4,53 @@ import { images } from "./images";
 export const programs = [
   {
     id: 1,
-    title: "Women Empowerment",
-    description: "Supporting women through vocational training and micro-finance initiatives to build sustainable livelihoods.",
+    title: "Accueil humanitaire et services sociaux de base",
+    description: "Fourniture d'une assistance humanitaire et de services sociaux essentiels aux communautés vulnérables.",
     image: images.programWomen,
-    category: "Community",
-    raised: 15000,
-    goal: 25000,
-    icon: Users
+    category: "Humanitaire",
+    raised: 18000,
+    goal: 30000,
+    icon: HandHeart
   },
   {
     id: 2,
-    title: "Environmental Protection",
-    description: "Reforestation projects and sustainable agriculture workshops to combat climate change and preserve biodiversity.",
+    title: "Agriculture durable et conservation de la nature",
+    description: "Promotion de pratiques agricoles durables et protection de l'environnement pour un avenir plus vert.",
     image: images.programNature,
-    category: "Nature",
-    raised: 8000,
-    goal: 20000,
+    category: "Environnement",
+    raised: 12000,
+    goal: 35000,
     icon: Leaf
   },
   {
     id: 3,
-    title: "Clean Water Access",
-    description: "Installing wells and water purification systems in remote villages to ensure access to safe drinking water.",
+    title: "Logistique, commerce équitable et chaînes de valeur",
+    description: "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
     image: images.programWater,
-    category: "Health",
-    raised: 32000,
+    category: "Développement",
+    raised: 25000,
+    goal: 50000,
+    icon: Globe
+  },
+  {
+    id: 4,
+    title: "Leadership féminin et participation citoyenne",
+    description: "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
+    image: images.news1,
+    category: "Égalité",
+    raised: 15000,
     goal: 40000,
-    icon: Droplets
+    icon: Users
+  },
+  {
+    id: 5,
+    title: "Protection et défense de la personne humaine",
+    description: "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
+    image: images.news2,
+    category: "Droits Humains",
+    raised: 30000,
+    goal: 60000,
+    icon: ShieldCheck
   }
 ];
 

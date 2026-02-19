@@ -172,7 +172,10 @@ export function Navbar() {
         { name: t('about.visionMission'), href: "/about/vision-mission" },
         { name: t('about.objectives'), href: "/about/objectives" },
         { name: t('about.governance'), href: "/about/governance" },
-        { name: t('about.strategicOrientations'), href: "/about/strategic-orientations" }
+        { name: t('about.strategicOrientations'), href: "/about/strategic-orientations" },
+        { name: t('about.humanResources'), href: "/about/human-resources" },
+        { name: t('about.valuesPrinciples'), href: "/about/values-principles" },
+        { name: t('about.partnershipsNetworks'), href: "/about/partnerships-networks" }
       ]
     },
     {

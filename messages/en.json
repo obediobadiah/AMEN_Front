@@ -15,81 +15,299 @@
     "visionMission": "Vision and Mission",
     "objectives": "Objectives",
     "governance": "Governance & Organization",
-    "strategicOrientations": "Strategic Orientations"
+    "strategicOrientations": "Strategic Orientations",
+    "humanResources": "Human Resources",
+    "valuesPrinciples": "Values & Principles",
+    "partnershipsNetworks": "Partnerships & Networks"
   },
   "aboutPage": {
-    "history": {
-      "title": "Our History",
-      "subtitle": "A Decade of Impact & Resilience",
-      "intro": "Founded in 2012, Alternatives Ménages, Nature et Marchés (AMEN) began as a grassroots initiative to support rural households in the Congo Basin. What started as a small group of volunteers has grown into a recognized organization driving sustainable development across the region.",
-      "journey": "Our journey has been defined by resilience, partnership, and an unwavering commitment to the communities we serve. We believe in local solutions for local challenges.",
-      "milestones": {
-        "2012": "Foundation of AMEN as a local initiative.",
-        "2015": "Expansion to 3 new provinces.",
-        "2018": "Launch of major reforestation project.",
-        "2023": "Reached 50,000 beneficiaries."
-      },
-      "milestonesTitle": "Milestones & Achievements",
-      "milestonesDesc": "Key moments that defined our journey."
-    },
-    "visionMission": {
-      "title": "Vision & Mission",
-      "subtitle": "Guiding Our Path forward",
-      "visionTitle": "Our Vision",
-      "visionText": "A world where communities live in harmony with nature, enjoying food security, economic dignity, and social justice, free from the shackles of poverty.",
-      "missionTitle": "Our Mission",
-      "missionText": "To empower vulnerable households by strengthening their economic capacities, promoting sustainable agriculture, and protecting the environment, while ensuring equitable access to markets.",
-      "futureLabel": "A Future We Build Together",
-      "empowermentLabel": "Empowerment & Action",
-      "natureLabel": "Nature & Community",
-      "natureDesc": "Working hand in hand to restore balance and provide sustainable futures."
-    },
-    "objectives": {
-      "title": "Our Objectives",
-      "subtitle": "Tangible Goals for Sustainable Change",
-      "intro": "We are committed to achieving concrete results that improve lives and protect our planet.",
-      "list": {
-        "1": {
-          "title": "Food Security",
-          "desc": "Ensure access to sufficient, safe, and nutritious food for all."
-        },
-        "2": {
-          "title": "Economic Empowerment",
-          "desc": "Create income-generating opportunities for women and youth."
-        },
-        "3": {
-          "title": "Environmental Sustainability",
-          "desc": "Promote practices that conserve natural resources and biodiversity."
-        },
-        "4": {
-          "title": "Social Justice",
-          "desc": "Advocate for the rights and dignity of marginalized groups."
+    "humanResources": {
+      "title": "Our Human Resources",
+      "subtitle": "Empowering People, Driving Change",
+      "intro": "Our team is our greatest asset.",
+      "description": "We invest in our people to create lasting impact in the communities we serve, valuing every talent and commitment.",
+      "team": {
+        "sectionTitle": "Our Team",
+        "subtitle": "Meet the People Behind AMEN",
+        "categories": {
+          "all": "All",
+          "dirigeante": "Leadership Team",
+          "technique": "Technical & Administrative Staff",
+          "volontaires": "Volunteers & Experts"
         }
       },
-      "commitmentsLabel": "Our Commitments",
-      "goalLabel": "Goal",
-      "stats": {
-        "beneficiaries": "Beneficiaries",
-        "years": "Years Impact",
-        "projects": "Projects",
-        "commitment": "Commitment"
+      "member1": {
+        "name": "Executive President",
+        "post": "Executive President"
+      },
+      "member2": {
+        "name": "Vice-President",
+        "post": "Vice-President"
+      },
+      "member3": {
+        "name": "General Secretary",
+        "post": "General Secretary"
+      },
+      "member4": {
+        "name": "Programs Manager",
+        "post": "Programs Coordinator"
+      },
+      "member5": {
+        "name": "Finance Officer",
+        "post": "Financial Manager"
+      },
+      "member6": {
+        "name": "Communications Officer",
+        "post": "Communication & Public Relations"
+      },
+      "member7": {
+        "name": "Agronomist Expert",
+        "post": "Sustainable Agriculture Expert"
+      },
+      "member8": {
+        "name": "Human Rights Expert",
+        "post": "Human Rights Consultant"
+      },
+      "member9": {
+        "name": "Field Volunteer",
+        "post": "Field Coordination"
+      },
+      "joinCta": {
+        "title": "Ready to join our team?",
+        "description": "Explore local and international opportunities with AMEN.",
+        "button": "Contact HR"
+      }
+    },
+    "valuesPrinciples": {
+      "title": "Our Core Values & Principles",
+      "subtitle": "Guiding Our Actions, Shaping Our Impact",
+      "intro": "Five core values guiding each of our actions",
+      "introDesc": "Our values and principles are the foundation of everything we do, ensuring we remain true to our mission and vision in service of households.",
+      "values": {
+        "items": {
+          "1": {
+            "title": "Diversity, Difference & Tolerance",
+            "description": "We celebrate the richness of human differences and promote an environment of mutual respect, inclusion and openness to others."
+          },
+          "2": {
+            "title": "Determination, Consistency & Prosperity",
+            "description": "We act with perseverance and regularity in the pursuit of our objectives, aiming for lasting improvement in community well-being."
+          },
+          "3": {
+            "title": "Dignity, Integrity & Fraternity",
+            "description": "We respect the dignity of every human being, act with honesty, and build relationships founded on solidarity and trust."
+          },
+          "4": {
+            "title": "Ethics, Discipline & Responsibility",
+            "description": "We adhere to the highest ethical principles, maintain rigorous organizational discipline and fully assume our responsibilities to stakeholders."
+          },
+          "5": {
+            "title": "Transparency & Accountability",
+            "description": "We account for our actions and management of resources to all our stakeholders, ensuring open and honest communication at every level."
+          }
+        }
+      },
+      "commitment": {
+        "title": "Our Commitment to You",
+        "description": "We are committed to embodying these values in every one of our actions, in service of households and communities.",
+        "cta": "Learn More About Our Work"
+      }
+    },
+    "partnershipsNetworks": {
+      "title": "Partnerships & Networks",
+      "subtitle": "Collaborating for Greater Impact",
+      "intro": "We believe in the power of partnerships to create sustainable change and maximize our impact.",
+      "ourApproach": {
+        "title": "Our Approach to Partnerships",
+        "description": "We build strategic alliances with organizations that share our vision and values to amplify our collective impact.",
+        "cta": "Become a Partner"
+      },
+      "benefits": {
+        "title": "Benefits of Partnering with Us",
+        "items": {
+          "1": "Access to our network of communities and stakeholders",
+          "2": "Opportunities for collaborative programming",
+          "3": "Shared resources and expertise",
+          "4": "Collective impact and sustainable solutions"
+        }
+      },
+      "typesTitle": "Types of Partnerships",
+      "types": [
+        {
+          "title": "Strategic Alliances",
+          "shortTitle": "Alliances",
+          "description": "Long-term collaborations with organizations sharing similar goals and values."
+        },
+        {
+          "title": "Community Partnerships",
+          "shortTitle": "Community",
+          "description": "Working directly with local communities to implement sustainable solutions."
+        },
+        {
+          "title": "Corporate Partnerships",
+          "shortTitle": "Corporate",
+          "description": "Collaborating with businesses to create shared value and social impact."
+        },
+        {
+          "title": "International Networks",
+          "shortTitle": "International",
+          "description": "Participating in global networks to share knowledge and best practices."
+        }
+      ],
+      "cta": {
+        "title": "Ready to Partner with Us?",
+        "description": "Join us in creating meaningful change through strategic partnerships.",
+        "primaryButton": "Become a Partner",
+        "secondaryButton": "Contact Our Team"
+      },
+      "ecosystemTitle": "Our Partner Ecosystem",
+      "filterAll": "All Partners",
+      "viewingPartners": "View partners",
+      "partnersCount": "Partners"
+    },
+    "strategicOrientations": {
+      "title": "Strategic Orientations",
+      "subtitle": "Guiding Our Strategic Direction",
+      "keyStrategies": {
+        "title": "Key Strategies",
+        "items": [
+          "Participatory Leadership: Development of skills, expertise, and citizen participation.",
+          "Family and Humanitarian Reception: Protection of vulnerable people and access to basic social services.",
+          "Sustainable Agriculture: Promotion of agriculture, livestock, fishing, forestry, and environmental protection.",
+          "Inclusive Commercial Logistics: Development of fair, circular, and inclusive economic sectors."
+        ]
+      },
+      "interventionAreas": {
+        "title": "Areas of Intervention",
+        "items": [
+          "Human rights and local peace",
+          "Women, gender and generations",
+          "Food sovereignty",
+          "Environment and territories",
+          "Inclusive economy and fair markets",
+          "Culture, audiovisual, and events"
+        ]
       }
     },
     "governance": {
       "title": "Governance & Organization",
       "subtitle": "Leadership with Integrity",
-      "intro": "Our governance structure ensures transparency, accountability, and effective decision-making.",
-      "board": "Board of Directors",
-      "executive": "Executive Team",
-      "roles": {
-        "director": "Executive Director",
-        "program": "Program Director",
-        "chair": "Board Chair",
-        "finance": "Finance Manager",
-        "member": "Member"
+      "organsTitle": "Association Organs",
+      "teamSection": {
+        "title": "Our Team",
+        "subtitle": "Meet Our Leadership Team",
+        "description": "Integral leadership for sustainable impact at the heart of households.",
+        "filterAll": "All",
+        "filterLabel": "Filter by department:",
+        "transparencyBadge": "Transparency & Accountability"
       },
-      "transparentLeadership": "Transparent Leadership",
-      "structureTitle": "Our Structure",
+      "values": [
+        {
+          "label": "Transparency"
+        },
+        {
+          "label": "Accountability"
+        },
+        {
+          "label": "Integrity"
+        },
+        {
+          "label": "Innovation"
+        }
+      ],
+      "teamDescription": "Integral leadership for sustainable impact at the heart of households.",
+      "intro": "Our governance structure ensures transparency, accountability, and effective decision-making at all levels of the organization.",
+      "organs": {
+        "ag": {
+          "title": "General Assembly",
+          "desc": "Supreme decision-making and control body.",
+          "shortTitle": "Assembly",
+          "members": [
+            {
+              "name": "President",
+              "title": "General Assembly President"
+            },
+            {
+              "name": "Vice-President",
+              "title": "Vice-President"
+            },
+            {
+              "name": "Secretary",
+              "title": "General Secretary"
+            },
+            {
+              "name": "Treasurer",
+              "title": "Financial Officer"
+            }
+          ]
+        },
+        "cd": {
+          "title": "Board of Directors",
+          "desc": "Strategic definition and monitoring of decision implementation.",
+          "shortTitle": "Board",
+          "members": [
+            {
+              "name": "Chairperson",
+              "title": "Board Chair"
+            },
+            {
+              "name": "Vice-Chair",
+              "title": "Vice-Chair"
+            },
+            {
+              "name": "Secretary",
+              "title": "Board Secretary"
+            },
+            {
+              "name": "Treasurer",
+              "title": "Financial Director"
+            },
+            {
+              "name": "Members",
+              "title": "Board Members"
+            }
+          ]
+        },
+        "pe": {
+          "title": "Executive Presidency",
+          "desc": "Development of policies, plans, and programs.",
+          "shortTitle": "Executive",
+          "members": [
+            {
+              "name": "President",
+              "title": "Executive President"
+            },
+            {
+              "name": "Vice-President",
+              "title": "Executive Vice-President"
+            },
+            {
+              "name": "Advisor",
+              "title": "Senior Advisor"
+            }
+          ]
+        },
+        "dg": {
+          "title": "General Management",
+          "desc": "Daily management of resources and operations.",
+          "shortTitle": "Management",
+          "members": [
+            {
+              "name": "Director",
+              "title": "Director General"
+            },
+            {
+              "name": "Deputy Director",
+              "title": "Deputy Director"
+            },
+            {
+              "name": "Department Heads",
+              "title": "Heads of Departments"
+            }
+          ]
+        }
+      },
+      "board": "Board of Directors",
       "members": {
         "ahmed": {
           "bio": "Experienced leader in global health."
@@ -111,18 +329,118 @@
         }
       }
     },
+    "history": {
+      "title": "Our History",
+      "subtitle": "A Decade of Impact & Resilience",
+      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) was created in the context of the peace process, political transition, and post-conflict democratization in Africa between 1996 and 1998. This period was marked by a sharp deterioration in women's living conditions, characterized notably by:\n• The dominance of patriarchal social norms reinforced by the collapse of state authority;\n• The overload of women's household and social responsibilities;\n• Family separations due to forced displacement, sexual violence, and male mortality.\nAMEN was born from the active mobilization of surviving women.",
+      "journey": "Our journey is anchored in resilience and commitment to vulnerable communities, transforming challenges into opportunities for sustainable development.",
+      "milestones": {
+        "1996": "Start of the mobilization of surviving women in the face of post-conflict crises.",
+        "1998": "Foundation of AMEN to promote economic and social dignity.",
+        "2012": "Expansion of the sustainable agriculture model across the region.",
+        "2024": "Impact on over 50,000 households and environmental leadership."
+      },
+      "milestonesTitle": "Milestones & Achievements",
+      "milestonesDesc": "Key moments that defined our journey."
+    },
+    "visionMission": {
+      "title": "Vision & Mission",
+      "subtitle": "Guiding Our Path forward",
+      "visionTitle": "Our Vision",
+      "visionText": "A harmonious management of household life, respectful of nature and integrated into fair markets.",
+      "missionTitle": "Our Mission",
+      "missionText": "Support sustainable human development within and beyond the household.",
+      "finalityTitle": "Our Purpose",
+      "finalityText": "Promote development centered on the household as the foundation of society.",
+      "futureLabel": "A Future We Build Together",
+      "empowermentLabel": "Empowerment & Action",
+      "natureLabel": "Nature & Community",
+      "natureDesc": "Working hand in hand to restore balance and provide sustainable futures."
+    },
+    "objectives": {
+      "title": "Our Objectives",
+      "subtitle": "Our Commitment to Sustainable Development",
+      "goalLabel": "Global Objective",
+      "globalObjectiveTitle": "Our Global Objective",
+      "globalObjectiveText": "Promote and defend a stable household life in a healthy environment and a transparent economy.",
+      "specificObjectivesTitle": "Specific Objectives",
+      "specificObjectivesDesc": "Focused initiatives driving meaningful change in communities.",
+      "specific": {
+        "1": {
+          "title": "Save Lives & Protect",
+          "desc": "Saving lives and protecting physical integrity against violence, diseases, and natural disasters."
+        },
+        "2": {
+          "title": "Increase Household Incomes",
+          "desc": "Boosting household incomes through access to employment, markets, and economic organizations."
+        },
+        "3": {
+          "title": "Ensure Basic Needs",
+          "desc": "Ensuring the satisfaction of vital needs (food, health, education, housing)."
+        },
+        "4": {
+          "title": "Protect Natural Resources",
+          "desc": "Protecting natural resources and preserving ecosystems."
+        },
+        "5": {
+          "title": "Foster Participation",
+          "desc": "Encouraging citizen participation in sustainable development."
+        }
+      },
+      "stats": {
+        "beneficiaries": "Beneficiaries",
+        "years": "Years Impact",
+        "projects": "Projects",
+        "commitment": "Commitment"
+      }
+    },
     "strategic": {
       "title": "Strategic Orientations",
       "subtitle": "Our Pillars of Action",
-      "intro": "Our work is guided by four main pillars that ensure our interventions are holistic and sustainable.",
+      "introBan": "Shaping the Future",
+      "intro": "Our strategic pillars in service of change",
+      "introDesc": "Our work is guided by major strategic orientations that ensure our interventions are holistic, sustainable and human-centered.",
       "pillars": {
-        "agriculture": "Sustainable Agriculture",
-        "environment": "Environmental Protection",
-        "economy": "Economic Empowerment",
-        "governance": "Good Governance"
+        "strategy": {
+          "title": "Key Strategies",
+          "items": [
+            {
+              "title": "Participatory Leadership",
+              "desc": "Development of skills, expertise, and citizen participation."
+            },
+            {
+              "title": "Family and Humanitarian Reception",
+              "desc": "Protection of vulnerable people and access to basic social services."
+            },
+            {
+              "title": "Sustainable Agriculture",
+              "desc": "Promotion of agriculture, livestock, fishing, forestry, and environmental protection."
+            },
+            {
+              "title": "Solidarity Commercial Logistics",
+              "desc": "Development of fair, circular, and inclusive economic sectors."
+            }
+          ]
+        },
+        "domain": {
+          "title": "Areas of Intervention",
+          "items": [
+            "Human Rights and Local Peace",
+            "Women, Gender, and Generations",
+            "Food Sovereignty",
+            "Environment and Territories",
+            "Solidarity Economy and Fair Markets",
+            "Culture, Audiovisual, and Events"
+          ]
+        }
       },
       "pillarIntro": "Our approach ensures long-term impact through four key pillars of sustainable development.",
-      "pillarDesc": "We are committed to advancing {pillar} to build resilient communities."
+      "pillarDesc": "We are committed to advancing {pillar} to build resilient communities.",
+      "ReadySupport": {
+        "title": "Ready to support our vision?",
+        "desc": "Join us in making a difference for households in the Congo Basin.",
+        "GetInvolve": "Get Involve"
+      }
     }
   },
   "activities": {
@@ -139,6 +457,33 @@
       "nature": "Nature Conservation",
       "health": "Health & Sanitation",
       "education": "Education & Training"
+    },
+    "programs": {
+      "1": {
+        "title": "Humanitarian Reception and Basic Social Services",
+        "description": "Provision of humanitarian assistance and essential social services to vulnerable communities.",
+        "category": "Humanitarian"
+      },
+      "2": {
+        "title": "Sustainable Agriculture and Nature Conservation",
+        "description": "Promotion of sustainable agricultural practices and environmental protection for a greener future.",
+        "category": "Environment"
+      },
+      "3": {
+        "title": "Logistics, Fair Trade and Value Chains",
+        "description": "Development of fair and sustainable supply chains for local producers.",
+        "category": "Development"
+      },
+      "4": {
+        "title": "Women's Leadership and Civic Participation",
+        "description": "Strengthening women's leadership and their active participation in community life.",
+        "category": "Equality"
+      },
+      "5": {
+        "title": "Protection and Defense of Human Dignity",
+        "description": "Defense of human rights and protection of vulnerable people in our communities.",
+        "category": "Human Rights"
+      }
     },
     "impact": "Impact Highlights",
     "joinProgram": "Get Involved with this Program",
@@ -157,7 +502,10 @@
       "description": "Your contribution can help us expand these programs and reach more communities in need.",
       "joinNow": "Join Now",
       "contactUs": "Contact Us"
-    }
+    },
+    "raised": "Raised",
+    "goal": "Goal",
+    "donateNow": "Donate Now"
   },
   "getInvolvedPage": {
     "title": "Get Involved",

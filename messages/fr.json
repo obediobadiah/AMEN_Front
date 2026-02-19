@@ -11,23 +11,194 @@
     "language": "Langue"
   },
   "about": {
-    "history": "Historique",
+    "history": "Histoire",
     "visionMission": "Vision et Mission",
     "objectives": "Objectifs",
     "governance": "Gouvernance & Organisation",
-    "strategicOrientations": "Orientations stratégiques"
+    "strategicOrientations": "Orientations Stratégiques",
+    "humanResources": "Ressources Humaines",
+    "valuesPrinciples": "Valeurs et Principes",
+    "partnershipsNetworks": "Partenariats et Réseaux"
   },
   "aboutPage": {
+    "humanResources": {
+      "title": "Nos Ressources Humaines",
+      "subtitle": "Renforcer les Capacités, Créer du Changement",
+      "intro": "Notre équipe est notre atout le plus précieux.",
+      "description": "Nous investissons dans nos collaborateurs pour créer un impact durable dans les communautés que nous servons, en valorisant chaque talent et chaque engagement.",
+      "team": {
+        "sectionTitle": "Notre Équipe",
+        "subtitle": "Rencontrez les Personnes qui Font AMEN",
+        "categories": {
+          "all": "Tous",
+          "dirigeante": "Équipe dirigeante",
+          "technique": "Personnel technique & administratif",
+          "volontaires": "Volontaires & experts"
+        }
+      },
+      "member1": {
+        "name": "Présidente Exécutive",
+        "post": "Présidente Exécutive"
+      },
+      "member2": {
+        "name": "Vice-Président",
+        "post": "Vice-Président"
+      },
+      "member3": {
+        "name": "Secrétaire Général",
+        "post": "Secrétaire Général"
+      },
+      "member4": {
+        "name": "Responsable Programmes",
+        "post": "Coordinateur des Programmes"
+      },
+      "member5": {
+        "name": "Responsable Financier",
+        "post": "Gestionnaire Financier"
+      },
+      "member6": {
+        "name": "Chargée de Communication",
+        "post": "Communication & Relations Publiques"
+      },
+      "member7": {
+        "name": "Expert Agronome",
+        "post": "Expert en Agriculture Durable"
+      },
+      "member8": {
+        "name": "Experte Droits Humains",
+        "post": "Consultante Droits Humains"
+      },
+      "member9": {
+        "name": "Bénévole Terrain",
+        "post": "Coordination Terrain"
+      },
+      "joinCta": {
+        "title": "Prêt à rejoindre notre équipe ?",
+        "description": "Explorez les opportunités locales et internationales avec AMEN.",
+        "button": "Contacter les RH"
+      }
+    },
+    "valuesPrinciples": {
+      "title": "Nos Valeurs et Principes Fondamentaux",
+      "subtitle": "Guider Nos Actions, Façonner Notre Impact",
+      "intro": "Cinq valeurs fondamentales qui guident chacune de nos actions",
+      "introDesc": "Nos valeurs et principes sont le fondement de tout ce que nous faisons, garantissant que nous restons fidèles à notre mission et à notre vision au service des ménages.",
+      "values": {
+        "items": {
+          "1": {
+            "title": "Diversité, différence et tolérance",
+            "description": "Nous célébrons la richesse des différences humaines et promouvons un environnement de respect mutuel, d'inclusion et d'ouverture à l'autre."
+          },
+          "2": {
+            "title": "Détermination, constance et prospérité",
+            "description": "Nous agissons avec persévérance et régularité dans la poursuite de nos objectifs, en visant une amélioration durable du bien-être des communautés."
+          },
+          "3": {
+            "title": "Dignité, intégrité et fraternité",
+            "description": "Nous respectons la dignité de chaque être humain, agissons avec honnêteté et bâtissons des relations fondées sur la solidarité et la confiance."
+          },
+          "4": {
+            "title": "Éthique, discipline et responsabilité",
+            "description": "Nous adhérons aux principes éthiques les plus élevés, maintenons une discipline organisationnelle rigoureuse et assumons pleinement nos responsabilités envers nos parties prenantes."
+          },
+          "5": {
+            "title": "Transparence et redevabilité",
+            "description": "Nous rendons compte de nos actions et de notre gestion des ressources à toutes nos parties prenantes, en garantissant une communication ouverte et honnête."
+          }
+        }
+      },
+      "commitment": {
+        "title": "Notre Engagement envers Vous",
+        "description": "Nous nous engageons à incarner ces valeurs dans chacun de nos actes, au service des ménages et des communautés.",
+        "cta": "En Savoir Plus sur Notre Travail"
+      }
+    },
+    "partnershipsNetworks": {
+      "title": "Partenariats et Réseaux",
+      "subtitle": "Collaborer pour un Impact Plus Grand",
+      "intro": "Nous croyons au pouvoir des partenariats pour créer un changement durable et maximiser notre impact.",
+      "ourApproach": {
+        "title": "Notre Approche des Partenariats",
+        "description": "Nous établissons des alliances stratégiques avec des organisations qui partagent notre vision et nos valeurs pour amplifier notre impact collectif.",
+        "cta": "Devenir Partenaire"
+      },
+      "benefits": {
+        "title": "Avantages d'un Partenariat avec Nous",
+        "items": {
+          "1": "Accès à notre réseau de communautés et de parties prenantes",
+          "2": "Opportunités de programmation collaborative",
+          "3": "Ressources et expertise partagées",
+          "4": "Impact collectif et solutions durables"
+        }
+      },
+      "typesTitle": "Types de Partenariats",
+      "types": [
+        {
+          "title": "Alliances Stratégiques",
+          "shortTitle": "Alliances",
+          "description": "Collaborations à long terme avec des organisations partageant des objectifs et des valeurs similaires."
+        },
+        {
+          "title": "Partenariats Communautaires",
+          "shortTitle": "Communauté",
+          "description": "Travail direct avec les communautés locales pour mettre en œuvre des solutions durables."
+        },
+        {
+          "title": "Partenariats d'Entreprise",
+          "shortTitle": "Entreprises",
+          "description": "Collaboration avec des entreprises pour créer une valeur partagée et un impact social."
+        },
+        {
+          "title": "Réseaux Internationaux",
+          "shortTitle": "International",
+          "description": "Participation à des réseaux mondiaux pour partager des connaissances et des bonnes pratiques."
+        }
+      ],
+      "cta": {
+        "title": "Prêt à Devenir Partenaire ?",
+        "description": "Rejoignez-nous pour créer un changement significatif grâce à des partenariats stratégiques.",
+        "primaryButton": "Devenir Partenaire",
+        "secondaryButton": "Contacter Notre Équipe"
+      },
+      "ecosystemTitle": "Notre Écosystème de Partenaires",
+      "filterAll": "Tous les Partenaires",
+      "viewingPartners": "Voir les partenaires",
+      "partnersCount": "Partenaires"
+    },
+    "strategicOrientations": {
+      "title": "Orientations stratégiques",
+      "subtitle": "Guide de notre orientation stratégique",
+      "keyStrategies": {
+        "title": "Stratégies clés",
+        "items": [
+          "Leadership participatif : Développement des compétences, de l'expertise et de la participation citoyenne.",
+          "Accueil familial et humanitaire : Protection des personnes vulnérables et accès aux services sociaux de base.",
+          "Agriculture durable : Promotion de l'agriculture, de l'élevage, de la pêche, de la sylviculture et de la protection environnementale.",
+          "Logistique marchande solidaire : Développement de filières économiques équitables, circulaires et inclusives."
+        ]
+      },
+      "interventionAreas": {
+        "title": "Domaines d'intervention",
+        "items": [
+          "Droits humains et paix locale",
+          "Femmes, genre et générations",
+          "Souveraineté alimentaire",
+          "Environnement et territoires",
+          "Économie solidaire et marchés équitables",
+          "Culture, audiovisuel et événementiel"
+        ]
+      }
+    },
     "history": {
       "title": "Notre Historique",
       "subtitle": "Une décennie d'impact et de résilience",
-      "intro": "Fondée en 2012, Alternatives Ménages, Nature et Marchés (AMEN) a commencé comme une initiative locale pour soutenir les ménages ruraux du bassin du Congo. Ce qui a débuté comme un petit groupe de bénévoles est devenu une organisation reconnue stimulant le développement durable dans toute la région.",
-      "journey": "Notre parcours a été défini par la résilience, le partenariat et un engagement indéfectible envers les communautés que nous servons. Nous croyons aux solutions locales pour les défis locaux.",
+      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) a été créée dans le contexte du processus de paix, de transition politique et de démocratisation post-conflits armés africains de 1996 et 1998. Cette période a été marquée par une forte détérioration des conditions de vie des femmes, caractérisée notamment par :\n• La domination de normes sociales patriarcales renforcées par l’effondrement de l’autorité de l’État ;\n• La surcharge des responsabilités ménagères et sociales des femmes ;\n• Les séparations familiales dues aux déplacements forcés, aux violences sexuelles et à la mortalité masculine.\nAMEN est née de la mobilisation active des femmes survivantes.",
+      "journey": "Notre parcours est ancré dans la résilience et l'engagement envers les communautés vulnérables, en transformant les défis en opportunités de développement durable.",
       "milestones": {
-        "2012": "Fondation de AMEN en tant qu'initiative locale.",
-        "2015": "Expansion vers 3 nouvelles provinces.",
-        "2018": "Lancement d'un projet majeur de reforestation.",
-        "2023": "50 000 bénéficiaires atteints."
+        "1996": "Début de la mobilisation des femmes survivantes face aux crises post-conflit.",
+        "1998": "Fondation de AMEN pour promouvoir la dignité économique et sociale.",
+        "2012": "Expansion du modèle d'agriculture durable à travers la région.",
+        "2024": "Impact sur plus de 50 000 ménages et leadership environnemental."
       },
       "milestonesTitle": "Jalons et Réalisations",
       "milestonesDesc": "Les moments clés qui ont défini notre parcours."
@@ -36,9 +207,11 @@
       "title": "Vision & Mission",
       "subtitle": "Guider notre chemin vers l'avenir",
       "visionTitle": "Notre Vision",
-      "visionText": "Un monde où les communautés vivent en harmonie avec la nature, jouissant de la sécurité alimentaire, de la dignité économique et de la justice sociale, libérées des chaînes de la pauvreté.",
+      "visionText": "Une gestion harmonieuse de la vie ménagère, respectueuse de la nature et intégrée à des marchés équitables.",
       "missionTitle": "Notre Mission",
-      "missionText": "Autonomiser les ménages vulnérables en renforçant leurs capacités économiques, en promouvant une agriculture durable et en protégeant l'environnement, tout en assurant un accès équitable aux marchés.",
+      "missionText": "Appuyer le développement humain durable au sein et au-delà du ménage.",
+      "finalityTitle": "Notre Finalité",
+      "finalityText": "Promouvoir un développement centré sur le ménage comme base de la société.",
       "futureLabel": "Un avenir que nous bâtissons ensemble",
       "empowermentLabel": "Autonomisation et Action",
       "natureLabel": "Nature et Communauté",
@@ -46,28 +219,34 @@
     },
     "objectives": {
       "title": "Nos Objectifs",
-      "subtitle": "Des objectifs tangibles pour un changement durable",
-      "intro": "Nous nous engageons à obtenir des résultats concrets qui améliorent les vies et protègent notre planète.",
-      "list": {
+      "subtitle": "Notre Engagement pour un Développement Durable",
+      "goalLabel": "Objectif Global",
+      "globalObjectiveTitle": "Notre Objectif Global",
+      "globalObjectiveText": "Promouvoir et défendre une vie ménagère stable dans un environnement sain et une économie transparente.",
+      "specificObjectivesTitle": "Objectifs Spécifiques",
+      "specificObjectivesDesc": "Initiatives ciblées pour un changement significatif dans les communautés.",
+      "specific": {
         "1": {
-          "title": "Sécurité Alimentaire",
-          "desc": "Assurer l'accès à une alimentation suffisante, sûre et nutritive pour tous."
+          "title": "Sauver des Vies & Protéger",
+          "desc": "Sauver des vies et protéger l'intégrité physique face aux violences, maladies et catastrophes naturelles."
         },
         "2": {
-          "title": "Autonomisation Économique",
-          "desc": "Créer des opportunités génératrices de revenus pour les femmes et les jeunes."
+          "title": "Accroître les Revenus",
+          "desc": "Accroître les revenus des ménages par l'accès à l'emploi, aux marchés et aux organisations économiques."
         },
         "3": {
-          "title": "Durabilité Environnementale",
-          "desc": "Promouvoir des pratiques qui conservent les ressources naturelles et la biodiversité."
+          "title": "Assurer les Besoins Vitaux",
+          "desc": "Assurer la satisfaction des besoins vitaux (alimentation, santé, éducation, logement)."
         },
         "4": {
-          "title": "Justice Sociale",
-          "desc": "Défendre les droits et la dignité des groupes marginalisés."
+          "title": "Protéger les Ressources",
+          "desc": "Protéger les ressources naturelles et préserver les écosystèmes."
+        },
+        "5": {
+          "title": "Favoriser la Participation",
+          "desc": "Favoriser la participation citoyenne au développement durable."
         }
       },
-      "commitmentsLabel": "Nos Engagements",
-      "goalLabel": "Objectif",
       "stats": {
         "beneficiaries": "Bénéficiaires",
         "years": "Années d'Impact",
@@ -78,18 +257,121 @@
     "governance": {
       "title": "Gouvernance & Organisation",
       "subtitle": "Leadership avec intégrité",
-      "intro": "Notre structure de gouvernance garantit la transparence, la responsabilité et une prise de décision efficace.",
-      "board": "Conseil d'Administration",
-      "executive": "Équipe Exécutive",
-      "roles": {
-        "director": "Directeur Exécutif",
-        "program": "Directeur de Programme",
-        "chair": "Président du Conseil",
-        "finance": "Responsable Financier",
-        "member": "Membre"
+      "organsTitle": "Organes de l'Association",
+      "teamSection": {
+        "title": "Notre Équipe",
+        "subtitle": "Rencontrez Notre Équipe de Direction",
+        "description": "Un leadership intègre pour un impact durable au cœur des ménages.",
+        "filterAll": "Tous",
+        "filterLabel": "Filtrer par département :",
+        "transparencyBadge": "Transparence & Responsabilité"
       },
-      "transparentLeadership": "Leadership Transparent",
-      "structureTitle": "Notre Structure",
+      "values": [
+        {
+          "label": "Transparence"
+        },
+        {
+          "label": "Responsabilité"
+        },
+        {
+          "label": "Intégrité"
+        },
+        {
+          "label": "Innovation"
+        }
+      ],
+      "organs": {
+        "ag": {
+          "title": "Assemblée Générale",
+          "desc": "Organe suprême de décision et de contrôle.",
+          "shortTitle": "Assemblée",
+          "members": [
+            {
+              "name": "Président",
+              "title": "Président de l'Assemblée Générale"
+            },
+            {
+              "name": "Vice-Président",
+              "title": "Vice-Président"
+            },
+            {
+              "name": "Secrétaire",
+              "title": "Secrétaire Général"
+            },
+            {
+              "name": "Trésorier",
+              "title": "Responsable Financier"
+            }
+          ]
+        },
+        "cd": {
+          "title": "Conseil de Direction",
+          "desc": "Définition stratégique et suivi de l'exécution des décisions.",
+          "shortTitle": "Conseil",
+          "members": [
+            {
+              "name": "Président",
+              "title": "Président du Conseil"
+            },
+            {
+              "name": "Vice-Président",
+              "title": "Vice-Président"
+            },
+            {
+              "name": "Secrétaire",
+              "title": "Secrétaire du Conseil"
+            },
+            {
+              "name": "Trésorier",
+              "title": "Directeur Financier"
+            },
+            {
+              "name": "Membres",
+              "title": "Membres du Conseil"
+            }
+          ]
+        },
+        "pe": {
+          "title": "Présidence Exécutive",
+          "desc": "Élaboration des politiques, plans et programmes.",
+          "shortTitle": "Exécutif",
+          "members": [
+            {
+              "name": "Président",
+              "title": "Président Exécutif"
+            },
+            {
+              "name": "Vice-Président",
+              "title": "Vice-Président Exécutif"
+            },
+            {
+              "name": "Conseiller",
+              "title": "Conseiller Principal"
+            }
+          ]
+        },
+        "dg": {
+          "title": "Direction Générale",
+          "desc": "Gestion quotidienne des ressources et du fonctionnement.",
+          "shortTitle": "Gestion",
+          "members": [
+            {
+              "name": "Directeur",
+              "title": "Directeur Général"
+            },
+            {
+              "name": "Directeur Adjoint",
+              "title": "Directeur Adjoint"
+            },
+            {
+              "name": "Chefs de Département",
+              "title": "Chefs de Département"
+            }
+          ]
+        }
+      },
+      "intro": "Notre structure de gouvernance assure la transparence, la responsabilité et une prise de décision efficace à tous les niveaux de l'organisation.",
+      "board": "Conseil d'Administration",
       "members": {
         "ahmed": {
           "bio": "Leader expérimenté en santé mondiale."
@@ -114,15 +396,50 @@
     "strategic": {
       "title": "Orientations Stratégiques",
       "subtitle": "Nos piliers d'action",
-      "intro": "Notre travail est guidé par quatre piliers principaux qui garantissent que nos interventions sont holistiques et durables.",
+      "introBan": "Façonner l'Avenir",
+      "intro": "Nos piliers stratégiques au service du changement",
+      "introDesc": "Notre travail est guidé par des orientations stratégiques majeures qui garantissent que nos interventions sont holistiques, durables et centrées sur l'humain.",
       "pillars": {
-        "agriculture": "Agriculture Durable",
-        "environment": "Protection de l'Environnement",
-        "economy": "Autonomisation Économique",
-        "governance": "Bonne Gouvernance"
+        "strategy": {
+          "title": "Stratégies clés",
+          "items": [
+            {
+              "title": "Leadership participatif",
+              "desc": "Développement des compétences, de l'expertise et de la participation citoyenne."
+            },
+            {
+              "title": "Accueil familial et humanitaire",
+              "desc": "Protection des personnes vulnérables et accès aux services sociaux de base."
+            },
+            {
+              "title": "Agriculture durable",
+              "desc": "Promotion de l'agriculture, de l'élevage, de la pêche, de la sylviculture et de la protection environnementale."
+            },
+            {
+              "title": "Logistique marchande solidaire",
+              "desc": "Développement de filières économiques équitables, circulaires et inclusives."
+            }
+          ]
+        },
+        "domain": {
+          "title": "Domaines d'intervention",
+          "items": [
+            "Droits humains et paix locale",
+            "Femmes, genre et générations",
+            "Souveraineté alimentaire",
+            "Environnement et territoires",
+            "Économie solidaire et marchés équitables",
+            "Culture, audiovisuel et événementiel"
+          ]
+        }
       },
-      "pillarIntro": "Notre approche garantit un impact à long terme à travers quatre piliers clés du développement durable.",
-      "pillarDesc": "Nous nous engageons à faire progresser {pillar} pour bâtir des communautés résilientes."
+      "pillarIntro": "Notre approche assure un impact à long terme à travers quatre piliers clés du développement durable.",
+      "pillarDesc": "Nous nous engageons à faire progresser {pillar} pour construire des communautés résilientes.",
+      "ReadySupport": {
+        "title": "Prêt à soutenir notre vision ?",
+        "desc": "Rejoignez-nous pour faire la différence dans le bassin du Congo.",
+        "GetInvolve": "S'impliquer"
+      }
     }
   },
   "activities": {
@@ -139,6 +456,33 @@
       "nature": "Conservation de la Nature",
       "health": "Santé & Assainissement",
       "education": "Éducation & Formation"
+    },
+    "programs": {
+      "1": {
+        "title": "Accueil humanitaire et services sociaux de base",
+        "description": "Fourniture d'une assistance humanitaire et de services sociaux essentiels aux communautés vulnérables.",
+        "category": "Humanitaire"
+      },
+      "2": {
+        "title": "Agriculture durable et conservation de la nature",
+        "description": "Promotion de pratiques agricoles durables et protection de l'environnement pour un avenir plus vert.",
+        "category": "Environnement"
+      },
+      "3": {
+        "title": "Logistique, commerce équitable et chaînes de valeur",
+        "description": "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
+        "category": "Développement"
+      },
+      "4": {
+        "title": "Leadership féminin et participation citoyenne",
+        "description": "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
+        "category": "Égalité"
+      },
+      "5": {
+        "title": "Protection et défense de la personne humaine",
+        "description": "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
+        "category": "Droits Humains"
+      }
     },
     "impact": "Points Forts de l'Impact",
     "joinProgram": "S'impliquer dans ce Programme",
@@ -157,7 +501,10 @@
       "description": "Votre contribution peut nous aider à étendre ces programmes et à atteindre plus de communautés dans le besoin.",
       "joinNow": "Nous Rejoindre",
       "contactUs": "Contactez-nous"
-    }
+    },
+    "raised": "Levez",
+    "goal": "Objectif",
+    "donateNow": "Faire un Don"
   },
   "getInvolvedPage": {
     "title": "S'Impliquer",

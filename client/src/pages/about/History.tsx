@@ -11,10 +11,10 @@ export default function History() {
     const t = useTranslations();
 
     const milestones = [
-        { year: "2012", title: t('aboutPage.history.milestones.2012'), icon: Flag },
-        { year: "2015", title: t('aboutPage.history.milestones.2015'), icon: TrendingUp },
-        { year: "2018", title: t('aboutPage.history.milestones.2018'), icon: Calendar },
-        { year: "2023", title: t('aboutPage.history.milestones.2023'), icon: Award },
+        { year: "1996", title: t('aboutPage.history.milestones.1996'), icon: Flag },
+        { year: "1998", title: t('aboutPage.history.milestones.1998'), icon: TrendingUp },
+        { year: "2012", title: t('aboutPage.history.milestones.2012'), icon: Calendar },
+        { year: "2024", title: t('aboutPage.history.milestones.2024'), icon: Award },
     ];
 
     return (
@@ -40,7 +40,7 @@ export default function History() {
                                 {t('aboutPage.history.title')}
                             </h2>
                             <div className="w-20 h-1.5 bg-primary rounded-full" />
-                            <p className="text-muted-foreground text-xl leading-relaxed font-light">
+                            <p className="text-muted-foreground text-lg leading-relaxed whitespace-pre-line">
                                 {t('aboutPage.history.intro')}
                             </p>
                             <p className="text-muted-foreground text-lg leading-relaxed">
