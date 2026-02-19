@@ -28,4 +28,7 @@ export const images = {
   heroContact: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1920&q=80",
   heroResources: "https://images.unsplash.com/photo-1501503060800-3fa87a55ff3e?w=1920&q=80",
   heroDonate: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80",
+  heroValues: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80",
+  heroHR: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80",
+  heroPartners: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1920&q=80",
 };
