@@ -55,12 +55,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-primary text-white p-2.5 rounded-2xl shadow-lg shadow-primary/20"
+          className="text-white p-2.5 rounded-2xl"
         >
-          <img src="/images/logo amen w.svg" alt="AMEN" className="h-6 w-auto" />
+          <img src="/images/logo amen w.svg" alt="AMEN" className="h-8 w-auto" />
         </motion.div>
         <div className="flex flex-col">
-          <span className="font-heading font-black text-white text-base tracking-tighter leading-none">AMEN PLATFORM</span>
+          <span className="font-heading font-black text-white text-base tracking-tighter leading-none">AMEN ADMIN PORTAL</span>
           <span className="text-[10px] font-bold text-primary tracking-[0.2em] mt-1 uppercase opacity-80">Administrator</span>
         </div>
       </div>
