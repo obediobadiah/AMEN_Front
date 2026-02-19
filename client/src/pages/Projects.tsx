@@ -11,51 +11,15 @@ import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Key } from "react";
 
-const projects = [
-    {
-        id: 1,
-        title: "Congo Basin Reforestation",
-        description: "Restoring 5,000 hectares of degraded forest land through community-led agroforestry and native tree planting.",
-        location: "Equateur Province",
-        date: "2023 - Present",
-        status: "active",
-        image: images.programNature,
-        category: "Environment"
-    },
-    {
-        id: 2,
-        title: "Solar Power for Rural Clinics",
-        description: "Installing off-grid solar energy systems in 10 remote health centers to ensure 24/7 access to medical services.",
-        location: "Kasaï Region",
-        date: "2024 - 2025",
-        status: "active",
-        image: images.news2,
-        category: "Infrastructure"
-    },
-    {
-        id: 3,
-        title: "Sustainable Fisheries Initiative",
-        description: "Empowering 500 local fishers with modern equipment and sustainable management practices to protect aquatic biodiversity.",
-        location: "Lake Tanganyika",
-        date: "2022 - 2024",
-        status: "completed",
-        image: images.programWomen,
-        category: "Economy"
-    },
-    {
-        id: 4,
-        title: "Urban Waste Management",
-        description: "Developing community-based recycling systems in Kinshasa to reduce plastic pollution and create green jobs.",
-        location: "Kinshasa",
-        date: "2025 - Upcoming",
-        status: "upcoming",
-        image: images.news3,
-        category: "Urban Development"
-    }
-];
+
+
+import Link from "next/link";
 
 export default function Projects() {
     const t = useTranslations();
+
+    // Define project IDs to map through
+    const projectIds = ["1", "2", "3", "4"];
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -148,69 +112,86 @@ export default function Projects() {
                         viewport={{ once: true }}
                         className="grid grid-cols-1 md:grid-cols-2 gap-10"
                     >
-                        {projects.map((project) => (
-                            <motion.div key={project.id} variants={itemVariants}>
-                                <Card className="group overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 bg-card hover:shadow-xl rounded-3xl h-full flex flex-col">
-                                    <div className="relative h-80 overflow-hidden shrink-0">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-                                        <div className="absolute top-6 left-6 flex gap-3">
-                                            <span className="bg-primary/90 backdrop-blur-md text-primary-foreground border border-primary/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-primary transition-colors">
-                                                {project.category}
-                                            </span>
-                                        </div>
-                                        <div className="absolute bottom-6 left-6 right-6">
-                                            <h3 className="text-2xl md:text-3xl font-bold text-white font-heading underline decoration-primary/50 decoration-4 underline-offset-8">
-                                                {project.title}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <CardContent className="p-8 space-y-6 flex-1 flex flex-col justify-between">
-                                        <div className="space-y-6">
-                                            <p className="text-muted-foreground leading-relaxed text-lg">
-                                                {project.description}
-                                            </p>
+                        {projectIds.map((id) => {
+                            const project = {
+                                id,
+                                title: t(`projectsPage.items.${id}.title`),
+                                description: t(`projectsPage.items.${id}.description`),
+                                location: t(`projectsPage.items.${id}.location`),
+                                date: t(`projectsPage.items.${id}.date`),
+                                category: t(`projectsPage.items.${id}.category`),
+                                image: id === "1" ? images.programNature :
+                                    id === "2" ? images.news2 :
+                                        id === "3" ? images.programWomen : images.news3,
+                                status: id === "1" || id === "2" ? "active" : id === "3" ? "completed" : "upcoming"
+                            };
 
-                                            <div className="grid grid-cols-2 gap-6">
-                                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
-                                                    <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
-                                                        <MapPin size={18} />
-                                                    </div>
-                                                    <span>{project.location}</span>
-                                                </div>
-                                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
-                                                    <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
-                                                        <Calendar size={18} />
-                                                    </div>
-                                                    <span>{project.date}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-6 flex items-center justify-between border-t border-border/50">
-                                            <div className="flex items-center gap-2">
-                                                <div className={cn(
-                                                    "w-3 h-3 rounded-full animate-pulse",
-                                                    project.status === 'active' ? "bg-green-500" :
-                                                        project.status === 'completed' ? "bg-primary" : "bg-orange-400"
-                                                )} />
-                                                <span className="text-sm font-bold uppercase tracking-wider">
-                                                    {t(`projectsPage.status.${project.status}`)}
+                            return (
+                                <motion.div key={project.id} variants={itemVariants}>
+                                    <Card className="group overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 bg-card hover:shadow-xl rounded-3xl h-full flex flex-col">
+                                        <div className="relative h-80 overflow-hidden shrink-0">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
+                                            <div className="absolute top-6 left-6 flex gap-3">
+                                                <span className="bg-primary/90 backdrop-blur-md text-primary-foreground border border-primary/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-primary transition-colors">
+                                                    {project.category}
                                                 </span>
                                             </div>
-                                            <Button variant="ghost" className="group/btn text-primary font-bold gap-2 p-0 hover:bg-transparent hover:text-primary/80 transition-colors">
-                                                {t('projectsPage.projectDetails')}
-                                                <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
-                                            </Button>
+                                            <div className="absolute bottom-6 left-6 right-6">
+                                                <h3 className="text-2xl md:text-3xl font-bold text-white font-heading underline decoration-primary/50 decoration-4 underline-offset-8">
+                                                    {project.title}
+                                                </h3>
+                                            </div>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                                        <CardContent className="p-8 space-y-6 flex-1 flex flex-col justify-between">
+                                            <div className="space-y-6">
+                                                <p className="text-muted-foreground leading-relaxed text-lg">
+                                                    {project.description}
+                                                </p>
+
+                                                <div className="grid grid-cols-2 gap-6">
+                                                    <div className="flex items-center gap-3 text-sm text-foreground font-medium">
+                                                        <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
+                                                            <MapPin size={18} />
+                                                        </div>
+                                                        <span>{project.location}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-sm text-foreground font-medium">
+                                                        <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
+                                                            <Calendar size={18} />
+                                                        </div>
+                                                        <span>{project.date}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="pt-6 flex items-center justify-between border-t border-border/50">
+                                                <div className="flex items-center gap-2">
+                                                    <div className={cn(
+                                                        "w-3 h-3 rounded-full animate-pulse",
+                                                        project.status === 'active' ? "bg-green-500" :
+                                                            project.status === 'completed' ? "bg-primary" : "bg-orange-400"
+                                                    )} />
+                                                    <span className="text-sm font-bold uppercase tracking-wider">
+                                                        {t(`projectsPage.status.${project.status}`)}
+                                                    </span>
+                                                </div>
+                                                <Link href={`/activities/projects/${project.id}`}>
+                                                    <Button variant="ghost" className="group/btn text-primary font-bold gap-2 p-0 hover:bg-transparent hover:text-primary/80 transition-colors">
+                                                        {t('projectsPage.projectDetails')}
+                                                        <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            );
+                        })}
                     </motion.div>
                 </div>
             </section>

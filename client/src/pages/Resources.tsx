@@ -7,71 +7,82 @@ import { images } from "@/lib/images";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FileText, Download, Search, Filter, BookOpen, Presentation, Database, ExternalLink, ArrowRight } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import { FileText, Download, Search, Filter, BookOpen, Presentation, Database, ExternalLink, ArrowRight, X } from "lucide-react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import { useState, useMemo } from "react";
+import { cn } from "@/lib/utils";
 
 export default function Resources() {
     const t = useTranslations();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeType, setActiveType] = useState("all");
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+    const resourceTypes = ["all", "report", "guide", "infographic", "policy", "database"];
 
+    const resources = useMemo(() => [
+        {
+            id: 1,
+            title: t('resourcesPage.resources.annualReport.title'),
+            description: t('resourcesPage.resources.annualReport.description'),
+            type: "report",
+            size: "4.5 MB",
+            date: "Jan 2024",
+            icon: FileText
+        },
+        {
+            id: 2,
+            title: t('resourcesPage.resources.forestryGuide.title'),
+            description: t('resourcesPage.resources.forestryGuide.description'),
+            type: "guide",
+            size: "12.2 MB",
+            date: "Mar 2024",
+            icon: BookOpen
+        },
+        {
+            id: 3,
+            title: t('resourcesPage.resources.agricultureGuide.title'),
+            description: t('resourcesPage.resources.agricultureGuide.description'),
+            type: "guide",
+            size: "8.1 MB",
+            date: "Feb 2024",
+            icon: Presentation
+        },
+        {
+            id: 4,
+            title: t('resourcesPage.resources.policyBrief.title'),
+            description: t('resourcesPage.resources.policyBrief.description'),
+            type: "policy",
+            size: "2.3 MB",
+            date: "Nov 2023",
+            icon: Database
+        },
+        {
+            id: 5,
+            title: t('resourcesPage.resources.environmentalData.title'),
+            description: t('resourcesPage.resources.environmentalData.description'),
+            type: "database",
+            size: t('resourcesPage.common.varies'),
+            date: t('resourcesPage.common.updatedWeekly'),
+            icon: FileText
+        },
+        {
+            id: 6,
+            title: t('resourcesPage.resources.businessToolkit.title'),
+            description: t('resourcesPage.resources.businessToolkit.description'),
+            type: "guide",
+            size: "15.4 MB",
+            date: "Dec 2023",
+            icon: BookOpen
+        }
+    ], [t]);
 
-const resources = [
-    {
-        id: 1,
-        title: t('resourcesPage.resources.annualReport.title'),
-        description: t('resourcesPage.resources.annualReport.description'),
-        type: "report",
-        size: "4.5 MB",
-        date: "Jan 2024",
-        icon: FileText
-    },
-    {
-        id: 2,
-        title: t('resourcesPage.resources.forestryGuide.title'),
-        description: t('resourcesPage.resources.forestryGuide.description'),
-        type: "guide",
-        size: "12.2 MB",
-        date: "Mar 2024",
-        icon: BookOpen
-    },
-    {
-        id: 3,
-        title: t('resourcesPage.resources.agricultureGuide.title'),
-        description: t('resourcesPage.resources.agricultureGuide.description'),
-        type: "guide",
-        size: "8.1 MB",
-        date: "Feb 2024",
-        icon: Presentation
-    },
-    {
-        id: 4,
-        title: t('resourcesPage.resources.policyBrief.title'),
-        description: t('resourcesPage.resources.policyBrief.description'),
-        type: "policy",
-        size: "2.3 MB",
-        date: "Nov 2023",
-        icon: Database
-    },
-    {
-        id: 5,
-        title: t('resourcesPage.resources.environmentalData.title'),
-        description: t('resourcesPage.resources.environmentalData.description'),
-        type: "database",
-        size: t('resourcesPage.common.varies'),
-        date: t('resourcesPage.common.updatedWeekly'),
-        icon: FileText
-    },
-    {
-        id: 6,
-        title: t('resourcesPage.resources.businessToolkit.title'),
-        description: t('resourcesPage.resources.businessToolkit.description'),
-        type: "guide",
-        size: "15.4 MB",
-        date: "Dec 2023",
-        icon: BookOpen
-    }
-];
-
+    const filteredResources = resources.filter(resource => {
+        const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            resource.description.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesType = activeType === "all" || resource.type === activeType;
+        return matchesSearch && matchesType;
+    });
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -84,11 +95,12 @@ const resources = [
     };
 
     const itemVariants: Variants = {
-        hidden: { scale: 0.95, opacity: 0 },
+        hidden: { scale: 0.95, opacity: 0, y: 20 },
         visible: {
             scale: 1,
             opacity: 1,
-            transition: { duration: 0.4 }
+            y: 0,
+            transition: { duration: 0.4, ease: "easeOut" }
         }
     };
 
@@ -114,20 +126,70 @@ const resources = [
                         </div>
 
                         {/* Search & Filter Bar */}
-                        <div className="flex flex-col md:flex-row gap-4 bg-card p-4 rounded-2xl shadow-lg border border-border/50 hover:border-primary/30 transition-colors">
-                            <div className="relative flex-1">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                                <Input
-                                    placeholder={t('resourcesPage.knowledgeHub.searchPlaceholder')}
-                                    className="pl-12 h-14 bg-background/50 border border-border/50 rounded-2xl focus-visible:ring-primary text-lg hover:border-primary/50 transition-colors"
-                                />
+                        <div className="space-y-6">
+                            <div className="flex flex-col md:flex-row gap-4 bg-card p-4 rounded-3xl shadow-2xl border border-border/50 hover:border-primary/30 transition-all duration-300">
+                                <div className="relative flex-1">
+                                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
+                                    <Input
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder={t('resourcesPage.knowledgeHub.searchPlaceholder')}
+                                        className="pl-14 h-16 bg-background/50 border border-border/50 rounded-2xl focus-visible:ring-primary text-lg hover:border-primary/50 transition-all"
+                                    />
+                                    {searchQuery && (
+                                        <button
+                                            onClick={() => setSearchQuery("")}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                        >
+                                            <X size={20} />
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="flex gap-4">
+                                    <Button
+                                        onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                        variant={isFilterOpen ? "default" : "outline"}
+                                        className={cn(
+                                            "h-16 px-8 rounded-2xl border-border text-lg font-medium gap-2 transition-all duration-300",
+                                            isFilterOpen && "bg-primary text-white shadow-lg shadow-primary/20"
+                                        )}
+                                    >
+                                        <Filter size={20} /> {t('resourcesPage.knowledgeHub.filterButton')}
+                                    </Button>
+                                    <Button className="h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 transition-all active:translate-y-0 group">
+                                        {t('resourcesPage.knowledgeHub.searchButton')}
+                                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                                    </Button>
+                                </div>
                             </div>
-                            <Button variant="outline" className="h-14 px-8 rounded-2xl border-border hover:bg-accent/50 hover:border-primary/30 text-lg font-medium gap-2 transition-colors">
-                                <Filter size={20} /> {t('resourcesPage.knowledgeHub.filterButton')}
-                            </Button>
-                            <Button className="h-14 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
-                                {t('resourcesPage.knowledgeHub.searchButton')}
-                            </Button>
+
+                            {/* Filters Expansion */}
+                            <AnimatePresence>
+                                {isFilterOpen && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="bg-card/50 backdrop-blur-md border border-border/50 rounded-3xl p-6 flex flex-wrap gap-3">
+                                            {resourceTypes.map((type) => (
+                                                <Button
+                                                    key={type}
+                                                    onClick={() => setActiveType(type)}
+                                                    variant={activeType === type ? "default" : "outline"}
+                                                    className={cn(
+                                                        "rounded-xl h-12 px-6 font-bold transition-all duration-300",
+                                                        activeType === type ? "bg-primary text-white shadow-md shadow-primary/10" : "hover:border-primary/50"
+                                                    )}
+                                                >
+                                                    {type === "all" ? "All Resources" : t(`resourcesPage.types.${type}`)}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
                 </div>
@@ -136,58 +198,83 @@ const resources = [
             {/* Resources Grid */}
             <section className="py-24 bg-background/50">
                 <div className="container mx-auto px-4">
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                    >
-                        {resources.map((resource) => (
-                            <motion.div key={resource.id} variants={itemVariants}>
-                                <Card className="h-full bg-card border border-border/50 hover:border-primary/30 shadow-lg hover:shadow-xl transition-all duration-500 rounded-3xl overflow-hidden group">
-                                    <div className="p-10 flex flex-col h-full justify-between space-y-8">
-                                        <div className="space-y-6">
-                                            <div className="flex justify-between items-start">
-                                                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shadow-inner">
-                                                    <resource.icon size={32} />
+                    {filteredResources.length > 0 ? (
+                        <motion.div
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                        >
+                            <AnimatePresence mode="popLayout">
+                                {filteredResources.map((resource) => (
+                                    <motion.div
+                                        key={resource.id}
+                                        layout
+                                        variants={itemVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                    >
+                                        <Card className="h-full bg-card border border-border/50 hover:border-primary/30 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-[2rem] overflow-hidden group">
+                                            <div className="p-10 flex flex-col h-full justify-between space-y-8">
+                                                <div className="space-y-6">
+                                                    <div className="flex justify-between items-start">
+                                                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-inner">
+                                                            <resource.icon size={32} />
+                                                        </div>
+                                                        <span className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/30 transition-colors">
+                                                            {t(`resourcesPage.types.${resource.type}`)}
+                                                        </span>
+                                                    </div>
+                                                    <div className="space-y-3">
+                                                        <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors leading-tight">
+                                                            {resource.title}
+                                                        </h3>
+                                                        <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light">
+                                                            {resource.description}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <span className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/30 transition-colors">
-                                                    {t(`resourcesPage.types.${resource.type}`, {
-                                                        defaultValue: resource.type // Fallback to the original value if translation is missing
-                                                    })}
-                                                </span>
-                                            </div>
-                                            <div className="space-y-3">
-                                                <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
-                                                    {resource.title}
-                                                </h3>
-                                                <p className="text-muted-foreground leading-relaxed line-clamp-3">
-                                                    {resource.description}
-                                                </p>
-                                            </div>
-                                        </div>
 
-                                        <div className="space-y-6">
-                                            <div className="flex items-center justify-between text-sm font-medium text-muted-foreground border-t border-border pt-6">
-                                                <div className="flex items-center gap-2">
-                                                    <ExternalLink size={14} className="text-primary" />
-                                                    <span>{resource.date}</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <Database size={14} className="text-primary" />
-                                                    <span>{resource.size}</span>
+                                                <div className="space-y-6">
+                                                    <div className="flex items-center justify-between text-sm font-medium text-muted-foreground border-t border-border pt-6">
+                                                        <div className="flex items-center gap-2">
+                                                            <ExternalLink size={14} className="text-primary" />
+                                                            <span>{resource.date}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <Database size={14} className="text-primary" />
+                                                            <span>{resource.size}</span>
+                                                        </div>
+                                                    </div>
+                                                    <Button className="w-full h-14 rounded-2xl bg-background border-2 border-primary/20 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-bold text-lg group/btn shadow-sm hover:shadow-md">
+                                                        {t('resourcesPage.download')} <Download className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-y-1" />
+                                                    </Button>
                                                 </div>
                                             </div>
-                                            <Button className="w-full h-14 rounded-2xl bg-background border-2 border-primary/20 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-bold text-lg group/btn shadow-sm hover:shadow-md">
-                                                {t('resourcesPage.download')} <Download className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-y-1" />
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                                        </Card>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-center py-20 space-y-6 bg-card/30 rounded-[3rem] border border-dashed border-border/50"
+                        >
+                            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto text-muted-foreground">
+                                <Search size={40} />
+                            </div>
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold">No resources found</h3>
+                                <p className="text-muted-foreground">Try adjusting your search or filters to find what you're looking for.</p>
+                            </div>
+                            <Button onClick={() => { setSearchQuery(""); setActiveType("all"); }} variant="outline" className="rounded-xl">
+                                Clear all filters
+                            </Button>
+                        </motion.div>
+                    )}
 
                     <div className="mt-20 text-center">
                         <Button variant="link" className="text-primary text-lg font-bold gap-2 hover:no-underline group">

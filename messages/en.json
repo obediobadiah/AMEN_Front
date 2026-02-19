@@ -244,6 +244,92 @@
     "stats": {
       "activeProjects": "{count} Active Projects",
       "completedInitiatives": "{count} Completed Initiatives"
+    },
+    "items": {
+      "1": {
+        "title": "Congo Basin Reforestation",
+        "description": "Restoring 5,000 hectares of degraded forest land through community-led agroforestry and native tree planting.",
+        "location": "Equateur Province",
+        "date": "2023 - Present",
+        "category": "Environment",
+        "details": {
+          "overview": "This flagship initiative focuses on restoring the ecological balance in the Equateur Province. By partnering with local communities, we are planting native species that not only sequester carbon but also provide non-timber forest products for local livelihoods.",
+          "goals": [
+            "Plant 1 million native trees by 2026",
+            "Restore 5,000 hectares of degraded land",
+            "Train 500 community members in sustainable agroforestry"
+          ],
+          "achievements": [
+            "200,000 trees planted in the first year",
+            "Establishment of 5 community nurseries",
+            "30% increase in local household income through nursery management"
+          ],
+          "impact": "The project has already begun to stabilize local micro-climates and has created over 100 green jobs for youth in the region."
+        }
+      },
+      "2": {
+        "title": "Solar Power for Rural Clinics",
+        "description": "Installing off-grid solar energy systems in 10 remote health centers to ensure 24/7 access to medical services.",
+        "location": "Kasaï Region",
+        "date": "2024 - 2025",
+        "category": "Infrastructure",
+        "details": {
+          "overview": "Lack of reliable electricity is a major barrier to healthcare in rural Kasaï. This project provides sustainable energy solutions to frontline health centers, enabling safe births at night and proper cold chain storage for vaccines.",
+          "goals": [
+            "Equip 10 health clinics with 5kW solar systems",
+            "Provide solar-powered refrigeration for vaccines",
+            "Train local technicians for system maintenance"
+          ],
+          "achievements": [
+            "3 clinics fully operational with solar power",
+            "Vaccination capacity increased by 50% in the pilot area",
+            "Zero maternal deaths reported in powered clinics since installation"
+          ],
+          "impact": "Reliable power has transformed these clinics into 24-hour hubs for community health and safety."
+        }
+      },
+      "3": {
+        "title": "Sustainable Fisheries Initiative",
+        "description": "Empowering 500 local fishers with modern equipment and sustainable management practices to protect aquatic biodiversity.",
+        "location": "Lake Tanganyika",
+        "date": "2022 - 2024",
+        "category": "Economy",
+        "details": {
+          "overview": "Overfishing and outdated equipment threaten the livelihoods of thousands around Lake Tanganyika. Our initiative provides sustainable gear and training on catch limits to preserve the lake's rich biodiversity.",
+          "goals": [
+            "Reduce illegal fishing practices by 40%",
+            "Increase 500 fishers' income through better market access",
+            "Establish community-led fish monitoring committees"
+          ],
+          "achievements": [
+            "300 fishers equipped with legal, sustainable nets",
+            "Successfully established 3 protected breeding zones",
+            "Formed the Lake Tanganyika Fishers Cooperative"
+          ],
+          "impact": "The project has foster a new sense of stewardship among fishers, ensuring the lake remains productive for future generations."
+        }
+      },
+      "4": {
+        "title": "Urban Waste Management",
+        "description": "Developing community-based recycling systems in Kinshasa to reduce plastic pollution and create green jobs.",
+        "location": "Kinshasa",
+        "date": "2025 - Upcoming",
+        "category": "Urban Development",
+        "details": {
+          "overview": "Kinshasa faces a growing challenge with plastic waste. This upcoming project aims to turn that waste into wealth by creating community collection hubs and small-scale recycling units.",
+          "goals": [
+            "Establish 20 community waste collection points",
+            "Process 100 tons of plastic waste annually",
+            "Create 200 jobs in sorting and recycling"
+          ],
+          "achievements": [
+            "Feasibility study completed",
+            "Partnership secured with city authorities",
+            "Pilot collection hub location identified"
+          ],
+          "impact": "By formalizing waste management, we aim to improve urban hygiene and provide dignified work for marginalized city residents."
+        }
+      }
     }
   },
   "resourcesPage": {
@@ -251,6 +337,7 @@
     "subtitle": "Knowledge for Sustainable Development",
     "intro": "Access our library of reports, guides, and educational materials. We believe in sharing knowledge to foster broader change across the Congo Basin.",
     "types": {
+      "all": "All Resources",
       "report": "Annual Report",
       "guide": "Technical Guide",
       "infographic": "Infographic",
@@ -352,37 +439,43 @@
         "title": "The Dignity of Human Beings to Work",
         "excerpt": "Exploring how dignity in labor transforms communities and builds self-reliance.",
         "author": "Jean-Pierre Kabangu",
-        "date": "Feb 14, 2024"
+        "date": "Feb 14, 2024",
+        "content": "Work is more than just a means of survival; it is a fundamental aspect of human dignity. In many of the communities we serve, the lack of stable employment or productive labor can lead to a loss of hope and self-worth. At AMEN, we believe that when individuals are empowered with the skills and tools to work, they not only provide for their families but also regain their sense of purpose.\n\nOur initiatives focus on creating sustainable labor opportunities that respect the local culture and environment. From vocational training in masonry and carpentry to supporting small-scale manufacturing, we see firsthand how dignity in work transforms lives. When a father can provide for his children through his own sweat and skill, the impact ripples through the entire household, fostering resilience and independence."
       },
       "2": {
         "title": "The Power of People Against Poverty",
         "excerpt": "Community-led initiatives are showing remarkable results in the fight against extreme poverty.",
         "author": "Marie-Louise Mambo",
-        "date": "Feb 10, 2024"
+        "date": "Feb 10, 2024",
+        "content": "Poverty is often viewed as an insurmountable force, but we have witnessed a different reality: the power of organized people. When communities come together to address their own challenges, the solutions are more sustainable and culturally relevant. This article explores several case studies where local committees have taken charge of their development.\n\nIn the Goma field office, women-led cooperatives have successfully managed micro-loan programs that have lifted dozens of families out of extreme poverty. By pooling resources and sharing risks, these individuals have built a safety net that traditional aid often fails to provide. The lesson is clear: the most effective weapon against poverty is not just financial aid, but the empowerment of people to act collectively."
       },
       "3": {
         "title": "Driving Force Out of Poverty",
         "excerpt": "Education remains the single most effective tool for breaking the cycle of poverty.",
         "author": "Paul Bakenga",
-        "date": "Jan 28, 2024"
+        "date": "Jan 28, 2024",
+        "content": "Education is often called the great equalizer, and for good reason. For children in rural areas of the Congo Basin, access to a quality education is the bridge between a life of hardship and a future of opportunity. However, barriers such as cost, distance, and lack of resources often stand in the way.\n\nAMEN is committed to breaking these barriers. Through our scholarship programs and support for local schools, we are helping the next generation gain the literacy and technical skills needed to thrive in a changing world. Education isn't just about reading and writing; it's about developing critical thinking and the confidence to dream bigger. We are proud to see our graduates becoming the new leaders, teachers, and innovators in their communities."
       },
       "4": {
         "title": "Sustainable Agriculture Techniques for Rural Households",
         "excerpt": "New workshops are helping farmers adapt to climate change while increasing yields.",
         "author": "Alice Zola",
-        "date": "Jan 15, 2024"
+        "date": "Jan 15, 2024",
+        "content": "Climate change is no longer a distant threat; it is a daily reality for farmers in our project regions. Unpredictable rainfall and rising temperatures have made traditional farming methods less reliable. To address this, AMEN has launched a series of workshops focused on climate-smart agriculture.\n\nFarmers are learning techniques such as crop rotation, organic composting, and water conservation methods that protect the soil while ensuring better harvests. These sustainable practices not only improve food security but also preserve the rich biodiversity of the Congo Basin. By working with nature rather than against it, rural households are building a future that is both prosperous and environmentally sound."
       },
       "5": {
         "title": "Joint Initiative Launched for Clean Water",
         "excerpt": "AMEN partners with local authorities to build 10 new solar-powered wells.",
         "author": "Jean-Pierre Kabangu",
-        "date": "Jan 05, 2024"
+        "date": "Jan 05, 2024",
+        "content": "Access to clean water is a basic human right, yet it remains out of reach for many. In a major step forward, AMEN has partnered with local provincial authorities to launch a new clean water initiative. This project will see the construction of 10 solar-powered wells across underserved districts.\n\nSolar energy provides a reliable and low-maintenance way to pump water, ensuring a steady supply even in remote areas. This project will drastically reduce the time women and children spend fetching water, allowing more time for school and productive labor. More importantly, it will significantly lower the incidence of waterborne diseases, improving the overall health of thousands of residents."
       },
       "6": {
         "title": "Success Story: How Cooperative Markets Changed Lives",
         "excerpt": "A look at the transformative impact of community-led market systems on local economy.",
         "author": "Sarah Mbizi",
-        "date": "Dec 20, 2023"
+        "date": "Dec 20, 2023",
+        "content": "For many rural producers, getting their goods to market is a major hurdle. Middlemen often take a large share of the profits, leaving farmers with very little. Our cooperative market model was designed to change this dynamic by giving producers more control over their sales.\n\nBy organizing into cooperatives, farmers can negotiate better prices and share transportation costs. In the latest quarter, we have seen a 30% increase in average household income in participating villages. One farmer, Josephine, shared how the extra income allowed her to fix her roof and send her youngest daughter to secondary school. These are the stories that drive us forward, proving that with the right structure, local economies can thrive."
       }
     }
   },

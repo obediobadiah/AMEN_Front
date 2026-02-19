@@ -9,6 +9,7 @@ import { Calendar, User, ArrowRight, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function News() {
   const t = useTranslations();
@@ -161,10 +162,12 @@ export default function News() {
                     {filteredArticles[0].excerpt}
                   </p>
                   <div className="pt-4">
-                    <Button className="h-14 px-10 rounded-2xl bg-white text-slate-900 hover:bg-primary hover:text-white font-black text-lg transition-all flex items-center gap-3">
-                      {t('actualitesPage.readMore')}
-                      <ArrowRight size={20} />
-                    </Button>
+                    <Link href={`/news/actualites/${filteredArticles[0].id}`}>
+                      <Button className="h-14 px-10 rounded-2xl bg-white text-slate-900 hover:bg-primary hover:text-white font-black text-lg transition-all flex items-center gap-3">
+                        {t('actualitesPage.readMore')}
+                        <ArrowRight size={20} />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -217,12 +220,14 @@ export default function News() {
                   </p>
 
                   <div className="pt-6 mt-auto">
-                    <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
-                      {t('actualitesPage.readMore')}
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
-                        <ArrowRight size={16} />
-                      </div>
-                    </Button>
+                    <Link href={`/news/actualites/${article.id}`}>
+                      <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
+                        {t('actualitesPage.readMore')}
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
+                          <ArrowRight size={16} />
+                        </div>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </motion.div>

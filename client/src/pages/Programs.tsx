@@ -93,8 +93,8 @@ export default function Programs() {
 
                       <div className="space-y-3">
                         <div className="flex justify-between text-sm font-bold">
-                          <span className="text-primary">{t('home.programs.raised')}: ${program.raised.toLocaleString()}</span>
-                          <span className="text-muted-foreground">{t('home.programs.goal')}: ${program.goal.toLocaleString()}</span>
+                          <span className="text-primary">{t('home.programs.raised')}</span>
+                          <span className="text-muted-foreground">{t('home.programs.goal')}</span>
                         </div>
                         <div className="relative h-2.5 w-full bg-muted rounded-full overflow-hidden">
                           <motion.div
@@ -108,7 +108,7 @@ export default function Programs() {
 
                       <div className="pt-2">
                         <Button className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 hover:shadow-primary/30">
-                          {t('home.programs.donateNow')} <Heart className="ml-2 h-4 w-4 fill-current" />
+                          <a href="/donate" className="flex items-center gap-2">{t('home.programs.donateNow')} <Heart className="ml-2 h-4 w-4 fill-current" /></a>
                         </Button>
                       </div>
                     </CardContent>
@@ -184,10 +184,10 @@ export default function Programs() {
             </p>
             <div className="flex flex-wrap justify-center gap-4 relative z-10">
               <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-full px-10 h-14 text-lg font-bold shadow-xl">
-                {t('programsPage.cta.joinNow')}
+                <a href="/get-involved" className="flex items-center gap-2">{t('programsPage.cta.joinNow')}</a>
               </Button>
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-full px-10 h-14 text-lg font-bold">
-                {t('programsPage.cta.contactUs')} <ArrowRight className="ml-2 h-5 w-5" />
+                <a href="/contact" className="flex items-center gap-2">{t('programsPage.cta.contactUs')} <ArrowRight className="ml-2 h-5 w-5" /></a>
               </Button>
             </div>
           </div>

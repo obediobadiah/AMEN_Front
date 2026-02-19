@@ -244,6 +244,92 @@
       "activeProjects": "{count} Projets Actifs",
       "completedInitiatives": "{count} Initiatives Terminées"
     },
+    "items": {
+      "1": {
+        "title": "Reforestation du Bassin du Congo",
+        "description": "Restauration de 5 000 hectares de terres forestières dégradées grâce à l'agroforesterie communautaire et à la plantation d'arbres indigènes.",
+        "location": "Province de l'Équateur",
+        "date": "2023 - Présent",
+        "category": "Environnement",
+        "details": {
+          "overview": "Cette initiative phare se concentre sur la restauration de l'équilibre écologique dans la province de l'Équateur. En partenariat avec les communautés locales, nous plantons des espèces indigènes qui non seulement séquestrent le carbone mais fournissent également des produits forestiers non ligneux pour les moyens de subsistance locaux.",
+          "goals": [
+            "Planter 1 million d'arbres indigènes d'ici 2026",
+            "Restaurer 5 000 hectares de terres dégradées",
+            "Former 500 membres de la communauté à l'agroforesterie durable"
+          ],
+          "achievements": [
+            "200 000 arbres plantés au cours de la première année",
+            "Création de 5 pépinières communautaires",
+            "Augmentation de 30 % du revenu des ménages locaux grâce à la gestion des pépinières"
+          ],
+          "impact": "Le projet a déjà commencé à stabiliser les micro-climats locaux et a créé plus de 100 emplois verts pour les jeunes de la région."
+        }
+      },
+      "2": {
+        "title": "Énergie Solaire pour les Cliniques Rurales",
+        "description": "Installation de systèmes d'énergie solaire hors réseau dans 10 centres de santé isolés pour assurer un accès 24h/24 et 7j/7 aux services médicaux.",
+        "location": "Région du Kasaï",
+        "date": "2024 - 2025",
+        "category": "Infrastructure",
+        "details": {
+          "overview": "Le manque d'électricité fiable est un obstacle majeur aux soins de santé dans le Kasaï rural. Ce projet fournit des solutions énergétiques durables aux centres de santé de première ligne, permettant des accouchements sûrs la nuit et une conservation adéquate de la chaîne du froid pour les vaccins.",
+          "goals": [
+            "Équiper 10 cliniques de santé avec des systèmes solaires de 5 kW",
+            "Fournir une réfrigération solaire pour les vaccins",
+            "Former des techniciens locaux pour la maintenance du système"
+          ],
+          "achievements": [
+            "3 cliniques entièrement opérationnelles grâce à l'énergie solaire",
+            "Capacité de vaccination augmentée de 50 % dans la zone pilote",
+            "Zéro décès maternel signalé dans les cliniques alimentées depuis l'installation"
+          ],
+          "impact": "Une énergie fiable a transformé ces cliniques en pôles permanents pour la santé et la sécurité de la communauté."
+        }
+      },
+      "3": {
+        "title": "Initiative pour une Pêche Durable",
+        "description": "Autonomisation de 500 pêcheurs locaux avec des équipements modernes et des pratiques de gestion durable pour protéger la biodiversité aquatique.",
+        "location": "Lac Tanganyika",
+        "date": "2022 - 2024",
+        "category": "Économie",
+        "details": {
+          "overview": "La surpêche et les équipements obsolètes menacent les moyens de subsistance de milliers de personnes autour du lac Tanganyika. Notre initiative fournit du matériel durable et une formation sur les limites de capture pour préserver la riche biodiversité du lac.",
+          "goals": [
+            "Réduire les pratiques de pêche illégales de 40 %",
+            "Augmenter les revenus de 500 pêcheurs grâce à un meilleur accès au marché",
+            "Établir des comités communautaires de surveillance de la pêche"
+          ],
+          "achievements": [
+            "300 pêcheurs équipés de filets légaux et durables",
+            "Établissement réussi de 3 zones de reproduction protégées",
+            "Formation de la Coopérative des Pêcheurs du Lac Tanganyika"
+          ],
+          "impact": "Le projet a favorisé un nouveau sens des responsabilités parmi les pêcheurs, garantissant que le lac reste productif pour les générations futures."
+        }
+      },
+      "4": {
+        "title": "Gestion des Déchets Urbains",
+        "description": "Développement de systèmes de recyclage communautaires à Kinshasa pour réduire la pollution plastique et créer des emplois verts.",
+        "location": "Kinshasa",
+        "date": "2025 - À venir",
+        "category": "Développement Urbain",
+        "details": {
+          "overview": "Kinshasa fait face à un défi croissant lié aux déchets plastiques. Ce projet à venir vise à transformer ces déchets en richesse en créant des centres de collecte communautaires et des unités de recyclage à petite échelle.",
+          "goals": [
+            "Établir 20 points de collecte communautaires des déchets",
+            "Traiter 100 tonnes de déchets plastiques par an",
+            "Créer 200 emplois dans le tri et le recyclage"
+          ],
+          "achievements": [
+            "Étude de faisabilité terminée",
+            "Partenariat sécurisé avec les autorités de la ville",
+            "Emplacement du centre de collecte pilote identifié"
+          ],
+          "impact": "En formalisant la gestion des déchets, nous visons à améliorer l'hygiène urbaine et à fournir un travail digne aux résidents marginalisés de la ville."
+        }
+      }
+    },
     "resourceHighlights": "Points forts des ressources",
     "recentPublications": "Publications et ensembles de données récemment ajoutés à notre centre."
   },
@@ -252,6 +338,7 @@
     "subtitle": "Connaissances pour le développement durable",
     "intro": "Accédez à notre bibliothèque de rapports, de guides et de matériel pédagogique. Nous croyons au partage des connaissances pour favoriser un changement plus large dans tout le bassin du Congo.",
     "types": {
+      "all": "Toutes les ressources",
       "report": "Rapport Annuel",
       "guide": "Guide Technique",
       "infographic": "Infographie",
@@ -353,37 +440,43 @@
         "title": "La Dignité des Êtres Humains au Travail",
         "excerpt": "Explorer comment la dignité dans le travail transforme les communautés et renforce l'autonomie.",
         "author": "Jean-Pierre Kabangu",
-        "date": "14 fév. 2024"
+        "date": "14 fév. 2024",
+        "content": "Le travail est plus qu'un simple moyen de survie ; c'est un aspect fondamental de la dignité humaine. Dans nombre de communautés que nous servons, l'absence d'emploi stable ou de travail productif peut mener à une perte d'espoir et d'estime de soi. Chez AMEN, nous croyons que lorsque les individus reçoivent les compétences et les outils nécessaires pour travailler, ils ne subviennent pas seulement aux besoins de leur famille, mais retrouvent aussi leur sens des responsabilités.\n\nNos initiatives se concentrent sur la création d'opportunités de travail durables qui respectent la culture et l'environnement locaux. De la formation professionnelle en maçonnerie et menuiserie au soutien de la petite industrie, nous voyons de nos propres yeux comment la dignité dans le travail transforme les vies. Lorsqu'un père peut subvenir aux besoins de ses enfants par sa propre sueur et ses compétences, l'impact se répercute sur tout le foyer, favorisant la résilience et l'indépendance."
       },
       "2": {
         "title": "Le Pouvoir des Gens Contre la Pauvreté",
         "excerpt": "Les initiatives dirigées par la communauté montrent des résultats remarquables dans la lutte contre l'extrême pauvreté.",
         "author": "Marie-Louise Mambo",
-        "date": "10 fév. 2024"
+        "date": "10 fév. 2024",
+        "content": "La pauvreté est souvent perçue comme une force insurmontable, mais nous avons été témoins d'une réalité différente : le pouvoir des gens organisés. Lorsque les communautés s'unissent pour relever leurs propres défis, les solutions sont plus durables et culturellement pertinentes. Cet article explore plusieurs études de cas où des comités locaux ont pris en charge leur propre développement.\n\nDans le bureau de terrain de Goma, des coopératives dirigées par des femmes ont géré avec succès des programmes de micro-crédit qui ont sorti des dizaines de familles de l'extrême pauvreté. En mettant en commun leurs ressources et en partageant les risques, ces individus ont construit un filet de sécurité que l'aide traditionnelle ne parvient souvent pas à fournir. La leçon est claire : l'arme la plus efficace contre la pauvreté n'est pas seulement l'aide financière, mais l'autonomisation des gens pour qu'ils agissent collectivement."
       },
       "3": {
         "title": "Force motrice hors de la pauvreté",
         "excerpt": "L'éducation reste l'outil le plus efficace pour briser le cycle de la pauvreté.",
         "author": "Paul Bakenga",
-        "date": "28 janv. 2024"
+        "date": "28 janv. 2024",
+        "content": "L'éducation est souvent appelée le grand égalisateur, et pour cause. Pour les enfants des zones rurales du bassin du Congo, l'accès à une éducation de qualité est le pont entre une vie de privations et un avenir plein d'opportunités. Cependant, des obstacles tels que le coût, la distance et le manque de ressources s'y opposent souvent.\n\nAMEN s'engage à briser ces barrières. Grâce à nos programmes de bourses et à notre soutien aux écoles locales, nous aidons la prochaine génération à acquérir les compétences d'alphabétisation et les aptitudes techniques nécessaires pour prospérer dans un monde en mutation. L'éducation ne se résume pas à lire et écrire ; il s'agit de développer la pensée critique et la confiance nécessaire pour rêver en grand. Nous sommes fiers de voir nos diplômés devenir les nouveaux leaders, enseignants et innovateurs de leurs communautés."
       },
       "4": {
         "title": "Techniques d'Agriculture Durable pour les Ménages Ruraux",
         "excerpt": "De nouveaux ateliers aident les agriculteurs à s'adapter au changement climatique tout en augmentant les rendements.",
         "author": "Alice Zola",
-        "date": "15 janv. 2024"
+        "date": "15 janv. 2024",
+        "content": "Le changement climatique n'est plus une menace lointaine ; c'est une réalité quotidienne pour les agriculteurs de nos régions de projet. Les pluies imprévisibles et la hausse des températures ont rendu les méthodes agricoles traditionnelles moins fiables. Pour y remédier, AMEN a lancé une série d'ateliers axés sur l'agriculture intelligente face au climat.\n\nLes agriculteurs apprennent des techniques telles que la rotation des cultures, le compostage organique et les méthodes de conservation de l'eau qui protègent le sol tout en garantissant de meilleures récoltes. Ces pratiques durables améliorent non seulement la sécurité alimentaire, mais préservent également la riche biodiversité du bassin du Congo. En travaillant avec la nature plutôt que contre elle, les ménages ruraux construisent un avenir à la fois prospère et respectueux de l'environnement."
       },
       "5": {
         "title": "Lancement d'une Initiative Conjointe pour l'Eau Potable",
         "excerpt": "AMEN s'associe aux autorités locales pour construire 10 nouveaux puits à énergie solaire.",
         "author": "Jean-Pierre Kabangu",
-        "date": "5 janv. 2024"
+        "date": "5 janv. 2024",
+        "content": "L'accès à l'eau potable est un droit humain fondamental, et pourtant, il reste hors de portée pour beaucoup. Dans une étape majeure, AMEN s'est associé aux autorités provinciales locales pour lancer une nouvelle initiative d'eau potable. Ce projet verra la construction de 10 puits à énergie solaire dans des districts mal desservis.\n\nL'énergie solaire fournit un moyen fiable et peu coûteux en entretien pour pomper l'eau, garantissant un approvisionnement régulier même dans les zones reculées. Ce projet réduira considérablement le temps que les femmes et les enfants passent à aller chercher de l'eau, laissant plus de temps pour l'école et le travail productif. Plus important encore, il fera baisser significativement l'incidence des maladies d'origine hydrique, améliorant la santé globale de milliers de résidents."
       },
       "6": {
         "title": "Success Story : Comment les Marchés Coopératifs ont Changé des Vies",
         "excerpt": "Un regard sur l'impact transformateur des systèmes de marché dirigés par la communauté sur l'économie locale.",
         "author": "Sarah Mbizi",
-        "date": "20 déc. 2023"
+        "date": "20 déc. 2023",
+        "content": "Pour de nombreux producteurs ruraux, acheminer leurs marchandises au marché est un obstacle majeur. Les intermédiaires s'accaparent souvent une grande partie des bénéfices, laissant très peu aux agriculteurs. Notre modèle de marché coopératif a été conçu pour changer cette dynamique en donnant aux producteurs plus de contrôle sur leurs ventes.\n\nEn s'organisant en coopératives, les agriculteurs peuvent négocier de meilleurs prix et partager les coûts de transport. Au cours du dernier trimestre, nous avons constaté une augmentation de 30 % du revenu moyen des ménages dans les villages participants. Une agricultrice, Joséphine, a raconté comment ce revenu supplémentaire lui a permis de réparer son toit et d'envoyer sa plus jeune fille à l'école secondaire. Ce sont ces histoires qui nous poussent à aller de l'avant, prouvant qu'avec la bonne structure, les économies locales peuvent prospérer."
       }
     }
   },

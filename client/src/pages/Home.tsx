@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { ArrowRight, CheckCircle2, Globe, Heart, Users } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const t = useTranslations();
@@ -69,7 +70,7 @@ export default function Home() {
 
               <div className="pt-6">
                 <Button className="rounded-full px-8 py-6 text-base bg-primary text-primary-foreground hover:bg-primary/90">
-                  {t('home.aboutSection.cta')}
+                  <a href="/about/vision-mission">{t('home.aboutSection.cta')}</a>
                 </Button>
               </div>
             </div>
@@ -129,14 +130,14 @@ export default function Home() {
 
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm font-medium">
-                        <span className="text-primary">{t('home.programs.raised')}: ${program.raised.toLocaleString()}</span>
-                        <span className="text-muted-foreground">{t('home.programs.goal')}: ${program.goal.toLocaleString()}</span>
+                        <span className="text-primary">{t('home.programs.raised')}</span>
+                        <span className="text-muted-foreground">{t('home.programs.goal')}</span>
                       </div>
                       <Progress value={(program.raised / program.goal) * 100} className="h-2" />
                     </div>
 
                     <Button variant="outline" className="w-full rounded-full border-primary/20 hover:bg-primary hover:text-white transition-all group-hover:border-primary">
-                      {t('home.programs.donateNow')} <Heart className="ml-2 h-4 w-4" />
+                      <a href="/donate" className="flex items-center justify-center gap-2 w-full">{t('home.programs.donateNow')} <Heart className="ml-2 h-4 w-4" /></a>
                     </Button>
                   </CardContent>
                 </Card>
@@ -154,43 +155,54 @@ export default function Home() {
               <span className="text-primary font-medium tracking-wide uppercase text-sm">{t('home.newsSection.badge')}</span>
               <h2 className="text-4xl font-heading font-bold text-foreground">{t('home.newsSection.title')}</h2>
             </div>
-            <Button variant="ghost" className="hidden md:flex gap-2">
-              {t('home.newsSection.viewAll')} <ArrowRight size={16} />
-            </Button>
+            <Link href="/news/actualites">
+              <Button variant="ghost" className="hidden md:flex gap-2">
+                {t('home.newsSection.viewAll')} <ArrowRight size={16} />
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {news.map((item, index) => {
-              const articleKey = `article${index + 1}`;
-              return (
-                <div key={item.id} className="group cursor-pointer shadow-lg rounded-2xl">
-                  <div className="rounded-2xl overflow-hidden mb-4 relative aspect-[4/3]">
-                    <img
-                      src={item.image}
-                      alt={t(`home.newsSection.${articleKey}.title`)}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 bg-primary text-white px-4 py-2 rounded-tr-xl">
-                      <span className="text-xs font-bold">{item.date}</span>
-                    </div>
-                  </div>
-                  <div className="space-y-2 p-8">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground uppercase tracking-wider">
-                      <span className="text-primary font-bold">{t('home.newsSection.by')} {item.author}</span>
-                      <span>•</span>
-                      <span>{t('home.newsSection.news')}</span>
-                    </div>
-                    <h3 className="text-xl font-bold font-heading leading-tight group-hover:text-primary transition-colors">
-                      {t(`home.newsSection.${articleKey}.title`)}
-                    </h3>
-                    <p className="text-muted-foreground text-sm line-clamp-2">{t(`home.newsSection.${articleKey}.excerpt`)}</p>
-                    <span className="inline-flex items-center text-sm font-medium text-foreground underline decoration-primary/30 underline-offset-4 group-hover:decoration-primary transition-all pt-2">
-                      {t('home.newsSection.readMore')}
+            {[1, 2, 3].map((id) => (
+              <Link href={`/news/actualites/${id}`} key={id} className="group cursor-pointer shadow-lg rounded-[2rem] bg-card border border-border/40 overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={id === 1 ? images.news1 : id === 2 ? images.news2 : images.news3}
+                    alt={t(`actualitesPage.articles.${id}.title`)}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest text-primary z-10">
+                      {t('home.newsSection.news')}
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 bg-primary text-white px-6 py-2 rounded-tr-[1.5rem]">
+                    <span className="text-xs font-black">{t(`actualitesPage.articles.${id}.date`)}</span>
+                  </div>
                 </div>
-              );
-            })}
+                <div className="space-y-4 p-8">
+                  <div className="flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+                    <span className="text-primary">{t(`actualitesPage.articles.${id}.author`)}</span>
+                    <span className="w-1 h-1 rounded-full bg-border" />
+                    <span>5 min read</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-black font-heading leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                    {t(`actualitesPage.articles.${id}.title`)}
+                  </h3>
+                  <p className="text-muted-foreground text-sm font-light line-clamp-2 leading-relaxed">
+                    {t(`actualitesPage.articles.${id}.excerpt`)}
+                  </p>
+                  <div className="pt-4 flex items-center justify-between">
+                    <span className="inline-flex items-center text-xs font-black uppercase tracking-widest text-foreground underline decoration-primary/30 underline-offset-8 group-hover:decoration-primary group-hover:text-primary transition-all">
+                      {t('home.newsSection.readMore')}
+                    </span>
+                    <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                      <ArrowRight size={18} />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -243,7 +255,7 @@ export default function Home() {
                 size="lg"
                 className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-full px-8 h-14 text-base font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
               >
-                {t('home.cta.joinNow')}
+                <a href="/get-involved">{t('home.cta.joinNow')}</a>
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
@@ -251,7 +263,7 @@ export default function Home() {
                 size="lg"
                 className="border-2 border-white/30 hover:border-white/50 bg-transparent hover:bg-white/10 text-white rounded-full px-8 h-14 text-base font-medium transition-all duration-300 transform hover:-translate-y-1"
               >
-                {t('home.cta.contactUs')}
+                <a href="/contact">{t('home.cta.contactUs')}</a>
               </Button>
             </div>
 
