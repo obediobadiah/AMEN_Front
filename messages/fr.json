@@ -591,6 +591,18 @@
       "activeProjects": "{count} Projets Actifs",
       "completedInitiatives": "{count} Initiatives Terminées"
     },
+    "detail": {
+      "location": "Localisation",
+      "duration": "Durée",
+      "sector": "Secteur",
+      "overview": "Aperçu du Projet",
+      "goals": "Objectifs Clés",
+      "achievements": "Réalisations",
+      "socialImpact": "Impact Social",
+      "cta": "Soutenir cet effort",
+      "exploreTitle": "Explorer d'autres projets",
+      "viewAll": "Voir tous les projets"
+    },
     "items": {
       "1": {
         "title": "Reforestation du Bassin du Congo",
@@ -782,6 +794,18 @@
     },
     "readMore": "Lire l'histoire complète",
     "loadMore": "Charger plus d'articles",
+    "detail": {
+      "author": "Auteur",
+      "published": "Publié",
+      "readingTime": "Temps de lecture",
+      "readingTimeValue": "5 min",
+      "share": "Partager l'impact",
+      "comment": "Commenter cette histoire",
+      "tags": {
+        "sd": "#DéveloppementDurable",
+        "cb": "#BassinDuCongo"
+      }
+    },
     "articles": {
       "1": {
         "title": "La Dignité des Êtres Humains au Travail",

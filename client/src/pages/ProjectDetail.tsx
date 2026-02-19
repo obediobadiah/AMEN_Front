@@ -58,7 +58,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                                     <MapPin size={24} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Location</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('projectsPage.detail.location')}</p>
                                     <p className="font-bold text-foreground">{project.location}</p>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                                     <Calendar size={24} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Duration</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('projectsPage.detail.duration')}</p>
                                     <p className="font-bold text-foreground">{project.date}</p>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                                     <Zap size={24} />
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Sector</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('projectsPage.detail.sector')}</p>
                                     <p className="font-bold text-foreground">{project.category}</p>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                             <div className="lg:col-span-2 space-y-12">
                                 <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
                                     <h2 className="text-3xl font-heading font-bold mb-6 flex items-center gap-3">
-                                        <Target className="text-primary" /> Project Overview
+                                        <Target className="text-primary" /> {t('projectsPage.detail.overview')}
                                     </h2>
                                     <p className="text-muted-foreground text-lg leading-relaxed font-light">
                                         {project.overview}
@@ -96,7 +96,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
 
                                 <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
                                     <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
-                                        <Users className="text-primary" /> Key Goals
+                                        <Users className="text-primary" /> {t('projectsPage.detail.goals')}
                                     </h2>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {project.goals.map((goal: string, idx: number) => (
@@ -110,7 +110,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
 
                                 <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
                                     <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
-                                        <BarChart3 className="text-primary" /> Achievements
+                                        <BarChart3 className="text-primary" /> {t('projectsPage.detail.achievements')}
                                     </h2>
                                     <ul className="space-y-6">
                                         {project.achievements.map((achievement: string, idx: number) => (
@@ -127,13 +127,13 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                             <div className="space-y-8">
                                 <div className="bg-slate-950 text-white rounded-[2.5rem] p-10 shadow-2xl relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl" />
-                                    <h3 className="text-2xl font-heading font-bold mb-6">Social Impact</h3>
+                                    <h3 className="text-2xl font-heading font-bold mb-6">{t('projectsPage.detail.socialImpact')}</h3>
                                     <p className="text-slate-400 leading-relaxed mb-8">
                                         {project.impact}
                                     </p>
                                     <Link href="/get-involved">
                                         <Button className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-widest text-xs">
-                                            Join this effort
+                                            {t('projectsPage.detail.cta')}
                                         </Button>
                                     </Link>
                                 </div>
@@ -142,10 +142,10 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                                     <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
                                         <ArrowLeft className="text-muted-foreground" />
                                     </div>
-                                    <h4 className="font-bold">Explore More Projects</h4>
+                                    <h4 className="font-bold">{t('projectsPage.detail.exploreTitle')}</h4>
                                     <Link href="/activities/projects">
                                         <Button variant="outline" className="rounded-full px-8">
-                                            View All Projects
+                                            {t('projectsPage.detail.viewAll')}
                                         </Button>
                                     </Link>
                                 </div>
