@@ -130,7 +130,7 @@ export default function GetInvolved() {
                                     {t('getInvolvedPage.careers.description')}
                                 </p>
                                 <Button variant="link" className="p-0 h-auto text-emerald-600 font-bold group/btn text-base">
-                                    {t('getInvolvedPage.careers.cta')} <ArrowRight size={18} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
+                                    <a href="/about/human-resources">{t('getInvolvedPage.careers.cta')}</a> <ArrowRight size={18} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
                                 </Button>
                             </div>
                         </motion.div>
@@ -157,7 +157,7 @@ export default function GetInvolved() {
                                     {t('getInvolvedPage.partnerships.description')}
                                 </p>
                                 <Button variant="link" className="p-0 h-auto text-amber-600 font-bold group/btn text-base">
-                                    {t('getInvolvedPage.partnerships.cta')} <ArrowRight size={18} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
+                                    <a href="/about/partnerships-networks">{t('getInvolvedPage.partnerships.cta')}</a> <ArrowRight size={18} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
                                 </Button>
                             </div>
                         </motion.div>

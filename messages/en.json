@@ -593,6 +593,18 @@
       "activeProjects": "{count} Active Projects",
       "completedInitiatives": "{count} Completed Initiatives"
     },
+    "detail": {
+      "location": "Location",
+      "duration": "Duration",
+      "sector": "Sector",
+      "overview": "Project Overview",
+      "goals": "Key Goals",
+      "achievements": "Achievements",
+      "socialImpact": "Social Impact",
+      "cta": "Join this effort",
+      "exploreTitle": "Explore More Projects",
+      "viewAll": "View All Projects"
+    },
     "items": {
       "1": {
         "title": "Congo Basin Reforestation",
@@ -782,6 +794,14 @@
     },
     "readMore": "Read Full Story",
     "loadMore": "Load More Articles",
+    "detail": {
+      "author": "Author",
+      "published": "Published",
+      "readingTime": "Reading Time",
+      "readingTimeValue": "5 min",
+      "share": "Share the impact",
+      "comment": "Comment on this story"
+    },
     "articles": {
       "1": {
         "title": "The Dignity of Human Beings to Work",

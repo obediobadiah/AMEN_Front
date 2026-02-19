@@ -61,7 +61,7 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                                         <User size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Author</p>
+                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('actualitesPage.detail.author')}</p>
                                         <p className="font-bold text-foreground">{article.author}</p>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                                         <Calendar size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Published</p>
+                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('actualitesPage.detail.published')}</p>
                                         <p className="font-bold text-foreground">{article.date}</p>
                                     </div>
                                 </div>
@@ -79,8 +79,8 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                                         <Clock size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">Reading Time</p>
-                                        <p className="font-bold text-foreground">5 min</p>
+                                        <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('actualitesPage.detail.readingTime')}</p>
+                                        <p className="font-bold text-foreground">{t('actualitesPage.detail.readingTimeValue')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                             {/* Share & Feedback */}
                             <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                                 <div className="space-y-4 text-center md:text-left">
-                                    <h5 className="text-xs font-black uppercase tracking-[0.3em] text-foreground">Share the impact</h5>
+                                    <h5 className="text-xs font-black uppercase tracking-[0.3em] text-foreground">{t('actualitesPage.detail.share')}</h5>
                                     <div className="flex gap-3 justify-center md:justify-start">
                                         {['Facebook', 'Twitter', 'LinkedIn'].map(platform => (
                                             <Button key={platform} size="icon" variant="outline" className="w-12 h-12 rounded-[1rem] border-border hover:border-primary hover:text-primary transition-all duration-300">
@@ -155,7 +155,7 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                         <div className="mt-20 flex justify-center">
                             <Link href="/contact">
                                 <Button className="h-16 px-12 rounded-full bg-slate-950 text-white font-black uppercase tracking-widest text-sm hover:bg-primary transition-all shadow-xl shadow-black/10 group">
-                                    Comment on this story
+                                    {t('actualitesPage.detail.comment')}
                                     <ArrowRight size={20} className="ml-3 transition-transform group-hover:translate-x-2" />
                                 </Button>
                             </Link>
