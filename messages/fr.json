@@ -831,5 +831,61 @@
   "metadata": {
     "title": "AMEN - Alternatives Ménages, Nature et Marchés",
     "description": "Organisation humanitaire dédiée à l'autonomisation des communautés, à la protection de l'environnement et au développement durable."
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Tableau de Bord",
+      "news": "Actualités & Articles",
+      "events": "Événements d'Impact",
+      "publications": "Publications Officielles",
+      "multimedia": "Médiathèque",
+      "projects": "Projets de Terrain",
+      "resources": "Centre de Ressources",
+      "governance": "Gouvernance & Équipe",
+      "donations": "Registres des Dons",
+      "contacts": "Messages Entrants",
+      "settings": "Paramètres du Portail",
+      "viewWebsite": "Voir le Site",
+      "logout": "Déconnexion",
+      "welcomeAdmin": "Administrateur Système"
+    },
+    "dashboard": {
+      "welcome": "Bon retour, Administrateur",
+      "overview": "Aperçu des Performances de la Plateforme",
+      "stats": {
+        "totalDonations": "Revenus Totaux",
+        "activeProjects": "Initiatives Actives",
+        "communitiesReached": "Portée de l'Impact",
+        "pendingTasks": "Révisions en Attente",
+        "growth": "{value}% par rapport à la période précédente"
+      },
+      "charts": {
+        "donationImpact": "Distribution du Financement et de l'Impact",
+        "monthlyGrowth": "Tendance de Croissance Communautaire"
+      },
+      "recentActivity": {
+        "title": "Flux d'Activité en Direct",
+        "description": "Mises à jour en temps réel sur toute la plateforme",
+        "newDonation": "Nouveau don de {amount} reçu",
+        "projectUpdate": "Le projet {name} a atteint un nouveau jalon",
+        "newVolunteer": "Demande de bénévolat professionnel de {name}",
+        "time": "Il y a {time}"
+      },
+      "quickActions": {
+        "title": "Actions Rapides",
+        "newArticle": "Écrire un Article",
+        "newProject": "Lancer un Projet",
+        "uploadMedia": "Ajouter un Média"
+      }
+    },
+    "common": {
+      "edit": "Modifier l'Entrée",
+      "delete": "Supprimer l'Entrée",
+      "save": "Enregistrer les Changements",
+      "cancel": "Abandonner",
+      "search": "Filtrer par mots-clés...",
+      "status": "État Opérationnel",
+      "actions": "Actions sur le Registre"
+    }
   }
 }

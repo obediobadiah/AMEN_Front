@@ -830,5 +830,61 @@
   "metadata": {
     "title": "AMEN - Alternatives Ménages, Nature et Marchés",
     "description": "Humanitarian Organization dedicated to community empowerment, environmental protection, and sustainable development."
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "news": "News & Articles",
+      "events": "Impact Events",
+      "publications": "Official Publications",
+      "multimedia": "Media Library",
+      "projects": "Field Projects",
+      "resources": "Knowledge Hub",
+      "governance": "Governance & Team",
+      "donations": "Donation Records",
+      "contacts": "Incoming Messages",
+      "settings": "Portal Settings",
+      "viewWebsite": "View Website",
+      "logout": "Sign Out",
+      "welcomeAdmin": "System Administrator"
+    },
+    "dashboard": {
+      "welcome": "Welcome back, Administrator",
+      "overview": "Platform Performance Overview",
+      "stats": {
+        "totalDonations": "Total Revenue",
+        "activeProjects": "Active Initiatives",
+        "communitiesReached": "Impact Reach",
+        "pendingTasks": "Pending Reviews",
+        "growth": "{value}% from last period"
+      },
+      "charts": {
+        "donationImpact": "Funding & Impact Distribution",
+        "monthlyGrowth": "Community Growth Trend"
+      },
+      "recentActivity": {
+        "title": "Live Activity Stream",
+        "description": "Real-time updates from across the platform",
+        "newDonation": "New donation of {amount} received",
+        "projectUpdate": "{name} project reached a new milestone",
+        "newVolunteer": "Professional volunteer application from {name}",
+        "time": "{time} ago"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "newArticle": "Write Article",
+        "newProject": "Launch Project",
+        "uploadMedia": "Add Media"
+      }
+    },
+    "common": {
+      "edit": "Modify Record",
+      "delete": "Remove Entry",
+      "save": "Persist Changes",
+      "cancel": "Discard",
+      "search": "Filter by keywords...",
+      "status": "Operational Status",
+      "actions": "Record Actions"
+    }
   }
 }
