@@ -8,13 +8,15 @@ import { cn } from "@/lib/utils";
 import { DollarSign } from "lucide-react";
 
 export default function DonationsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tDon = useTranslations("admin.donations");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "Reference" },
         {
             key: "donor",
-            label: "Donor",
+            label: tDon("columns.donor"),
             render: (item: any) => (
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-black text-slate-900">{item.donor}</span>
@@ -24,7 +26,7 @@ export default function DonationsManagement() {
         },
         {
             key: "amount",
-            label: "Amount",
+            label: tDon("columns.amount"),
             render: (item: any) => (
                 <div className="flex items-center gap-1.5 font-black text-emerald-600">
                     <DollarSign size={14} strokeWidth={3} />
@@ -32,10 +34,10 @@ export default function DonationsManagement() {
                 </div>
             )
         },
-        { key: "date", label: "Date" },
+        { key: "date", label: tDon("columns.date") },
         {
             key: "method",
-            label: "Method",
+            label: tDon("columns.method"),
             render: (item: any) => (
                 <Badge variant="outline" className="rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest border-slate-200 text-slate-500">
                     {item.method}
@@ -53,8 +55,8 @@ export default function DonationsManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("donations")}
-                description="Review financial contributions and donor details."
+                title={tSidebar("donations")}
+                description={tDon("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Manual Entry")}

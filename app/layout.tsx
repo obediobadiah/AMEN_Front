@@ -38,7 +38,7 @@ export default async function RootLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale} className="font-sans">
+        <html lang={locale} className="font-sans" suppressHydrationWarning>
             <head>
                 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,7 +48,7 @@ export default async function RootLayout({
                     rel="stylesheet"
                 />
             </head>
-            <body>
+            <body suppressHydrationWarning>
                 <NextIntlClientProvider messages={messages}>
                     <Providers>{children}</Providers>
                 </NextIntlClientProvider>

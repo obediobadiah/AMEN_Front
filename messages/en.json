@@ -1214,7 +1214,10 @@
       "settings": "Portal Settings",
       "viewWebsite": "View Website",
       "logout": "Sign Out",
-      "welcomeAdmin": "System Administrator"
+      "welcomeAdmin": "System Administrator",
+      "portalTitle": "AMEN ADMIN PORTAL",
+      "role": "Administrator",
+      "systemLive": "System Live"
     },
     "dashboard": {
       "welcome": "Welcome back, Administrator",
@@ -1228,7 +1231,10 @@
       },
       "charts": {
         "donationImpact": "Funding & Impact Distribution",
-        "monthlyGrowth": "Community Growth Trend"
+        "monthlyGrowth": "Community Growth Trend",
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "analyticsDesc": "Analytics for the current fiscal quarter"
       },
       "recentActivity": {
         "title": "Live Activity Stream",
@@ -1236,6 +1242,9 @@
         "newDonation": "New donation of {amount} received",
         "projectUpdate": "{name} project reached a new milestone",
         "newVolunteer": "Professional volunteer application from {name}",
+        "newInquiry": "New partnership inquiry from {name}",
+        "summitReg": "Summit registration phase started",
+        "showAll": "Show all activity",
         "time": "{time} ago"
       },
       "quickActions": {
@@ -1246,13 +1255,172 @@
       }
     },
     "common": {
-      "edit": "Modify Record",
-      "delete": "Remove Entry",
+      "edit": "Modify",
+      "delete": "Remove",
       "save": "Persist Changes",
       "cancel": "Discard",
       "search": "Filter by keywords...",
       "status": "Operational Status",
-      "actions": "Record Actions"
+      "actions": "Record Actions",
+      "export": "Export",
+      "createNew": "Create New",
+      "filters": "Filters",
+      "sort": "Sort",
+      "list": "List",
+      "grid": "Grid",
+      "manageEntry": "Manage Entry",
+      "viewDetails": "View Details",
+      "noRecords": "No records found",
+      "showing": "Showing",
+      "of": "of",
+      "entries": "entries"
+    },
+    "news": {
+      "description": "Manage your global articles, stories, and press releases.",
+      "searchPlaceholder": "Search by title or author...",
+      "loading": "Loading content...",
+      "deleteConfirm": "Are you sure you want to delete this article?",
+      "deleteSuccess": "Article deleted successfully",
+      "deleteError": "Failed to delete article",
+      "saveSuccess": "Article saved successfully",
+      "saveError": "An error occurred while saving",
+      "exportSuccess": "Export started",
+      "author": "Author",
+      "published": "Published",
+      "readTime": "Read Time",
+      "minRead": "MIN READ",
+      "articleDetails": "Article Details",
+      "publishedBy": "Published by",
+      "dialog": {
+        "editTitle": "Edit Article",
+        "createTitle": "Create New Article",
+        "editDesc": "Update your article details. Changes will be translated automatically.",
+        "createDesc": "Fill in the details of your new story. It will be automatically translated into English and French.",
+        "inputLang": "Input Language",
+        "fr": "French",
+        "en": "English",
+        "category": "Category",
+        "impact": "Social Impact",
+        "field": "Field Stories",
+        "press": "Press Release",
+        "status": "Status",
+        "draft": "Draft",
+        "published": "Published",
+        "archived": "Archived",
+        "titleLabel": "Article Title",
+        "titlePlaceholder": "Enter title...",
+        "excerptLabel": "Brief Excerpt (Optional)",
+        "excerptPlaceholder": "Enter a short summary...",
+        "contentLabel": "Full Content",
+        "contentPlaceholder": "Write your article content here...",
+        "authorLabel": "Author Name",
+        "authorPlaceholder": "Author...",
+        "readTimeLabel": "Reading Time (Min)",
+        "uploadLabel": "Cover Image",
+        "uploadPlaceholder": "Click to upload an image",
+        "saving": "Saving...",
+        "save": "Save",
+        "update": "Update"
+      }
+    },
+    "projects": {
+      "description": "Monitor field project progress, impact metrics, and local implementation.",
+      "columns": {
+        "name": "Project Name",
+        "progress": "Progress",
+        "focus": "Focus",
+        "impact": "Impact"
+      }
+    },
+    "events": {
+      "description": "Organize and track upcoming global events and local workshops.",
+      "columns": {
+        "name": "Event Name",
+        "status": "Status",
+        "date": "Date",
+        "attendees": "Attendees",
+        "upcoming": "Upcoming",
+        "past": "Past"
+      }
+    },
+    "multimedia": {
+      "description": "Manage gallery assets, project videos, and visual content library.",
+      "columns": {
+        "mediaId": "Media ID",
+        "content": "Media Content",
+        "type": "Media Type",
+        "addedOn": "Added On"
+      }
+    },
+    "publications": {
+      "description": "Publish and manage annual reports, guides, and research papers.",
+      "columns": {
+        "title": "Document Title",
+        "type": "Publication Type",
+        "year": "Year",
+        "downloads": "Downloads"
+      }
+    },
+    "resources": {
+      "description": "Archive and organize institutional tools and documentary resources.",
+      "columns": {
+        "title": "Resource Name",
+        "category": "Category",
+        "size": "Size",
+        "updated": "Updated"
+      }
+    },
+    "governance": {
+      "description": "Manage organizational structure and team member profiles.",
+      "columns": {
+        "name": "Name",
+        "role": "Role",
+        "department": "Department",
+        "status": "Status"
+      }
+    },
+    "donations": {
+      "description": "Track financial contributions and manage donor history.",
+      "columns": {
+        "donor": "Donor",
+        "amount": "Amount",
+        "date": "Date",
+        "method": "Method",
+        "status": "Status"
+      }
+    },
+    "contacts": {
+      "description": "Respond to inquiries from donors, partners, and future volunteers.",
+      "columns": {
+        "sender": "Sender",
+        "subject": "Subject",
+        "received": "Received On",
+        "type": "Type",
+        "message": "Message"
+      }
+    },
+    "settings": {
+      "title": "Portal Settings",
+      "description": "Configure portal-wide settings and security protocols.",
+      "main": {
+        "title": "Main Configurations",
+        "description": "Site visibility and core metadata.",
+        "orgName": "Organization Name",
+        "email": "Primary Contact Email",
+        "updateBtn": "Update Portal"
+      },
+      "security": {
+        "title": "Secure Access",
+        "description": "Manage administrative protection layers.",
+        "twoFactor": "Two-Factor Authentication",
+        "logging": "System Activity Logging",
+        "status": "Status",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "active": "Active",
+        "enableBtn": "Enable",
+        "viewLogsBtn": "View Logs"
+      }
     }
   }
 }

@@ -6,12 +6,14 @@ import { useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function GovernanceManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tGov = useTranslations("admin.governance");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         {
             key: "name",
-            label: "Member",
+            label: tGov("columns.name"),
             render: (item: any) => (
                 <div className="flex items-center gap-4">
                     <Avatar className="h-10 w-10 border-2 border-slate-50">
@@ -25,10 +27,10 @@ export default function GovernanceManagement() {
                 </div>
             )
         },
-        { key: "department", label: "Sector" },
+        { key: "department", label: tGov("columns.department") },
         {
             key: "status",
-            label: "Access Level",
+            label: tGov("columns.status"),
             render: (item: any) => (
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">{item.access}</span>
             )
@@ -43,8 +45,8 @@ export default function GovernanceManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("governance")}
-                description="Manage the leadership board, executive team and system access permissions."
+                title={tSidebar("governance")}
+                description={tGov("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Add Member")}

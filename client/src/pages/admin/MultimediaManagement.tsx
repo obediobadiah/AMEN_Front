@@ -6,13 +6,15 @@ import { useTranslations } from "next-intl";
 import { PlayCircle, Image as ImageIcon } from "lucide-react";
 
 export default function MultimediaManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tMedia = useTranslations("admin.multimedia");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
-        { key: "id", label: "Media ID" },
+        { key: "id", label: tMedia("columns.mediaId") },
         {
             key: "title",
-            label: "Media Content",
+            label: tMedia("columns.content"),
             render: (item: any) => (
                 <div className="flex items-center gap-4">
                     <div className="w-16 h-10 rounded-lg bg-slate-100 overflow-hidden relative group">
@@ -23,8 +25,8 @@ export default function MultimediaManagement() {
                 </div>
             )
         },
-        { key: "type", label: "Media Type" },
-        { key: "date", label: "Added On" },
+        { key: "type", label: tMedia("columns.type") },
+        { key: "date", label: tMedia("columns.addedOn") },
     ];
 
     const items = [
@@ -35,8 +37,8 @@ export default function MultimediaManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("multimedia")}
-                description="Manage gallery assets, project videos and visual content library."
+                title={tSidebar("multimedia")}
+                description={tMedia("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Add Media")}

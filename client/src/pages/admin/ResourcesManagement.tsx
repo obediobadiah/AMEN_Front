@@ -6,13 +6,15 @@ import { useTranslations } from "next-intl";
 import { Database } from "lucide-react";
 
 export default function ResourcesManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tRes = useTranslations("admin.resources");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "ID" },
         {
             key: "title",
-            label: "Resource Data",
+            label: tRes("columns.title"),
             render: (item: any) => (
                 <div className="flex flex-col">
                     <span className="text-sm font-black text-slate-900">{item.title}</span>
@@ -20,8 +22,8 @@ export default function ResourcesManagement() {
                 </div>
             )
         },
-        { key: "category", label: "Specialization" },
-        { key: "date", label: "Last Sync" },
+        { key: "category", label: tRes("columns.category") },
+        { key: "date", label: tRes("columns.updated") },
     ];
 
     const items = [
@@ -32,8 +34,8 @@ export default function ResourcesManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("resources")}
-                description="Coordinate technical datasets, digital blueprints and knowledge assets."
+                title={tSidebar("resources")}
+                description={tRes("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("New Resource")}

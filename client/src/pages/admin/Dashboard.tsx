@@ -144,11 +144,11 @@ export default function AdminDashboard() {
             <CardHeader className="p-10 pb-0 flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-xl font-black text-slate-900 tracking-tight">{t("charts.donationImpact")}</CardTitle>
-                <CardDescription className="text-slate-400 font-medium">Analytics for the current fiscal quarter</CardDescription>
+                <CardDescription className="text-slate-400 font-medium">{t("charts.analyticsDesc")}</CardDescription>
               </div>
               <div className="flex items-center gap-2 bg-slate-50 p-1 rounded-xl">
-                <Button variant="ghost" size="sm" className="rounded-lg h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-white shadow-sm text-primary">Monthly</Button>
-                <Button variant="ghost" size="sm" className="rounded-lg h-8 px-3 text-[10px] font-black uppercase tracking-widest text-slate-400">Weekly</Button>
+                <Button variant="ghost" size="sm" className="rounded-lg h-8 px-3 text-[10px] font-black uppercase tracking-widest bg-white shadow-sm text-primary">{t("charts.monthly")}</Button>
+                <Button variant="ghost" size="sm" className="rounded-lg h-8 px-3 text-[10px] font-black uppercase tracking-widest text-slate-400">{t("charts.weekly")}</Button>
               </div>
             </CardHeader>
             <CardContent className="p-10 pt-6">
@@ -215,11 +215,11 @@ export default function AdminDashboard() {
             <CardContent className="p-0">
               <div className="divide-y divide-slate-50">
                 {[
-                  { icon: Heart, color: "text-rose-500", bg: "bg-rose-50", text: t("recentActivity.newDonation", { amount: "$500" }), time: "2m" },
-                  { icon: Activity, color: "text-emerald-500", bg: "bg-emerald-50", text: t("recentActivity.projectUpdate", { name: "Eco-Village" }), time: "1h" },
-                  { icon: UserCheck, color: "text-blue-500", bg: "bg-blue-50", text: t("recentActivity.newVolunteer", { name: "Mark J." }), time: "3h" },
-                  { icon: MessageSquare, color: "text-amber-500", bg: "bg-amber-50", text: "New partnership inquiry from Global Green", time: "5h" },
-                  { icon: Calendar, color: "text-indigo-500", bg: "bg-indigo-50", text: "Summit registration phase started", time: "1d" }
+                  { icon: Heart, color: "text-rose-500", bg: "bg-rose-50", text: t("recentActivity.newDonation", { amount: "$500" }), time: t("recentActivity.time", { time: "2m" }) },
+                  { icon: Activity, color: "text-emerald-500", bg: "bg-emerald-50", text: t("recentActivity.projectUpdate", { name: "Eco-Village" }), time: t("recentActivity.time", { time: "1h" }) },
+                  { icon: UserCheck, color: "text-blue-500", bg: "bg-blue-50", text: t("recentActivity.newVolunteer", { name: "Mark J." }), time: t("recentActivity.time", { time: "3h" }) },
+                  { icon: MessageSquare, color: "text-amber-500", bg: "bg-amber-50", text: t("recentActivity.newInquiry", { name: "Global Green" }), time: t("recentActivity.time", { time: "5h" }) },
+                  { icon: Calendar, color: "text-indigo-500", bg: "bg-indigo-50", text: t("recentActivity.summitReg"), time: t("recentActivity.time", { time: "1j" }) }
                 ].map((activity, i) => (
                   <div key={i} className="p-8 flex items-start gap-4 hover:bg-slate-50 transition-colors cursor-pointer group">
                     <div className={cn("shrink-0 p-3 rounded-xl transition-transform group-hover:scale-110", activity.bg, activity.color)}>
@@ -227,14 +227,14 @@ export default function AdminDashboard() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold text-slate-700 leading-snug">{activity.text}</p>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1.5">{activity.time} ago</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1.5">{activity.time}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="p-8">
                 <Button variant="ghost" className="w-full h-14 rounded-2xl bg-slate-50 font-black text-xs uppercase tracking-widest text-slate-500 hover:text-primary transition-all">
-                  Show All Activity
+                  {t("recentActivity.showAll")}
                 </Button>
               </div>
             </CardContent>

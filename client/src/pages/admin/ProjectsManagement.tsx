@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export default function ProjectsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tProj = useTranslations("admin.projects");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "ID" },
         {
             key: "title",
-            label: "Project Name",
+            label: tProj("columns.name"),
             render: (item: any) => (
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-black text-slate-900 group-hover:text-primary transition-colors">{item.title}</span>
@@ -23,7 +25,7 @@ export default function ProjectsManagement() {
         },
         {
             key: "status",
-            label: "Progress",
+            label: tProj("columns.progress"),
             render: (item: any) => (
                 <div className="flex items-center gap-3">
                     <div className="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
@@ -33,8 +35,8 @@ export default function ProjectsManagement() {
                 </div>
             )
         },
-        { key: "category", label: "Focus" },
-        { key: "impact", label: "Impact" },
+        { key: "category", label: tProj("columns.focus") },
+        { key: "impact", label: tProj("columns.impact") },
     ];
 
     const items = [
@@ -45,8 +47,8 @@ export default function ProjectsManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("projects")}
-                description="Monitor field project progress, impact metrics and local implementation."
+                title={tSidebar("projects")}
+                description={tProj("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Add New")}

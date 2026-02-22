@@ -1218,7 +1218,10 @@
       "settings": "Paramètres du Portail",
       "viewWebsite": "Voir le Site",
       "logout": "Déconnexion",
-      "welcomeAdmin": "Administrateur Système"
+      "welcomeAdmin": "Administrateur Système",
+      "portalTitle": "PORTAIL ADMIN AMEN",
+      "role": "Administrateur",
+      "systemLive": "Système En Direct"
     },
     "dashboard": {
       "welcome": "Bon retour, Administrateur",
@@ -1232,7 +1235,10 @@
       },
       "charts": {
         "donationImpact": "Distribution du Financement et de l'Impact",
-        "monthlyGrowth": "Tendance de Croissance Communautaire"
+        "monthlyGrowth": "Tendance de Croissance Communautaire",
+        "monthly": "Mensuel",
+        "weekly": "Hebdomadaire",
+        "analyticsDesc": "Analyses pour le trimestre fiscal en cours"
       },
       "recentActivity": {
         "title": "Flux d'Activité en Direct",
@@ -1240,6 +1246,9 @@
         "newDonation": "Nouveau don de {amount} reçu",
         "projectUpdate": "Le projet {name} a atteint un nouveau jalon",
         "newVolunteer": "Demande de bénévolat professionnel de {name}",
+        "newInquiry": "Nouvelle demande de partenariat de {name}",
+        "summitReg": "Phase d'inscription au sommet commencée",
+        "showAll": "Afficher toute l'activité",
         "time": "Il y a {time}"
       },
       "quickActions": {
@@ -1250,13 +1259,172 @@
       }
     },
     "common": {
-      "edit": "Modifier l'Entrée",
-      "delete": "Supprimer l'Entrée",
-      "save": "Enregistrer les Changements",
-      "cancel": "Abandonner",
-      "search": "Filtrer par mots-clés...",
-      "status": "État Opérationnel",
-      "actions": "Actions sur le Registre"
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "search": "Rechercher...",
+      "status": "Statut",
+      "actions": "Actions",
+      "export": "Exporter",
+      "createNew": "Créer Nouveau",
+      "filters": "Filtres",
+      "sort": "Trier",
+      "list": "Liste",
+      "grid": "Grille",
+      "manageEntry": "Gérer l'Entrée",
+      "viewDetails": "Voir Détails",
+      "noRecords": "Aucun enregistrement trouvé",
+      "showing": "Affichage de",
+      "of": "sur",
+      "entries": "entrées"
+    },
+    "news": {
+      "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
+      "searchPlaceholder": "Rechercher par titre ou auteur...",
+      "loading": "Chargement du contenu...",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet article ?",
+      "deleteSuccess": "Article supprimé avec succès",
+      "deleteError": "Échec de la suppression de l'article",
+      "saveSuccess": "Article enregistré avec succès",
+      "saveError": "Une erreur est survenue lors de l'enregistrement",
+      "exportSuccess": "Exportation démarrée",
+      "author": "Auteur",
+      "published": "Publié",
+      "readTime": "Temps de lecture",
+      "minRead": "MIN DE LECTURE",
+      "articleDetails": "Détails de l'article",
+      "publishedBy": "Publié par",
+      "dialog": {
+        "editTitle": "Modifier l'article",
+        "createTitle": "Créer un nouvel article",
+        "editDesc": "Mettez à jour les détails de votre article. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails de votre nouvelle histoire. Elle sera automatiquement traduite en anglais et en français.",
+        "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
+        "category": "Catégorie",
+        "impact": "Impact social",
+        "field": "Histoires de terrain",
+        "press": "Communiqué de presse",
+        "status": "Statut",
+        "draft": "Brouillon",
+        "published": "Publié",
+        "archived": "Archivé",
+        "titleLabel": "Titre de l'article",
+        "titlePlaceholder": "Entrez le titre...",
+        "excerptLabel": "Bref extrait (optionnel)",
+        "excerptPlaceholder": "Entrez un bref résumé...",
+        "contentLabel": "Contenu complet",
+        "contentPlaceholder": "Écrivez le contenu de votre article ici...",
+        "authorLabel": "Nom de l'auteur",
+        "authorPlaceholder": "Auteur...",
+        "readTimeLabel": "Temps de lecture (Min)",
+        "uploadLabel": "Image de couverture",
+        "uploadPlaceholder": "Cliquez pour télécharger une image",
+        "saving": "Enregistrement...",
+        "save": "Enregistrer",
+        "update": "Mettre à jour"
+      }
+    },
+    "projects": {
+      "description": "Surveillez les progrès des projets sur le terrain, les mesures d'impact et la mise en œuvre locale.",
+      "columns": {
+        "name": "Nom du Projet",
+        "progress": "Progrès",
+        "focus": "Focus",
+        "impact": "Impact"
+      }
+    },
+    "events": {
+      "description": "Organisez et suivez les événements mondiaux à venir et les ateliers locaux.",
+      "columns": {
+        "name": "Nom de l'Événement",
+        "status": "Statut",
+        "date": "Date",
+        "attendees": "Participants",
+        "upcoming": "À venir",
+        "past": "Passé"
+      }
+    },
+    "multimedia": {
+      "description": "Gérez les actifs de la galerie, les vidéos de projet et la bibliothèque de contenus visuels.",
+      "columns": {
+        "mediaId": "ID Média",
+        "content": "Contenu Média",
+        "type": "Type de Média",
+        "addedOn": "Ajouté le"
+      }
+    },
+    "publications": {
+      "description": "Publiez et gérez les rapports annuels, guides et documents de recherche.",
+      "columns": {
+        "title": "Titre du Document",
+        "type": "Type de Publication",
+        "year": "Année",
+        "downloads": "Téléchargements"
+      }
+    },
+    "resources": {
+      "description": "Archivez et organisez les outils institutionnels et les ressources documentaires.",
+      "columns": {
+        "title": "Nom de la Ressource",
+        "category": "Catégorie",
+        "size": "Taille",
+        "updated": "Mise à jour"
+      }
+    },
+    "governance": {
+      "description": "Gérez la structure organisationnelle et les profils des membres de l'équipe.",
+      "columns": {
+        "name": "Nom",
+        "role": "Rôle",
+        "department": "Département",
+        "status": "Statut"
+      }
+    },
+    "donations": {
+      "description": "Suivez les contributions financières et gérez l'historique des donateurs.",
+      "columns": {
+        "donor": "Donateur",
+        "amount": "Montant",
+        "date": "Date",
+        "method": "Méthode",
+        "status": "Statut"
+      }
+    },
+    "contacts": {
+      "description": "Répondez aux demandes des donateurs, partenaires et futurs bénévoles.",
+      "columns": {
+        "sender": "Expéditeur",
+        "subject": "Sujet",
+        "received": "Reçu le",
+        "type": "Type",
+        "message": "Message"
+      }
+    },
+    "settings": {
+      "title": "Paramètres du Portail",
+      "description": "Configurez les paramètres globaux du portail et les protocoles de sécurité.",
+      "main": {
+        "title": "Configurations Principales",
+        "description": "Visibilité du site et métadonnées de base.",
+        "orgName": "Nom de l'Organisation",
+        "email": "Email de Contact Principal",
+        "updateBtn": "Mettre à jour le Portail"
+      },
+      "security": {
+        "title": "Accès Sécurisé",
+        "description": "Gérez les couches de protection administrative.",
+        "twoFactor": "Authentification à deux facteurs",
+        "logging": "Journalisation de l'activité du système",
+        "status": "Statut",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "active": "Actif",
+        "enableBtn": "Activer",
+        "viewLogsBtn": "Voir les Journaux"
+      }
     }
   }
 }

@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export default function ContactsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tCont = useTranslations("admin.contacts");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "ID" },
         {
             key: "sender",
-            label: "From",
+            label: tCont("columns.sender"),
             render: (item: any) => (
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-black text-slate-900">{item.name}</span>
@@ -23,15 +25,15 @@ export default function ContactsManagement() {
         },
         {
             key: "subject",
-            label: "Subject",
+            label: tCont("columns.subject"),
             render: (item: any) => (
                 <span className="text-sm font-medium text-slate-600 truncate max-w-[200px] block">{item.subject}</span>
             )
         },
-        { key: "date", label: "Received" },
+        { key: "date", label: tCont("columns.received") },
         {
             key: "status",
-            label: "Status",
+            label: tCommon("status"),
             render: (item: any) => (
                 <Badge className={cn(
                     "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest",
@@ -51,8 +53,8 @@ export default function ContactsManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("contacts")}
-                description="Manage incoming messages, inquiries and feedback from visitors."
+                title={tSidebar("contacts")}
+                description={tCont("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("New Message")}

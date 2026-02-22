@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 export default function EventsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tEv = useTranslations("admin.events");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "ID" },
         {
             key: "title",
-            label: "Event Name",
+            label: tEv("columns.name"),
             render: (item: any) => (
                 <div className="flex flex-col gap-1">
                     <span className="text-sm font-black text-slate-900 group-hover:text-primary transition-colors">{item.title}</span>
@@ -23,18 +25,18 @@ export default function EventsManagement() {
         },
         {
             key: "status",
-            label: "Status",
+            label: tEv("columns.status"),
             render: (item: any) => (
                 <Badge className={cn(
                     "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest",
                     item.status === "Upcoming" ? "bg-blue-50 text-blue-600 border-blue-100" : "bg-slate-100 text-slate-500 border-slate-200"
                 )}>
-                    {item.status}
+                    {item.status === "Upcoming" ? tEv("upcoming") : tEv("past")}
                 </Badge>
             )
         },
-        { key: "date", label: "Date" },
-        { key: "attendees", label: "Attendees" },
+        { key: "date", label: tEv("columns.date") },
+        { key: "attendees", label: tEv("columns.attendees") },
     ];
 
     const items = [
@@ -45,8 +47,8 @@ export default function EventsManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("events")}
-                description="Organize and track upcoming global events and local workshops."
+                title={tSidebar("events")}
+                description={tEv("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Add New")}

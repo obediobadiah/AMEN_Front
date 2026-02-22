@@ -7,13 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { FileDown } from "lucide-react";
 
 export default function PublicationsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tPub = useTranslations("admin.publications");
+    const tCommon = useTranslations("admin.common");
 
     const columns = [
         { key: "id", label: "Ref" },
         {
             key: "title",
-            label: "Publication Title",
+            label: tPub("columns.title"),
             render: (item: any) => (
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-slate-50 rounded-lg text-slate-400">
@@ -23,9 +25,9 @@ export default function PublicationsManagement() {
                 </div>
             )
         },
-        { key: "type", label: "Category" },
-        { key: "date", label: "Release Date" },
-        { key: "downloads", label: "Downloads" },
+        { key: "type", label: tPub("columns.type") },
+        { key: "date", label: tPub("columns.year") },
+        { key: "downloads", label: tPub("columns.downloads") },
     ];
 
     const items = [
@@ -36,8 +38,8 @@ export default function PublicationsManagement() {
     return (
         <AdminLayout>
             <AdminEntityList
-                title={t("publications")}
-                description="Upload and archive official documents, reports and research papers."
+                title={tSidebar("publications")}
+                description={tPub("description")}
                 items={items}
                 columns={columns}
                 onAdd={() => console.log("Upload")}
