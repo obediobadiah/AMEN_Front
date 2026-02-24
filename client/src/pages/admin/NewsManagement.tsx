@@ -40,7 +40,7 @@ export default function NewsManagement() {
                             {(item.title as any)[locale] || item.title.fr || item.title.en}
                         </span>
                         <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</span>
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
                             <span className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">• {item.reading_time || 0} min read</span>
                         </div>
                     </div>
@@ -81,11 +81,11 @@ export default function NewsManagement() {
                 return (
                     <Badge className={cn(
                         "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest border",
-                        status === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
-                            status === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
+                        (status as any)?.[locale] === "Published" || (status as any)?.fr === "Publié" || (status as any)?.en === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
+                            (status as any)?.[locale] === "Archived" || (status as any)?.fr === "Archivé" || (status as any)?.en === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
                                 "bg-amber-50 text-amber-600 border-amber-100"
                     )}>
-                        {status}
+                        {(status as any)?.[locale] || (status as any)?.fr || (status as any)?.en}
                     </Badge>
                 );
             }
@@ -214,13 +214,13 @@ export default function NewsManagement() {
                     <div className="flex items-center justify-between">
                         <Badge className={cn(
                             "rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest border shadow-sm",
-                            status === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100/50" :
-                                status === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
+                            (item.status as any)?.[locale] === "Published" || (item.status as any)?.fr === "Publié" || (item.status as any)?.en === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100/50" :
+                                (item.status as any)?.[locale] === "Archived" || (item.status as any)?.fr === "Archivé" || (item.status as any)?.en === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
                                     "bg-amber-50 text-amber-600 border-amber-100/50"
                         )}>
-                            {status}
+                            {(item.status as any)?.[locale] || (item.status as any)?.fr || (item.status as any)?.en}
                         </Badge>
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.category}</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
                     </div>
 
                     <h3 className="text-xl font-black text-slate-900 line-clamp-2 leading-[1.2] group-hover:text-primary transition-colors duration-300">

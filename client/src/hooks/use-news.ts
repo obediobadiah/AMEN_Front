@@ -7,8 +7,8 @@ export interface NewsArticle {
     content: Record<string, string>;
     excerpt?: Record<string, string>;
     author?: string;
-    category?: string;
-    status?: string;
+    category?: Record<string, string>;
+    status?: Record<string, string>;
     reading_time?: number;
     thumbnail_url?: string;
     tags?: string[];
@@ -22,7 +22,7 @@ export interface NewsCreate {
     content: string;
     excerpt?: string;
     author?: string;
-    category?: string;
+    category?: Record<string, string>;
     status?: string;
     reading_time?: number;
     thumbnail_url?: string;
@@ -35,7 +35,7 @@ export interface NewsUpdate {
     content?: string | Record<string, string>;
     excerpt?: string | Record<string, string>;
     status?: string;
-    category?: string;
+    category?: Record<string, string>;
     author?: string;
     reading_time?: number;
     thumbnail_url?: string;
@@ -131,4 +131,17 @@ export function useNews() {
         isDeleting: deleteMutation.isPending,
         isUploading: uploadMutation.isPending,
     };
+}
+
+export function useNewsArticle(id: string | number | undefined) {
+    return useQuery<NewsArticle>({
+        queryKey: ["/api/v1/news", id],
+        queryFn: async () => {
+            if (!id) throw new Error("ID is required");
+            const res = await fetch(`${NEWS_API_URL}/${id}`);
+            if (!res.ok) throw new Error("Failed to fetch article");
+            return res.json();
+        },
+        enabled: !!id,
+    });
 }
