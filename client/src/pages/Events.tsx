@@ -2,68 +2,30 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarIcon, MapPin, Clock, ArrowRight, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useEvents } from "@/hooks/use-events";
+import { format } from "date-fns";
+import { getImageUrl } from "@/lib/api-config";
 
 export default function Events() {
     const t = useTranslations();
+    const locale = useLocale();
     const [view, setView] = useState("upcoming");
+    const { events, isLoading } = useEvents();
 
-    const events = [
-        {
-            id: 1,
-            title: t('eventsPage.items.1.title'),
-            description: t('eventsPage.items.1.description'),
-            date: t('eventsPage.items.1.date'),
-            time: t('eventsPage.items.1.time'),
-            badgeDay: t('eventsPage.items.1.badgeDay'),
-            badgeMonth: t('eventsPage.items.1.badgeMonth'),
-            location: t('eventsPage.items.1.location'),
-            category: "Workshop",
-            status: "upcoming"
-        },
-        {
-            id: 2,
-            title: t('eventsPage.items.2.title'),
-            description: t('eventsPage.items.2.description'),
-            date: t('eventsPage.items.2.date'),
-            time: t('eventsPage.items.2.time'),
-            badgeDay: t('eventsPage.items.2.badgeDay'),
-            badgeMonth: t('eventsPage.items.2.badgeMonth'),
-            location: t('eventsPage.items.2.location'),
-            category: "Training",
-            status: "upcoming"
-        },
-        {
-            id: 3,
-            title: t('eventsPage.items.3.title'),
-            description: t('eventsPage.items.3.description'),
-            date: t('eventsPage.items.3.date'),
-            time: t('eventsPage.items.3.time'),
-            badgeDay: t('eventsPage.items.3.badgeDay'),
-            badgeMonth: t('eventsPage.items.3.badgeMonth'),
-            location: t('eventsPage.items.3.location'),
-            category: "Empowerment",
-            status: "upcoming"
-        },
-        {
-            id: 4,
-            title: t('eventsPage.items.4.title'),
-            description: t('eventsPage.items.4.description'),
-            date: t('eventsPage.items.4.date'),
-            time: t('eventsPage.items.4.time'),
-            badgeDay: t('eventsPage.items.4.badgeDay'),
-            badgeMonth: t('eventsPage.items.4.badgeMonth'),
-            location: t('eventsPage.items.4.location'),
-            category: "Awareness",
-            status: "upcoming"
-        }
-    ];
+    const upcomingEvents = events.filter((e) => e.status === "Upcoming" || e.status === "À venir");
+    // Sort them by soonest to latest
+    upcomingEvents.sort((a, b) => {
+        if (!a.start_date) return 1;
+        if (!b.start_date) return -1;
+        return new Date(a.start_date).getTime() - new Date(b.start_date).getTime();
+    });
 
     return (
         <Layout>
@@ -122,78 +84,113 @@ export default function Events() {
 
                         {/* Events List */}
                         <div className="lg:w-2/3 space-y-8">
-                            {events.map((event, idx) => (
-                                <motion.div
-                                    key={event.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="group relative bg-card rounded-[3rem] border-4 border-border/40 p-8 md:p-12 hover:border-primary/40 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700 overflow-hidden"
-                                >
-                                    {/* Date Column (Left on desktop) */}
-                                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
-                                        {/* Date Badge */}
-                                        <div className="relative shrink-0">
-                                            <div className="w-24 h-24 md:w-28 md:h-28 rounded-[2rem] bg-muted group-hover:bg-primary transition-all duration-700 flex flex-col items-center justify-center border border-border/50 group-hover:border-primary group-hover:shadow-2xl group-hover:shadow-primary/30">
-                                                <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground group-hover:text-white/70 transition-colors">
-                                                    {event.badgeMonth}
-                                                </span>
-                                                <span className="text-4xl md:text-5xl font-black font-heading text-foreground group-hover:text-white transition-colors">
-                                                    {event.badgeDay}
-                                                </span>
+                            {isLoading ? (
+                                <div className="py-20 flex justify-center">
+                                    <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                                </div>
+                            ) : upcomingEvents.length === 0 ? (
+                                <div className="py-20 flex justify-center text-slate-500 font-medium">
+                                    No upcoming events found.
+                                </div>
+                            ) : upcomingEvents.map((event, idx) => {
+                                const startDate = event.start_date ? new Date(event.start_date) : null;
+                                const endDate = event.end_date ? new Date(event.end_date) : null;
+
+                                const titleStr = (event.title as any)?.[locale] || event.title?.fr || event.title?.en || "";
+                                const descStr = event.description ? ((event.description as any)?.[locale] || event.description?.fr || event.description?.en || "") : "";
+                                const locStr = event.location ? ((event.location as any)?.[locale] || event.location?.fr || event.location?.en || "") : "";
+
+                                return (
+                                    <motion.div
+                                        key={event.id}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        className="group relative bg-card rounded-[3rem] border-4 border-border/40 p-8 md:p-12 hover:border-primary/40 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] transition-all duration-700 overflow-hidden"
+                                    >
+                                        {/* Date Column (Left on desktop) */}
+                                        <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
+                                            {/* Date Badge */}
+                                            <div className="relative shrink-0">
+                                                <div className="w-24 h-24 md:w-28 md:h-28 rounded-[2rem] bg-muted group-hover:bg-primary transition-all duration-700 flex flex-col items-center justify-center border border-border/50 group-hover:border-primary group-hover:shadow-2xl group-hover:shadow-primary/30">
+                                                    <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground group-hover:text-white/70 transition-colors">
+                                                        {startDate ? format(startDate, "MMM") : "-"}
+                                                    </span>
+                                                    <span className="text-4xl md:text-5xl font-black font-heading text-foreground group-hover:text-white transition-colors">
+                                                        {startDate ? format(startDate, "dd") : "-"}
+                                                    </span>
+                                                </div>
+                                                {/* Status Dot */}
+                                                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-green-500 border-4 border-card group-hover:scale-125 transition-transform" />
                                             </div>
-                                            {/* Status Dot */}
-                                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-green-500 border-4 border-card group-hover:scale-125 transition-transform" />
-                                        </div>
 
-                                        {/* Content */}
-                                        <div className="flex-grow space-y-6">
-                                            <div className="flex flex-wrap items-center gap-4">
-                                                <span className="px-5 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] border border-primary/20">
-                                                    {event.category}
-                                                </span>
-                                            </div>
-
-                                            <h3 className="text-3xl md:text-4xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight">
-                                                {event.title}
-                                            </h3>
-
-                                            <p className="text-xl text-muted-foreground leading-relaxed font-light line-clamp-2">
-                                                {event.description}
-                                            </p>
-
-                                            <div className="flex flex-wrap gap-8 pt-6 border-t border-border/30">
-                                                <div className="flex items-center gap-4 text-sm font-bold text-foreground/70">
-                                                    <div className="w-12 h-12 rounded-2xl bg-muted group-hover:bg-primary/10 flex items-center justify-center text-primary transition-all">
-                                                        <MapPin size={20} />
+                                            {/* Content */}
+                                            <div className="flex-grow space-y-6 w-full">
+                                                {event.thumbnail_url && (
+                                                    <div className="w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-6 relative shadow-lg">
+                                                        <img
+                                                            src={getImageUrl(event.thumbnail_url)}
+                                                            alt={titleStr}
+                                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                                                     </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('eventsPage.location')}</span>
-                                                        <span className="text-base">{event.location}</span>
+                                                )}
+                                                <div className="flex flex-wrap items-center gap-4">
+                                                    <span className="px-5 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] border border-primary/20">
+                                                        {event.category || "Event"}
+                                                    </span>
+                                                </div>
+
+                                                <h3 className="text-3xl md:text-4xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight">
+                                                    {titleStr}
+                                                </h3>
+
+                                                <p className="text-xl text-muted-foreground leading-relaxed font-light line-clamp-2">
+                                                    {descStr}
+                                                </p>
+
+                                                <div className="flex flex-wrap gap-8 pt-6 border-t border-border/30">
+                                                    <div className="flex items-center gap-4 text-sm font-bold text-foreground/70">
+                                                        <div className="w-12 h-12 rounded-2xl bg-muted group-hover:bg-primary/10 flex items-center justify-center text-primary transition-all">
+                                                            <MapPin size={20} />
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('eventsPage.location')}</span>
+                                                            <span className="text-base">{locStr || "-"}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-center gap-4 text-sm font-bold text-foreground/70">
+                                                        <div className="w-12 h-12 rounded-2xl bg-muted group-hover:bg-primary/10 flex items-center justify-center text-primary transition-all">
+                                                            <Clock size={20} />
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('eventsPage.date')}</span>
+                                                            <span className="text-base">{startDate ? format(startDate, "hh:mm a") : "-"} {endDate ? `- ${format(endDate, "hh:mm a")}` : ""}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-4 text-sm font-bold text-foreground/70">
-                                                    <div className="w-12 h-12 rounded-2xl bg-muted group-hover:bg-primary/10 flex items-center justify-center text-primary transition-all">
-                                                        <Clock size={20} />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t('eventsPage.date')}</span>
-                                                        <span className="text-base">{event.time}</span>
-                                                    </div>
+
+                                                <div className="pt-4">
+                                                    {event.registration_link ? (
+                                                        <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
+                                                            <Button className="h-14 px-10 rounded-2xl bg-foreground hover:bg-primary text-background font-black uppercase tracking-widest text-xs transition-all flex items-center gap-4 group/btn shadow-xl shadow-black/10 hover:-translate-y-1">
+                                                                {t('eventsPage.register')}
+                                                                <ArrowRight size={20} className="transition-transform group-hover/btn:translate-x-2" />
+                                                            </Button>
+                                                        </a>
+                                                    ) : (
+                                                        <Button disabled className="h-14 px-10 rounded-2xl bg-muted text-muted-foreground font-black uppercase tracking-widest text-xs transition-all flex items-center gap-4 group/btn shadow-xl shadow-black/10">
+                                                            No Registration Link
+                                                        </Button>
+                                                    )}
                                                 </div>
                                             </div>
-
-                                            <div className="pt-4">
-                                                <Button className="h-14 px-10 rounded-2xl bg-foreground hover:bg-primary text-background font-black uppercase tracking-widest text-xs transition-all flex items-center gap-4 group/btn shadow-xl shadow-black/10 hover:-translate-y-1">
-                                                    {t('eventsPage.register')}
-                                                    <ArrowRight size={20} className="transition-transform group-hover/btn:translate-x-2" />
-                                                </Button>
-                                            </div>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            ))}
+                                    </motion.div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
