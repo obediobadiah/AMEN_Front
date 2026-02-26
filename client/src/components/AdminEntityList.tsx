@@ -59,6 +59,8 @@ interface AdminEntityListProps<T extends EntityItem> {
     currentPage?: number;
     totalPages?: number;
     onPageChange?: (page: number) => void;
+    filterContent?: React.ReactNode;
+    sortContent?: React.ReactNode;
 }
 
 export function AdminEntityList<T extends EntityItem>({
@@ -78,7 +80,9 @@ export function AdminEntityList<T extends EntityItem>({
     onSearchChange,
     currentPage = 1,
     totalPages = 1,
-    onPageChange
+    onPageChange,
+    filterContent,
+    sortContent
 }: AdminEntityListProps<T>) {
     const t = useTranslations("admin.common");
     const locale = useLocale();
@@ -118,12 +122,40 @@ export function AdminEntityList<T extends EntityItem>({
                     />
                 </div>
                 <div className="flex items-center gap-3 w-full md:w-auto">
-                    <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
-                        <Filter size={18} className="text-slate-400" /> {t("filters")}
-                    </Button>
-                    <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
-                        <ArrowUpDown size={18} className="text-slate-400" /> {t("sort")}
-                    </Button>
+                    {filterContent ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
+                                    <Filter size={18} className="text-slate-400" /> {t("filters")}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-100 shadow-2xl">
+                                {filterContent}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3 opacity-50 cursor-not-allowed">
+                            <Filter size={18} className="text-slate-400" /> {t("filters")}
+                        </Button>
+                    )}
+
+                    {sortContent ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
+                                    <ArrowUpDown size={18} className="text-slate-400" /> {t("sort")}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-100 shadow-2xl">
+                                {sortContent}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3 opacity-50 cursor-not-allowed">
+                            <ArrowUpDown size={18} className="text-slate-400" /> {t("sort")}
+                        </Button>
+                    )}
+
                     <div className="flex items-center bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50">
                         <Button
                             variant="ghost"

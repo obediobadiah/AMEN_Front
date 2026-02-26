@@ -12,6 +12,11 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import { getImageUrl } from "@/lib/api-config";
 import { ImageIcon, Clock, MapPin } from "lucide-react";
+import {
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
 
 export default function EventsManagement() {
     const tSidebar = useTranslations("admin.sidebar");
@@ -24,6 +29,8 @@ export default function EventsManagement() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [filter, setFilter] = useState("all");
+    const [sort, setSort] = useState("newest");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
@@ -78,13 +85,39 @@ export default function EventsManagement() {
     ];
 
     const filteredItems = useMemo(() => {
-        return events.filter(item => {
+        let result = events.filter(item => {
             const titleFr = item.title?.fr?.toLowerCase() || "";
             const titleEn = item.title?.en?.toLowerCase() || "";
             const search = searchQuery.toLowerCase();
-            return titleFr.includes(search) || titleEn.includes(search);
+            const matchesSearch = titleFr.includes(search) || titleEn.includes(search);
+
+            const categoryLabel = item.category?.toLowerCase() || "workshop";
+            const statusLabel = item.status?.toLowerCase() || "upcoming";
+
+            const matchesFilter = filter === "all" ||
+                (filter === "workshop" && categoryLabel === "workshop") ||
+                (filter === "conference" && categoryLabel === "conference") ||
+                (filter === "field" && categoryLabel === "field activity") ||
+                (filter === "upcoming" && statusLabel === "upcoming") ||
+                (filter === "past" && statusLabel === "past");
+
+            return matchesSearch && matchesFilter;
         });
-    }, [events, searchQuery]);
+
+        // Sorting
+        result.sort((a, b) => {
+            if (sort === "newest") return new Date(b.start_date || 0).getTime() - new Date(a.start_date || 0).getTime();
+            if (sort === "oldest") return new Date(a.start_date || 0).getTime() - new Date(b.start_date || 0).getTime();
+            if (sort === "title") {
+                const titleA = (a.title as any)[locale] || a.title?.fr || "";
+                const titleB = (b.title as any)[locale] || b.title?.fr || "";
+                return titleA.localeCompare(titleB);
+            }
+            return 0;
+        });
+
+        return result;
+    }, [events, searchQuery, filter, sort, locale]);
 
     const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
     const paginatedItems = useMemo(() => {
@@ -221,6 +254,51 @@ export default function EventsManagement() {
         );
     };
 
+    const filterContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tCommon("filters")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["all", "workshop", "conference", "field", "upcoming", "past"].map((f) => (
+                <DropdownMenuItem
+                    key={f}
+                    onClick={() => {
+                        setFilter(f);
+                        setCurrentPage(1);
+                    }}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tEv(`filters.${f}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
+
+    const sortContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tCommon("sort")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["newest", "oldest", "title"].map((s) => (
+                <DropdownMenuItem
+                    key={s}
+                    onClick={() => setSort(s)}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        sort === s ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tEv(`sort.${s}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
+
     if (isLoading) {
         return (
             <AdminLayout>
@@ -247,6 +325,8 @@ export default function EventsManagement() {
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                     onExport={handleExport}
+                    filterContent={filterContent}
+                    sortContent={sortContent}
                     searchValue={searchQuery}
                     onSearchChange={(val) => {
                         setSearchQuery(val);

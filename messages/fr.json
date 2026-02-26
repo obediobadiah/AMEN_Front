@@ -1322,9 +1322,22 @@
         "readTimeLabel": "Temps de lecture (Min)",
         "uploadLabel": "Image de couverture",
         "uploadPlaceholder": "Cliquez pour télécharger une image",
-        "saving": "Enregistrement...",
-        "save": "Enregistrer",
         "update": "Mettre à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "impact": "Impact social",
+        "field": "Histoires de terrain",
+        "press": "Communiqué de presse",
+        "draft": "Brouillon",
+        "published": "Publié",
+        "archived": "Archivé"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)",
+        "readingTime": "Temps de lecture"
       }
     },
     "projects": {
@@ -1334,6 +1347,22 @@
         "progress": "Progrès",
         "focus": "Focus",
         "impact": "Impact"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "environment": "Environnement",
+        "health": "Santé",
+        "education": "Éducation",
+        "humanitarian": "Humanitaire",
+        "active": "Actif",
+        "completed": "Terminé",
+        "upcoming": "À venir"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "progress": "Progrès",
+        "name": "Nom (A-Z)"
       }
     },
     "events": {
@@ -1375,19 +1404,84 @@
         "attendees": "Participants",
         "upcoming": "À venir",
         "past": "Passé"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "workshop": "Ateliers",
+        "conference": "Conférences",
+        "field": "Activités de terrain",
+        "upcoming": "À venir",
+        "past": "Passés"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
       }
     },
     "multimedia": {
       "description": "Gérez les actifs de la galerie, les vidéos de projet et la bibliothèque de contenus visuels.",
       "columns": {
-        "mediaId": "ID Média",
-        "content": "Contenu Média",
-        "type": "Type de Média",
         "addedOn": "Ajouté le"
+      },
+      "filters": {
+        "all": "Tous les types",
+        "photo": "Photos",
+        "video": "Vidéos",
+        "document": "Documents"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
       }
     },
     "publications": {
       "description": "Publiez et gérez les rapports annuels, guides et documents de recherche.",
+      "dialog": {
+        "editTitle": "Modifier la Publication",
+        "createTitle": "Créer une Nouvelle Publication",
+        "editDesc": "Mettez à jour les détails de la publication. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails de la nouvelle publication. Elle sera automatiquement traduite en anglais et en français.",
+        "inputLang": "Langue de saisie",
+        "titleLabel": "Titre de la Publication",
+        "titlePlaceholder": "Entrez le titre...",
+        "descLabel": "Description",
+        "descPlaceholder": "Entrez la description...",
+        "categoryLabel": "Catégorie",
+        "dateLabel": "Date",
+        "langLabel": "Langue",
+        "fileLabel": "Fichier du Document",
+        "uploading": "Téléchargement...",
+        "fileAttached": "Fichier joint",
+        "selectFile": "Sélectionnez un fichier",
+        "annual": "Rapport Annuel",
+        "technical": "Guide Technique",
+        "research": "Document de Recherche",
+        "saving": "Enregistrement...",
+        "save": "Enregistrer",
+        "update": "Mettre à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "annual": "Rapports Annuels",
+        "technical": "Guides Techniques",
+        "research": "Documents de Recherche"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "downloads": "Plus téléchargés",
+        "title": "Titre (A-Z)"
+      },
+      "messages": {
+        "noRecordsToExport": "Aucune publication à exporter.",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette publication ?",
+        "saveSuccess": "Publication enregistrée avec succès",
+        "updateSuccess": "Publication mise à jour avec succès",
+        "deleteSuccess": "Publication supprimée avec succès",
+        "error": "Une erreur est survenue"
+      },
       "columns": {
         "title": "Titre du Document",
         "type": "Type de Publication",
@@ -1402,6 +1496,18 @@
         "category": "Catégorie",
         "size": "Taille",
         "updated": "Mise à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "report": "Rapports",
+        "guide": "Guides",
+        "infographic": "Infographies",
+        "policy": "Documents d'orientation"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
       }
     },
     "governance": {
@@ -1411,26 +1517,51 @@
         "role": "Rôle",
         "department": "Département",
         "status": "Statut"
+      },
+      "filters": {
+        "all": "Tous les organes",
+        "ag": "Assemblée Générale (AG)",
+        "cd": "Conseil d'Administration (CD)",
+        "pe": "Secrétariat Exécutif (PE)",
+        "dg": "Direction Générale (DG)"
+      },
+      "sort": {
+        "order": "Ordre personnalisé",
+        "name": "Nom (A-Z)"
       }
     },
     "donations": {
       "description": "Suivez les contributions financières et gérez l'historique des donateurs.",
       "columns": {
-        "donor": "Donateur",
-        "amount": "Montant",
-        "date": "Date",
-        "method": "Méthode",
         "status": "Statut"
+      },
+      "filters": {
+        "all": "Tous les types",
+        "one-time": "Ponctuel",
+        "monthly": "Mensuel"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "amount": "Montant"
       }
     },
     "contacts": {
       "description": "Répondez aux demandes des donateurs, partenaires et futurs bénévoles.",
       "columns": {
-        "sender": "Expéditeur",
-        "subject": "Sujet",
-        "received": "Reçu le",
-        "type": "Type",
         "message": "Message"
+      },
+      "filters": {
+        "all": "Tous les types",
+        "contact": "Contact",
+        "volunteer": "Bénévole",
+        "partner": "Partenaire",
+        "newsletter": "Newsletter"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "name": "Nom (A-Z)"
       }
     },
     "settings": {

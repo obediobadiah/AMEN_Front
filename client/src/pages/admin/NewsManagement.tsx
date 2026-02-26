@@ -11,16 +11,24 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { getImageUrl } from "@/lib/api-config";
+import {
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
 
 export default function NewsManagement() {
     const tSidebar = useTranslations("admin.sidebar");
     const tNews = useTranslations("admin.news");
+    const tCommon = useTranslations("admin.common");
     const locale = useLocale();
     const { news, isLoading, createNews, updateNews, deleteNews, isCreating } = useNews();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const [filter, setFilter] = useState("all");
+    const [sort, setSort] = useState("newest");
 
     const columns = [
         {
@@ -96,13 +104,48 @@ export default function NewsManagement() {
     const itemsPerPage = 10;
 
     const filteredItems = useMemo(() => {
-        return news.filter(item => {
+        let result = news.filter(item => {
             const titleFr = item.title?.fr?.toLowerCase() || "";
             const titleEn = item.title?.en?.toLowerCase() || "";
             const search = searchQuery.toLowerCase();
-            return titleFr.includes(search) || titleEn.includes(search) || item.author?.toLowerCase().includes(search);
+            const matchesSearch = titleFr.includes(search) || titleEn.includes(search) || item.author?.toLowerCase().includes(search);
+
+            // Handle both flat string categories and translated object categories
+            const categoryValue = typeof item.category === 'object' && item.category !== null
+                ? ((item.category as any).fr || (item.category as any).en)
+                : item.category;
+
+            // Handle both flat string status and translated object status
+            const statusValue = typeof item.status === 'object' && item.status !== null
+                ? ((item.status as any).fr || (item.status as any).en)
+                : item.status;
+
+            const categoryMatch = filter === "all" ||
+                (filter === "impact" && (categoryValue === "Social Impact" || categoryValue === "Impact social")) ||
+                (filter === "field" && (categoryValue === "Field Stories" || categoryValue === "Histoires de terrain")) ||
+                (filter === "press" && (categoryValue === "Press Release" || categoryValue === "Communiqué de presse")) ||
+                (filter === "draft" && (statusValue === "Draft" || statusValue === "Brouillon")) ||
+                (filter === "published" && (statusValue === "Published" || statusValue === "Publié")) ||
+                (filter === "archived" && (statusValue === "Archived" || statusValue === "Archivé"));
+
+            return matchesSearch && categoryMatch;
         });
-    }, [news, searchQuery]);
+
+        // Sorting
+        result.sort((a, b) => {
+            if (sort === "newest") return new Date(b.published_date || 0).getTime() - new Date(a.published_date || 0).getTime();
+            if (sort === "oldest") return new Date(a.published_date || 0).getTime() - new Date(b.published_date || 0).getTime();
+            if (sort === "readingTime") return (b.reading_time || 0) - (a.reading_time || 0);
+            if (sort === "title") {
+                const titleA = (a.title as any)[locale] || a.title?.fr || "";
+                const titleB = (b.title as any)[locale] || b.title?.fr || "";
+                return titleA.localeCompare(titleB);
+            }
+            return 0;
+        });
+
+        return result;
+    }, [news, searchQuery, filter, sort, locale]);
 
     const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
     const paginatedItems = useMemo(() => {
@@ -253,6 +296,51 @@ export default function NewsManagement() {
         );
     };
 
+    const filterContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tNews("filters.all")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["all", "impact", "field", "press", "draft", "published", "archived"].map((f) => (
+                <DropdownMenuItem
+                    key={f}
+                    onClick={() => {
+                        setFilter(f);
+                        setCurrentPage(1);
+                    }}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tNews(`filters.${f}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
+
+    const sortContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tCommon("sort")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["newest", "oldest", "readingTime", "title"].map((s) => (
+                <DropdownMenuItem
+                    key={s}
+                    onClick={() => setSort(s)}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        sort === s ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tNews(`sort.${s}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
+
     return (
         <AdminLayout>
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -268,6 +356,8 @@ export default function NewsManagement() {
                     onDelete={handleDelete}
                     onView={(item) => window.open(`/news/actualites/${item.id}`, "_blank")}
                     onExport={handleExport}
+                    filterContent={filterContent}
+                    sortContent={sortContent}
                     searchValue={searchQuery}
                     onSearchChange={(val) => {
                         setSearchQuery(val);

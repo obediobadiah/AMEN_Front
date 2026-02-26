@@ -2,78 +2,49 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Calendar, ArrowRight, BookOpen } from "lucide-react";
+import { FileText, Download, Calendar, ArrowRight, BookOpen, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { usePublications } from "@/hooks/use-publications";
+import { getImageUrl } from "@/lib/api-config";
+import { format } from "date-fns";
 
 export default function Publications() {
     const t = useTranslations();
+    const locale = useLocale();
     const [filter, setFilter] = useState("all");
-
-    const publications = [
-        {
-            id: 1,
-            title: t('publicationsPage.items.1.title'),
-            description: t('publicationsPage.items.1.description'),
-            category: "annual",
-            date: "Jan 2024",
-            size: "4.2 MB",
-            type: "PDF"
-        },
-        {
-            id: 2,
-            title: t('publicationsPage.items.2.title'),
-            description: t('publicationsPage.items.2.description'),
-            category: "technical",
-            date: "Nov 2023",
-            size: "12.5 MB",
-            type: "PDF"
-        },
-        {
-            id: 3,
-            title: t('publicationsPage.items.3.title'),
-            description: t('publicationsPage.items.3.description'),
-            category: "technical",
-            date: "Aug 2023",
-            size: "8.1 MB",
-            type: "PDF"
-        },
-        {
-            id: 4,
-            title: t('publicationsPage.items.4.title'),
-            description: t('publicationsPage.items.4.description'),
-            category: "research",
-            date: "Jun 2023",
-            size: "5.7 MB",
-            type: "PDF"
-        },
-        {
-            id: 5,
-            title: t('publicationsPage.items.5.title'),
-            description: t('publicationsPage.items.5.description'),
-            category: "annual",
-            date: "Feb 2022",
-            size: "2.8 MB",
-            type: "PDF"
-        },
-        {
-            id: 6,
-            title: t('publicationsPage.items.6.title'),
-            description: t('publicationsPage.items.6.description'),
-            category: "technical",
-            date: "Oct 2023",
-            size: "3.4 MB",
-            type: "PDF"
-        }
-    ];
+    const { publications, isLoading, recordDownload } = usePublications();
 
     const filteredPubs = filter === "all"
         ? publications
-        : publications.filter(pub => pub.category === filter);
+        : publications.filter(pub => {
+            if (typeof pub.category === 'string') return pub.category === filter;
+            if (typeof pub.category === 'object' && pub.category !== null) {
+                const mapping: Record<string, string> = {
+                    "annual": "Rapport Annuel",
+                    "technical": "Guide Technique",
+                    "research": "Document de Recherche"
+                };
+                return (pub.category as any).fr === mapping[filter];
+            }
+            return false;
+        });
+
+    const handleDownload = async (id: number, url: string) => {
+        try {
+            await recordDownload(id);
+            // After recording download, open the file in a new tab to download/view
+            window.open(getImageUrl(url), "_blank");
+        } catch (error) {
+            console.error("Failed to record download", error);
+            // Still try to download even if tracking fails
+            window.open(getImageUrl(url), "_blank");
+        }
+    };
 
     return (
         <Layout>
@@ -124,58 +95,86 @@ export default function Publications() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                        {filteredPubs.map((pub, idx) => (
-                            <motion.div
-                                key={pub.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group relative bg-card p-8 md:p-12 rounded-[3.5rem] border border-border/40 hover:border-primary/40 transition-all duration-700 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] flex flex-col sm:flex-row gap-10 items-start overflow-hidden"
-                            >
-                                {/* Decorative background gradient on hover */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    {isLoading ? (
+                        <div className="flex justify-center items-center py-20">
+                            <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                        </div>
+                    ) : filteredPubs.length === 0 ? (
+                        <div className="text-center py-20 text-muted-foreground text-xl">
+                            {t('publicationsPage.noRecords')}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                            {filteredPubs.map((pub, idx) => {
+                                const titleStr = (pub.title as any)[locale] || pub.title?.fr || pub.title?.en || "";
+                                const descStr = pub.description ? ((pub.description as any)[locale] || pub.description?.fr || pub.description?.en || "") : "";
 
-                                <div className="relative w-full sm:w-32 aspect-[3/4] bg-muted/30 rounded-[1.5rem] flex-shrink-0 flex items-center justify-center group-hover:bg-primary/5 transition-colors duration-700 overflow-hidden border border-border/50 shadow-lg group-hover:shadow-primary/10">
-                                    <FileText size={64} className="text-muted-foreground/30 group-hover:text-primary/40 transform transition-transform group-hover:scale-110" />
-                                    <div className="absolute inset-0 border-r-8 border-primary/10 group-hover:border-primary transition-all duration-500" />
-                                    <div className="absolute bottom-0 left-0 w-full h-2 bg-primary/20 group-hover:h-4 group-hover:bg-primary transition-all duration-500" />
-                                </div>
+                                return (
+                                    <motion.div
+                                        key={pub.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        className="group relative bg-card p-8 md:p-12 rounded-[3.5rem] border border-border/40 hover:border-primary/40 transition-all duration-700 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] flex flex-col sm:flex-row gap-10 items-start overflow-hidden"
+                                    >
+                                        {/* Decorative background gradient on hover */}
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                                <div className="flex-grow space-y-6">
-                                    <div className="flex flex-wrap items-center gap-6">
-                                        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
-                                            {t(`publicationsPage.categories.${pub.category}`)}
-                                        </span>
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-black uppercase tracking-widest">
-                                            <Calendar size={14} className="text-primary" />
-                                            {pub.date}
+                                        <div className="relative w-full sm:w-32 aspect-[3/4] bg-muted/30 rounded-[1.5rem] flex-shrink-0 flex items-center justify-center group-hover:bg-primary/5 transition-colors duration-700 overflow-hidden border border-border/50 shadow-lg group-hover:shadow-primary/10">
+                                            {pub.thumbnail_url ? (
+                                                <img
+                                                    src={getImageUrl(pub.thumbnail_url)}
+                                                    alt={titleStr}
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                />
+                                            ) : (
+                                                <FileText size={64} className="text-muted-foreground/30 group-hover:text-primary/40 transform transition-transform group-hover:scale-110" />
+                                            )}
+                                            <div className="absolute inset-0 border-r-8 border-primary/10 group-hover:border-primary transition-all duration-500" />
+                                            <div className="absolute bottom-0 left-0 w-full h-2 bg-primary/20 group-hover:h-4 group-hover:bg-primary transition-all duration-500" />
                                         </div>
-                                    </div>
 
-                                    <h3 className="text-2xl md:text-3xl font-black font-heading text-foreground group-hover:text-primary transition-colors leading-tight">
-                                        {pub.title}
-                                    </h3>
+                                        <div className="flex-grow space-y-6 z-10">
+                                            <div className="flex flex-wrap items-center gap-6">
+                                                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
+                                                    {typeof pub.category === 'object' && pub.category !== null
+                                                        ? ((pub.category as any)[locale] || (pub.category as any).fr || (pub.category as any).en)
+                                                        : t(`publicationsPage.categories.${pub.category || "annual"}`)}
+                                                </span>
+                                                <div className="flex items-center gap-2 text-xs text-muted-foreground font-black uppercase tracking-widest">
+                                                    <Calendar size={14} className="text-primary" />
+                                                    {pub.date ? format(new Date(pub.date), "MMM yyyy") : "-"}
+                                                </div>
+                                            </div>
 
-                                    <p className="text-lg text-muted-foreground leading-relaxed line-clamp-2 font-light">
-                                        {pub.description}
-                                    </p>
+                                            <h3 className="text-2xl md:text-3xl font-black font-heading text-foreground group-hover:text-primary transition-colors leading-tight">
+                                                {titleStr}
+                                            </h3>
 
-                                    <div className="pt-8 flex flex-wrap items-center justify-between gap-6 border-t border-border/30">
-                                        <div className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-3">
-                                            <span className="w-2 h-2 rounded-full bg-primary" />
-                                            {pub.type} <span className="opacity-30">•</span> {pub.size}
+                                            <p className="text-lg text-muted-foreground leading-relaxed line-clamp-2 font-light">
+                                                {descStr}
+                                            </p>
+
+                                            <div className="pt-8 flex flex-wrap items-center justify-between gap-6 border-t border-border/30">
+                                                <div className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-3">
+                                                    <span className="w-2 h-2 rounded-full bg-primary" />
+                                                    {pub.file_type || "PDF"} <span className="opacity-30">•</span> {pub.file_size || "-"}
+                                                </div>
+                                                <Button
+                                                    onClick={() => handleDownload(pub.id, pub.file_url)}
+                                                    className="h-14 px-10 rounded-2xl bg-foreground hover:bg-primary text-background font-black uppercase tracking-widest text-xs transition-all flex items-center gap-3 group/btn shadow-xl shadow-black/10 hover:-translate-y-1"
+                                                >
+                                                    {t('publicationsPage.download')}
+                                                    <Download size={20} className="transition-transform group-hover/btn:translate-y-1" />
+                                                </Button>
+                                            </div>
                                         </div>
-                                        <Button className="h-14 px-10 rounded-2xl bg-foreground hover:bg-primary text-background font-black uppercase tracking-widest text-xs transition-all flex items-center gap-3 group/btn shadow-xl shadow-black/10 hover:-translate-y-1">
-                                            {t('publicationsPage.download')}
-                                            <Download size={20} className="transition-transform group-hover/btn:translate-y-1" />
-                                        </Button>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                                    </motion.div>
+                                )
+                            })}
+                        </div>
+                    )}
                 </div>
             </section>
         </Layout>

@@ -1318,18 +1318,44 @@
         "readTimeLabel": "Reading Time (Min)",
         "uploadLabel": "Cover Image",
         "uploadPlaceholder": "Click to upload an image",
-        "saving": "Saving...",
-        "save": "Save",
         "update": "Update"
+      },
+      "filters": {
+        "all": "All Categories",
+        "impact": "Social Impact",
+        "field": "Field Stories",
+        "press": "Press Release",
+        "draft": "Draft",
+        "published": "Published",
+        "archived": "Archived"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "title": "Title (A-Z)",
+        "readingTime": "Reading Time"
       }
     },
     "projects": {
       "description": "Monitor field project progress, impact metrics, and local implementation.",
       "columns": {
-        "name": "Project Name",
-        "progress": "Progress",
-        "focus": "Focus",
         "impact": "Impact"
+      },
+      "filters": {
+        "all": "All Categories",
+        "environment": "Environment",
+        "health": "Health",
+        "education": "Education",
+        "humanitarian": "Humanitarian",
+        "active": "Active",
+        "completed": "Completed",
+        "upcoming": "Upcoming"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "progress": "Progress",
+        "name": "Name (A-Z)"
       }
     },
     "events": {
@@ -1355,8 +1381,20 @@
         "saving": "Saving...",
         "save": "Save",
         "update": "Update",
+        "past": "Past"
+      },
+      "filters": {
+        "all": "All Categories",
+        "workshop": "Workshops",
+        "conference": "Conferences",
+        "field": "Field Activities",
         "upcoming": "Upcoming",
         "past": "Past"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "title": "Title (A-Z)"
       },
       "loading": "Loading events...",
       "deleteConfirm": "Are you sure you want to delete this event?",
@@ -1376,14 +1414,66 @@
     "multimedia": {
       "description": "Manage gallery assets, project videos, and visual content library.",
       "columns": {
-        "mediaId": "Media ID",
-        "content": "Media Content",
-        "type": "Media Type",
         "addedOn": "Added On"
+      },
+      "filters": {
+        "all": "All Types",
+        "photo": "Photos",
+        "video": "Videos",
+        "document": "Documents"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "title": "Title (A-Z)"
       }
     },
     "publications": {
       "description": "Publish and manage annual reports, guides, and research papers.",
+      "dialog": {
+        "editTitle": "Edit Publication",
+        "createTitle": "Create New Publication",
+        "editDesc": "Update publication details. Changes will be translated automatically.",
+        "createDesc": "Fill in the details of the new publication. It will be automatically translated into English and French.",
+        "inputLang": "Input Language",
+        "titleLabel": "Publication Title",
+        "titlePlaceholder": "Enter title...",
+        "descLabel": "Description",
+        "descPlaceholder": "Enter description...",
+        "categoryLabel": "Category",
+        "dateLabel": "Date",
+        "langLabel": "Language",
+        "fileLabel": "Document File",
+        "uploading": "Uploading...",
+        "fileAttached": "File attached",
+        "selectFile": "Select a document file",
+        "annual": "Annual Report",
+        "technical": "Technical Guide",
+        "research": "Research Paper",
+        "saving": "Saving...",
+        "save": "Save",
+        "update": "Update"
+      },
+      "filters": {
+        "all": "All Categories",
+        "annual": "Annual Reports",
+        "technical": "Technical Guides",
+        "research": "Research Papers"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "downloads": "Most Downloaded",
+        "title": "Title (A-Z)"
+      },
+      "messages": {
+        "noRecordsToExport": "No publications to export.",
+        "deleteConfirm": "Are you sure you want to delete this publication?",
+        "saveSuccess": "Publication saved successfully",
+        "updateSuccess": "Publication updated successfully",
+        "deleteSuccess": "Publication deleted successfully",
+        "error": "An error occurred"
+      },
       "columns": {
         "title": "Document Title",
         "type": "Publication Type",
@@ -1398,6 +1488,18 @@
         "category": "Category",
         "size": "Size",
         "updated": "Updated"
+      },
+      "filters": {
+        "all": "All Categories",
+        "report": "Reports",
+        "guide": "Guides",
+        "infographic": "Infographics",
+        "policy": "Policy Papers"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "title": "Title (A-Z)"
       }
     },
     "governance": {
@@ -1407,6 +1509,17 @@
         "role": "Role",
         "department": "Department",
         "status": "Status"
+      },
+      "filters": {
+        "all": "All Organs",
+        "ag": "General Assembly (AG)",
+        "cd": "Board of Directors (CD)",
+        "pe": "Executive Secretariat (PE)",
+        "dg": "General Management (DG)"
+      },
+      "sort": {
+        "order": "Custom Order",
+        "name": "Name (A-Z)"
       }
     },
     "donations": {
@@ -1417,6 +1530,16 @@
         "date": "Date",
         "method": "Method",
         "status": "Status"
+      },
+      "filters": {
+        "all": "All Types",
+        "one-time": "One-Time",
+        "monthly": "Monthly"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "amount": "Amount"
       }
     },
     "contacts": {
@@ -1427,6 +1550,18 @@
         "received": "Received On",
         "type": "Type",
         "message": "Message"
+      },
+      "filters": {
+        "all": "All Types",
+        "contact": "Contact",
+        "volunteer": "Volunteer",
+        "partner": "Partner",
+        "newsletter": "Newsletter"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "name": "Name (A-Z)"
       }
     },
     "settings": {
