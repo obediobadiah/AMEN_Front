@@ -40,7 +40,7 @@ const publicationSchema = zod.object({
     thumbnail_url: zod.string().optional().or(zod.literal("")),
     file_size: zod.string().optional(),
     file_type: zod.string().optional(),
-    source_lang: zod.enum(["fr", "en"]),
+    source_lang: zod.string().default("fr"),
 });
 
 interface PublicationsDialogProps {
@@ -71,7 +71,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
             thumbnail_url: "",
             file_size: "",
             file_type: "",
-            source_lang: locale === "fr" ? "fr" : "en",
+            source_lang: "fr",
         },
     });
 
@@ -97,7 +97,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                 thumbnail_url: publication.thumbnail_url || "",
                 file_size: publication.file_size || "",
                 file_type: publication.file_type || "",
-                source_lang: (publication.title as any)[locale] ? locale : (publication.title.fr ? "fr" : "en"),
+                source_lang: "fr",
             });
             setPreviewUrl(getImageUrl(publication.thumbnail_url) || "");
         } else {
@@ -110,7 +110,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                 thumbnail_url: "",
                 file_size: "",
                 file_type: "",
-                source_lang: locale === "fr" ? "fr" : "en",
+                source_lang: "fr",
             });
             setPreviewUrl("");
         }
@@ -150,7 +150,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
+            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
                 <div className="bg-slate-50/80 backdrop-blur-md p-10 border-b border-slate-100 sticky top-0 z-10">
                     <DialogHeader>
                         <DialogTitle className="text-4xl font-black text-slate-900 tracking-tight">
@@ -168,62 +168,39 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <FormField
                                     control={form.control}
-                                    name="source_lang"
+                                    name="category"
                                     render={({ field }) => (
                                         <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.langLabel")}</FormLabel>
+                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.categoryLabel")}</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700">
-                                                        <SelectValue placeholder={t("dialog.langLabel")} />
+                                                    <SelectTrigger className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 px-6 focus:ring-primary/20 transition-all">
+                                                        <SelectValue placeholder={t("dialog.categoryLabel")} />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                    <SelectItem value="fr" className="rounded-xl font-bold py-3">Français</SelectItem>
-                                                    <SelectItem value="en" className="rounded-xl font-bold py-3">English</SelectItem>
+                                                    <SelectItem value="annual" className="rounded-xl font-bold py-3 text-emerald-600">{t("dialog.annual")}</SelectItem>
+                                                    <SelectItem value="technical" className="rounded-xl font-bold py-3 text-blue-600">{t("dialog.technical")}</SelectItem>
+                                                    <SelectItem value="research" className="rounded-xl font-bold py-3 text-purple-600">{t("dialog.research")}</SelectItem>
                                                 </SelectContent>
                                             </Select>
-                                            <FormMessage />
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                         </FormItem>
                                     )}
                                 />
-                                <div className="grid grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="category"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-4">
-                                                <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.categoryLabel")}</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700">
-                                                            <SelectValue placeholder={t("dialog.categoryLabel")} />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                        <SelectItem value="annual" className="rounded-xl font-bold py-3 text-emerald-600">{t("dialog.annual")}</SelectItem>
-                                                        <SelectItem value="technical" className="rounded-xl font-bold py-3 text-blue-600">{t("dialog.technical")}</SelectItem>
-                                                        <SelectItem value="research" className="rounded-xl font-bold py-3 text-purple-600">{t("dialog.research")}</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="date"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-4">
-                                                <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.dateLabel")}</FormLabel>
-                                                <FormControl>
-                                                    <Input type="datetime-local" className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4" {...field} />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
+                                <FormField
+                                    control={form.control}
+                                    name="date"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-4">
+                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.dateLabel")}</FormLabel>
+                                            <FormControl>
+                                                <Input type="datetime-local" className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-6 focus-visible:ring-primary/20 transition-all" {...field} />
+                                            </FormControl>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
                             </div>
 
                             <FormField
@@ -233,9 +210,9 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                     <FormItem className="space-y-4">
                                         <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("dialog.titleLabel")}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder={t("dialog.titlePlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 text-lg" {...field} />
+                                            <Input placeholder={t("dialog.titlePlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 text-lg focus-visible:ring-primary/20 transition-all placeholder:text-slate-300 placeholder:font-medium" {...field} />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -249,11 +226,11 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                         <FormControl>
                                             <Textarea
                                                 placeholder={t("dialog.descPlaceholder")}
-                                                className="min-h-[120px] rounded-3xl bg-white border-slate-100 shadow-sm font-medium p-8 resize-none text-slate-600 leading-relaxed"
+                                                className="min-h-[120px] rounded-[2rem] bg-white border-slate-100 shadow-sm font-medium p-8 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 transition-all placeholder:text-slate-300"
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -268,8 +245,8 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
                                                 className={cn(
-                                                    "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden",
-                                                    (previewUrl) && "border-none"
+                                                    "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                    (previewUrl || field.value) && "border-none shadow-2xl"
                                                 )}
                                             >
                                                 {isUploading ? (
@@ -280,14 +257,14 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                                 ) : previewUrl ? (
                                                     <>
                                                         <img src={previewUrl} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                                                            <div className="bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                                                            <div className="bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
                                                                 <Upload className="w-6 h-6 text-primary" />
                                                             </div>
                                                         </div>
-                                                        <div className="absolute top-6 left-6 px-4 py-2 bg-slate-900/80 text-white rounded-xl shadow-xl backdrop-blur-sm z-20 flex gap-2 text-xs font-bold uppercase tracking-widest">
-                                                            <span>{form.watch("file_type")}</span>
-                                                            <span className="opacity-50">•</span>
+                                                        <div className="absolute top-6 left-6 px-6 py-3 bg-slate-900/90 text-white rounded-2xl shadow-2xl backdrop-blur-md z-20 flex gap-3 text-[10px] font-black uppercase tracking-[0.2em]">
+                                                            <span className="text-primary">{form.watch("file_type")}</span>
+                                                            <span className="opacity-30">•</span>
                                                             <span>{form.watch("file_size")}</span>
                                                         </div>
                                                         <button
@@ -298,24 +275,37 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                                                 field.onChange("");
                                                                 form.setValue("thumbnail_url", "");
                                                             }}
-                                                            className="absolute top-6 right-6 p-2.5 bg-rose-500 text-white rounded-full shadow-xl hover:bg-rose-600 transition-colors z-20"
+                                                            className="absolute top-6 right-6 p-2.5 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20 scale-90 group-hover:scale-100"
                                                         >
-                                                            <X size={16} />
+                                                            <X size={18} />
                                                         </button>
                                                     </>
                                                 ) : field.value ? (
-                                                    <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-colors">
-                                                        <div className="p-6 bg-emerald-50 text-emerald-600 rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110 border border-emerald-100">
-                                                            <FileDown size={32} />
+                                                    <div className="flex flex-col items-center gap-6 text-emerald-600 group-hover:scale-105 transition-all duration-500">
+                                                        <div className="p-8 bg-emerald-50 rounded-[2.5rem] shadow-xl shadow-emerald-100/50 transition-all duration-500 group-hover:bg-emerald-100 group-hover:shadow-2xl border border-emerald-100">
+                                                            <FileDown size={40} className="text-emerald-600" />
                                                         </div>
-                                                        <span className="text-xs font-black uppercase tracking-widest leading-relaxed text-center px-10 text-emerald-600">{t("dialog.fileAttached")} ({form.watch("file_size")})</span>
+                                                        <div className="flex flex-col items-center gap-2">
+                                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">{t("dialog.fileAttached")}</span>
+                                                            <span className="text-xs font-bold text-emerald-600/60 ">{form.watch("file_size")} • {form.watch("file_type")}</span>
+                                                        </div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                field.onChange("");
+                                                            }}
+                                                            className="absolute top-6 right-6 p-2.5 bg-emerald-500 text-white rounded-full shadow-2xl hover:bg-emerald-600 transition-all z-20 scale-90 group-hover:scale-100"
+                                                        >
+                                                            <X size={18} />
+                                                        </button>
                                                     </div>
                                                 ) : (
-                                                    <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-colors">
-                                                        <div className="p-6 bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
-                                                            <FileDown size={32} />
+                                                    <div className="flex flex-col items-center gap-6 text-slate-400 group-hover:text-primary transition-all duration-500">
+                                                        <div className="p-8 bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl">
+                                                            <FileDown size={40} className="text-primary" />
                                                         </div>
-                                                        <span className="text-xs font-black uppercase tracking-widest leading-relaxed text-center px-10">{t("dialog.selectFile")}</span>
+                                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] italic">{t("dialog.selectFile")}</span>
                                                     </div>
                                                 )}
                                                 <input
@@ -327,7 +317,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                                 />
                                             </div>
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -349,9 +339,13 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                     {isSubmitting || isUploading ? (
                                         <div className="flex items-center gap-3">
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            {t("dialog.saving")}
+                                            <span className="animate-pulse italic">Synchronizing...</span>
                                         </div>
-                                    ) : (publication ? t("dialog.update") : t("dialog.save"))}
+                                    ) : (
+                                        <div className="flex items-center gap-3">
+                                            {publication ? t("dialog.update") : t("dialog.save")}
+                                        </div>
+                                    )}
                                 </Button>
                             </DialogFooter>
                         </form>

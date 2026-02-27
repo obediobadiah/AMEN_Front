@@ -1274,6 +1274,8 @@
       "grid": "Grille",
       "manageEntry": "Gérer l'Entrée",
       "viewDetails": "Voir Détails",
+      "type": "Type",
+      "date": "Date",
       "noRecords": "Aucun enregistrement trouvé",
       "showing": "Affichage de",
       "of": "sur",
@@ -1363,6 +1365,37 @@
         "oldest": "Plus anciens",
         "progress": "Progrès",
         "name": "Nom (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Projet",
+        "createTitle": "Créer un Nouveau Projet",
+        "editDesc": "Modifiez les détails du projet, le statut et les mesures d'impact.",
+        "createDesc": "Enregistrez une nouvelle initiative d'ONG avec des données de terrain complètes.",
+        "titleLabel": "Titre du Projet",
+        "titlePlaceholder": "Entrez le nom du projet...",
+        "descLabel": "Description Courte",
+        "descPlaceholder": "Décrivez brièvement le projet...",
+        "statusLabel": "Statut de Mise en Œuvre",
+        "active": "Actif",
+        "completed": "Terminé",
+        "upcoming": "À venir",
+        "locationLabel": "Lieu sur le Terrain",
+        "locationPlaceholder": "Province, District...",
+        "categoryLabel": "Domaine d'Intervention",
+        "startDateLabel": "Date de Début",
+        "endDateLabel": "Achèvement Prévu",
+        "uploadLabel": "Bannière du Projet",
+        "impactLabel": "Stats d'Impact (ex. 50k Arbres)",
+        "overviewLabel": "Aperçu Détaillé",
+        "save": "Enregistrer le Projet",
+        "update": "Mettre à jour le Projet"
+      },
+      "messages": {
+        "saveSuccess": "Projet enregistré avec succès",
+        "updateSuccess": "Projet mis à jour avec succès",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce projet ?",
+        "deleteSuccess": "Projet supprimé avec succès",
+        "error": "Une erreur est survenue"
       }
     },
     "events": {
@@ -1373,6 +1406,8 @@
         "editDesc": "Mettez à jour les détails de votre événement. Les modifications seront traduites automatiquement.",
         "createDesc": "Remplissez les détails de votre nouvel événement. Il sera automatiquement traduit en anglais et en français.",
         "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
         "titleLabel": "Titre de l'événement",
         "titlePlaceholder": "Entrez le titre de l'événement...",
         "descLabel": "Description",
@@ -1388,6 +1423,7 @@
         "saving": "Enregistrement...",
         "save": "Enregistrer",
         "update": "Mettre à jour",
+        "cancel": "Annuler",
         "upcoming": "À venir",
         "past": "Passé"
       },
@@ -1420,20 +1456,89 @@
       }
     },
     "multimedia": {
-      "description": "Gérez les actifs de la galerie, les vidéos de projet et la bibliothèque de contenus visuels.",
+      "library": "Médiathèque",
+      "description": "Gerez les actifs de la galerie, les videos de projet et la bibliotheque de contenus visuels.",
+      "loading": "Chargement des medias...",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce media?",
+      "deleteSuccess": "Media supprimé avec succès",
+      "deleteError": "Échec de la suppression du media",
+      "saveSuccess": "Media enregistré avec succès",
+      "saveError": "Échec de l'enregistrement du media",
       "columns": {
-        "addedOn": "Ajouté le"
+        "title": "Titre",
+        "addedOn": "Ajoute le",
+        "content": "Contenu multimedia",
+        "type": "Type d'actif"
       },
       "filters": {
         "all": "Tous les types",
         "photo": "Photos",
-        "video": "Vidéos",
+        "video": "Videos",
         "document": "Documents"
       },
       "sort": {
         "newest": "Plus récents",
         "oldest": "Plus anciens",
         "title": "Titre (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Media",
+        "createTitle": "Ajouter un Nouveau Media",
+        "editDesc": "Mettre à jour les détails du média. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails du nouvel élément de la galerie. Il sera traduit automatiquement.",
+        "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
+        "titleLabel": "Titre de l'élément",
+        "titlePlaceholder": "Entrez le titre...",
+        "categoryLabel": "Catégorie",
+        "categoryPlaceholder": "Ex: Nature, Communauté...",
+        "albumLabel": "Choisir un Album",
+        "albumPlaceholder": "Déplacer vers l'album (optionnel)...",
+        "save": "Enregistrer",
+        "update": "Mettre à jour",
+        "cancel": "Annuler"
+      }
+    },
+    "albums": {
+      "title": "Albums Multimédia",
+      "digitalCollections": "Collections Numériques",
+      "newAlbum": "Nouvel Album",
+      "content": "Contenu",
+      "files": "Fichiers",
+      "deleteAlbum": "Supprimer l'Album",
+      "editDetails": "Modifier l'Album",
+      "description": "Organisez votre contenu multimédia en collections thématiques et gérez l'accès public.",
+      "columns": {
+        "name": "Nom de l'Album",
+        "count": "Éléments Média",
+        "visibility": "Visibilité"
+      },
+      "filters": {
+        "all": "Tous les Albums",
+        "public": "Public",
+        "private": "Privé"
+      },
+      "dialog": {
+        "editTitle": "Modifier l'Album",
+        "createTitle": "Créer un Nouvel Album",
+        "editDesc": "Modifiez les détails de l'album et les paramètres de visibilité.",
+        "createDesc": "Commencez une nouvelle collection pour vos actifs médias.",
+        "nameLabel": "Nom de l'Album",
+        "namePlaceholder": "ex: Sommet Annuel 2024...",
+        "descLabel": "Description Courte",
+        "descPlaceholder": "Racontez l'histoire de cette collection...",
+        "visibilityLabel": "Visibilité Publique",
+        "visibilityDesc": "Cet album et ses contenus seront visibles par le public.",
+        "uploadLabel": "Couverture de l'Album",
+        "save": "Créer l'Album",
+        "update": "Enregistrer les Modifications"
+      },
+      "messages": {
+        "saveSuccess": "Album créé avec succès",
+        "updateSuccess": "Album mis à jour",
+        "deleteConfirm": "Supprimer cet album ? Les médias à l'intérieur resteront mais perdront leur connexion.",
+        "deleteSuccess": "Album supprimé"
       }
     },
     "publications": {
@@ -1508,6 +1613,27 @@
         "newest": "Plus récents",
         "oldest": "Plus anciens",
         "title": "Titre (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier la Ressource",
+        "createTitle": "Publier une Ressource",
+        "editDesc": "Modifiez les métadonnées du document ou remplacez le fichier.",
+        "createDesc": "Ajoutez un nouveau document, rapport ou ensemble de données à la bibliothèque publique.",
+        "titleLabel": "Titre de la Ressource",
+        "titlePlaceholder": "ex. Rapport d'Impact Annuel 2023...",
+        "descLabel": "Description",
+        "descPlaceholder": "Décrivez brièvement le contenu...",
+        "categoryLabel": "Type de Matériel",
+        "uploadLabel": "Fichier Source",
+        "save": "Publier la Ressource",
+        "update": "Mettre à jour les Métadonnées"
+      },
+      "messages": {
+        "saveSuccess": "Ressource publiée",
+        "updateSuccess": "Métadonnées mises à jour",
+        "deleteConfirm": "Supprimer cette ressource définitivement ?",
+        "deleteSuccess": "Ressource supprimée",
+        "error": "L'opération a échoué"
       }
     },
     "governance": {
@@ -1528,6 +1654,30 @@
       "sort": {
         "order": "Ordre personnalisé",
         "name": "Nom (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Membre",
+        "createTitle": "Ajouter un Membre",
+        "editDesc": "Modifiez le rôle, la biographie et les détails organisationnels.",
+        "createDesc": "Enregistrez un nouvel officier ou membre du conseil.",
+        "nameLabel": "Nom Complet",
+        "namePlaceholder": "Jean Dupont...",
+        "roleLabel": "Rôle Professionnel",
+        "rolePlaceholder": "Directeur Exécutif...",
+        "bioLabel": "Biographie",
+        "bioPlaceholder": "Bref parcours professionnel...",
+        "organLabel": "Organe Administratif",
+        "orderLabel": "Priorité d'Affichage (0 = Défaut)",
+        "uploadLabel": "Photo Officielle",
+        "save": "Enregistrer le Membre",
+        "update": "Mettre à jour le Profil"
+      },
+      "messages": {
+        "saveSuccess": "Profil du membre enregistré",
+        "updateSuccess": "Profil mis à jour",
+        "deleteConfirm": "Révoquer le profil de ce membre ?",
+        "deleteSuccess": "Membre supprimé",
+        "error": "Erreur lors du traitement"
       }
     },
     "donations": {

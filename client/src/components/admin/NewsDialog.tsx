@@ -40,7 +40,7 @@ const newsSchema = zod.object({
     status: zod.string().min(1, "Status is required").refine((value) => ["Draft", "Published", "Archived"].includes(value), "Invalid status"),
     reading_time: zod.number().min(1, "Reading time must be at least 1 minute"),
     thumbnail_url: zod.string().optional().or(zod.literal("")),
-    source_lang: zod.enum(["fr", "en"]),
+    source_lang: zod.string().default("fr"),
 });
 
 interface NewsDialogProps {
@@ -70,7 +70,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
             status: "Draft",
             reading_time: 5,
             thumbnail_url: "",
-            source_lang: locale === "fr" ? "fr" : "en",
+            source_lang: "fr",
         },
     });
 
@@ -85,7 +85,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                 status: article.status ? ((article.status as any)?.en || "Draft") : "Draft",
                 reading_time: article.reading_time || 5,
                 thumbnail_url: article.thumbnail_url || "",
-                source_lang: (article.title as any)[locale] ? locale : (article.title.fr ? "fr" : "en"),
+                source_lang: "fr",
             });
             setPreviewUrl(getImageUrl(article.thumbnail_url) || "");
         } else {
@@ -98,7 +98,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                 status: "Draft",
                 reading_time: 5,
                 thumbnail_url: "",
-                source_lang: locale === "fr" ? "fr" : "en",
+                source_lang: "fr",
             });
             setPreviewUrl("");
         }
@@ -146,71 +146,48 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <FormField
                                     control={form.control}
-                                    name="source_lang"
+                                    name="category"
                                     render={({ field }) => (
                                         <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("inputLang")}</FormLabel>
+                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("category")}</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700">
-                                                        <SelectValue placeholder="Langue" />
+                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all">
+                                                        <SelectValue placeholder="Catégorie" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                    <SelectItem value="fr" className="rounded-xl font-bold py-3">{t("fr")}</SelectItem>
-                                                    <SelectItem value="en" className="rounded-xl font-bold py-3">{t("en")}</SelectItem>
+                                                    <SelectItem value="impact" className="rounded-xl font-bold py-3">{t("impact")}</SelectItem>
+                                                    <SelectItem value="field" className="rounded-xl font-bold py-3">{t("field")}</SelectItem>
+                                                    <SelectItem value="press" className="rounded-xl font-bold py-3">{t("press")}</SelectItem>
                                                 </SelectContent>
                                             </Select>
-                                            <FormMessage />
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                         </FormItem>
                                     )}
                                 />
-                                <div className="grid grid-cols-2 gap-4">
-                                    <FormField
-                                        control={form.control}
-                                        name="category"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-4">
-                                                <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("category")}</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700">
-                                                            <SelectValue placeholder="Catégorie" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                        <SelectItem value="impact" className="rounded-xl font-bold py-3">{t("impact")}</SelectItem>
-                                                        <SelectItem value="field" className="rounded-xl font-bold py-3">{t("field")}</SelectItem>
-                                                        <SelectItem value="press" className="rounded-xl font-bold py-3">{t("press")}</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="status"
-                                        render={({ field }) => (
-                                            <FormItem className="space-y-4">
-                                                <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("status")}</FormLabel>
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700">
-                                                            <SelectValue placeholder="Statut" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                        <SelectItem value="Draft" className="rounded-xl font-bold py-3">{t("draft")}</SelectItem>
-                                                        <SelectItem value="Published" className="rounded-xl font-bold py-3 text-emerald-600">{t("published")}</SelectItem>
-                                                        <SelectItem value="Archived" className="rounded-xl font-bold py-3 text-slate-400">{t("archived")}</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                </div>
+                                <FormField
+                                    control={form.control}
+                                    name="status"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-4">
+                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("status")}</FormLabel>
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all">
+                                                        <SelectValue placeholder="Statut" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
+                                                    <SelectItem value="Draft" className="rounded-xl font-bold py-3">{t("draft")}</SelectItem>
+                                                    <SelectItem value="Published" className="rounded-xl font-bold py-3 text-emerald-600">{t("published")}</SelectItem>
+                                                    <SelectItem value="Archived" className="rounded-xl font-bold py-3 text-slate-400">{t("archived")}</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
                             </div>
 
                             <FormField
@@ -220,10 +197,11 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                     <FormItem className="space-y-4">
                                         <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("titleLabel")}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder={t("titlePlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 text-lg" {...field} />
+                                            <Input placeholder={t("titlePlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 text-lg focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 placeholder:font-medium" {...field} />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
+
                                 )}
                             />
 
@@ -236,11 +214,11 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                         <FormControl>
                                             <Textarea
                                                 placeholder={t("excerptPlaceholder")}
-                                                className="min-h-[120px] rounded-3xl bg-white border-slate-100 shadow-sm font-medium p-8 resize-none text-slate-600 leading-relaxed"
+                                                className="min-h-[120px] rounded-3xl bg-white border-slate-100 shadow-sm font-medium p-8 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300"
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -254,11 +232,11 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                         <FormControl>
                                             <Textarea
                                                 placeholder={t("contentPlaceholder")}
-                                                className="min-h-[400px] rounded-[2.5rem] bg-white border-slate-100 shadow-sm font-medium p-10 resize-none text-slate-600 leading-relaxed"
+                                                className="min-h-[400px] rounded-[2.5rem] bg-white border-slate-100 shadow-sm font-medium p-10 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300"
                                                 {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -271,9 +249,9 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                         <FormItem className="space-y-4">
                                             <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("authorLabel")}</FormLabel>
                                             <FormControl>
-                                                <Input placeholder={t("authorPlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8" {...field} />
+                                                <Input placeholder={t("authorPlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
                                             </FormControl>
-                                            <FormMessage />
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                         </FormItem>
                                     )}
                                 />
@@ -286,12 +264,12 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                             <FormControl>
                                                 <Input
                                                     type="number"
-                                                    className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8"
+                                                    className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 focus-visible:ring-primary/20 focus-visible:border-primary transition-all"
                                                     {...field}
                                                     onChange={e => field.onChange(parseInt(e.target.value) || 0)}
                                                 />
                                             </FormControl>
-                                            <FormMessage />
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                         </FormItem>
                                     )}
                                 />
@@ -307,20 +285,20 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
                                                 className={cn(
-                                                    "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden",
-                                                    (previewUrl || field.value) && "border-none"
+                                                    "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                    (previewUrl || field.value) && "border-none shadow-2xl"
                                                 )}
                                             >
                                                 {isUploading ? (
                                                     <div className="flex flex-col items-center gap-4">
                                                         <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                                                        <span className="text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Téléchargement...</span>
+                                                        <span className="text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Uploading...</span>
                                                     </div>
                                                 ) : (previewUrl || field.value) ? (
                                                     <>
                                                         <img src={previewUrl || getImageUrl(field.value)} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                                                            <div className="bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500">
+                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                                                            <div className="bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
                                                                 <Upload className="w-6 h-6 text-primary" />
                                                             </div>
                                                         </div>
@@ -331,17 +309,17 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                                                 setPreviewUrl("");
                                                                 field.onChange("");
                                                             }}
-                                                            className="absolute top-6 right-6 p-2.5 bg-rose-500 text-white rounded-full shadow-xl hover:bg-rose-600 transition-colors z-20"
+                                                            className="absolute top-6 right-6 p-2.5 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20 scale-90 group-hover:scale-100"
                                                         >
-                                                            <X size={16} />
+                                                            <X size={18} />
                                                         </button>
                                                     </>
                                                 ) : (
-                                                    <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-colors">
+                                                    <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
                                                         <div className="p-6 bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
-                                                            <ImageIcon size={32} />
+                                                            <ImageIcon size={32} className="text-primary" />
                                                         </div>
-                                                        <span className="text-xs font-black uppercase tracking-widest leading-relaxed text-center px-10">{t("uploadPlaceholder")}</span>
+                                                        <span className="text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic text-center px-10">{t("uploadPlaceholder")}</span>
                                                     </div>
                                                 )}
                                                 <input
@@ -353,7 +331,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                                 />
                                             </div>
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
                                 )}
                             />
@@ -372,12 +350,16 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                     disabled={isSubmitting || isUploading}
                                     className="h-16 px-14 rounded-2xl bg-primary shadow-2xl shadow-primary/30 hover:shadow-primary/50 font-black text-lg transition-all min-w-[200px]"
                                 >
-                                    {isSubmitting ? (
+                                    {isSubmitting || isUploading ? (
                                         <div className="flex items-center gap-3">
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            {t("saving")}
+                                            <span className="animate-pulse italic">Synchronizing...</span>
                                         </div>
-                                    ) : (article ? t("update") : t("save"))}
+                                    ) : (
+                                        <div className="flex items-center gap-3">
+                                            {article ? t("update") : t("save")}
+                                        </div>
+                                    )}
                                 </Button>
                             </DialogFooter>
                         </form>

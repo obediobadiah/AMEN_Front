@@ -1270,6 +1270,8 @@
       "grid": "Grid",
       "manageEntry": "Manage Entry",
       "viewDetails": "View Details",
+      "type": "Type",
+      "date": "Date",
       "noRecords": "No records found",
       "showing": "Showing",
       "of": "of",
@@ -1356,6 +1358,37 @@
         "oldest": "Oldest First",
         "progress": "Progress",
         "name": "Name (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Edit Project",
+        "createTitle": "Create New Project",
+        "editDesc": "Modify project details, status, and impact metrics.",
+        "createDesc": "Register a new NGO initiative with comprehensive field data.",
+        "titleLabel": "Project Title",
+        "titlePlaceholder": "Enter project name...",
+        "descLabel": "Short Description",
+        "descPlaceholder": "Briefly describe the project...",
+        "statusLabel": "Implementation Status",
+        "active": "Active",
+        "completed": "Completed",
+        "upcoming": "Upcoming",
+        "locationLabel": "Field Location",
+        "locationPlaceholder": "Province, District...",
+        "categoryLabel": "Intervention Area",
+        "startDateLabel": "Start Date",
+        "endDateLabel": "Expected Completion",
+        "uploadLabel": "Project Banner",
+        "impactLabel": "Impact Stats (e.g. 50k Trees)",
+        "overviewLabel": "Detailed Overview",
+        "save": "Save Project",
+        "update": "Update Project"
+      },
+      "messages": {
+        "saveSuccess": "Project saved successfully",
+        "updateSuccess": "Project updated successfully",
+        "deleteConfirm": "Are you sure you want to remove this project?",
+        "deleteSuccess": "Project removed successfully",
+        "error": "An error occurred"
       }
     },
     "events": {
@@ -1366,6 +1399,8 @@
         "editDesc": "Update your event details. Changes will be translated automatically.",
         "createDesc": "Fill in the details of your new event. It will be automatically translated into English and French.",
         "inputLang": "Input Language",
+        "fr": "French",
+        "en": "English",
         "titleLabel": "Event Title",
         "titlePlaceholder": "Enter event title...",
         "descLabel": "Description",
@@ -1381,6 +1416,7 @@
         "saving": "Saving...",
         "save": "Save",
         "update": "Update",
+        "cancel": "Cancel",
         "past": "Past"
       },
       "filters": {
@@ -1412,9 +1448,19 @@
       }
     },
     "multimedia": {
+      "library": "Library",
       "description": "Manage gallery assets, project videos, and visual content library.",
+      "loading": "Loading multimedias...",
+      "deleteConfirm": "Are you sure you want to delete this media?",
+      "deleteSuccess": "Media deleted successfully",
+      "deleteError": "Failed to delete media",
+      "saveSuccess": "Media saved successfully",
+      "saveError": "Failed to save media",
       "columns": {
-        "addedOn": "Added On"
+        "title": "Title",
+        "addedOn": "Added On",
+        "content": "Media Content",
+        "type": "Asset Type"
       },
       "filters": {
         "all": "All Types",
@@ -1426,6 +1472,65 @@
         "newest": "Newest First",
         "oldest": "Oldest First",
         "title": "Title (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Edit Media",
+        "createTitle": "Add New Media",
+        "editDesc": "Update media details. Changes will be translated automatically.",
+        "createDesc": "Fill in the details for the new gallery item. It will be automatically translated.",
+        "inputLang": "Input Language",
+        "fr": "French",
+        "en": "English",
+        "titleLabel": "Item Title",
+        "titlePlaceholder": "Enter item title...",
+        "categoryLabel": "Category",
+        "categoryPlaceholder": "E.g. Nature, Community...",
+        "albumLabel": "Select Album",
+        "albumPlaceholder": "Move to album (optional)...",
+        "save": "Save",
+        "update": "Update",
+        "cancel": "Cancel"
+      }
+    },
+    "albums": {
+      "title": "Media Albums",
+      "digitalCollections": "Digital Collections",
+      "newAlbum": "New Album",
+      "content": "Content",
+      "files": "Files",
+      "deleteAlbum": "Delete Album",
+      "editDetails": "Edit Album",
+      "description": "Organize your media content into thematic collections and manage public access.",
+      "columns": {
+        "name": "Album Name",
+        "count": "Media Items",
+        "visibility": "Visibility"
+      },
+      "filters": {
+        "all": "All Albums",
+        "public": "Public",
+        "private": "Private"
+      },
+      "dialog": {
+        "editTitle": "Edit Album",
+        "createTitle": "Create New Album",
+        "editDesc": "Modify album details and visibility settings.",
+        "createDesc": "Start a new collection for your media assets.",
+        "nameLabel": "Album Name",
+        "namePlaceholder": "e.g., Annual Summit 2024...",
+        "descLabel": "Short Description",
+        "descPlaceholder": "Tell the story of this collection...",
+        "visibilityLabel": "Public Visibility",
+        "visibilityDesc": "This album and its contents will be visible to the public.",
+        "uploadLabel": "Album Cover",
+        "save": "Create Album",
+        "update": "Save Changes"
+      },
+      "messages": {
+        "saveSuccess": "Album created successfully",
+        "updateSuccess": "Album updated",
+        "deleteConfirm": "Delete this album? Media inside will remain but lose their connection.",
+        "deleteSuccess": "Album removed"
       }
     },
     "publications": {
@@ -1500,6 +1605,27 @@
         "newest": "Newest First",
         "oldest": "Oldest First",
         "title": "Title (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Edit Resource",
+        "createTitle": "Upload New Resource",
+        "editDesc": "Modify document metadata or replace file.",
+        "createDesc": "Add a new document, report, or dataset to the public library.",
+        "titleLabel": "Resource Title",
+        "titlePlaceholder": "e.g. Annual Impact Report 2023...",
+        "descLabel": "Description",
+        "descPlaceholder": "Briefly describe the contents...",
+        "categoryLabel": "Material Type",
+        "uploadLabel": "Source File",
+        "save": "Publish Resource",
+        "update": "Update Metadata"
+      },
+      "messages": {
+        "saveSuccess": "Resource published",
+        "updateSuccess": "Metadata updated",
+        "deleteConfirm": "Remove this resource permanently?",
+        "deleteSuccess": "Resource removed",
+        "error": "Operation failed"
       }
     },
     "governance": {
@@ -1520,6 +1646,30 @@
       "sort": {
         "order": "Custom Order",
         "name": "Name (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Edit Team Member",
+        "createTitle": "Add New Member",
+        "editDesc": "Modify role, biography, and organizational details.",
+        "createDesc": "Register a new officer or board member.",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "John Doe...",
+        "roleLabel": "Professional Role",
+        "rolePlaceholder": "Executive Director...",
+        "bioLabel": "Biography",
+        "bioPlaceholder": "Brief professional background...",
+        "organLabel": "Administrative Organ",
+        "orderLabel": "Display Priority (0 = Default)",
+        "uploadLabel": "Official Photo",
+        "save": "Register Member",
+        "update": "Update Profile"
+      },
+      "messages": {
+        "saveSuccess": "Member profile registered",
+        "updateSuccess": "Profile updated",
+        "deleteConfirm": "Revoke this member's profile?",
+        "deleteSuccess": "Member removed",
+        "error": "Error processing request"
       }
     },
     "donations": {

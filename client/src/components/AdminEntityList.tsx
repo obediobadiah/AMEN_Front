@@ -61,6 +61,7 @@ interface AdminEntityListProps<T extends EntityItem> {
     onPageChange?: (page: number) => void;
     filterContent?: React.ReactNode;
     sortContent?: React.ReactNode;
+    hideHeader?: boolean;
 }
 
 export function AdminEntityList<T extends EntityItem>({
@@ -82,7 +83,8 @@ export function AdminEntityList<T extends EntityItem>({
     totalPages = 1,
     onPageChange,
     filterContent,
-    sortContent
+    sortContent,
+    hideHeader = false
 }: AdminEntityListProps<T>) {
     const t = useTranslations("admin.common");
     const locale = useLocale();
@@ -91,24 +93,26 @@ export function AdminEntityList<T extends EntityItem>({
     return (
         <div className="space-y-10">
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
-                    <p className="text-slate-500 mt-1 font-medium">{description}</p>
+            {!hideHeader && (
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div>
+                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
+                        <p className="text-slate-500 mt-1 font-medium">{description}</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Button
+                            variant="outline"
+                            onClick={onExport}
+                            className="h-12 px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all"
+                        >
+                            <Download size={18} className="mr-2 text-slate-400" /> {t("export")}
+                        </Button>
+                        <Button onClick={onAdd} className="h-12 px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all">
+                            <Plus size={18} className="mr-2" /> {t("createNew")}
+                        </Button>
+                    </div>
                 </div>
-                <div className="flex items-center gap-3">
-                    <Button
-                        variant="outline"
-                        onClick={onExport}
-                        className="h-12 px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all"
-                    >
-                        <Download size={18} className="mr-2 text-slate-400" /> {t("export")}
-                    </Button>
-                    <Button onClick={onAdd} className="h-12 px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all">
-                        <Plus size={18} className="mr-2" /> {t("createNew")}
-                    </Button>
-                </div>
-            </div>
+            )}
 
             {/* Filters & Search */}
             <div className="flex flex-col md:flex-row items-center gap-4">
