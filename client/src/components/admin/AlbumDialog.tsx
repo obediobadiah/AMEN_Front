@@ -37,7 +37,7 @@ const albumSchema = zod.object({
     description: zod.string().optional(),
     is_public: zod.boolean().default(false),
     thumbnail_url: zod.string().optional(),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface AlbumDialogProps {
@@ -65,7 +65,7 @@ export function AlbumDialog({ open, onOpenChange, onSubmit, album, isSubmitting 
             description: "",
             is_public: false,
             thumbnail_url: "",
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -76,7 +76,7 @@ export function AlbumDialog({ open, onOpenChange, onSubmit, album, isSubmitting 
                 description: album.description ? ((album.description as any)[locale] || album.description.fr || album.description.en || "") : "",
                 is_public: album.is_public,
                 thumbnail_url: album.thumbnail_url || "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl(getImageUrl(album.thumbnail_url) || "");
         } else {
@@ -85,7 +85,7 @@ export function AlbumDialog({ open, onOpenChange, onSubmit, album, isSubmitting 
                 description: "",
                 is_public: false,
                 thumbnail_url: "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl("");
         }

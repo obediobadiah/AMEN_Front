@@ -71,7 +71,11 @@ export function useProjects() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newProject),
             });
-            if (!res.ok) throw new Error("Failed to create project");
+            if (!res.ok) {
+                const errorBody = await res.json().catch(() => ({}));
+                console.error("Project operation failed:", errorBody);
+                throw new Error("Failed to create project");
+            }
             return res.json();
         },
         onSuccess: () => {
@@ -86,7 +90,11 @@ export function useProjects() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
-            if (!res.ok) throw new Error("Failed to update project");
+            if (!res.ok) {
+                const errorBody = await res.json().catch(() => ({}));
+                console.error("Project operation failed:", errorBody);
+                throw new Error("Failed to update project");
+            }
             return res.json();
         },
         onSuccess: () => {

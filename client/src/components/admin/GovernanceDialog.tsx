@@ -38,7 +38,7 @@ const govSchema = zod.object({
     photo_url: zod.string().optional().or(zod.literal("")),
     organ_id: zod.string().optional(),
     order: zod.number().default(0),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface GovernanceDialogProps {
@@ -68,7 +68,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
             photo_url: "",
             organ_id: "pe",
             order: 0,
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -81,7 +81,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                 photo_url: member.photo_url || "",
                 organ_id: member.organ_id || "pe",
                 order: member.order || 0,
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl(getImageUrl(member.photo_url) || "");
         } else {
@@ -92,7 +92,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                 photo_url: "",
                 organ_id: "pe",
                 order: 0,
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl("");
         }

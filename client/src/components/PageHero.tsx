@@ -30,7 +30,7 @@ export function PageHero({ title, subtitle, image, className }: PageHeroProps) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="max-w-4xl mx-auto space-y-6"
+                    className="max-w-8xl mx-auto space-y-6"
                 >
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white tracking-tight drop-shadow-lg">
                         {title}

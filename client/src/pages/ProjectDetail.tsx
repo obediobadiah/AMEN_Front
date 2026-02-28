@@ -2,12 +2,15 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, ArrowLeft, CheckCircle, Target, Zap, Users, BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useProjects } from "@/hooks/use-projects";
+import { getImageUrl } from "@/lib/api-config";
+import { formatImpact } from "@/lib/utils";
 
 interface ProjectDetailProps {
     id: string;
@@ -15,24 +18,45 @@ interface ProjectDetailProps {
 
 export default function ProjectDetail({ id }: ProjectDetailProps) {
     const t = useTranslations();
+    const locale = useLocale() as "en" | "fr";
+    const { projects, isLoading } = useProjects();
 
-    // Basic validation for ID
-    const projectId = (parseInt(id) >= 1 && parseInt(id) <= 4) ? id : "1";
+    const projectData = projects.find(p => p.id.toString() === id);
+
+    if (isLoading) {
+        return (
+            <Layout>
+                <div className="py-24 flex justify-center items-center min-h-[60vh]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (!projectData) {
+        return (
+            <Layout>
+                <div className="py-24 text-center">
+                    <h2 className="text-2xl font-bold">{t('projectsPage.notFound')}</h2>
+                    <Link href="/activities/projects">
+                        <Button className="mt-4">{t('projectsPage.backToProjects')}</Button>
+                    </Link>
+                </div>
+            </Layout>
+        );
+    }
 
     const project = {
-        title: t(`projectsPage.items.${projectId}.title`),
-        description: t(`projectsPage.items.${projectId}.description`),
-        location: t(`projectsPage.items.${projectId}.location`),
-        date: t(`projectsPage.items.${projectId}.date`),
-        category: t(`projectsPage.items.${projectId}.category`),
-        overview: t(`projectsPage.items.${projectId}.details.overview`),
-        goals: t.raw(`projectsPage.items.${projectId}.details.goals`),
-        achievements: t.raw(`projectsPage.items.${projectId}.details.achievements`),
-        impact: t(`projectsPage.items.${projectId}.details.impact`),
-        // Mapping images based on ID
-        image: projectId === "1" ? images.programNature :
-            projectId === "2" ? images.news2 :
-                projectId === "3" ? images.programWomen : images.news3,
+        title: projectData.title[locale] || projectData.title.fr || projectData.title.en,
+        description: projectData.description ? (projectData.description[locale] || projectData.description.fr || projectData.description.en) : "",
+        location: projectData.location ? (projectData.location[locale] || projectData.location.fr || projectData.location.en) : "",
+        date: projectData.start_date ? new Date(projectData.start_date).getFullYear().toString() : "",
+        category: projectData.category ? ((projectData.category as any)[locale] || (projectData.category as any).fr || (projectData.category as any).en) : "General",
+        overview: projectData.overview ? (projectData.overview[locale] || projectData.overview.fr || projectData.overview.en) : "",
+        goals: projectData.goals ? (projectData.goals[locale] || projectData.goals.fr || projectData.goals.en || []) : [],
+        achievements: projectData.achievements ? (projectData.achievements[locale] || projectData.achievements.fr || projectData.achievements.en || []) : [],
+        impact: formatImpact(projectData.impact_stats ? (projectData.impact_stats[locale] || projectData.impact_stats.fr || projectData.impact_stats.en) : ""),
+        image: projectData.image_url ? getImageUrl(projectData.image_url) : images.news3,
     };
 
     return (
@@ -94,33 +118,37 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
                                     </p>
                                 </section>
 
-                                <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
-                                    <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
-                                        <Users className="text-primary" /> {t('projectsPage.detail.goals')}
-                                    </h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {project.goals.map((goal: string, idx: number) => (
-                                            <div key={idx} className="flex gap-4 p-4 rounded-2xl bg-muted/50 border border-border/30">
-                                                <CheckCircle className="text-primary shrink-0 mt-1" size={20} />
-                                                <span className="font-medium text-foreground/90">{goal}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </section>
+                                {project.goals && project.goals.length > 0 && (
+                                    <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
+                                        <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
+                                            <Users className="text-primary" /> {t('projectsPage.detail.goals')}
+                                        </h2>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {project.goals.map((goal: string, idx: number) => (
+                                                <div key={idx} className="flex gap-4 p-4 rounded-2xl bg-muted/50 border border-border/30">
+                                                    <CheckCircle className="text-primary shrink-0 mt-1" size={20} />
+                                                    <span className="font-medium text-foreground/90">{goal}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </section>
+                                )}
 
-                                <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
-                                    <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
-                                        <BarChart3 className="text-primary" /> {t('projectsPage.detail.achievements')}
-                                    </h2>
-                                    <ul className="space-y-6">
-                                        {project.achievements.map((achievement: string, idx: number) => (
-                                            <li key={idx} className="flex items-start gap-4 group">
-                                                <div className="w-2 h-2 rounded-full bg-primary mt-3 group-hover:scale-150 transition-transform shadow-lg shadow-primary/50" />
-                                                <p className="text-muted-foreground text-lg group-hover:text-foreground transition-colors">{achievement}</p>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </section>
+                                {project.achievements && project.achievements.length > 0 && (
+                                    <section className="bg-card rounded-[2.5rem] p-8 md:p-12 border border-border/50 shadow-sm">
+                                        <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-3">
+                                            <BarChart3 className="text-primary" /> {t('projectsPage.detail.achievements')}
+                                        </h2>
+                                        <ul className="space-y-6">
+                                            {project.achievements.map((achievement: string, idx: number) => (
+                                                <li key={idx} className="flex items-start gap-4 group">
+                                                    <div className="w-2 h-2 rounded-full bg-primary mt-3 group-hover:scale-150 transition-transform shadow-lg shadow-primary/50" />
+                                                    <p className="text-muted-foreground text-lg group-hover:text-foreground transition-colors">{achievement}</p>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </section>
+                                )}
                             </div>
 
                             {/* Sidebar / Impact */}

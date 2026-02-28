@@ -38,7 +38,7 @@ const resourceSchema = zod.object({
     file_url: zod.string().min(1, "File URL is required"),
     file_type: zod.string().optional(),
     file_size: zod.string().optional(),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface ResourcesDialogProps {
@@ -67,7 +67,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
             file_url: "",
             file_type: "",
             file_size: "",
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -80,7 +80,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                 file_url: resource.file_url || "",
                 file_type: resource.file_type || "",
                 file_size: resource.file_size || "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setFileName(resource.file_url ? resource.file_url.split('/').pop() || "Attached File" : "");
         } else {
@@ -91,7 +91,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                 file_url: "",
                 file_type: "",
                 file_size: "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setFileName("");
         }

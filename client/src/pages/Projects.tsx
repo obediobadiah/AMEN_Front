@@ -2,7 +2,7 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { images } from "@/lib/images";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,13 +13,14 @@ import { Key } from "react";
 
 
 
+import { useProjects } from "@/hooks/use-projects";
+import { getImageUrl } from "@/lib/api-config";
 import Link from "next/link";
 
 export default function Projects() {
     const t = useTranslations();
-
-    // Define project IDs to map through
-    const projectIds = ["1", "2", "3", "4"];
+    const locale = useLocale() as "en" | "fr";
+    const { projects, isLoading } = useProjects();
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -40,6 +41,16 @@ export default function Projects() {
         }
     };
 
+    if (isLoading) {
+        return (
+            <Layout>
+                <div className="py-24 flex justify-center items-center min-h-[60vh]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+                </div>
+            </Layout>
+        );
+    }
+
     return (
         <Layout>
             <PageHero
@@ -56,8 +67,8 @@ export default function Projects() {
                             <div className="space-y-4">
                                 <span className="text-primary font-bold uppercase tracking-widest text-sm">{t('projectsPage.subtitle')}</span>
                                 <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground leading-tight">
-                                    Driving Change Through <br />
-                                    <span className="text-primary">Innovative Initiatives</span>
+                                    {t('projectsPage.innovation.titleMain')} <br />
+                                    <span className="text-primary">{t('projectsPage.innovation.titleHighlight')}</span>
                                 </h2>
                             </div>
                             <p className="text-muted-foreground text-lg leading-relaxed">
@@ -67,19 +78,23 @@ export default function Projects() {
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3 text-primary">
                                         <Activity className="h-6 w-6" />
-                                        <span className="text-3xl font-bold font-heading">15+</span>
+                                        <span className="text-3xl font-bold font-heading">
+                                            {projects.filter(p => p.status?.toLowerCase() === "active").length}+
+                                        </span>
                                     </div>
                                     <p className="text-muted-foreground font-medium">
-                                        {t('projectsPage.stats.activeProjects', { count: 15 })}
+                                        {t('projectsPage.stats.activeProjects', { count: projects.filter(p => p.status?.toLowerCase() === "active").length })}
                                     </p>
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3 text-primary">
                                         <CheckCircle className="h-6 w-6" />
-                                        <span className="text-3xl font-bold font-heading">42+</span>
+                                        <span className="text-3xl font-bold font-heading">
+                                            {projects.filter(p => p.status?.toLowerCase() === "completed").length}+
+                                        </span>
                                     </div>
                                     <p className="text-muted-foreground font-medium">
-                                        {t('projectsPage.stats.completedInitiatives', { count: 42 })}
+                                        {t('projectsPage.stats.completedInitiatives', { count: projects.filter(p => p.status?.toLowerCase() === "completed").length })}
                                     </p>
                                 </div>
                             </div>
@@ -87,12 +102,12 @@ export default function Projects() {
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-4">
-                                    <img src={images.news1} className="rounded-2xl shadow-xl aspect-square object-cover" alt="Project 1" />
-                                    <img src={images.programWomen} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt="Project 2" />
+                                    <img src={images.news1} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt1')} />
+                                    <img src={images.programWomen} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt2')} />
                                 </div>
                                 <div className="space-y-4 pt-8">
-                                    <img src={images.programNature} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt="Project 3" />
-                                    <img src={images.news2} className="rounded-2xl shadow-xl aspect-square object-cover" alt="Project 4" />
+                                    <img src={images.programNature} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt3')} />
+                                    <img src={images.news2} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt4')} />
                                 </div>
                             </div>
                             <div className="absolute -z-10 -bottom-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
@@ -112,45 +127,39 @@ export default function Projects() {
                         viewport={{ once: true }}
                         className="grid grid-cols-1 md:grid-cols-2 gap-10"
                     >
-                        {projectIds.map((id) => {
-                            const project = {
-                                id,
-                                title: t(`projectsPage.items.${id}.title`),
-                                description: t(`projectsPage.items.${id}.description`),
-                                location: t(`projectsPage.items.${id}.location`),
-                                date: t(`projectsPage.items.${id}.date`),
-                                category: t(`projectsPage.items.${id}.category`),
-                                image: id === "1" ? images.programNature :
-                                    id === "2" ? images.news2 :
-                                        id === "3" ? images.programWomen : images.news3,
-                                status: id === "1" || id === "2" ? "active" : id === "3" ? "completed" : "upcoming"
-                            };
+                        {projects.map((item) => {
+                            const title = item.title[locale] || item.title.fr || item.title.en;
+                            const description = item.description ? (item.description[locale] || item.description.fr || item.description.en) : "";
+                            const location = item.location ? (item.location[locale] || item.location.fr || item.location.en) : "";
+                            const status = item.status?.toLowerCase() || "upcoming";
+                            const date = item.start_date ? new Date(item.start_date).getFullYear().toString() : "";
 
                             return (
-                                <motion.div key={project.id} variants={itemVariants}>
+                                <motion.div key={item.id} variants={itemVariants}>
                                     <Card className="group overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 bg-card hover:shadow-xl rounded-3xl h-full flex flex-col">
                                         <div className="relative h-80 overflow-hidden shrink-0">
                                             <img
-                                                src={project.image}
-                                                alt={project.title}
+                                                src={item.image_url ? getImageUrl(item.image_url) : images.news3}
+                                                alt={title}
                                                 className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
                                             <div className="absolute top-6 left-6 flex gap-3">
                                                 <span className="bg-primary/90 backdrop-blur-md text-primary-foreground border border-primary/30 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-primary transition-colors">
-                                                    {project.category}
+                                                    {item.category ? ((item.category as any)[locale] || (item.category as any).fr || (item.category as any).en) : ""}
                                                 </span>
+
                                             </div>
                                             <div className="absolute bottom-6 left-6 right-6">
                                                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading underline decoration-primary/50 decoration-4 underline-offset-8">
-                                                    {project.title}
+                                                    {title}
                                                 </h3>
                                             </div>
                                         </div>
                                         <CardContent className="p-8 space-y-6 flex-1 flex flex-col justify-between">
                                             <div className="space-y-6">
                                                 <p className="text-muted-foreground leading-relaxed text-lg">
-                                                    {project.description}
+                                                    {description}
                                                 </p>
 
                                                 <div className="grid grid-cols-2 gap-6">
@@ -158,13 +167,13 @@ export default function Projects() {
                                                         <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
                                                             <MapPin size={18} />
                                                         </div>
-                                                        <span>{project.location}</span>
+                                                        <span>{location}</span>
                                                     </div>
                                                     <div className="flex items-center gap-3 text-sm text-foreground font-medium">
                                                         <div className="w-10 h-10 bg-accent/50 rounded-full flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
                                                             <Calendar size={18} />
                                                         </div>
-                                                        <span>{project.date}</span>
+                                                        <span>{date}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,14 +182,14 @@ export default function Projects() {
                                                 <div className="flex items-center gap-2">
                                                     <div className={cn(
                                                         "w-3 h-3 rounded-full animate-pulse",
-                                                        project.status === 'active' ? "bg-green-500" :
-                                                            project.status === 'completed' ? "bg-primary" : "bg-orange-400"
+                                                        status === 'active' ? "bg-green-500" :
+                                                            status === 'completed' ? "bg-primary" : "bg-orange-400"
                                                     )} />
                                                     <span className="text-sm font-bold uppercase tracking-wider">
-                                                        {t(`projectsPage.status.${project.status}`)}
+                                                        {t(`projectsPage.status.${status}`)}
                                                     </span>
                                                 </div>
-                                                <Link href={`/activities/projects/${project.id}`}>
+                                                <Link href={`/activities/projects/${item.id}`}>
                                                     <Button variant="ghost" className="group/btn text-primary font-bold gap-2 p-0 hover:bg-transparent hover:text-primary/80 transition-colors">
                                                         {t('projectsPage.projectDetails')}
                                                         <ArrowRight className="h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
@@ -227,13 +236,13 @@ export default function Projects() {
                             </div>
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 text-center space-y-4 hover:bg-white/10 transition-colors">
-                                    <div className="text-4xl font-bold font-heading text-primary">85%</div>
+                                    <div className="text-4xl font-bold font-heading text-primary">{t('projectsPage.innovation.stats.sustainabilityValue')}</div>
                                     <p className="text-white/60 text-sm font-medium uppercase tracking-widest">
                                         {t('projectsPage.innovation.stats.sustainability')}
                                     </p>
                                 </div>
                                 <div className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 text-center space-y-4 translate-y-8 hover:bg-white/10 transition-colors">
-                                    <div className="text-4xl font-bold font-heading text-primary">50+</div>
+                                    <div className="text-4xl font-bold font-heading text-primary">{t('projectsPage.innovation.stats.partnershipsValue')}</div>
                                     <p className="text-white/60 text-sm font-medium uppercase tracking-widest">
                                         {t('projectsPage.innovation.stats.partnerships')}
                                     </p>
@@ -269,7 +278,7 @@ export default function Projects() {
                         <img
                             src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
                             className="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-75 transition-all duration-1000"
-                            alt="Impact Map"
+                            alt={t('projectsPage.globalFootprint.mapAlt')}
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
                             <Button size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-white px-10 h-16 text-lg font-bold shadow-2xl">

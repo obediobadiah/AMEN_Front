@@ -41,7 +41,7 @@ const eventSchema = zod.object({
     registration_link: zod.string().optional(),
     category: zod.string().optional(),
     thumbnail_url: zod.string().optional().or(zod.literal("")),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface EventsDialogProps {
@@ -73,7 +73,7 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
             registration_link: "",
             category: "Workshop",
             thumbnail_url: "",
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -85,11 +85,11 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
                 start_date: event.start_date ? new Date(event.start_date).toISOString().slice(0, 16) : "",
                 end_date: event.end_date ? new Date(event.end_date).toISOString().slice(0, 16) : "",
                 location: event.location ? ((event.location as any)[locale] || event.location.fr || event.location.en || "") : "",
-                status: event.status || "Upcoming",
+                status: (event.status as any) || "Upcoming",
                 registration_link: event.registration_link || "",
                 category: event.category || "Workshop",
                 thumbnail_url: event.thumbnail_url || "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl(getImageUrl(event.thumbnail_url) || "");
         } else {
@@ -103,11 +103,11 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
                 registration_link: "",
                 category: "Workshop",
                 thumbnail_url: "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl("");
         }
-    }, [event, form, locale]);
+    }, [event, form, locale, open]);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

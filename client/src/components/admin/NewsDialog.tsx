@@ -40,7 +40,7 @@ const newsSchema = zod.object({
     status: zod.string().min(1, "Status is required").refine((value) => ["Draft", "Published", "Archived"].includes(value), "Invalid status"),
     reading_time: zod.number().min(1, "Reading time must be at least 1 minute"),
     thumbnail_url: zod.string().optional().or(zod.literal("")),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface NewsDialogProps {
@@ -70,7 +70,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
             status: "Draft",
             reading_time: 5,
             thumbnail_url: "",
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -85,7 +85,7 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                 status: article.status ? ((article.status as any)?.en || "Draft") : "Draft",
                 reading_time: article.reading_time || 5,
                 thumbnail_url: article.thumbnail_url || "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl(getImageUrl(article.thumbnail_url) || "");
         } else {
@@ -98,11 +98,11 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                 status: "Draft",
                 reading_time: 5,
                 thumbnail_url: "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl("");
         }
-    }, [article, form]);
+    }, [article, form, locale]);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

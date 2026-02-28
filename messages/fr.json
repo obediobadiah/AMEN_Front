@@ -563,15 +563,27 @@
       "completed": "Terminé",
       "upcoming": "À venir"
     },
+    "introImages": {
+      "alt1": "Initiative de projet 1",
+      "alt2": "Initiative de projet 2",
+      "alt3": "Initiative de projet 3",
+      "alt4": "Initiative de projet 4"
+    },
     "viewLocation": "Voir sur la carte",
     "projectDetails": "Détails du Projet",
+    "notFound": "Projet non trouvé",
+    "backToProjects": "Retour aux projets",
     "innovation": {
       "title": "Autonomiser les communautés par l'innovation",
+      "titleMain": "Conduire le changement par",
+      "titleHighlight": "des initiatives innovantes",
       "subtitle": "Nous croyons que le développement durable nécessite de sortir des sentiers battus. Nos initiatives combinent sagesse traditionnelle et technologie moderne pour créer des solutions résilientes.",
       "ourApproach": "Notre Approche",
       "stats": {
         "sustainability": "Taux de Durabilité",
+        "sustainabilityValue": "85%",
         "partnerships": "Partenariats Locaux",
+        "partnershipsValue": "50+",
         "evolution": "Évolution Continue",
         "delivery": "Livraison dans les Délais"
       },
@@ -585,7 +597,8 @@
     "globalFootprint": {
       "title": "Notre Empreinte Mondiale",
       "description": "Partout où il y a un besoin, nous sommes prêts à répondre. Nos projets s'étendent sur plusieurs provinces, atteignant les coins les plus reculés de la région.",
-      "cta": "Voir sur la carte"
+      "cta": "Voir sur la carte",
+      "mapAlt": "Carte d'impact"
     },
     "stats": {
       "activeProjects": "{count} Projets Actifs",
@@ -1324,6 +1337,7 @@
         "readTimeLabel": "Temps de lecture (Min)",
         "uploadLabel": "Image de couverture",
         "uploadPlaceholder": "Cliquez pour télécharger une image",
+        "save": "Enregistrer l'Article",
         "update": "Mettre à jour"
       },
       "filters": {
@@ -1344,6 +1358,8 @@
     },
     "projects": {
       "description": "Surveillez les progrès des projets sur le terrain, les mesures d'impact et la mise en œuvre locale.",
+      "searchPlaceholder": "Rechercher des projets par nom ou par lieu...",
+      "loading": "Chargement des projets...",
       "columns": {
         "name": "Nom du Projet",
         "progress": "Progrès",
@@ -1356,6 +1372,7 @@
         "health": "Santé",
         "education": "Éducation",
         "humanitarian": "Humanitaire",
+        "infrastructure": "Infrastructure",
         "active": "Actif",
         "completed": "Terminé",
         "upcoming": "À venir"
@@ -1387,6 +1404,18 @@
         "uploadLabel": "Bannière du Projet",
         "impactLabel": "Stats d'Impact (ex. 50k Arbres)",
         "overviewLabel": "Aperçu Détaillé",
+        "overviewPlaceholder": "Entrez les détails complets du projet...",
+        "goalsLabel": "Objectifs du Projet",
+        "goalPlaceholder": "Objectif",
+        "addGoal": "+ Ajouter un Objectif",
+        "achievementsLabel": "Réalisations Clés",
+        "achievementPlaceholder": "Réalisation",
+        "addAchievement": "+ Ajouter une Réalisation",
+        "uploadingBanner": "Téléchargement de la bannière...",
+        "selectBanner": "Sélectionner la bannière du projet",
+        "synchronizing": "Synchronisation...",
+        "uploadSuccess": "Image téléchargée avec succès",
+        "uploadError": "Échec du téléchargement de l'image",
         "save": "Enregistrer le Projet",
         "update": "Mettre à jour le Projet"
       },

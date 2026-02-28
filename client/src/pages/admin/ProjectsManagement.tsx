@@ -4,7 +4,7 @@ import { AdminLayout } from "@/components/AdminLayout";
 import { AdminEntityList } from "@/components/AdminEntityList";
 import { useTranslations, useLocale } from "next-intl";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn, formatImpact } from "@/lib/utils";
 import { useState, useMemo } from "react";
 import { useProjects, Project, ProjectCreate } from "@/hooks/use-projects";
 import { ProjectsDialog } from "@/components/admin/ProjectsDialog";
@@ -71,17 +71,26 @@ export default function ProjectsManagement() {
                         item.status === "Completed" ? "bg-blue-50 text-blue-600 border-blue-100" :
                             "bg-slate-100 text-slate-500 border-slate-200"
                 )}>
-                    {item.status || "Upcoming"}
+                    {item.status ? tProj(`dialog.${item.status.toLowerCase()}`) : tProj("dialog.upcoming")}
                 </Badge>
             )
         },
-        { key: "category", label: tProj("columns.focus") },
+        {
+            key: "category",
+            label: tProj("columns.focus"),
+            render: (item: Project) => (
+                <span className="text-sm font-bold text-slate-600">
+                    {item.category ? ((item.category as any)[locale] || (item.category as any).fr || (item.category as any).en) : "-"}
+                </span>
+            )
+        },
+
         {
             key: "impact",
             label: tProj("columns.impact"),
             render: (item: Project) => (
                 <span className="text-sm font-bold text-slate-600">
-                    {item.impact_stats ? ((item.impact_stats as any)[locale] || (item.impact_stats as any).fr || (item.impact_stats as any).en || "-") : "-"}
+                    {formatImpact(item.impact_stats ? ((item.impact_stats as any)[locale] || (item.impact_stats as any).fr || (item.impact_stats as any).en) : "-")}
                 </span>
             )
         },
@@ -94,17 +103,19 @@ export default function ProjectsManagement() {
             const search = searchQuery.toLowerCase();
             const matchesSearch = titleFr.includes(search) || titleEn.includes(search);
 
-            const categoryLabel = item.category?.toLowerCase() || "";
+            const categoryLabel = (item.category ? ((item.category as any).en || (item.category as any).fr || "").toLowerCase() : "");
             const statusLabel = item.status?.toLowerCase() || "upcoming";
 
             const matchesFilter = filter === "all" ||
-                (filter === "environment" && categoryLabel === "environment") ||
-                (filter === "health" && categoryLabel === "health") ||
-                (filter === "education" && categoryLabel === "education") ||
-                (filter === "humanitarian" && categoryLabel === "humanitarian") ||
+                (filter === "environment" && categoryLabel.includes("environment")) ||
+                (filter === "health" && categoryLabel.includes("health")) ||
+                (filter === "education" && categoryLabel.includes("education")) ||
+                (filter === "humanitarian" && categoryLabel.includes("humanitarian")) ||
+                (filter === "infrastructure" && categoryLabel.includes("infrastructure")) ||
                 (filter === "active" && statusLabel === "active") ||
                 (filter === "completed" && statusLabel === "completed") ||
                 (filter === "upcoming" && statusLabel === "upcoming");
+
 
             return matchesSearch && matchesFilter;
         });
@@ -195,7 +206,7 @@ export default function ProjectsManagement() {
     const renderCard = (item: Project) => {
         const titleStr = (item.title as any)[locale] || item.title?.fr || item.title?.en || "";
         const descStr = item.description ? ((item.description as any)[locale] || item.description?.fr || item.description?.en || "") : "";
-        const impactStr = item.impact_stats ? ((item.impact_stats as any)[locale] || (item.impact_stats as any).fr || (item.impact_stats as any).en || "") : "";
+        const impactStr = formatImpact(item.impact_stats ? ((item.impact_stats as any)[locale] || (item.impact_stats as any).fr || (item.impact_stats as any).en) : "");
         const locStr = item.location ? ((item.location as any)[locale] || (item.location as any).fr || (item.location as any).en || "") : "";
 
         return (
@@ -217,14 +228,17 @@ export default function ProjectsManagement() {
                         item.status === "Active" ? "bg-emerald-500 text-white" :
                             item.status === "Completed" ? "bg-blue-500 text-white" : "bg-slate-800 text-white"
                     )}>
-                        {item.status || "Upcoming"}
+                        {item.status ? tProj(`dialog.${item.status.toLowerCase()}`) : tProj("dialog.upcoming")}
                     </Badge>
                 </div>
 
                 <div className="space-y-3 px-1">
                     <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest mt-2">
-                        <span>{item.category || "General"}</span>
+                        <span>
+                            {item.category ? ((item.category as any)[locale] || (item.category as any).fr || (item.category as any).en) : ""}
+                        </span>
                     </div>
+
 
                     <h3 className="font-heading font-black text-xl text-slate-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                         {titleStr}
@@ -306,7 +320,7 @@ export default function ProjectsManagement() {
                 <div className="flex items-center justify-center h-[60vh]">
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tProj("loading") || "Loading Projects..."}</p>
+                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tProj("loading")}</p>
                     </div>
                 </div>
             </AdminLayout>
@@ -336,7 +350,7 @@ export default function ProjectsManagement() {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={setCurrentPage}
-                    searchPlaceholder="Search projects by name or location..."
+                    searchPlaceholder={tProj("searchPlaceholder")}
                 />
             </div>
             <ProjectsDialog

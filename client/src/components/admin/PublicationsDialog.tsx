@@ -40,7 +40,7 @@ const publicationSchema = zod.object({
     thumbnail_url: zod.string().optional().or(zod.literal("")),
     file_size: zod.string().optional(),
     file_type: zod.string().optional(),
-    source_lang: zod.string().default("fr"),
+    source_lang: zod.string(),
 });
 
 interface PublicationsDialogProps {
@@ -65,13 +65,13 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
         defaultValues: {
             title: "",
             description: "",
-            category: "annual",
+            category: "annual" as const,
             date: "",
             file_url: "",
             thumbnail_url: "",
             file_size: "",
             file_type: "",
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
@@ -97,7 +97,7 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                 thumbnail_url: publication.thumbnail_url || "",
                 file_size: publication.file_size || "",
                 file_type: publication.file_type || "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl(getImageUrl(publication.thumbnail_url) || "");
         } else {
@@ -110,11 +110,11 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                 thumbnail_url: "",
                 file_size: "",
                 file_type: "",
-                source_lang: "fr",
+                source_lang: locale,
             });
             setPreviewUrl("");
         }
-    }, [publication, form, locale]);
+    }, [publication, form, locale, open]);
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];

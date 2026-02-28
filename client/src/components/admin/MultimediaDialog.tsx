@@ -36,8 +36,6 @@ import { Loader2, Upload, ImageIcon, X } from "lucide-react";
 import { getImageUrl } from "@/lib/api-config";
 import { toast } from "sonner";
 
-// Language selector removed as translations are automatic
-
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
     media_url: z.union([z.string(), z.array(z.string())]).refine(val => val.length > 0, "Media URL is required"),
@@ -45,7 +43,7 @@ const formSchema = z.object({
     type: z.enum(["photo", "video"]),
     category: z.string().min(1, "Category is required"),
     album_id: z.number().optional().nullable(),
-    source_lang: z.string().default("fr"),
+    source_lang: z.string(),
 });
 
 interface MultimediaDialogProps {
@@ -79,20 +77,20 @@ export function MultimediaDialog({
             type: "photo",
             category: "",
             album_id: null,
-            source_lang: "fr",
+            source_lang: locale,
         },
     });
 
     useEffect(() => {
         if (media) {
             form.reset({
-                title: media.title.fr || media.title.en || "",
+                title: (media.title as any)[locale] || media.title.fr || media.title.en || "",
                 media_url: media.media_url,
                 thumbnail_url: media.thumbnail_url || "",
                 type: (media.type as any) || "photo",
-                category: media.category ? (media.category.fr || media.category.en || "") : "",
+                category: media.category ? ((media.category as any)[locale] || media.category.fr || media.category.en || "") : "",
                 album_id: media.album_id || null,
-                source_lang: "fr",
+                source_lang: locale,
             });
         } else {
             form.reset({
@@ -102,10 +100,10 @@ export function MultimediaDialog({
                 type: "photo",
                 category: "",
                 album_id: null,
-                source_lang: "fr",
+                source_lang: locale,
             });
         }
-    }, [media, open]);
+    }, [media, form, locale, open]);
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: "media_url" | "thumbnail_url") => {
         const files = Array.from(e.target.files || []);

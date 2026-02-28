@@ -564,16 +564,28 @@
       "completed": "Completed",
       "upcoming": "Upcoming"
     },
+    "introImages": {
+      "alt1": "Project Initiative 1",
+      "alt2": "Project Initiative 2",
+      "alt3": "Project Initiative 3",
+      "alt4": "Project Initiative 4"
+    },
     "viewLocation": "View on Map",
     "projectDetails": "Project Details",
+    "notFound": "Project not found",
+    "backToProjects": "Back to Projects",
     "innovation": {
       "title": "Empowering Communities Through {emphasis}",
       "emphasis": "Innovation",
+      "titleMain": "Driving Change Through",
+      "titleHighlight": "Innovative Initiatives",
       "subtitle": "We believe that sustainable development requires thinking outside the box. Our initiatives combine traditional wisdom with modern technology to create resilient solutions.",
       "ourApproach": "Our Approach",
       "stats": {
         "sustainability": "Sustainability Rate",
+        "sustainabilityValue": "85%",
         "partnerships": "Local Partnerships",
+        "partnershipsValue": "50+",
         "evolution": "Constant Evolution",
         "delivery": "Timely Delivery"
       },
@@ -587,7 +599,8 @@
     "globalFootprint": {
       "title": "Our Global Footprint",
       "description": "Wherever there is a need, we are ready to respond. Our projects span across multiple provinces, reaching the most remote corners of the region.",
-      "cta": "View on Map"
+      "cta": "View on Map",
+      "mapAlt": "Impact Map"
     },
     "stats": {
       "activeProjects": "{count} Active Projects",
@@ -1320,6 +1333,7 @@
         "readTimeLabel": "Reading Time (Min)",
         "uploadLabel": "Cover Image",
         "uploadPlaceholder": "Click to upload an image",
+        "save": "Save the Article",
         "update": "Update"
       },
       "filters": {
@@ -1340,7 +1354,12 @@
     },
     "projects": {
       "description": "Monitor field project progress, impact metrics, and local implementation.",
+      "searchPlaceholder": "Search projects by name or location...",
+      "loading": "Loading Projects...",
       "columns": {
+        "name": "Project Name",
+        "progress": "Progress",
+        "focus": "Focus",
         "impact": "Impact"
       },
       "filters": {
@@ -1349,6 +1368,7 @@
         "health": "Health",
         "education": "Education",
         "humanitarian": "Humanitarian",
+        "infrastructure": "Infrastructure",
         "active": "Active",
         "completed": "Completed",
         "upcoming": "Upcoming"
@@ -1380,6 +1400,18 @@
         "uploadLabel": "Project Banner",
         "impactLabel": "Impact Stats (e.g. 50k Trees)",
         "overviewLabel": "Detailed Overview",
+        "overviewPlaceholder": "Enter full project details...",
+        "goalsLabel": "Project Goals",
+        "goalPlaceholder": "Goal",
+        "addGoal": "+ Add Goal",
+        "achievementsLabel": "Key Achievements",
+        "achievementPlaceholder": "Achievement",
+        "addAchievement": "+ Add Achievement",
+        "uploadingBanner": "Uploading Banner...",
+        "selectBanner": "Select project banner",
+        "synchronizing": "Synchronizing...",
+        "uploadSuccess": "Image uploaded successfully",
+        "uploadError": "Failed to upload image",
         "save": "Save Project",
         "update": "Update Project"
       },
