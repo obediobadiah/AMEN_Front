@@ -1161,7 +1161,16 @@
     "previous": "Précédent",
     "learnMore": "En Savoir Plus",
     "readMore": "Lire la suite",
-    "viewAll": "Voir Tout"
+    "viewAll": "Voir Tout",
+    "warning": "Avertissement",
+    "info": "Info",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce {type} ?",
+    "deleteSuccess": "{type} supprimé avec succès",
+    "deleteError": "Échec de la suppression de {type}",
+    "saveSuccess": "{type} enregistré avec succès",
+    "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
+    "exportSuccess": "Exportation démarrée",
+    "exportError": "Échec de l'exportation de {type}"
   },
   "donatePage": {
     "title": "Soutenir le Changement",
@@ -1292,7 +1301,18 @@
       "noRecords": "Aucun enregistrement trouvé",
       "showing": "Affichage de",
       "of": "sur",
-      "entries": "entrées"
+      "entries": "entrées",
+      "error": "Erreur",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "info": "Info",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce {type} ?",
+      "deleteSuccess": "{type} supprimé avec succès",
+      "deleteError": "Échec de la suppression de {type}",
+      "saveSuccess": "{type} enregistré avec succès",
+      "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
+      "exportSuccess": "Exportation démarrée",
+      "exportError": "Échec de l'exportation de {type}"
     },
     "news": {
       "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
@@ -1566,7 +1586,7 @@
       "messages": {
         "saveSuccess": "Album créé avec succès",
         "updateSuccess": "Album mis à jour",
-        "deleteConfirm": "Supprimer cet album ? Les médias à l'intérieur resteront mais perdront leur connexion.",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet album ? Cela supprimera également définitivement tous les médias qu'il contient.",
         "deleteSuccess": "Album supprimé"
       }
     },
