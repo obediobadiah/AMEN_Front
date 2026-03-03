@@ -7,8 +7,10 @@ export interface ResourceItem {
     description?: Record<string, string>;
     category?: string;
     file_url?: string;
+    thumbnail_url?: string;
     file_type?: string;
     file_size?: string;
+    downloads?: number;
     created_at: string;
 }
 
@@ -17,9 +19,10 @@ export interface ResourceCreate {
     description?: string | Record<string, string>;
     category?: string;
     file_url?: string;
+    thumbnail_url?: string;
     file_type?: string;
     file_size?: string;
-    source_lang: string;
+    source_lang?: string;
 }
 
 export interface ResourceUpdate {
@@ -27,9 +30,17 @@ export interface ResourceUpdate {
     description?: string | Record<string, string>;
     category?: string;
     file_url?: string;
+    thumbnail_url?: string;
     file_type?: string;
     file_size?: string;
     source_lang?: string;
+}
+
+export interface ResourceUploadResult {
+    file_url: string;
+    thumbnail_url?: string;
+    file_size: string;
+    file_type: string;
 }
 
 const RESOURCES_API_URL = `${API_BASE_URL}/api/v1/resources`;
@@ -89,18 +100,28 @@ export function useResources() {
         },
     });
 
+    // Dedicated resource file upload endpoint (generates PDF thumbnails)
     const uploadMutation = useMutation({
-        mutationFn: async (file: File) => {
+        mutationFn: async (file: File): Promise<ResourceUploadResult> => {
             const formData = new FormData();
             formData.append("file", file);
 
-            const uploadUrl = `${API_BASE_URL}/api/v1/multimedia/upload`;
-
+            const uploadUrl = `${RESOURCES_API_URL}/upload`;
             const res = await fetch(uploadUrl, {
                 method: "POST",
                 body: formData,
             });
             if (!res.ok) throw new Error("Failed to upload file");
+            return res.json();
+        },
+    });
+
+    const downloadMutation = useMutation({
+        mutationFn: async (id: number) => {
+            const res = await fetch(`${RESOURCES_API_URL}/${id}/download`, {
+                method: "POST",
+            });
+            if (!res.ok) throw new Error("Failed to record download");
             return res.json();
         },
     });
@@ -113,6 +134,7 @@ export function useResources() {
         updateResource: updateMutation.mutateAsync,
         deleteResource: deleteMutation.mutateAsync,
         uploadFile: uploadMutation.mutateAsync,
+        recordDownload: downloadMutation.mutateAsync,
         isCreating: createMutation.isPending,
         isUpdating: updateMutation.isPending,
         isDeleting: deleteMutation.isPending,

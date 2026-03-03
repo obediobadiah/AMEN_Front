@@ -71,9 +71,7 @@ export default function PublicationsManagement() {
             label: tPub("columns.type"),
             render: (item: Publication) => (
                 <Badge className="rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest bg-slate-100 text-slate-500 border-slate-200">
-                    {typeof item.category === 'object' && item.category !== null
-                        ? ((item.category as any)[locale] || (item.category as any).fr || (item.category as any).en)
-                        : (item.category || "Annual")}
+                    {tPub(`filters.${item.category || "annual"}`)}
                 </Badge>
             )
         },
@@ -105,12 +103,7 @@ export default function PublicationsManagement() {
             const search = searchQuery.toLowerCase();
             const matchesSearch = titleFr.includes(search) || titleEn.includes(search);
 
-            // Handle both flat string categories and translated object categories
-            const categoryValue = typeof item.category === 'object' && item.category !== null
-                ? ((item.category as any).fr || (item.category as any).en)
-                : item.category;
-
-            const matchesFilter = filter === "all" || item.category === filter || categoryValue === filter;
+            const matchesFilter = filter === "all" || item.category === filter;
             return matchesSearch && matchesFilter;
         });
 
@@ -169,7 +162,7 @@ export default function PublicationsManagement() {
             item.title?.en || "",
             item.description?.fr || "",
             item.description?.en || "",
-            typeof item.category === 'object' ? ((item.category as any)?.fr || "") : (item.category || ""),
+            item.category || "",
             item.date || "",
             item.file_size || "",
             item.file_type || "",
@@ -275,9 +268,7 @@ export default function PublicationsManagement() {
                         </div>
                     )}
                     <Badge className="absolute top-4 left-4 rounded-full px-3 py-1 shadow-lg text-[10px] font-black uppercase tracking-widest border-0 flex items-center gap-2 bg-white text-slate-900">
-                        {typeof item.category === 'object' && item.category !== null
-                            ? ((item.category as any)[locale] || (item.category as any).fr || (item.category as any).en)
-                            : (item.category || "Annual")}
+                        {tPub(`filters.${item.category || "annual"}`)}
                     </Badge>
                 </div>
 

@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import { ResourceItem, ResourceCreate, useResources } from "@/hooks/use-resources";
 import { useEffect, useState, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Loader2, FileText, Upload, X, File } from "lucide-react";
+import { Loader2, FileText, Upload, X, ImageIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getImageUrl } from "@/lib/api-config";
 import { toast } from "sonner";
@@ -36,6 +36,7 @@ const resourceSchema = zod.object({
     description: zod.string().optional(),
     category: zod.string().min(1, "Category is required"),
     file_url: zod.string().min(1, "File URL is required"),
+    thumbnail_url: zod.string().optional(),
     file_type: zod.string().optional(),
     file_size: zod.string().optional(),
     source_lang: zod.string(),
@@ -51,20 +52,24 @@ interface ResourcesDialogProps {
 
 export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubmitting }: ResourcesDialogProps) {
     const t = useTranslations("admin.resources.dialog");
+    const tFilters = useTranslations("admin.resources.filters");
+    const tMsg = useTranslations("admin.resources.messages");
     const commonT = useTranslations("admin.common");
     const locale = useLocale();
 
     const { uploadFile, isUploading } = useResources();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState<string>("");
+    const [thumbnailPreview, setThumbnailPreview] = useState<string>("");
 
     const form = useForm({
         resolver: zodResolver(resourceSchema),
         defaultValues: {
             title: "",
             description: "",
-            category: "Report",
+            category: "guide",
             file_url: "",
+            thumbnail_url: "",
             file_type: "",
             file_size: "",
             source_lang: locale,
@@ -76,24 +81,28 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
             form.reset({
                 title: (resource.title as any)[locale] || resource.title.fr || resource.title.en || "",
                 description: resource.description ? ((resource.description as any)[locale] || resource.description.fr || resource.description.en || "") : "",
-                category: resource.category || "Report",
+                category: resource.category?.toLowerCase() || "guide",
                 file_url: resource.file_url || "",
+                thumbnail_url: resource.thumbnail_url || "",
                 file_type: resource.file_type || "",
                 file_size: resource.file_size || "",
                 source_lang: locale,
             });
             setFileName(resource.file_url ? resource.file_url.split('/').pop() || "Attached File" : "");
+            setThumbnailPreview(resource.thumbnail_url ? getImageUrl(resource.thumbnail_url) : "");
         } else {
             form.reset({
                 title: "",
                 description: "",
-                category: "Report",
+                category: "guide",
                 file_url: "",
+                thumbnail_url: "",
                 file_type: "",
                 file_size: "",
                 source_lang: locale,
             });
             setFileName("");
+            setThumbnailPreview("");
         }
     }, [resource, form, locale, open]);
 
@@ -103,13 +112,17 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
 
         try {
             const result = await uploadFile(file);
-            form.setValue("file_url", result.url);
-            form.setValue("file_type", file.type || file.name.split('.').pop() || "");
-            form.setValue("file_size", `${(file.size / (1024 * 1024)).toFixed(2)} MB`);
+            form.setValue("file_url", result.file_url);
+            form.setValue("file_type", result.file_type || file.type || file.name.split('.').pop()?.toUpperCase() || "");
+            form.setValue("file_size", result.file_size || `${(file.size / (1024 * 1024)).toFixed(2)} MB`);
+            if (result.thumbnail_url) {
+                form.setValue("thumbnail_url", result.thumbnail_url);
+                setThumbnailPreview(getImageUrl(result.thumbnail_url));
+            }
             setFileName(file.name);
-            toast.success("Fichier téléchargé avec succès");
+            toast.success(tMsg("uploadSuccess"));
         } catch (error) {
-            toast.error("Échec du téléchargement du fichier");
+            toast.error(tMsg("uploadError"));
             console.error(error);
         }
     };
@@ -119,6 +132,8 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         form.reset();
         onOpenChange(false);
     };
+
+    const fileUrl = form.watch("file_url");
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -146,14 +161,14 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                         <Select onValueChange={field.onChange} value={field.value}>
                                             <FormControl>
                                                 <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all">
-                                                    <SelectValue placeholder="Category" />
+                                                    <SelectValue placeholder={t("categoryLabel")} />
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                <SelectItem value="Report" className="rounded-xl font-bold py-3 text-slate-900">Report</SelectItem>
-                                                <SelectItem value="Guide" className="rounded-xl font-bold py-3 text-slate-900">Guide</SelectItem>
-                                                <SelectItem value="Infographic" className="rounded-xl font-bold py-3 text-slate-900">Infographic</SelectItem>
-                                                <SelectItem value="Policy" className="rounded-xl font-bold py-3 text-slate-900">Policy</SelectItem>
+                                                <SelectItem value="guide" className="rounded-xl font-bold py-3 text-slate-900">{tFilters("guide")}</SelectItem>
+                                                <SelectItem value="infographic" className="rounded-xl font-bold py-3 text-slate-900">{tFilters("infographic")}</SelectItem>
+                                                <SelectItem value="database" className="rounded-xl font-bold py-3 text-slate-900">{tFilters("database")}</SelectItem>
+                                                <SelectItem value="toolkit" className="rounded-xl font-bold py-3 text-slate-900">{tFilters("toolkit")}</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
@@ -193,6 +208,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                 )}
                             />
 
+                            {/* File Upload with Thumbnail Preview */}
                             <FormField
                                 control={form.control}
                                 name="file_url"
@@ -203,34 +219,57 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
                                                 className={cn(
-                                                    "relative min-h-[160px] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
-                                                    field.value && "border-none shadow-2xl bg-white"
+                                                    "relative min-h-[180px] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                    fileUrl && "border-none shadow-2xl bg-white"
                                                 )}
                                             >
                                                 {isUploading ? (
                                                     <div className="flex flex-col items-center gap-4">
                                                         <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                                                        <span className="text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Uploading Asset...</span>
+                                                        <span className="text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">{t("uploadingThumbnail")}</span>
                                                     </div>
-                                                ) : field.value ? (
-                                                    <div className="w-full h-full p-8 flex items-center justify-between">
-                                                        <div className="flex items-center gap-6">
-                                                            <div className="p-5 bg-primary/10 rounded-2xl">
+                                                ) : fileUrl ? (
+                                                    <div className="w-full h-full p-6 flex items-center gap-6">
+                                                        {/* Thumbnail Preview */}
+                                                        {thumbnailPreview ? (
+                                                            <div className="relative flex-shrink-0 w-24 h-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-lg">
+                                                                <img
+                                                                    src={thumbnailPreview}
+                                                                    alt="PDF Preview"
+                                                                    className="w-full h-full object-cover"
+                                                                    onError={() => setThumbnailPreview("")}
+                                                                />
+                                                                <div className="absolute bottom-1 right-1 bg-primary text-white text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
+                                                                    {form.getValues("file_type")}
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="p-5 bg-primary/10 rounded-2xl flex-shrink-0">
                                                                 <FileText className="w-8 h-8 text-primary" />
                                                             </div>
-                                                            <div className="flex flex-col">
-                                                                <span className="font-black text-slate-900 text-lg truncate max-w-[300px]">{fileName}</span>
-                                                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{form.getValues("file_type")} &bull; {form.getValues("file_size")}</span>
-                                                            </div>
+                                                        )}
+                                                        <div className="flex flex-col flex-1 min-w-0">
+                                                            <span className="font-black text-slate-900 text-lg truncate">{fileName}</span>
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">
+                                                                {form.getValues("file_type")} &bull; {form.getValues("file_size")}
+                                                            </span>
+                                                            {thumbnailPreview && (
+                                                                <div className="flex items-center gap-1.5 mt-2">
+                                                                    <ImageIcon size={12} className="text-green-500" />
+                                                                    <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">{t("thumbnailGenerated")}</span>
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <button
                                                             type="button"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 setFileName("");
+                                                                setThumbnailPreview("");
                                                                 field.onChange("");
+                                                                form.setValue("thumbnail_url", "");
                                                             }}
-                                                            className="p-3 bg-rose-50 text-rose-600 rounded-full hover:bg-rose-500 hover:text-white transition-all shadow-sm"
+                                                            className="p-3 bg-rose-50 text-rose-600 rounded-full hover:bg-rose-500 hover:text-white transition-all shadow-sm flex-shrink-0"
                                                         >
                                                             <X size={20} />
                                                         </button>
@@ -240,13 +279,17 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                                         <div className="p-6 bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
                                                             <Upload size={32} className="text-primary" />
                                                         </div>
-                                                        <span className="text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic text-center px-10">Drop file or click to browse</span>
+                                                        <div className="text-center space-y-1">
+                                                            <span className="text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic">{t("dropOrClick")}</span>
+                                                            <p className="text-[10px] text-slate-400 font-medium">{t("supportedFormats")}</p>
+                                                        </div>
                                                     </div>
                                                 )}
                                                 <input
                                                     type="file"
                                                     ref={fileInputRef}
                                                     className="hidden"
+                                                    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
                                                     onChange={handleFileChange}
                                                 />
                                             </div>
@@ -273,7 +316,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                     {isSubmitting || isUploading ? (
                                         <div className="flex items-center gap-3">
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span className="animate-pulse italic">Synchronizing...</span>
+                                            <span className="animate-pulse italic">{t("synchronizing")}</span>
                                         </div>
                                     ) : (
                                         <div className="flex items-center gap-3">
@@ -286,6 +329,6 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                     </Form>
                 </div>
             </DialogContent>
-        </Dialog>
+        </Dialog >
     );
 }

@@ -711,16 +711,16 @@
     "intro": "Accédez à notre bibliothèque de rapports, de guides et de matériel pédagogique. Nous croyons au partage des connaissances pour favoriser un changement plus large dans tout le bassin du Congo.",
     "types": {
       "all": "Toutes les ressources",
-      "report": "Rapport Annuel",
       "guide": "Guide Technique",
       "infographic": "Infographie",
-      "policy": "Note d'Orientation",
-      "database": "Base de Données"
+      "database": "Base de Données",
+      "toolkit": "Boîte à Outils"
     },
     "search": "Rechercher",
     "filter": "Filtrer",
+    "view": "Voir la Ressource",
     "download": "Télécharger",
-    "knowledgeHub": {
+    "ResourceCenter": {
       "title": "Centre de Connaissances pour l'Action",
       "searchPlaceholder": "Rechercher des ressources...",
       "filterButton": "Filtrer",
@@ -787,6 +787,11 @@
     "common": {
       "varies": "Variable",
       "updatedWeekly": "Mise à jour hebdomadaire"
+    },
+    "noResults": {
+      "title": "Aucune ressource trouvée",
+      "description": "Essayez d'ajuster votre recherche ou vos filtres pour trouver ce que vous cherchez.",
+      "clearFilters": "Effacer tous les filtres"
     }
   },
   "newsSection": {
@@ -868,6 +873,7 @@
     "title": "Publications",
     "subtitle": "Rapports, Guides & Recherche",
     "intro": "Nos publications fournissent une analyse approfondie et des conseils techniques sur le développement durable dans le bassin du Congo.",
+    "noRecords": "Aucune publication trouvée",
     "categories": {
       "all": "Toutes les Publications",
       "annual": "Rapports Annuels",
@@ -1645,6 +1651,8 @@
     },
     "resources": {
       "description": "Archivez et organisez les outils institutionnels et les ressources documentaires.",
+      "loading": "Chargement des ressources...",
+      "searchPlaceholder": "Rechercher des ressources par titre...",
       "columns": {
         "title": "Nom de la Ressource",
         "category": "Catégorie",
@@ -1653,10 +1661,10 @@
       },
       "filters": {
         "all": "Toutes les catégories",
-        "report": "Rapports",
-        "guide": "Guides",
+        "guide": "Guides Techniques",
         "infographic": "Infographies",
-        "policy": "Documents d'orientation"
+        "database": "Bases de Données",
+        "toolkit": "Boîtes à Outils"
       },
       "sort": {
         "newest": "Plus récents",
@@ -1675,14 +1683,21 @@
         "categoryLabel": "Type de Matériel",
         "uploadLabel": "Fichier Source",
         "save": "Publier la Ressource",
-        "update": "Mettre à jour les Métadonnées"
+        "update": "Mettre à jour les Métadonnées",
+        "uploadingThumbnail": "Téléchargement & génération de miniature...",
+        "thumbnailGenerated": "Miniature générée",
+        "dropOrClick": "Déposez le fichier ou cliquez pour parcourir",
+        "supportedFormats": "Formats PDF, DOCX, XLS, PPTX supportés • Miniatures générées pour les PDFs",
+        "synchronizing": "Synchronisation..."
       },
       "messages": {
         "saveSuccess": "Ressource publiée",
         "updateSuccess": "Métadonnées mises à jour",
         "deleteConfirm": "Supprimer cette ressource définitivement ?",
         "deleteSuccess": "Ressource supprimée",
-        "error": "L'opération a échoué"
+        "error": "L'opération a échoué",
+        "uploadSuccess": "Fichier téléchargé avec succès",
+        "uploadError": "Échec du téléchargement du fichier"
       }
     },
     "governance": {

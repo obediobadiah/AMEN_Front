@@ -75,23 +75,14 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
         },
     });
 
-    const findCategoryKey = (catValue: any) => {
-        if (!catValue) return "annual";
-        if (typeof catValue === 'string') return catValue;
 
-        const frValue = catValue.fr;
-        if (frValue === "Rapport Annuel") return "annual";
-        if (frValue === "Guide Technique") return "technical";
-        if (frValue === "Document de Recherche") return "research";
-        return "annual";
-    };
 
     useEffect(() => {
         if (publication) {
             form.reset({
                 title: (publication.title as any)[locale] || publication.title.fr || publication.title.en || "",
                 description: publication.description ? ((publication.description as any)[locale] || publication.description.fr || publication.description.en || "") : "",
-                category: findCategoryKey(publication.category) as any,
+                category: (publication.category as any) || "annual",
                 date: publication.date ? new Date(publication.date).toISOString().slice(0, 16) : "",
                 file_url: publication.file_url || "",
                 thumbnail_url: publication.thumbnail_url || "",

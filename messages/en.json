@@ -707,21 +707,21 @@
   },
   "resourcesPage": {
     "title": "Resource Center",
-    "subtitle": "Knowledge for Sustainable Development",
-    "intro": "Access our library of reports, guides, and educational materials. We believe in sharing knowledge to foster broader change across the Congo Basin.",
+    "subtitle": "Resource for Sustainable Development",
+    "intro": "Access our library of reports, guides, and educational materials. We believe in sharing resource to foster broader change across the Congo Basin.",
     "types": {
       "all": "All Resources",
-      "report": "Annual Report",
       "guide": "Technical Guide",
       "infographic": "Infographic",
-      "policy": "Policy Brief",
-      "database": "Database"
+      "database": "Database",
+      "toolkit": "Toolkits"
     },
     "search": "Search",
     "filter": "Filter",
+    "view": "View Resource",
     "download": "Download",
-    "knowledgeHub": {
-      "title": "Knowledge Hub for Action",
+    "ResourceCenter": {
+      "title": "Resources Center for Action",
       "searchPlaceholder": "Search resources...",
       "filterButton": "Filter",
       "searchButton": "Search",
@@ -729,7 +729,7 @@
     },
     "subscription": {
       "title": "Never Miss An Impact Update",
-      "description": "Subscribe to our knowledge sharing list to receive the latest reports, guides, and research directly in your inbox.",
+      "description": "Subscribe to our resources sharing list to receive the latest reports, guides, and research directly in your inbox.",
       "emailPlaceholder": "Your email address",
       "subscribeButton": "Subscribe",
       "highlights": {
@@ -748,7 +748,7 @@
       "lastUpdated": "Last Updated"
     },
     "impactUpdateTitle": "Never Miss An Impact Update",
-    "impactUpdateSubtitle": "Subscribe to our knowledge sharing list to receive the latest reports, guides, and research directly in your inbox.",
+    "impactUpdateSubtitle": "Subscribe to our resources sharing list to receive the latest reports, guides, and research directly in your inbox.",
     "emailPlaceholder": "Your email address",
     "subscribe": "Subscribe",
     "resourceHighlights": "Resource Highlights",
@@ -787,6 +787,11 @@
     "common": {
       "varies": "Varies",
       "updatedWeekly": "Updated Weekly"
+    },
+    "noResults": {
+      "title": "No resources found",
+      "description": "Try adjusting your search or filters to find what you're looking for.",
+      "clearFilters": "Clear all filters"
     }
   },
   "newsSection": {
@@ -864,6 +869,7 @@
     "title": "Publications",
     "subtitle": "Reports, Guides & Research",
     "intro": "Our publications provide in-depth analysis and technical guidance on sustainable development in the Congo Basin.",
+    "noRecords": "No publications found",
     "categories": {
       "all": "All Publications",
       "annual": "Annual Reports",
@@ -1220,7 +1226,7 @@
       "publications": "Official Publications",
       "multimedia": "Media Library",
       "projects": "Field Projects",
-      "resources": "Knowledge Hub",
+      "resources": "Resources Center",
       "governance": "Governance & Team",
       "donations": "Donation Records",
       "contacts": "Incoming Messages",
@@ -1631,6 +1637,8 @@
     },
     "resources": {
       "description": "Archive and organize institutional tools and documentary resources.",
+      "loading": "Fetching Resources...",
+      "searchPlaceholder": "Search resources by title...",
       "columns": {
         "title": "Resource Name",
         "category": "Category",
@@ -1639,10 +1647,10 @@
       },
       "filters": {
         "all": "All Categories",
-        "report": "Reports",
-        "guide": "Guides",
+        "guide": "Technical Guides",
         "infographic": "Infographics",
-        "policy": "Policy Papers"
+        "database": "Databases",
+        "toolkit": "Toolkits"
       },
       "sort": {
         "newest": "Newest First",
@@ -1661,14 +1669,21 @@
         "categoryLabel": "Material Type",
         "uploadLabel": "Source File",
         "save": "Publish Resource",
-        "update": "Update Metadata"
+        "update": "Update Metadata",
+        "uploadingThumbnail": "Uploading & generating thumbnail...",
+        "thumbnailGenerated": "Thumbnail generated",
+        "dropOrClick": "Drop file or click to browse",
+        "supportedFormats": "PDF, DOCX, XLS, PPTX supported • Thumbnails auto-generated for PDFs",
+        "synchronizing": "Synchronizing..."
       },
       "messages": {
         "saveSuccess": "Resource published",
         "updateSuccess": "Metadata updated",
         "deleteConfirm": "Remove this resource permanently?",
         "deleteSuccess": "Resource removed",
-        "error": "Operation failed"
+        "error": "Operation failed",
+        "uploadSuccess": "File uploaded successfully",
+        "uploadError": "Failed to upload file"
       }
     },
     "governance": {

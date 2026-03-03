@@ -21,18 +21,7 @@ export default function Publications() {
 
     const filteredPubs = filter === "all"
         ? publications
-        : publications.filter(pub => {
-            if (typeof pub.category === 'string') return pub.category === filter;
-            if (typeof pub.category === 'object' && pub.category !== null) {
-                const mapping: Record<string, string> = {
-                    "annual": "Rapport Annuel",
-                    "technical": "Guide Technique",
-                    "research": "Document de Recherche"
-                };
-                return (pub.category as any).fr === mapping[filter];
-            }
-            return false;
-        });
+        : publications.filter(pub => pub.category === filter);
 
     const handleDownload = async (id: number, url: string) => {
         try {
@@ -138,9 +127,7 @@ export default function Publications() {
                                         <div className="flex-grow space-y-6 z-10">
                                             <div className="flex flex-wrap items-center gap-6">
                                                 <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
-                                                    {typeof pub.category === 'object' && pub.category !== null
-                                                        ? ((pub.category as any)[locale] || (pub.category as any).fr || (pub.category as any).en)
-                                                        : t(`publicationsPage.categories.${pub.category || "annual"}`)}
+                                                    {t(`publicationsPage.categories.${pub.category || "annual"}`)}
                                                 </span>
                                                 <div className="flex items-center gap-2 text-xs text-muted-foreground font-black uppercase tracking-widest">
                                                     <Calendar size={14} className="text-primary" />

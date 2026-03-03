@@ -10,6 +10,7 @@ import { useResources, ResourceItem, ResourceCreate } from "@/hooks/use-resource
 import { ResourcesDialog } from "@/components/admin/ResourcesDialog";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { getImageUrl } from "@/lib/api-config";
 import {
     DropdownMenuItem,
     DropdownMenuLabel,
@@ -39,8 +40,21 @@ export default function ResourcesManagement() {
             label: tRes("columns.title"),
             render: (item: ResourceItem) => (
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl text-slate-400 group-hover:text-primary group-hover:bg-primary/5 transition-all">
-                        <FileText size={24} />
+                    <div className="w-10 h-12 rounded-xl overflow-hidden bg-slate-50 border border-slate-100 flex-shrink-0 shadow-sm">
+                        {item.thumbnail_url ? (
+                            <img
+                                src={getImageUrl(item.thumbnail_url)}
+                                alt="thumbnail"
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).style.display = "none";
+                                }}
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                <FileText size={18} />
+                            </div>
+                        )}
                     </div>
                     <div className="flex flex-col gap-0.5">
                         <span className="text-sm font-black text-slate-900 group-hover:text-primary transition-colors">
@@ -53,7 +67,20 @@ export default function ResourcesManagement() {
                 </div>
             )
         },
-        { key: "category", label: tRes("columns.category") },
+        {
+            key: "category",
+            label: tRes("columns.category"),
+            render: (item: ResourceItem) => {
+                const catKey = (item.category || "").toLowerCase();
+                const validKeys = ["report", "guide", "infographic", "policy"];
+                const label = validKeys.includes(catKey) ? tRes(`filters.${catKey}`) : (item.category || "-");
+                return (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-primary/10 text-primary border border-primary/10">
+                        {label}
+                    </span>
+                );
+            }
+        },
         {
             key: "updated",
             label: tRes("columns.updated"),
@@ -168,26 +195,49 @@ export default function ResourcesManagement() {
 
         return (
             <div className="flex flex-col gap-5 p-2">
-                <div className="w-full aspect-square rounded-[2rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center justify-center gap-4 relative group-hover:bg-white group-hover:shadow-2xl group-hover:border-transparent transition-all duration-500 overflow-hidden">
-                    <div className="p-6 bg-white rounded-[1.5rem] shadow-xl shadow-slate-200/50 group-hover:scale-110 transition-transform duration-500 border border-slate-50 relative z-10">
-                        <FileText size={48} className="text-primary" />
-                    </div>
-                    <div className="flex flex-col items-center gap-1 relative z-10">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{item.file_type || "PDF"}</span>
-                        <span className="text-xs font-black text-slate-500">{item.file_size || "0 MB"}</span>
-                    </div>
+                <div className="w-full aspect-[3/4] rounded-[2rem] bg-slate-50 border-2 border-slate-100 flex flex-col items-center justify-center gap-4 relative group-hover:bg-white group-hover:shadow-2xl group-hover:border-transparent transition-all duration-500 overflow-hidden">
+                    {/* Thumbnail — first page of the PDF */}
+                    {item.thumbnail_url ? (
+                        <>
+                            <img
+                                src={getImageUrl(item.thumbnail_url)}
+                                alt={titleStr}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).style.display = "none";
+                                }}
+                            />
+                            {/* Type badge */}
+                            <div className="absolute top-3 right-3 z-10">
+                                <span className="bg-white/90 backdrop-blur-sm text-primary text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border border-primary/10 shadow-sm">
+                                    {item.file_type || "PDF"}
+                                </span>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="p-6 bg-white rounded-[1.5rem] shadow-xl shadow-slate-200/50 group-hover:scale-110 transition-transform duration-500 border border-slate-50 relative z-10">
+                                <FileText size={48} className="text-primary" />
+                            </div>
+                            <div className="flex flex-col items-center gap-1 relative z-10">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{item.file_type || "PDF"}</span>
+                                <span className="text-xs font-black text-slate-500">{item.file_size || "0 MB"}</span>
+                            </div>
+                        </>
+                    )}
 
                     {/* Quick Download Overlay */}
                     {item.file_url && (
-                        <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-8 text-center text-white backdrop-blur-sm">
+                        <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-8 text-center text-white backdrop-blur-sm z-20">
                             <a
-                                href={item.file_url}
+                                href={getImageUrl(item.file_url)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex flex-col items-center gap-3 scale-75 group-hover:scale-100 transition-transform duration-500"
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <Download size={40} className="animate-bounce" />
-                                <span className="font-black uppercase tracking-widest text-xs">Download Asset</span>
+                                <span className="font-black uppercase tracking-widest text-xs">Download</span>
                             </a>
                         </div>
                     )}
@@ -195,7 +245,11 @@ export default function ResourcesManagement() {
 
                 <div className="space-y-2">
                     <div className="flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-widest">
-                        <span>{item.category || "General"}</span>
+                        <span>{(() => {
+                            const catKey = (item.category || "").toLowerCase();
+                            const validKeys = ["report", "guide", "infographic", "policy"];
+                            return validKeys.includes(catKey) ? tRes(`filters.${catKey}`) : (item.category || "General");
+                        })()}</span>
                     </div>
                     <h3 className="font-heading font-black text-lg text-slate-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                         {titleStr}
@@ -216,7 +270,7 @@ export default function ResourcesManagement() {
                 {tCommon("filters")}
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="mx-2 bg-slate-100" />
-            {["all", "report", "guide", "infographic", "policy"].map((f) => (
+            {["all", "guide", "infographic", "toolkit", "database"].map((f) => (
                 <DropdownMenuItem
                     key={f}
                     onClick={() => {
@@ -261,7 +315,7 @@ export default function ResourcesManagement() {
                 <div className="flex items-center justify-center h-[60vh]">
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tRes("loading") || "Fetching Resources..."}</p>
+                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tRes("loading")}</p>
                     </div>
                 </div>
             </AdminLayout>
@@ -291,7 +345,7 @@ export default function ResourcesManagement() {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={setCurrentPage}
-                    searchPlaceholder="Search materials by title..."
+                    searchPlaceholder={tRes("searchPlaceholder")}
                 />
             </div>
             <ResourcesDialog
