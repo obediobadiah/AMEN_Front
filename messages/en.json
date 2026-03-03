@@ -1761,23 +1761,52 @@
       }
     },
     "donations": {
-      "description": "Track financial contributions and manage donor history.",
+      "description": "Manage donation records, tracking contributions and support impact.",
       "columns": {
-        "donor": "Donor",
-        "amount": "Amount",
-        "date": "Date",
-        "method": "Method",
-        "status": "Status"
+        "donor": "Donor Name",
+        "amount": "Contribution",
+        "date": "Received Date",
+        "method": "Payment Method",
+        "status": "Current Status",
+        "type": "Donation Type"
       },
       "filters": {
-        "all": "All Types",
+        "all": "All Contributions",
         "one-time": "One-Time",
-        "monthly": "Monthly"
+        "monthly": "Monthly Commitment"
       },
       "sort": {
-        "newest": "Newest First",
-        "oldest": "Oldest First",
-        "amount": "Amount"
+        "newest": "Most Recent First",
+        "oldest": "Oldest Entries",
+        "amount": "Highest Contribution"
+      },
+      "stats": {
+        "totalRaised": "Total Funds Raised",
+        "totalDonors": "Unique Supporters",
+        "monthlyDonors": "Monthly Supporters",
+        "avgDonation": "Average Support"
+      },
+      "messages": {
+        "deleteConfirm": "Remove this donation record permanently?",
+        "deleteSuccess": "Donation record removed",
+        "error": "Failed to process request"
+      },
+      "dialog": {
+        "createTitle": "Record New Donation",
+        "editTitle": "Edit Donation Record",
+        "createDesc": "Manually record a physical or offline donation into the system.",
+        "editDesc": "Modify an existing donation record for accuracy.",
+        "donorLabel": "Donor Name",
+        "donorPlaceholder": "Full Name or Organization",
+        "emailLabel": "Contact Email",
+        "emailPlaceholder": "donor@example.com",
+        "amountLabel": "Amount Paid",
+        "currencyLabel": "Currency",
+        "frequencyLabel": "Frequency Type",
+        "methodLabel": "Payment Method",
+        "statusLabel": "Operational Status",
+        "save": "Log Donation",
+        "update": "Update Record"
       }
     },
     "contacts": {

@@ -1775,19 +1775,52 @@
       }
     },
     "donations": {
-      "description": "Suivez les contributions financières et gérez l'historique des donateurs.",
+      "description": "Gérer les enregistrements de dons, le suivi des contributions et l'impact du soutien.",
       "columns": {
-        "status": "Statut"
+        "donor": "Nom du Donateur",
+        "amount": "Contribution",
+        "date": "Date de Réception",
+        "method": "Mode de Paiement",
+        "status": "Statut Actuel",
+        "type": "Type de Don"
       },
       "filters": {
-        "all": "Tous les types",
+        "all": "Toutes les Contributions",
         "one-time": "Ponctuel",
-        "monthly": "Mensuel"
+        "monthly": "Engagement Mensuel"
       },
       "sort": {
-        "newest": "Plus récents",
-        "oldest": "Plus anciens",
-        "amount": "Montant"
+        "newest": "Plus Récents en Premier",
+        "oldest": "Plus Anciens en Premier",
+        "amount": "Plus Haute Contribution"
+      },
+      "stats": {
+        "totalRaised": "Total des Fonds Collectés",
+        "totalDonors": "Donateurs Uniques",
+        "monthlyDonors": "Donateurs Mensuels",
+        "avgDonation": "Don Moyen"
+      },
+      "messages": {
+        "deleteConfirm": "Supprimer définitivement cet enregistrement de don ?",
+        "deleteSuccess": "Enregistrement de don supprimé",
+        "error": "Échec du traitement de la demande"
+      },
+      "dialog": {
+        "createTitle": "Enregistrer un Nouveau Don",
+        "editTitle": "Modifier l'Enregistrement du Don",
+        "createDesc": "Enregistrez manuellement un don physique ou hors ligne dans le système.",
+        "editDesc": "Modifiez un enregistrement de don existant pour plus d'exactitude.",
+        "donorLabel": "Nom du Donateur",
+        "donorPlaceholder": "Nom Complet ou Organisation",
+        "emailLabel": "Email de Contact",
+        "emailPlaceholder": "donateur@exemple.com",
+        "amountLabel": "Montant Payé",
+        "currencyLabel": "Devise",
+        "frequencyLabel": "Type de Fréquence",
+        "methodLabel": "Mode de Paiement",
+        "statusLabel": "Statut Opérationnel",
+        "save": "Enregistrer le Don",
+        "update": "Mettre à jour"
       }
     },
     "contacts": {

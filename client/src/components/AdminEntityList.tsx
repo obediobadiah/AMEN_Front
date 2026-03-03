@@ -62,6 +62,7 @@ interface AdminEntityListProps<T extends EntityItem> {
     filterContent?: React.ReactNode;
     sortContent?: React.ReactNode;
     hideHeader?: boolean;
+    totalCount?: number;
 }
 
 export function AdminEntityList<T extends EntityItem>({
@@ -84,7 +85,8 @@ export function AdminEntityList<T extends EntityItem>({
     onPageChange,
     filterContent,
     sortContent,
-    hideHeader = false
+    hideHeader = false,
+    totalCount
 }: AdminEntityListProps<T>) {
     const t = useTranslations("admin.common");
     const locale = useLocale();
@@ -281,7 +283,7 @@ export function AdminEntityList<T extends EntityItem>({
             {/* Pagination */}
             <div className="px-4 md:px-8 py-4 md:py-6 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-50/30 rounded-b-[1.5rem] md:rounded-b-[2.5rem]">
                 <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400">
-                    {t("showing")} <span className="text-slate-900">{items.length > 0 ? (currentPage - 1) * 10 + 1 : 0}-{Math.min(currentPage * 10, items.length)}</span> {t("of")} <span className="text-slate-900">{items.length}</span> {t("entries")}
+                    {t("showing")} <span className="text-slate-900">{items.length > 0 ? (currentPage - 1) * 10 + 1 : 0}-{Math.min(currentPage * 10, totalCount || items.length)}</span> {t("of")} <span className="text-slate-900">{totalCount || items.length}</span> {t("entries")}
                 </p>
                 <div className="flex items-center gap-1.5 md:gap-2">
                     <Button

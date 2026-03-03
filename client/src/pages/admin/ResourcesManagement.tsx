@@ -343,6 +343,7 @@ export default function ResourcesManagement() {
                         setCurrentPage(1);
                     }}
                     currentPage={currentPage}
+                    totalCount={filteredItems.length}
                     totalPages={totalPages}
                     onPageChange={setCurrentPage}
                     searchPlaceholder={tRes("searchPlaceholder")}

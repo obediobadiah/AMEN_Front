@@ -23,14 +23,72 @@ const donationAmounts = [10, 25, 50, 100, 250, 500];
 
 export default function Donate() {
     const t = useTranslations();
-    const [amount, setAmount] = useState<number | null>(50);
+    const [amount, setAmount] = useState<number | null>(null);
     const [customAmount, setCustomAmount] = useState<string>("");
     const [frequency, setFrequency] = useState<"oneTime" | "monthly">("oneTime");
+    const [method, setMethod] = useState<"card" | "mobile" | "bank">("card");
     const [step, setStep] = useState(1);
+    const [donorInfo, setDonorInfo] = useState({ firstName: "", lastName: "", email: "" });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
-    const handleNextStep = () => {
-        setStep(prev => prev + 1);
+    const handleNextStep = async () => {
+        if (step === 1) {
+            setStep(2);
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const finalAmount = amount || parseInt(customAmount) || 0;
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/donations/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    donor: `${donorInfo.firstName} ${donorInfo.lastName}`.trim() || "Anonymous",
+                    email: donorInfo.email,
+                    amount: finalAmount,
+                    frequency,
+                    method: method,
+                    status: "completed"
+                })
+            });
+
+            if (response.ok) {
+                setIsSuccess(true);
+            }
+        } catch (error) {
+            console.error("Donation failed:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
+    if (isSuccess) {
+        return (
+            <Layout>
+                <div className="min-h-[60vh] flex items-center justify-center p-6">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center space-y-8 max-w-lg p-12 rounded-[4rem] bg-card border border-border shadow-2xl"
+                    >
+                        <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto">
+                            <ShieldCheck size={48} />
+                        </div>
+                        <h2 className="text-4xl font-black font-heading tracking-tight">{t('common.success')}</h2>
+                        <p className="text-xl text-muted-foreground font-light">{t('donatePage.heroImpact')}</p>
+                        <Button
+                            onClick={() => window.location.href = '/'}
+                            className="w-full h-16 rounded-2xl bg-foreground text-background font-black uppercase tracking-widest"
+                        >
+                            {t('nav.home')}
+                        </Button>
+                    </motion.div>
+                </div>
+            </Layout>
+        );
+    }
 
     return (
         <Layout>
@@ -124,90 +182,166 @@ export default function Donate() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="bg-card rounded-[4rem] border border-border/60 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] overflow-hidden"
                             >
-                                {/* Form Header */}
-                                <div className="p-10 md:p-12 bg-muted/30 border-b border-border/50 text-center">
-                                    <div className="flex p-2 bg-background rounded-full border border-border w-fit mx-auto mb-8 shadow-inner">
-                                        {["oneTime", "monthly"].map((f) => (
-                                            <button
-                                                key={f}
-                                                onClick={() => setFrequency(f as any)}
-                                                className={cn(
-                                                    "px-10 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-500",
-                                                    frequency === f
-                                                        ? "bg-primary text-white shadow-xl shadow-primary/25"
-                                                        : "text-muted-foreground hover:text-foreground"
-                                                )}
+                                <AnimatePresence mode="wait">
+                                    {step === 1 ? (
+                                        <motion.div
+                                            key="step1"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                        >
+                                            {/* Form Header */}
+                                            <div className="p-10 md:p-12 bg-muted/30 border-b border-border/50 text-center">
+                                                <div className="flex p-2 bg-background rounded-full border border-border w-fit mx-auto mb-8 shadow-inner">
+                                                    {["oneTime", "monthly"].map((f) => (
+                                                        <button
+                                                            key={f}
+                                                            onClick={() => setFrequency(f as any)}
+                                                            className={cn(
+                                                                "px-10 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-500",
+                                                                frequency === f
+                                                                    ? "bg-primary text-white shadow-xl shadow-primary/25"
+                                                                    : "text-muted-foreground hover:text-foreground"
+                                                            )}
+                                                        >
+                                                            {t(`donatePage.${f}`)}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                <h3 className="text-3xl font-black font-heading tracking-tight">{t('donatePage.form.amountLabel')}</h3>
+                                            </div>
+
+                                            {/* Amount Selection */}
+                                            <div className="p-10 md:p-12 space-y-10">
+                                                <div className="grid grid-cols-3 gap-4">
+                                                    {donationAmounts.map((amt) => (
+                                                        <button
+                                                            key={amt}
+                                                            onClick={() => {
+                                                                setAmount(amt);
+                                                                setCustomAmount("");
+                                                            }}
+                                                            className={cn(
+                                                                "h-20 rounded-3xl border text-2xl font-black transition-all flex items-center justify-center",
+                                                                amount === amt && customAmount === ""
+                                                                    ? "bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-[1.05]"
+                                                                    : "bg-background text-foreground border-border/50 hover:border-primary/50"
+                                                            )}
+                                                        >
+                                                            ${amt}
+                                                        </button>
+                                                    ))}
+                                                </div>
+
+                                                {/* Custom Amount */}
+                                                <div className="relative">
+                                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-black text-muted-foreground">$</span>
+                                                    <input
+                                                        type="number"
+                                                        placeholder={t('donatePage.form.customAmount')}
+                                                        value={customAmount}
+                                                        onChange={(e) => {
+                                                            setCustomAmount(e.target.value);
+                                                            setAmount(null);
+                                                        }}
+                                                        className="w-full h-20 rounded-3xl bg-muted/30 border border-border/50 px-12 text-2xl font-black outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+                                                    />
+                                                </div>
+
+                                                {/* Payment Method Selection */}
+                                                <div className="space-y-4 pt-4">
+                                                    <p className="text-xs font-black uppercase tracking-widest text-muted-foreground text-center">{t('donatePage.payment.title')}</p>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                        {[
+                                                            { id: "card", icon: CreditCard, label: t('donatePage.payment.card') },
+                                                            { id: "mobile", icon: Smartphone, label: t('donatePage.payment.mobileMoney') },
+                                                            { id: "bank", icon: Library, label: t('donatePage.payment.bankTransfer') }
+                                                        ].map((item: any) => (
+                                                            <button
+                                                                key={item.id}
+                                                                onClick={() => setMethod(item.id)}
+                                                                className={cn(
+                                                                    "p-4 rounded-2xl border flex flex-col items-center gap-2 transition-all",
+                                                                    method === item.id
+                                                                        ? "bg-primary/5 border-primary text-primary shadow-sm"
+                                                                        : "bg-background border-border hover:border-primary/30 text-muted-foreground"
+                                                                )}
+                                                            >
+                                                                <item.icon size={20} />
+                                                                <span className="text-[10px] font-black uppercase tracking-tight text-center leading-tight">{item.label}</span>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                <Button
+                                                    onClick={handleNextStep}
+                                                    disabled={(!amount && !customAmount) || !method}
+                                                    className="w-full h-20 rounded-[2rem] bg-foreground hover:bg-primary text-background font-black text-xl uppercase tracking-widest transition-all shadow-2xl shadow-black/10 flex items-center justify-center gap-4 group"
+                                                >
+                                                    {t('donatePage.form.nextStep')}
+                                                    <ArrowRight size={24} className="transition-transform group-hover:translate-x-2" />
+                                                </Button>
+                                            </div>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="step2"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="p-10 md:p-12 space-y-8"
+                                        >
+                                            <div className="text-center space-y-2">
+                                                <h3 className="text-3xl font-black font-heading tracking-tight">{t('donatePage.form.personalInfo')}</h3>
+                                                <p className="text-muted-foreground font-light">{t('donatePage.form.email')}</p>
+                                            </div>
+
+                                            <div className="space-y-4">
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <input
+                                                        type="text"
+                                                        placeholder={t('donatePage.form.firstName')}
+                                                        value={donorInfo.firstName}
+                                                        onChange={(e) => setDonorInfo({ ...donorInfo, firstName: e.target.value })}
+                                                        className="w-full h-16 rounded-2xl bg-muted/30 border border-border/50 px-6 font-bold outline-none focus:border-primary transition-all"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder={t('donatePage.form.lastName')}
+                                                        value={donorInfo.lastName}
+                                                        onChange={(e) => setDonorInfo({ ...donorInfo, lastName: e.target.value })}
+                                                        className="w-full h-16 rounded-2xl bg-muted/30 border border-border/50 px-6 font-bold outline-none focus:border-primary transition-all"
+                                                    />
+                                                </div>
+                                                <input
+                                                    type="email"
+                                                    placeholder={t('donatePage.form.email')}
+                                                    value={donorInfo.email}
+                                                    onChange={(e) => setDonorInfo({ ...donorInfo, email: e.target.value })}
+                                                    className="w-full h-16 rounded-2xl bg-muted/30 border border-border/50 px-6 font-bold outline-none focus:border-primary transition-all"
+                                                />
+                                            </div>
+
+                                            <Button
+                                                onClick={handleNextStep}
+                                                disabled={isSubmitting || !donorInfo.email}
+                                                className="w-full h-20 rounded-[2rem] bg-primary hover:bg-primary/90 text-white font-black text-xl uppercase tracking-widest transition-all shadow-2xl flex items-center justify-center gap-4 group"
                                             >
-                                                {t(`donatePage.${f}`)}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    <h3 className="text-3xl font-black font-heading tracking-tight">{t('donatePage.form.amountLabel')}</h3>
-                                </div>
+                                                {isSubmitting ? "..." : t('donatePage.form.nextStep')}
+                                                <ArrowRight size={24} className="transition-transform group-hover:translate-x-2" />
+                                            </Button>
 
-                                {/* Amount Selection */}
-                                <div className="p-10 md:p-12 space-y-10">
-                                    <div className="grid grid-cols-3 gap-4">
-                                        {donationAmounts.map((amt) => (
                                             <button
-                                                key={amt}
-                                                onClick={() => {
-                                                    setAmount(amt);
-                                                    setCustomAmount("");
-                                                }}
-                                                className={cn(
-                                                    "h-20 rounded-3xl border text-2xl font-black transition-all flex items-center justify-center",
-                                                    amount === amt && customAmount === ""
-                                                        ? "bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-[1.05]"
-                                                        : "bg-background text-foreground border-border/50 hover:border-primary/50"
-                                                )}
+                                                onClick={() => setStep(1)}
+                                                className="w-full text-center text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
                                             >
-                                                ${amt}
+                                                {t('common.back')}
                                             </button>
-                                        ))}
-                                    </div>
-
-                                    {/* Custom Amount */}
-                                    <div className="relative">
-                                        <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-black text-muted-foreground">$</span>
-                                        <input
-                                            type="number"
-                                            placeholder={t('donatePage.form.customAmount')}
-                                            value={customAmount}
-                                            onChange={(e) => {
-                                                setCustomAmount(e.target.value);
-                                                setAmount(null);
-                                            }}
-                                            className="w-full h-20 rounded-3xl bg-muted/30 border border-border/50 px-12 text-2xl font-black outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
-                                        />
-                                    </div>
-
-                                    {/* Payment Methods (Preview) */}
-                                    <div className="space-y-6 pt-6 border-t border-border/50">
-                                        <p className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground text-center">
-                                            {t('donatePage.payment.title')}
-                                        </p>
-                                        <div className="grid grid-cols-3 gap-4">
-                                            <div className="flex flex-col items-center gap-3 p-6 rounded-[2rem] bg-muted/20 border border-border/40 text-muted-foreground grayscale hover:grayscale-0 hover:border-primary/40 hover:text-primary transition-all cursor-pointer">
-                                                <CreditCard size={28} />
-                                                <span className="text-[10px] font-black uppercase tracking-widest">Card</span>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-3 p-6 rounded-[2rem] bg-muted/20 border border-border/40 text-muted-foreground grayscale hover:grayscale-0 hover:border-primary/40 hover:text-primary transition-all cursor-pointer">
-                                                <Smartphone size={28} />
-                                                <span className="text-[10px] font-black uppercase tracking-widest">Mobile</span>
-                                            </div>
-                                            <div className="flex flex-col items-center gap-3 p-6 rounded-[2rem] bg-muted/20 border border-border/40 text-muted-foreground grayscale hover:grayscale-0 hover:border-primary/40 hover:text-primary transition-all cursor-pointer">
-                                                <Library size={28} />
-                                                <span className="text-[10px] font-black uppercase tracking-widest">Bank</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <Button className="w-full h-20 rounded-[2rem] bg-foreground hover:bg-primary text-background font-black text-xl uppercase tracking-widest transition-all shadow-2xl shadow-black/10 flex items-center justify-center gap-4 group">
-                                        {t('donatePage.form.nextStep')}
-                                        <ArrowRight size={24} className="transition-transform group-hover:translate-x-2" />
-                                    </Button>
-
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <div className="p-8 bg-muted/20 border-t border-border/50">
                                     <p className="text-center text-[10px] text-muted-foreground font-medium flex items-center justify-center gap-2">
                                         <ShieldCheck size={14} className="text-primary" />
                                         {t('donatePage.payment.secure')}
