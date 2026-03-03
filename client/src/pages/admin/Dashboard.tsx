@@ -87,25 +87,25 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="space-y-10">
+      <div className="space-y-6 md:space-y-10">
         {/* Welcome Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t("welcome")}</h2>
-            <p className="text-slate-500 mt-1 font-medium">{t("overview")}</p>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">{t("welcome")}</h2>
+            <p className="text-sm md:text-base text-slate-500 mt-1 font-medium">{t("overview")}</p>
           </div>
-          <div className="flex items-center gap-3">
-            <Button className="h-12 px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button className="flex-1 sm:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-sm md:text-base">
               <Plus size={18} className="mr-2" /> {t("quickActions.newArticle")}
             </Button>
-            <Button variant="outline" className="h-12 px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+            <Button variant="outline" className="flex-1 sm:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all text-sm md:text-base">
               <Zap size={18} className="mr-2 text-primary" /> {t("quickActions.newProject")}
             </Button>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {statCards.map((stat, i) => (
             <motion.div
               key={i}
@@ -113,23 +113,23 @@ export default function AdminDashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500">
-                <CardContent className="p-8">
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={cn("p-4 rounded-2xl transition-transform duration-500 group-hover:scale-110", stat.bg, stat.color)}>
-                      <stat.icon size={24} />
+              <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500">
+                <CardContent className="p-6 md:p-8">
+                  <div className="flex justify-between items-start mb-4 md:mb-6">
+                    <div className={cn("p-3 md:p-4 rounded-xl md:rounded-2xl transition-transform duration-500 group-hover:scale-110", stat.bg, stat.color)}>
+                      <stat.icon size={20} className="md:size-6" />
                     </div>
                     <div className={cn(
-                      "flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full",
+                      "flex items-center gap-1 text-[10px] md:text-xs font-black px-2 md:px-2.5 py-0.5 md:py-1 rounded-full",
                       stat.isPositive ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
                     )}>
-                      {stat.isPositive ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                      {stat.isPositive ? <ArrowUpRight size={12} className="md:size-[14px]" /> : <ArrowDownRight size={12} className="md:size-[14px]" />}
                       {stat.change}
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{stat.title}</p>
-                    <h3 className="text-3xl font-black text-slate-900 tracking-tighter">{stat.value}</h3>
+                  <div className="space-y-0.5 md:space-y-1">
+                    <p className="text-[10px] md:text-sm font-bold text-slate-400 uppercase tracking-widest">{stat.title}</p>
+                    <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter">{stat.value}</h3>
                   </div>
                 </CardContent>
               </Card>

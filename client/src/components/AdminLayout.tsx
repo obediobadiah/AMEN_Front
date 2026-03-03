@@ -170,20 +170,20 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 lg:ml-80 min-h-screen flex flex-col relative">
-        <header className="bg-white/80 backdrop-blur-xl border-b border-slate-100 h-24 flex items-center justify-between px-8 md:px-12 sticky top-0 z-40">
-          <div className="flex flex-col">
-            <h1 className="font-heading font-black text-2xl text-slate-900 tracking-tight">
+      <main className="flex-1 lg:ml-80 min-h-screen flex flex-col relative w-full overflow-hidden">
+        <header className="bg-white/80 backdrop-blur-xl border-b border-slate-100 h-20 md:h-24 flex items-center justify-between px-4 sm:px-8 md:px-12 sticky top-0 z-40">
+          <div className="flex flex-col ml-14 lg:ml-0">
+            <h1 className="font-heading font-black text-lg sm:text-2xl text-slate-900 tracking-tight line-clamp-1">
               {sidebarItems.find(i => i.href === pathname)?.name || t("sidebar.dashboard")}
             </h1>
-            <div className="flex items-center gap-2 mt-1">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t("sidebar.systemLive")}</span>
+            <div className="flex items-center gap-2 mt-0.5 md:mt-1">
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">{t("sidebar.systemLive")}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" className="hidden md:flex gap-2.5 h-11 px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all" asChild>
+          <div className="flex items-center gap-2 md:gap-4">
+            <Button variant="ghost" size="sm" className="hidden xl:flex gap-2.5 h-11 px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all" asChild>
               <Link href="/" target="_blank">
                 <Globe size={18} /> {t("sidebar.viewWebsite")}
               </Link>
@@ -191,8 +191,8 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="flex gap-2.5 h-11 px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all">
-                  <Globe size={18} /> {locale === 'fr' ? 'FR' : 'EN'}
+                <Button variant="ghost" size="sm" className="flex gap-1.5 md:gap-2.5 h-10 md:h-11 px-3 md:px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all">
+                  <Globe size={16} className="md:size-[18px]" /> <span className="text-sm md:text-base">{locale === 'fr' ? 'FR' : 'EN'}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-[140px] rounded-2xl p-2 bg-white/90 backdrop-blur-xl border-slate-100 shadow-2xl">
@@ -211,14 +211,14 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div className="w-px h-8 bg-slate-100 mx-2 hidden md:block" />
-            <Avatar className="h-10 w-10 border border-slate-100 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
-              <AvatarFallback className="bg-slate-50 text-slate-400 text-xs font-bold uppercase">AD</AvatarFallback>
+            <div className="w-px h-6 md:h-8 bg-slate-100 mx-1 md:mx-2 hidden sm:block" />
+            <Avatar className="h-8 w-8 md:h-10 md:w-10 border border-slate-100 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
+              <AvatarFallback className="bg-slate-50 text-slate-400 text-[10px] md:text-xs font-bold uppercase">AD</AvatarFallback>
             </Avatar>
           </div>
         </header>
 
-        <div className="p-8 md:p-12 lg:p-16 max-w-7xl w-full mx-auto flex-1">
+        <div className="p-4 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-7xl w-full mx-auto flex-1">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}

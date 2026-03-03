@@ -235,58 +235,58 @@ export default function NewsManagement() {
     }
 
     const renderCard = (item: NewsArticle) => {
-        const status = item.status || "Draft";
+        const name = (item.title as any)[locale] || item.title.fr || item.title.en;
         return (
-            <div className="flex flex-col gap-5 pt-2">
+            <div className="flex flex-col gap-4 sm:gap-5 pt-1 sm:pt-2">
                 {/* Image Section */}
-                <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-slate-50 border border-slate-100">
+                <div className="relative aspect-video sm:aspect-[16/10] rounded-2xl sm:rounded-[2rem] overflow-hidden bg-slate-50 border border-slate-100">
                     {item.thumbnail_url ? (
                         <img src={getImageUrl(item.thumbnail_url)} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     ) : (
-                        <div className="w-full h-full flex items-center justify-center text-slate-200 bg-slate-50 font-black text-[10px] tracking-widest">AMEN_NEWS_IMG</div>
+                        <div className="w-full h-full flex items-center justify-center text-slate-200 bg-slate-50 font-black text-[8px] sm:text-[10px] tracking-widest uppercase">No Image</div>
                     )}
-                    <div className="absolute top-4 left-4">
-                        <div className="bg-white/90 backdrop-blur-md text-slate-900 border border-white/20 shadow-xl rounded-xl font-black text-[9px] uppercase tracking-widest px-3 py-1.5 flex items-center gap-1.5">
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
+                        <div className="bg-white/90 backdrop-blur-md text-slate-900 border border-white/20 shadow-xl rounded-lg sm:rounded-xl font-black text-[8px] sm:text-[9px] uppercase tracking-widest px-2 sm:px-3 py-1 sm:py-1.5 flex items-center gap-1 sm:gap-1.5">
                             <span className="opacity-40">ITEM</span> #{item.id}
                         </div>
                     </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="flex flex-col gap-4 px-1">
+                <div className="flex flex-col gap-3 sm:gap-4 px-1">
                     <div className="flex items-center justify-between">
                         <Badge className={cn(
-                            "rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest border shadow-sm",
+                            "rounded-full px-2 sm:px-3 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-black uppercase tracking-widest border shadow-sm",
                             (item.status as any)?.[locale] === "Published" || (item.status as any)?.fr === "Publié" || (item.status as any)?.en === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100/50" :
                                 (item.status as any)?.[locale] === "Archived" || (item.status as any)?.fr === "Archivé" || (item.status as any)?.en === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
                                     "bg-amber-50 text-amber-600 border-amber-100/50"
                         )}>
                             {(item.status as any)?.[locale] || (item.status as any)?.fr || (item.status as any)?.en}
                         </Badge>
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
+                        <span className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
                     </div>
 
-                    <h3 className="text-xl font-black text-slate-900 line-clamp-2 leading-[1.2] group-hover:text-primary transition-colors duration-300">
-                        {(item.title as any)[locale] || item.title.fr || item.title.en}
+                    <h3 className="text-lg sm:text-xl font-black text-slate-900 line-clamp-2 leading-[1.2] group-hover:text-primary transition-colors duration-300">
+                        {name}
                     </h3>
 
-                    <div className="grid grid-cols-2 gap-y-4 pt-5 border-t border-slate-50">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("author")}</span>
-                            <span className="text-xs font-bold text-slate-700 flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary/20" />
-                                {item.author}
+                    <div className="grid grid-cols-2 gap-y-3 sm:gap-y-4 pt-4 sm:pt-5 border-t border-slate-50">
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("author")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-slate-700 flex items-center gap-1.5 sm:gap-2">
+                                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-primary/20" />
+                                <span className="line-clamp-1">{item.author}</span>
                             </span>
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("published")}</span>
-                            <span className="text-xs font-bold text-slate-700">
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("published")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-slate-700">
                                 {item.published_date ? format(new Date(item.published_date), "MMM dd, yyyy") : "—"}
                             </span>
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("readTime")}</span>
-                            <span className="text-xs font-bold text-primary">
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("readTime")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-primary">
                                 {item.reading_time || 0} {tNews("minRead")}
                             </span>
                         </div>

@@ -93,44 +93,45 @@ export function AdminEntityList<T extends EntityItem>({
     return (
         <div className="space-y-10">
             {/* Header */}
+            {/* Header */}
             {!hideHeader && (
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
-                        <p className="text-slate-500 mt-1 font-medium">{description}</p>
+                        <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
+                        <p className="text-sm md:text-base text-slate-500 mt-1 font-medium">{description}</p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 md:gap-3">
                         <Button
                             variant="outline"
                             onClick={onExport}
-                            className="h-12 px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all"
+                            className="flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all text-xs md:text-sm"
                         >
-                            <Download size={18} className="mr-2 text-slate-400" /> {t("export")}
+                            <Download size={16} className="mr-2 text-slate-400 md:size-[18px]" /> {t("export")}
                         </Button>
-                        <Button onClick={onAdd} className="h-12 px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all">
-                            <Plus size={18} className="mr-2" /> {t("createNew")}
+                        <Button onClick={onAdd} className="flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-xs md:text-sm">
+                            <Plus size={16} className="mr-2 md:size-[18px]" /> {t("createNew")}
                         </Button>
                     </div>
                 </div>
             )}
 
             {/* Filters & Search */}
-            <div className="flex flex-col md:flex-row items-center gap-4">
-                <div className="relative flex-1 w-full md:max-w-md group">
+            <div className="flex flex-col lg:flex-row items-center gap-4">
+                <div className="relative flex-1 w-full group">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-primary transition-colors" />
                     <Input
                         placeholder={searchPlaceholder || t("search")}
                         value={searchValue}
                         onChange={(e) => onSearchChange?.(e.target.value)}
-                        className="h-14 pl-12 bg-white border-slate-100 rounded-2xl shadow-sm focus-visible:ring-primary/20 focus-visible:border-primary/50 transition-all font-medium"
+                        className="h-12 md:h-14 pl-12 bg-white border-slate-100 rounded-xl md:rounded-2xl shadow-sm focus-visible:ring-primary/20 focus-visible:border-primary/50 transition-all font-medium text-sm md:text-base"
                     />
                 </div>
-                <div className="flex items-center gap-3 w-full md:w-auto">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full lg:w-auto">
                     {filterContent ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
-                                    <Filter size={18} className="text-slate-400" /> {t("filters")}
+                                <Button variant="outline" className="flex-1 md:flex-none h-12 md:h-14 px-4 md:px-6 rounded-xl md:rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-2 md:gap-3 text-xs md:text-sm">
+                                    <Filter size={16} className="text-slate-400 md:size-[18px]" /> {t("filters")}
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-100 shadow-2xl">
@@ -138,16 +139,16 @@ export function AdminEntityList<T extends EntityItem>({
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3 opacity-50 cursor-not-allowed">
-                            <Filter size={18} className="text-slate-400" /> {t("filters")}
+                        <Button variant="outline" className="flex-1 md:flex-none h-12 md:h-14 px-4 md:px-6 rounded-xl md:rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-2 md:gap-3 opacity-50 cursor-not-allowed text-xs md:text-sm">
+                            <Filter size={16} className="text-slate-400 md:size-[18px]" /> {t("filters")}
                         </Button>
                     )}
 
                     {sortContent ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3">
-                                    <ArrowUpDown size={18} className="text-slate-400" /> {t("sort")}
+                                <Button variant="outline" className="flex-1 md:flex-none h-12 md:h-14 px-4 md:px-6 rounded-xl md:rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-2 md:gap-3 text-xs md:text-sm">
+                                    <ArrowUpDown size={16} className="text-slate-400 md:size-[18px]" /> {t("sort")}
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-slate-100 shadow-2xl">
@@ -155,33 +156,33 @@ export function AdminEntityList<T extends EntityItem>({
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <Button variant="outline" className="flex-1 md:flex-none h-14 px-6 rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-3 opacity-50 cursor-not-allowed">
-                            <ArrowUpDown size={18} className="text-slate-400" /> {t("sort")}
+                        <Button variant="outline" className="flex-1 md:flex-none h-12 md:h-14 px-4 md:px-6 rounded-xl md:rounded-2xl border-slate-100 bg-white text-slate-600 font-bold gap-2 md:gap-3 opacity-50 cursor-not-allowed text-xs md:text-sm">
+                            <ArrowUpDown size={16} className="text-slate-400 md:size-[18px]" /> {t("sort")}
                         </Button>
                     )}
 
-                    <div className="flex items-center bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50">
+                    <div className="flex items-center bg-slate-100/50 p-1 rounded-xl md:rounded-2xl border border-slate-200/50">
                         <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => setViewMode("table")}
                             className={cn(
-                                "h-11 px-4 rounded-xl font-bold transition-all",
+                                "h-10 md:h-11 px-3 md:px-4 rounded-lg md:rounded-xl font-bold transition-all text-xs md:text-sm",
                                 viewMode === "table" ? "bg-white shadow-sm text-primary" : "text-slate-400"
                             )}
                         >
-                            <List size={18} className="mr-2" /> {t("list")}
+                            <List size={16} className="mr-1.5 md:mr-2 md:size-[18px]" /> {t("list")}
                         </Button>
                         <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => setViewMode("grid")}
                             className={cn(
-                                "h-11 px-4 rounded-xl font-bold transition-all",
+                                "h-10 md:h-11 px-3 md:px-4 rounded-lg md:rounded-xl font-bold transition-all text-xs md:text-sm",
                                 viewMode === "grid" ? "bg-white shadow-sm text-primary" : "text-slate-400"
                             )}
                         >
-                            <LayoutGrid size={18} className="mr-2" /> {t("grid")}
+                            <LayoutGrid size={16} className="mr-1.5 md:mr-2 md:size-[18px]" /> {t("grid")}
                         </Button>
                     </div>
                 </div>
@@ -189,16 +190,16 @@ export function AdminEntityList<T extends EntityItem>({
 
             {/* Table Area */}
             {viewMode === "table" ? (
-                <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden overflow-x-auto custom-scrollbar">
+                <div className="bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden overflow-x-auto custom-scrollbar">
                     <Table>
                         <TableHeader className="bg-slate-50/50">
                             <TableRow className="hover:bg-transparent border-slate-100">
                                 {columns.map((col) => (
-                                    <TableHead key={col.key} className="h-16 px-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                    <TableHead key={col.key} className="h-14 md:h-16 px-4 md:px-8 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap">
                                         {col.label}
                                     </TableHead>
                                 ))}
-                                <TableHead className="text-right px-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                <TableHead className="text-right px-4 md:px-8 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-400">
                                     {t("actions")}
                                 </TableHead>
                             </TableRow>
@@ -214,11 +215,11 @@ export function AdminEntityList<T extends EntityItem>({
                                         className="group hover:bg-slate-50/50 transition-colors border-slate-50"
                                     >
                                         {columns.map((col) => (
-                                            <TableCell key={col.key} className="px-8 py-6">
+                                            <TableCell key={col.key} className="px-4 md:px-8 py-4 md:py-6">
                                                 {col.render ? (
                                                     col.render(item)
                                                 ) : (
-                                                    <span className="text-sm font-bold text-slate-700">
+                                                    <span className="text-xs md:text-sm font-bold text-slate-700">
                                                         {typeof item[col.key] === "object" && item[col.key] !== null
                                                             ? (item[col.key][locale] || item[col.key].fr || item[col.key].en || "")
                                                             : item[col.key]}
@@ -226,7 +227,7 @@ export function AdminEntityList<T extends EntityItem>({
                                                 )}
                                             </TableCell>
                                         ))}
-                                        <TableCell className="text-right px-8 py-6">
+                                        <TableCell className="text-right px-4 md:px-8 py-4 md:py-6">
                                             <ActionMenu item={item} onEdit={onEdit} onDelete={onDelete} onView={onView} t={t} />
                                         </TableCell>
                                     </motion.tr>
@@ -238,7 +239,7 @@ export function AdminEntityList<T extends EntityItem>({
                     </Table>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                     {items.length > 0 ? (
                         items.map((item, idx) => (
                             <motion.div
@@ -246,9 +247,9 @@ export function AdminEntityList<T extends EntityItem>({
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: idx * 0.05 }}
-                                className="group relative bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-primary/10 transition-all p-6"
+                                className="group relative bg-white rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-primary/10 transition-all p-5 md:p-6"
                             >
-                                <div className="absolute top-6 right-6 z-10">
+                                <div className="absolute top-4 md:top-6 right-4 md:right-6 z-10">
                                     <ActionMenu item={item} onEdit={onEdit} onDelete={onDelete} onView={onView} t={t} />
                                 </div>
                                 <div
@@ -256,14 +257,14 @@ export function AdminEntityList<T extends EntityItem>({
                                     onClick={() => onView?.(item)}
                                 >
                                     {renderCard ? renderCard(item) : (
-                                        <div className="space-y-4 pt-4">
-                                            <h3 className="font-black text-slate-900 text-lg line-clamp-2">
+                                        <div className="space-y-3 md:space-y-4 pt-2 md:pt-4">
+                                            <h3 className="font-black text-slate-900 text-base md:text-lg line-clamp-2">
                                                 {typeof item.title === "object" && item.title !== null
                                                     ? (item.title[locale] || item.title.fr || item.title.en || "")
                                                     : item.title}
                                             </h3>
                                             <div className="flex items-center gap-2">
-                                                <Badge className="bg-slate-100 text-slate-500 rounded-lg">{item.status || "Draft"}</Badge>
+                                                <Badge className="bg-slate-100 text-slate-500 rounded-lg text-[10px] md:text-xs">{item.status || "Draft"}</Badge>
                                             </div>
                                         </div>
                                     )}
@@ -271,34 +272,34 @@ export function AdminEntityList<T extends EntityItem>({
                             </motion.div>
                         ))
                     ) : (
-                        <div className="col-span-full py-20">
+                        <div className="col-span-full py-12 md:py-20">
                             <EmptyState t={t} />
                         </div>
                     )}
                 </div>
             )}
             {/* Pagination */}
-            <div className="px-8 py-6 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/30">
-                <p className="text-xs font-black uppercase tracking-widest text-slate-400">
+            <div className="px-4 md:px-8 py-4 md:py-6 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-50/30 rounded-b-[1.5rem] md:rounded-b-[2.5rem]">
+                <p className="text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400">
                     {t("showing")} <span className="text-slate-900">{items.length > 0 ? (currentPage - 1) * 10 + 1 : 0}-{Math.min(currentPage * 10, items.length)}</span> {t("of")} <span className="text-slate-900">{items.length}</span> {t("entries")}
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 md:gap-2">
                     <Button
                         variant="outline"
                         disabled={currentPage === 1}
                         onClick={() => onPageChange?.(currentPage - 1)}
-                        className="h-10 w-10 p-0 rounded-xl border-slate-200 bg-white shadow-sm text-slate-400 hover:text-primary transition-all disabled:opacity-50"
+                        className="h-9 w-9 md:h-10 md:w-10 p-0 rounded-lg md:rounded-xl border-slate-200 bg-white shadow-sm text-slate-400 hover:text-primary transition-all disabled:opacity-50"
                     >
-                        <ChevronLeft size={18} />
+                        <ChevronLeft size={16} className="md:size-[18px]" />
                     </Button>
                     <div className="flex items-center gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                        {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map((page) => (
                             <Button
                                 key={page}
                                 onClick={() => onPageChange?.(page)}
                                 variant={currentPage === page ? "default" : "ghost"}
                                 className={cn(
-                                    "h-10 w-10 rounded-xl font-black text-xs",
+                                    "h-9 w-9 md:h-10 md:w-10 rounded-lg md:rounded-xl font-black text-[10px] md:text-xs",
                                     currentPage === page ? "bg-primary shadow-lg shadow-primary/20" : "text-slate-400 hover:text-primary"
                                 )}
                             >
@@ -310,9 +311,9 @@ export function AdminEntityList<T extends EntityItem>({
                         variant="outline"
                         disabled={currentPage === totalPages}
                         onClick={() => onPageChange?.(currentPage + 1)}
-                        className="h-10 w-10 p-0 rounded-xl border-slate-200 bg-white shadow-sm text-slate-400 hover:text-primary transition-all disabled:opacity-50"
+                        className="h-9 w-9 md:h-10 md:w-10 p-0 rounded-lg md:rounded-xl border-slate-200 bg-white shadow-sm text-slate-400 hover:text-primary transition-all disabled:opacity-50"
                     >
-                        <ChevronRight size={18} />
+                        <ChevronRight size={16} className="md:size-[18px]" />
                     </Button>
                 </div>
             </div>

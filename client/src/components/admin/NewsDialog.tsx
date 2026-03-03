@@ -128,31 +128,31 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
-                <div className="bg-slate-50/80 backdrop-blur-md p-10 border-b border-slate-100 sticky top-0 z-10">
+            <DialogContent className="sm:max-w-[800px] w-[95vw] sm:w-full max-h-[90vh] overflow-y-auto rounded-3xl sm:rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
+                <div className="bg-slate-50/80 backdrop-blur-md p-6 sm:p-10 border-b border-slate-100 sticky top-0 z-10">
                     <DialogHeader>
-                        <DialogTitle className="text-4xl font-black text-slate-900 tracking-tight">
+                        <DialogTitle className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
                             {article ? t("editTitle") : t("createTitle")}
                         </DialogTitle>
-                        <DialogDescription className="text-slate-500 font-medium text-lg mt-3 max-w-xl">
+                        <DialogDescription className="text-sm sm:text-lg text-slate-500 font-medium mt-1 sm:mt-3 max-w-xl">
                             {article ? t("editDesc") : t("createDesc")}
                         </DialogDescription>
                     </DialogHeader>
                 </div>
 
-                <div className="p-8">
+                <div className="p-5 sm:p-8">
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6 sm:space-y-8 text-slate-900">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                                 <FormField
                                     control={form.control}
                                     name="category"
                                     render={({ field }) => (
-                                        <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("category")}</FormLabel>
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("category")}</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all">
+                                                    <SelectTrigger className="h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all text-sm sm:text-base">
                                                         <SelectValue placeholder="Catégorie" />
                                                     </SelectTrigger>
                                                 </FormControl>
@@ -170,11 +170,11 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                     control={form.control}
                                     name="status"
                                     render={({ field }) => (
-                                        <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("status")}</FormLabel>
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("status")}</FormLabel>
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all">
+                                                    <SelectTrigger className="h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all text-sm sm:text-base">
                                                         <SelectValue placeholder="Statut" />
                                                     </SelectTrigger>
                                                 </FormControl>
@@ -194,14 +194,13 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 control={form.control}
                                 name="title"
                                 render={({ field }) => (
-                                    <FormItem className="space-y-4">
-                                        <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("titleLabel")}</FormLabel>
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("titleLabel")}</FormLabel>
                                         <FormControl>
-                                            <Input placeholder={t("titlePlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 text-lg focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 placeholder:font-medium" {...field} />
+                                            <Input placeholder={t("titlePlaceholder")} className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-base sm:text-lg focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 placeholder:font-medium" {...field} />
                                         </FormControl>
                                         <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                     </FormItem>
-
                                 )}
                             />
 
@@ -209,12 +208,12 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 control={form.control}
                                 name="excerpt"
                                 render={({ field }) => (
-                                    <FormItem className="space-y-4">
-                                        <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("excerptLabel")}</FormLabel>
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("excerptLabel")}</FormLabel>
                                         <FormControl>
                                             <Textarea
                                                 placeholder={t("excerptPlaceholder")}
-                                                className="min-h-[120px] rounded-3xl bg-white border-slate-100 shadow-sm font-medium p-8 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300"
+                                                className="min-h-[100px] sm:min-h-[120px] rounded-2xl sm:rounded-3xl bg-white border-slate-100 shadow-sm font-medium p-4 sm:p-8 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 text-sm sm:text-base"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -227,12 +226,12 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 control={form.control}
                                 name="content"
                                 render={({ field }) => (
-                                    <FormItem className="space-y-4">
-                                        <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("contentLabel")}</FormLabel>
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("contentLabel")}</FormLabel>
                                         <FormControl>
                                             <Textarea
                                                 placeholder={t("contentPlaceholder")}
-                                                className="min-h-[400px] rounded-[2.5rem] bg-white border-slate-100 shadow-sm font-medium p-10 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300"
+                                                className="min-h-[300px] sm:min-h-[400px] rounded-2xl sm:rounded-[2.5rem] bg-white border-slate-100 shadow-sm font-medium p-5 sm:p-10 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 text-sm sm:text-base"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -241,15 +240,15 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 )}
                             />
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                                 <FormField
                                     control={form.control}
                                     name="author"
                                     render={({ field }) => (
-                                        <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("authorLabel")}</FormLabel>
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("authorLabel")}</FormLabel>
                                             <FormControl>
-                                                <Input placeholder={t("authorPlaceholder")} className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
+                                                <Input placeholder={t("authorPlaceholder")} className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
                                             </FormControl>
                                             <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
                                         </FormItem>
@@ -259,12 +258,12 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                     control={form.control}
                                     name="reading_time"
                                     render={({ field }) => (
-                                        <FormItem className="space-y-4">
-                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("readTimeLabel")}</FormLabel>
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("readTimeLabel")}</FormLabel>
                                             <FormControl>
                                                 <Input
                                                     type="number"
-                                                    className="h-16 rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-8 focus-visible:ring-primary/20 focus-visible:border-primary transition-all"
+                                                    className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all"
                                                     {...field}
                                                     onChange={e => field.onChange(parseInt(e.target.value) || 0)}
                                                 />
@@ -279,27 +278,27 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 control={form.control}
                                 name="thumbnail_url"
                                 render={({ field }) => (
-                                    <FormItem className="space-y-4">
-                                        <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("uploadLabel")}</FormLabel>
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("uploadLabel")}</FormLabel>
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
                                                 className={cn(
-                                                    "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                    "relative aspect-[21/9] rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"
                                                 )}
                                             >
                                                 {isUploading ? (
-                                                    <div className="flex flex-col items-center gap-4">
-                                                        <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                                                        <span className="text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Uploading...</span>
+                                                    <div className="flex flex-col items-center gap-2 lg:gap-4">
+                                                        <Loader2 className="w-8 h-8 lg:w-10 lg:h-10 text-primary animate-spin" />
+                                                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Uploading...</span>
                                                     </div>
                                                 ) : (previewUrl || field.value) ? (
                                                     <>
                                                         <img src={previewUrl || getImageUrl(field.value)} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                                                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                                                            <div className="bg-white/90 backdrop-blur-md p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
-                                                                <Upload className="w-6 h-6 text-primary" />
+                                                            <div className="bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
+                                                                <Upload className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                                                             </div>
                                                         </div>
                                                         <button
@@ -309,17 +308,17 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                                                 setPreviewUrl("");
                                                                 field.onChange("");
                                                             }}
-                                                            className="absolute top-6 right-6 p-2.5 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20 scale-90 group-hover:scale-100"
+                                                            className="absolute top-2 lg:top-6 right-2 lg:right-6 p-2 lg:p-2.5 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20 scale-90 lg:scale-100"
                                                         >
-                                                            <X size={18} />
+                                                            <X size={16} />
                                                         </button>
                                                     </>
                                                 ) : (
-                                                    <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
-                                                        <div className="p-6 bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
-                                                            <ImageIcon size={32} className="text-primary" />
+                                                    <div className="flex flex-col items-center gap-2 lg:gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
+                                                        <div className="p-4 lg:p-6 bg-white rounded-xl lg:rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
+                                                            <ImageIcon size={24} className="text-primary lg:size-[32px]" />
                                                         </div>
-                                                        <span className="text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic text-center px-10">{t("uploadPlaceholder")}</span>
+                                                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic text-center px-4 lg:px-10">{t("uploadPlaceholder")}</span>
                                                     </div>
                                                 )}
                                                 <input
@@ -336,24 +335,24 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                 )}
                             />
 
-                            <DialogFooter className="pt-10 border-t border-slate-50 mt-10">
+                            <DialogFooter className="pt-6 sm:pt-10 border-t border-slate-50 mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3">
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     onClick={() => onOpenChange(false)}
-                                    className="h-16 px-10 rounded-2xl text-slate-500 font-bold hover:bg-slate-100 transition-all"
+                                    className="h-12 sm:h-16 px-6 sm:px-10 rounded-xl sm:rounded-2xl text-slate-500 font-bold hover:bg-slate-100 transition-all text-sm sm:text-base w-full sm:w-auto order-2 sm:order-1"
                                 >
                                     {commonT("cancel")}
                                 </Button>
                                 <Button
                                     type="submit"
                                     disabled={isSubmitting || isUploading}
-                                    className="h-16 px-14 rounded-2xl bg-primary shadow-2xl shadow-primary/30 hover:shadow-primary/50 font-black text-lg transition-all min-w-[200px]"
+                                    className="h-12 sm:h-16 px-8 sm:px-14 rounded-xl sm:rounded-2xl bg-primary shadow-2xl shadow-primary/30 hover:shadow-primary/50 font-black text-base sm:text-lg transition-all w-full sm:w-auto min-w-0 sm:min-w-[200px] order-1 sm:order-2"
                                 >
                                     {isSubmitting || isUploading ? (
                                         <div className="flex items-center gap-3">
-                                            <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span className="animate-pulse italic">Synchronizing...</span>
+                                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                                            <span className="animate-pulse italic text-sm sm:text-base">Synchronizing...</span>
                                         </div>
                                     ) : (
                                         <div className="flex items-center gap-3">

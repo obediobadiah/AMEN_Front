@@ -309,47 +309,47 @@ export default function MultimediaManagement() {
         return (
             <div
                 onClick={() => { setSelectedAlbumId(album.id); setViewMode("library"); }}
-                className="flex flex-col gap-6 pt-4 group/album cursor-pointer"
+                className="flex flex-col gap-4 md:gap-6 pt-2 md:pt-4 group/album cursor-pointer"
             >
-                <div className="aspect-square rounded-[2.5rem] bg-slate-50 overflow-hidden relative border-4 border-white shadow-xl shadow-slate-200/50 group-hover/album:shadow-primary/30 group-hover/album:-translate-y-2 transition-all duration-500">
+                <div className="aspect-square rounded-2xl md:rounded-[2.5rem] bg-slate-50 overflow-hidden relative border-2 md:border-4 border-white shadow-xl shadow-slate-200/50 group-hover/album:shadow-primary/30 group-hover/album:-translate-y-2 transition-all duration-500">
                     {imageUrl ? (
                         <img src={imageUrl} alt={name} className="w-full h-full object-cover group-hover/album:scale-110 transition-transform duration-700" />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-slate-200">
-                            <FolderHeart size={64} className="opacity-40" />
+                            <FolderHeart size={48} className="opacity-40 md:size-16" />
                         </div>
                     )}
 
-                    <div className="absolute top-6 left-6 flex gap-2">
+                    <div className="absolute top-3 md:top-6 left-3 md:left-6 flex gap-2">
                         <Badge className={cn(
-                            "rounded-xl px-4 py-1.5 text-[10px] font-black uppercase tracking-widest border-0 shadow-2xl",
+                            "rounded-lg md:rounded-xl px-2 md:px-4 py-1 md:py-1.5 text-[8px] md:text-[10px] font-black uppercase tracking-widest border-0 shadow-2xl",
                             album.is_public ? "bg-primary text-white" : "bg-slate-900 text-white"
                         )}>
-                            <div className="flex items-center gap-1.5">
-                                {album.is_public ? <Globe size={10} /> : <Lock size={10} />}
+                            <div className="flex items-center gap-1 md:gap-1.5">
+                                {album.is_public ? <Globe size={8} className="md:size-2.5" /> : <Lock size={8} className="md:size-2.5" />}
                                 {album.is_public ? tAlbums("filters.public") : tAlbums("filters.private")}
                             </div>
                         </Badge>
                     </div>
 
-                    <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-20 translate-y-4 group-hover/album:translate-y-0 opacity-0 group-hover/album:opacity-100 transition-all duration-500">
+                    <div className="absolute inset-x-0 bottom-0 p-4 md:p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-10 md:pt-20 translate-y-4 group-hover/album:translate-y-0 opacity-0 group-hover/album:opacity-100 transition-all duration-500">
                         <div className="flex items-center justify-between text-white">
                             <div className="flex flex-col">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">{tAlbums("content")}</span>
-                                <span className="font-black text-xl">{count} {tAlbums("files")}</span>
+                                <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white/60">{tAlbums("content")}</span>
+                                <span className="font-black text-sm md:text-xl">{count} {tAlbums("files")}</span>
                             </div>
-                            <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl hover:bg-white hover:text-primary transition-all shadow-2xl"
+                            <div className="p-2 md:p-3 bg-white/20 backdrop-blur-md rounded-xl md:rounded-2xl hover:bg-white hover:text-primary transition-all shadow-2xl"
                                 onClick={(e) => { e.stopPropagation(); handleEditAlbum(album); }}>
-                                <Edit2 size={18} />
+                                <Edit2 size={14} className="md:size-5" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="px-4 space-y-2">
-                    <h3 className="font-black text-slate-900 text-2xl leading-none group-hover/album:text-primary transition-all">{name}</h3>
+                <div className="px-2 md:px-4 space-y-1 md:space-y-2">
+                    <h3 className="font-black text-slate-900 text-lg md:text-2xl leading-none group-hover/album:text-primary transition-all">{name}</h3>
                     {album.description && (
-                        <p className="text-sm font-medium text-slate-400 line-clamp-1 italic italic">
+                        <p className="text-[10px] md:text-sm font-medium text-slate-400 line-clamp-1 italic italic">
                             {(album.description as any)[locale] || (album.description as any).fr || ""}
                         </p>
                     )}
@@ -418,53 +418,53 @@ export default function MultimediaManagement() {
 
     return (
         <AdminLayout>
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-10">
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-6 md:space-y-10">
                 {/* Header & Controls */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-4">
+                <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
+                    <div className="space-y-2 md:space-y-4">
+                        <div className="flex items-center gap-3 md:gap-4">
                             {selectedAlbumId && (
                                 <button
                                     onClick={() => { setSelectedAlbumId(null); setViewMode("albums"); }}
-                                    className="p-3 bg-slate-100 text-slate-400 hover:bg-primary hover:text-white rounded-2xl transition-all shadow-sm active:scale-95"
+                                    className="p-2 md:p-3 bg-slate-100 text-slate-400 hover:bg-primary hover:text-white rounded-xl md:rounded-2xl transition-all shadow-sm active:scale-95"
                                 >
-                                    <ArrowLeft size={20} />
+                                    <ArrowLeft size={18} className="md:size-5" />
                                 </button>
                             )}
-                            <h2 className="text-4xl font-black text-slate-900 tracking-tight">
+                            <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight">
                                 {selectedAlbumId ? ((currentAlbum?.name as any)[locale] || currentAlbum?.name.fr) : tSidebar("multimedia")}
                             </h2>
                         </div>
-                        <p className="text-slate-500 font-medium text-lg max-w-2xl leading-relaxed">
+                        <p className="text-sm md:text-lg text-slate-500 font-medium max-w-2xl leading-relaxed">
                             {selectedAlbumId ? (currentAlbum?.description ? ((currentAlbum.description as any)[locale] || currentAlbum.description.fr) : "") : tMedia("description")}
                         </p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-4">
-                        <div className="flex items-center p-2 bg-slate-100/50 backdrop-blur-sm rounded-[2rem] border border-slate-200/50 shadow-inner">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <div className="flex items-center p-1.5 md:p-2 bg-slate-100/50 backdrop-blur-sm rounded-2xl md:rounded-[2rem] border border-slate-200/50 shadow-inner">
                             <button
                                 onClick={() => { setViewMode("library"); setSelectedAlbumId(null); }}
                                 className={cn(
-                                    "flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-black text-xs uppercase tracking-widest transition-all duration-500",
-                                    (viewMode === "library" && !selectedAlbumId) ? "bg-white text-primary shadow-xl ring-1 ring-slate-200/50" : "text-slate-400 hover:text-slate-600 hover:bg-white/50"
+                                    "flex-1 sm:flex-none flex items-center justify-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] font-black text-[10px] md:text-xs uppercase tracking-widest transition-all duration-500",
+                                    (viewMode === "library" && !selectedAlbumId) ? "bg-white text-primary shadow-lg md:shadow-xl ring-1 ring-slate-200/50" : "text-slate-400 hover:text-slate-600 hover:bg-white/50"
                                 )}
                             >
-                                <LayoutGrid size={16} />
+                                <LayoutGrid size={14} className="md:size-4" />
                                 {tMedia("library")}
                             </button>
                             <button
                                 onClick={() => { setViewMode("albums"); setSelectedAlbumId(null); }}
                                 className={cn(
-                                    "flex items-center gap-3 px-8 py-4 rounded-[1.5rem] font-black text-xs uppercase tracking-widest transition-all duration-500",
-                                    (viewMode === "albums" || selectedAlbumId) ? "bg-white text-primary shadow-xl ring-1 ring-slate-200/50" : "text-slate-400 hover:text-slate-600 hover:bg-white/50"
+                                    "flex-1 sm:flex-none flex items-center justify-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] font-black text-[10px] md:text-xs uppercase tracking-widest transition-all duration-500",
+                                    (viewMode === "albums" || selectedAlbumId) ? "bg-white text-primary shadow-lg md:shadow-xl ring-1 ring-slate-200/50" : "text-slate-400 hover:text-slate-600 hover:bg-white/50"
                                 )}
                             >
-                                <FolderHeart size={16} />
+                                <FolderHeart size={14} className="md:size-4" />
                                 {tAlbums("title")}
                             </button>
                         </div>
                         {viewMode === "library" && (
-                            <Button onClick={handleAddMedia} className="h-14 px-8 rounded-[1.5rem] bg-primary text-white shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all">
+                            <Button onClick={handleAddMedia} className="h-12 md:h-14 px-6 md:px-8 rounded-xl md:rounded-[1.5rem] bg-primary text-white shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-sm md:text-base">
                                 <Plus size={18} className="mr-2" /> {tCommon("createNew")}
                             </Button>
                         )}
@@ -472,18 +472,18 @@ export default function MultimediaManagement() {
                 </div>
 
                 {viewMode === "albums" && !selectedAlbumId ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-10">
                         {/* Add New Album Card */}
                         <div
                             onClick={handleAddAlbum}
-                            className="aspect-square rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-6 group cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-2 mt-4"
+                            className="aspect-square rounded-[1.5rem] md:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-4 md:gap-6 group cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-2 mt-2 md:mt-4"
                         >
-                            <div className="p-8 bg-white rounded-[2.5rem] shadow-xl group-hover:scale-110 transition-transform duration-500 ring-1 ring-slate-100">
-                                <FolderHeart size={48} className="text-primary" />
+                            <div className="p-5 md:p-8 bg-white rounded-2xl md:rounded-[2.5rem] shadow-xl group-hover:scale-110 transition-transform duration-500 ring-1 ring-slate-100">
+                                <FolderHeart size={32} className="text-primary md:size-[48px]" />
                             </div>
-                            <div className="text-center space-y-1">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary transition-colors">{tAlbums("digitalCollections")}</span>
-                                <p className="font-black text-slate-900 text-lg">{tAlbums("newAlbum")}</p>
+                            <div className="text-center space-y-0.5 md:space-y-1">
+                                <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary transition-colors">{tAlbums("digitalCollections")}</span>
+                                <p className="font-black text-slate-900 text-base md:text-lg">{tAlbums("newAlbum")}</p>
                             </div>
                         </div>
 

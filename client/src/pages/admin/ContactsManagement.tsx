@@ -136,6 +136,40 @@ export default function ContactsManagement() {
         </>
     );
 
+    const renderCard = (item: any) => {
+        return (
+            <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.id}</span>
+                        <h3 className="text-lg font-black text-slate-900 leading-tight">{item.name}</h3>
+                        <span className="text-[11px] font-bold text-primary italic opacity-80">{item.email}</span>
+                    </div>
+                    <Badge className={cn(
+                        "rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest border",
+                        item.status === "Unread" ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-slate-50 text-slate-400 border-slate-100"
+                    )}>
+                        {item.status}
+                    </Badge>
+                </div>
+
+                <div className="bg-slate-50/50 rounded-xl p-4 border border-slate-100">
+                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block mb-2">{tCont("columns.subject")}</span>
+                    <p className="text-sm font-medium text-slate-600 leading-relaxed">
+                        {item.subject}
+                    </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-slate-50">
+                    <div className="flex flex-col">
+                        <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{tCont("columns.received")}</span>
+                        <span className="text-xs font-bold text-slate-600">{item.date ? new Date(item.date).toLocaleDateString() : "-"}</span>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <AdminLayout>
             <AdminEntityList
@@ -143,6 +177,7 @@ export default function ContactsManagement() {
                 description={tCont("description")}
                 items={paginatedItems}
                 columns={columns}
+                renderCard={renderCard}
                 onAdd={() => console.log("New Message")}
                 filterContent={filterContent}
                 sortContent={sortContent}

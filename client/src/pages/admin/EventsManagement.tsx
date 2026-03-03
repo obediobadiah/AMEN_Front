@@ -199,9 +199,9 @@ export default function EventsManagement() {
         const locStr = item.location ? ((item.location as any)[locale] || item.location?.fr || item.location?.en || "") : "";
 
         return (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:gap-4">
                 {/* Thumbnail */}
-                <div className="w-full h-48 rounded-2xl overflow-hidden bg-slate-50 relative group-hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border-2 border-slate-100">
+                <div className="w-full h-40 sm:h-48 rounded-xl sm:rounded-2xl overflow-hidden bg-slate-50 relative group-hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 border-2 border-slate-100">
                     {item.thumbnail_url ? (
                         <img
                             src={getImageUrl(item.thumbnail_url)}
@@ -210,11 +210,11 @@ export default function EventsManagement() {
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-slate-300">
-                            <ImageIcon size={48} className="opacity-50" />
+                            <ImageIcon size={32} className="opacity-50 sm:size-12" />
                         </div>
                     )}
                     <Badge className={cn(
-                        "absolute top-4 left-4 rounded-full px-3 py-1 shadow-lg text-[10px] font-black uppercase tracking-widest border-0 flex items-center gap-2",
+                        "absolute top-3 sm:top-4 left-3 sm:left-4 rounded-full px-2 sm:px-3 py-0.5 sm:py-1 shadow-lg text-[8px] sm:text-[10px] font-black uppercase tracking-widest border-0 flex items-center gap-1.5 sm:gap-2",
                         item.status === "Upcoming" ? "bg-primary text-white" : "bg-slate-800 text-white"
                     )}>
                         {item.status === "Upcoming" ? tEv("columns.upcoming") : tEv("columns.past")}
@@ -222,29 +222,29 @@ export default function EventsManagement() {
                 </div>
 
                 {/* Content */}
-                <div className="space-y-3 px-1">
-                    <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest mt-2">
+                <div className="space-y-2 sm:space-y-3 px-1">
+                    <div className="flex items-center gap-2 text-primary font-bold text-[10px] sm:text-xs uppercase tracking-widest mt-1 sm:mt-2">
                         <span>{item.category || "Workshop"}</span>
                     </div>
 
-                    <h3 className="font-heading font-black text-xl text-slate-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+                    <h3 className="font-heading font-black text-lg sm:text-xl text-slate-900 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                         {titleStr}
                     </h3>
 
                     {descStr && (
-                        <p className="text-sm font-medium text-slate-500 line-clamp-2 leading-relaxed">
+                        <p className="text-xs sm:text-sm font-medium text-slate-500 line-clamp-2 leading-relaxed">
                             {descStr}
                         </p>
                     )}
 
-                    <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-100">
-                        <div className="flex items-center gap-2 text-slate-500 text-xs font-bold">
-                            <Clock size={14} className="text-primary" />
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-3 sm:pt-4 border-t border-slate-100">
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[10px] sm:text-xs font-bold">
+                            <Clock size={12} className="text-primary sm:size-[14px]" />
                             <span>{item.start_date ? format(new Date(item.start_date), "MMM dd, yyyy") : "-"}</span>
                         </div>
                         {locStr && (
-                            <div className="flex items-center gap-2 text-slate-500 text-xs font-bold">
-                                <MapPin size={14} className="text-primary" />
+                            <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 text-[10px] sm:text-xs font-bold">
+                                <MapPin size={12} className="text-primary sm:size-[14px]" />
                                 <span className="line-clamp-1">{locStr}</span>
                             </div>
                         )}
