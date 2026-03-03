@@ -7,11 +7,44 @@ import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useInquiries } from "@/hooks/use-inquiries";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
   const t = useTranslations();
+  const { createInquiry, isCreating } = useInquiries();
+  const { toast } = useToast();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await createInquiry({
+        ...formData,
+        type: "contact"
+      });
+      toast({
+        title: t('contactPage.form.successTitle'),
+        description: t('contactPage.form.successMessage'),
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast({
+        title: t('contactPage.form.errorTitle'),
+        description: t('contactPage.form.errorMessage'),
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <Layout>
@@ -94,13 +127,16 @@ export default function Contact() {
                 {/* Form Top Accent */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1.5 bg-primary rounded-b-full" />
 
-                <form className="space-y-8">
+                <form className="space-y-8" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-3">
                       <label className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground pl-1">
                         {t('contactPage.form.name')}
                       </label>
                       <Input
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder={t('contactPage.form.placeholders.name')}
                         className="h-14 rounded-2xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50 text-base px-6 shadow-inner"
                       />
@@ -110,7 +146,10 @@ export default function Contact() {
                         {t('contactPage.form.email')}
                       </label>
                       <Input
+                        required
                         type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder={t('contactPage.form.placeholders.email')}
                         className="h-14 rounded-2xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50 text-base px-6 shadow-inner"
                       />
@@ -122,6 +161,9 @@ export default function Contact() {
                       {t('contactPage.form.subject')}
                     </label>
                     <Input
+                      required
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       placeholder={t('contactPage.form.placeholders.subject')}
                       className="h-14 rounded-2xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50 text-base px-6 shadow-inner"
                     />
@@ -132,14 +174,27 @@ export default function Contact() {
                       {t('contactPage.form.message')}
                     </label>
                     <Textarea
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder={t('contactPage.form.placeholders.message')}
                       className="min-h-[200px] rounded-3xl bg-muted/30 border-none focus-visible:ring-2 focus-visible:ring-primary/50 text-base p-6 shadow-inner resize-none"
                     />
                   </div>
 
-                  <Button className="w-full h-16 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-xl shadow-xl shadow-primary/30 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center gap-3">
-                    {t('contactPage.form.send')}
-                    <Send size={20} className="rotate-12" />
+                  <Button
+                    type="submit"
+                    disabled={isCreating}
+                    className="w-full h-16 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-xl shadow-xl shadow-primary/30 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3"
+                  >
+                    {isCreating ? (
+                      <Loader2 className="animate-spin" size={24} />
+                    ) : (
+                      <>
+                        {t('contactPage.form.send')}
+                        <Send size={20} className="rotate-12" />
+                      </>
+                    )}
                   </Button>
                 </form>
               </motion.div>

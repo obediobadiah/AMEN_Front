@@ -62,6 +62,9 @@ interface AdminEntityListProps<T extends EntityItem> {
     filterContent?: React.ReactNode;
     sortContent?: React.ReactNode;
     hideHeader?: boolean;
+    hideAdd?: boolean;
+    onRowClick?: (item: T) => void;
+    isLoading?: boolean;
     totalCount?: number;
 }
 
@@ -75,6 +78,7 @@ export function AdminEntityList<T extends EntityItem>({
     onDelete,
     onView,
     onExport,
+    onRowClick,
     renderCard,
     defaultView = "table",
     searchPlaceholder,
@@ -86,6 +90,8 @@ export function AdminEntityList<T extends EntityItem>({
     filterContent,
     sortContent,
     hideHeader = false,
+    hideAdd = false,
+    isLoading = false,
     totalCount
 }: AdminEntityListProps<T>) {
     const t = useTranslations("admin.common");
@@ -103,16 +109,24 @@ export function AdminEntityList<T extends EntityItem>({
                         <p className="text-sm md:text-base text-slate-500 mt-1 font-medium">{description}</p>
                     </div>
                     <div className="flex items-center gap-2 md:gap-3">
-                        <Button
-                            variant="outline"
-                            onClick={onExport}
-                            className="flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all text-xs md:text-sm"
-                        >
-                            <Download size={16} className="mr-2 text-slate-400 md:size-[18px]" /> {t("export")}
-                        </Button>
-                        <Button onClick={onAdd} className="flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-xs md:text-sm">
-                            <Plus size={16} className="mr-2 md:size-[18px]" /> {t("createNew")}
-                        </Button>
+                        {onExport && (
+                            <Button
+                                variant="outline"
+                                onClick={onExport}
+                                disabled={items.length === 0}
+                                className={cn(
+                                    "flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl border-slate-200 bg-white shadow-sm font-bold text-slate-600 hover:bg-slate-50 transition-all text-xs md:text-sm",
+                                    items.length === 0 && "opacity-50 cursor-not-allowed"
+                                )}
+                            >
+                                <Download size={16} className="mr-2 text-slate-400 md:size-[18px]" /> {t("export")}
+                            </Button>
+                        )}
+                        {onAdd && !hideAdd && (
+                            <Button onClick={onAdd} className="flex-1 md:flex-none h-10 md:h-12 px-4 md:px-6 rounded-xl bg-primary shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-xs md:text-sm">
+                                <Plus size={16} className="mr-2 md:size-[18px]" /> {t("createNew")}
+                            </Button>
+                        )}
                     </div>
                 </div>
             )}
@@ -191,7 +205,14 @@ export function AdminEntityList<T extends EntityItem>({
             </div>
 
             {/* Table Area */}
-            {viewMode === "table" ? (
+            {isLoading ? (
+                <div className="flex items-center justify-center py-20 bg-white/50 rounded-[2.5rem] border border-slate-100 border-dashed">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                        <p className="font-black text-slate-400 animate-pulse tracking-widest uppercase text-[10px]">{t("loading")}</p>
+                    </div>
+                </div>
+            ) : viewMode === "table" ? (
                 <div className="bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden overflow-x-auto custom-scrollbar">
                     <Table>
                         <TableHeader className="bg-slate-50/50">
@@ -214,7 +235,11 @@ export function AdminEntityList<T extends EntityItem>({
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: idx * 0.05 }}
-                                        className="group hover:bg-slate-50/50 transition-colors border-slate-50"
+                                        onClick={() => onRowClick?.(item)}
+                                        className={cn(
+                                            "group hover:bg-slate-50/50 transition-colors border-slate-50",
+                                            onRowClick && "cursor-pointer"
+                                        )}
                                     >
                                         {columns.map((col) => (
                                             <TableCell key={col.key} className="px-4 md:px-8 py-4 md:py-6">
@@ -255,8 +280,8 @@ export function AdminEntityList<T extends EntityItem>({
                                     <ActionMenu item={item} onEdit={onEdit} onDelete={onDelete} onView={onView} t={t} />
                                 </div>
                                 <div
-                                    className="cursor-pointer"
-                                    onClick={() => onView?.(item)}
+                                    className={cn((onView || onRowClick) && "cursor-pointer")}
+                                    onClick={() => (onView || onRowClick)?.(item)}
                                 >
                                     {renderCard ? renderCard(item) : (
                                         <div className="space-y-3 md:space-y-4 pt-2 md:pt-4">
@@ -335,16 +360,24 @@ function ActionMenu({ item, onEdit, onDelete, onView, t }: any) {
                 <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
                     {t("manageEntry")}
                 </DropdownMenuLabel>
-                <DropdownMenuItem onClick={() => onView?.(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-slate-600 focus:bg-primary/5 focus:text-primary transition-colors">
-                    <Eye size={16} /> {t("viewDetails")}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onEdit?.(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-slate-600 focus:bg-primary/5 focus:text-primary transition-colors">
-                    <Pencil size={16} /> {t("edit")}
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-slate-50 my-1" />
-                <DropdownMenuItem onClick={() => onDelete?.(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-rose-600 focus:bg-rose-50 focus:text-rose-700 transition-colors">
-                    <Trash2 size={16} /> {t("delete")}
-                </DropdownMenuItem>
+                {onView && (
+                    <DropdownMenuItem onClick={() => onView(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-slate-600 focus:bg-primary/5 focus:text-primary transition-colors">
+                        <Eye size={16} /> {t("viewDetails")}
+                    </DropdownMenuItem>
+                )}
+                {onEdit && (
+                    <DropdownMenuItem onClick={() => onEdit(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-slate-600 focus:bg-primary/5 focus:text-primary transition-colors">
+                        <Pencil size={16} /> {t("edit")}
+                    </DropdownMenuItem>
+                )}
+                {onDelete && (
+                    <>
+                        <DropdownMenuSeparator className="bg-slate-50 my-1" />
+                        <DropdownMenuItem onClick={() => onDelete(item)} className="rounded-xl px-3 py-2.5 gap-3 cursor-pointer font-bold text-sm text-rose-600 focus:bg-rose-50 focus:text-rose-700 transition-colors">
+                            <Trash2 size={16} /> {t("delete")}
+                        </DropdownMenuItem>
+                    </>
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

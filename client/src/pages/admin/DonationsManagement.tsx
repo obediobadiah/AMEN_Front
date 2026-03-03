@@ -74,6 +74,45 @@ export default function DonationsManagement() {
         }
     };
 
+    const handleExport = () => {
+        const headers = [
+            "#",
+            tDon("columns.donor"),
+            "Email",
+            tDon("columns.amount"),
+            "Currency",
+            tDon("columns.type"),
+            tDon("columns.method"),
+            tDon("columns.status"),
+            tDon("columns.date")
+        ];
+
+        const rows = filteredItems.map(item => [
+            item.id,
+            item.donor,
+            item.email,
+            item.amount,
+            item.currency,
+            item.frequency,
+            item.method || "card",
+            item.status || "completed",
+            new Date(item.created_at).toLocaleDateString()
+        ]);
+
+        const csvContent = "data:text/csv;charset=utf-8,"
+            + headers.join(",") + "\n"
+            + rows.map(e => e.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `amen_donations_export_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success(tCommon("exportSuccess"));
+    };
+
     const [searchQuery, setSearchQuery] = useState("");
     const [filter, setFilter] = useState("all");
     const [sort, setSort] = useState("newest");
@@ -343,6 +382,7 @@ export default function DonationsManagement() {
                 onAdd={handleAdd}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onExport={handleExport}
                 filterContent={filterContent}
                 sortContent={sortContent}
                 searchValue={searchQuery}

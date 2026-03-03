@@ -10,14 +10,11 @@ import {
   ArrowDownRight,
   Zap,
   Plus,
-  Calendar,
   MessageSquare,
   TrendingUp,
-  UserCheck
+  Loader2
 } from "lucide-react";
 import {
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -31,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { AdminLayout } from "@/components/AdminLayout";
 import { cn } from "@/lib/utils";
+import { useDashboard } from "@/hooks/use-dashboard";
+import { formatDistanceToNow } from "date-fns";
 
 const donationData = [
   { name: 'Jan', value: 4500, secondary: 2400 },
@@ -45,12 +44,13 @@ const donationData = [
 export default function AdminDashboard() {
   const t = useTranslations("admin.dashboard");
   const commonT = useTranslations("admin.common");
+  const { data: summary, isLoading } = useDashboard();
 
   const statCards = [
     {
       title: t("stats.totalDonations"),
-      value: "$124,592",
-      change: "+22.5%",
+      value: summary?.stats.totalDonations || "$0.00",
+      change: "+0%",
       isPositive: true,
       icon: Heart,
       color: "text-rose-500",
@@ -58,8 +58,8 @@ export default function AdminDashboard() {
     },
     {
       title: t("stats.activeProjects"),
-      value: "14",
-      change: "+2",
+      value: summary?.stats.activeProjects.toString() || "0",
+      change: "+0",
       isPositive: true,
       icon: Activity,
       color: "text-emerald-500",
@@ -67,8 +67,8 @@ export default function AdminDashboard() {
     },
     {
       title: t("stats.communitiesReached"),
-      value: "5,280",
-      change: "+12%",
+      value: summary?.stats.communitiesReached || "0",
+      change: "+0%",
       isPositive: true,
       icon: Users,
       color: "text-blue-500",
@@ -76,14 +76,27 @@ export default function AdminDashboard() {
     },
     {
       title: t("stats.pendingTasks"),
-      value: "7",
-      change: "-3",
-      isPositive: false,
+      value: summary?.stats.pendingTasks.toString() || "0",
+      change: "0",
+      isPositive: summary?.stats.pendingTasks === 0,
       icon: FileText,
       color: "text-amber-500",
       bg: "bg-amber-50"
     }
   ];
+
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <div className="flex h-[70vh] items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            <p className="text-xl font-black text-slate-400 animate-pulse italic">{commonT("loading")}</p>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
@@ -113,7 +126,7 @@ export default function AdminDashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500">
+              <Card className="border-none shadow-xl shadow-slate-200/50 rounded-[1.5rem] md:rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-slate-300/50 transition-all duration-500 h-full">
                 <CardContent className="p-6 md:p-8">
                   <div className="flex justify-between items-start mb-4 md:mb-6">
                     <div className={cn("p-3 md:p-4 rounded-xl md:rounded-2xl transition-transform duration-500 group-hover:scale-110", stat.bg, stat.color)}>
@@ -214,23 +227,30 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-slate-50">
-                {[
-                  { icon: Heart, color: "text-rose-500", bg: "bg-rose-50", text: t("recentActivity.newDonation", { amount: "$500" }), time: t("recentActivity.time", { time: "2m" }) },
-                  { icon: Activity, color: "text-emerald-500", bg: "bg-emerald-50", text: t("recentActivity.projectUpdate", { name: "Eco-Village" }), time: t("recentActivity.time", { time: "1h" }) },
-                  { icon: UserCheck, color: "text-blue-500", bg: "bg-blue-50", text: t("recentActivity.newVolunteer", { name: "Mark J." }), time: t("recentActivity.time", { time: "3h" }) },
-                  { icon: MessageSquare, color: "text-amber-500", bg: "bg-amber-50", text: t("recentActivity.newInquiry", { name: "Global Green" }), time: t("recentActivity.time", { time: "5h" }) },
-                  { icon: Calendar, color: "text-indigo-500", bg: "bg-indigo-50", text: t("recentActivity.summitReg"), time: t("recentActivity.time", { time: "1j" }) }
-                ].map((activity, i) => (
-                  <div key={i} className="p-8 flex items-start gap-4 hover:bg-slate-50 transition-colors cursor-pointer group">
-                    <div className={cn("shrink-0 p-3 rounded-xl transition-transform group-hover:scale-110", activity.bg, activity.color)}>
-                      <activity.icon size={18} />
+                {(summary?.recentActivity || []).map((activity, i) => {
+                  const Icon = activity.type === "donation" ? Heart : MessageSquare;
+                  const color = activity.type === "donation" ? "text-rose-500" : "text-amber-500";
+                  const bg = activity.type === "donation" ? "bg-rose-50" : "bg-amber-50";
+
+                  return (
+                    <div key={i} className="p-8 flex items-start gap-4 hover:bg-slate-50 transition-colors cursor-pointer group">
+                      <div className={cn("shrink-0 p-3 rounded-xl transition-transform group-hover:scale-110", bg, color)}>
+                        <Icon size={18} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-slate-700 leading-snug">{activity.text}</p>
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1.5">
+                          {formatDistanceToNow(new Date(activity.time))} ago
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-slate-700 leading-snug">{activity.text}</p>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1.5">{activity.time}</p>
-                    </div>
+                  );
+                })}
+                {(!summary || summary.recentActivity.length === 0) && (
+                  <div className="p-20 text-center">
+                    <p className="text-sm font-bold text-slate-400 italic">No recent activity</p>
                   </div>
-                ))}
+                )}
               </div>
               <div className="p-8">
                 <Button variant="ghost" className="w-full h-14 rounded-2xl bg-slate-50 font-black text-xs uppercase tracking-widest text-slate-500 hover:text-primary transition-all">

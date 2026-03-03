@@ -1031,7 +1031,11 @@
         "message": "Write your message here..."
       },
       "success": "Message sent successfully!",
-      "error": "There was an error sending your message. Please try again."
+      "successTitle": "Message Sent",
+      "successMessage": "Thank you for reaching out. We will get back to you shortly.",
+      "error": "There was an error sending your message. Please try again.",
+      "errorTitle": "Error",
+      "errorMessage": "Something went wrong. Please try again later."
     },
     "info": {
       "address": "Our Address",
@@ -1291,6 +1295,7 @@
       "delete": "Remove",
       "save": "Persist Changes",
       "cancel": "Discard",
+      "loading": "Loading...",
       "search": "Filter by keywords...",
       "status": "Operational Status",
       "actions": "Record Actions",
@@ -1812,11 +1817,13 @@
     "contacts": {
       "description": "Respond to inquiries from donors, partners, and future volunteers.",
       "columns": {
+        "id": "ID",
         "sender": "Sender",
         "subject": "Subject",
         "received": "Received On",
         "type": "Type",
-        "message": "Message"
+        "message": "Message",
+        "status": "Status"
       },
       "filters": {
         "all": "All Types",
@@ -1829,6 +1836,17 @@
         "newest": "Newest First",
         "oldest": "Oldest First",
         "name": "Name (A-Z)"
+      },
+      "dialog": {
+        "viewTitle": "Message Details",
+        "markAsRead": "Mark as Read",
+        "markAsUnread": "Mark as Unread",
+        "delete": "Delete Message",
+        "additionalInfo": "Additional Information"
+      },
+      "statusLabels": {
+        "Unread": "Unread",
+        "Read": "Read"
       }
     },
     "settings": {

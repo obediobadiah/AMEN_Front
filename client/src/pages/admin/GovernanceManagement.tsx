@@ -132,6 +132,41 @@ export default function GovernanceManagement() {
         }
     };
 
+    const handleExport = () => {
+        const headers = [
+            "ID",
+            tGov("columns.name"),
+            "Role (FR)",
+            "Role (EN)",
+            tGov("columns.organ"),
+            "Group Type",
+            tGov("columns.order")
+        ];
+
+        const rows = filteredItems.map(item => [
+            item.id,
+            item.name,
+            item.role?.fr || "",
+            item.role?.en || "",
+            item.organ_id || "",
+            item.group_type,
+            item.order || 0
+        ]);
+
+        const csvContent = "data:text/csv;charset=utf-8,"
+            + headers.join(",") + "\n"
+            + rows.map(e => e.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `amen_governance_${groupType}_export_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success(tCommon("exportSuccess"));
+    };
+
     const onSubmit = async (data: any) => {
         try {
             if (selectedMember) {
@@ -313,6 +348,7 @@ export default function GovernanceManagement() {
                     onAdd={handleAdd}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
+                    onExport={handleExport}
                     filterContent={filterContent}
                     sortContent={sortContent}
                     searchValue={searchQuery}
