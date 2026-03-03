@@ -8,6 +8,11 @@ import { Users2, Target, Trophy, Crown, Wrench, Heart, User, ChevronRight } from
 import { images } from "@/lib/images";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useGovernance } from "@/hooks/use-governance";
+import { getImageUrl } from "@/lib/api-config";
+import { useLocale } from "next-intl";
+import { MemberDetailDialog } from "@/components/MemberDetailDialog";
+import { GovernanceMember } from "@/hooks/use-governance";
 
 const CATEGORIES = [
   { key: "all", icon: Users2, color: "text-slate-600" },
@@ -16,20 +21,7 @@ const CATEGORIES = [
   { key: "volontaires", icon: Heart, color: "text-emerald-600" },
 ];
 
-const TEAM_MEMBERS = [
-  // Équipe dirigeante
-  { key: "dirigeante", photo: null, nameKey: "aboutPage.humanResources.member1.name", postKey: "aboutPage.humanResources.member1.post" },
-  { key: "dirigeante", photo: null, nameKey: "aboutPage.humanResources.member2.name", postKey: "aboutPage.humanResources.member2.post" },
-  { key: "dirigeante", photo: null, nameKey: "aboutPage.humanResources.member3.name", postKey: "aboutPage.humanResources.member3.post" },
-  // Personnel technique et administratif
-  { key: "technique", photo: null, nameKey: "aboutPage.humanResources.member4.name", postKey: "aboutPage.humanResources.member4.post" },
-  { key: "technique", photo: null, nameKey: "aboutPage.humanResources.member5.name", postKey: "aboutPage.humanResources.member5.post" },
-  { key: "technique", photo: null, nameKey: "aboutPage.humanResources.member6.name", postKey: "aboutPage.humanResources.member6.post" },
-  // Volontaires et experts
-  { key: "volontaires", photo: null, nameKey: "aboutPage.humanResources.member7.name", postKey: "aboutPage.humanResources.member7.post" },
-  { key: "volontaires", photo: null, nameKey: "aboutPage.humanResources.member8.name", postKey: "aboutPage.humanResources.member8.post" },
-  { key: "volontaires", photo: null, nameKey: "aboutPage.humanResources.member9.name", postKey: "aboutPage.humanResources.member9.post" },
-];
+
 
 const CATEGORY_COLORS: Record<string, { ring: string; badge: string; icon: string }> = {
   dirigeante: { ring: "group-hover:ring-amber-400/40", badge: "bg-amber-50 text-amber-700", icon: "bg-amber-100" },
@@ -39,7 +31,16 @@ const CATEGORY_COLORS: Record<string, { ring: string; badge: string; icon: strin
 
 export default function HumanResources() {
   const t = useTranslations();
+  const locale = useLocale();
   const [activeCategory, setActiveCategory] = useState("all");
+  const { members, isLoading } = useGovernance("hr");
+  const [selectedMember, setSelectedMember] = useState<GovernanceMember | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  const handleMemberClick = (member: GovernanceMember) => {
+    setSelectedMember(member);
+    setIsDetailOpen(true);
+  };
 
   const stats = [
     { label: t('getInvolvedPage.stats.volunteers'), value: "250+", icon: Users2, color: "text-blue-600", bg: "bg-blue-50" },
@@ -47,9 +48,10 @@ export default function HumanResources() {
     { label: t('aboutPage.objectives.stats.projects'), value: "100+", icon: Trophy, color: "text-amber-600", bg: "bg-amber-50" },
   ];
 
+  const displayMembers = members || [];
   const filteredMembers = activeCategory === "all"
-    ? TEAM_MEMBERS
-    : TEAM_MEMBERS.filter((m) => m.key === activeCategory);
+    ? displayMembers
+    : displayMembers.filter((m) => m.organ_id === activeCategory);
 
   return (
     <Layout>
@@ -168,57 +170,74 @@ export default function HumanResources() {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto"
             >
-              {filteredMembers.map((member, idx) => {
-                const colors = CATEGORY_COLORS[member.key];
-                return (
-                  <motion.div
-                    key={`${member.key}-${idx}`}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.08, duration: 0.5 }}
-                    className="group relative"
-                  >
-                    <div className={cn(
-                      "bg-white rounded-[2.5rem] p-7 border border-slate-100 shadow-lg hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 flex flex-col items-center text-center ring-4 ring-transparent",
-                      colors.ring
-                    )}>
-                      {/* Avatar */}
+              {isLoading ? (
+                <div className="col-span-full py-20 text-center text-slate-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+                  {t('aboutPage.humanResources.team.loading')}
+                </div>
+              ) : filteredMembers.length === 0 ? (
+                <div className="col-span-full py-20 text-center text-slate-400 font-bold uppercase tracking-widest text-sm">
+                  {t('aboutPage.humanResources.team.noMembers')}
+                </div>
+              ) : (
+                filteredMembers.map((member, idx) => {
+                  const colors = CATEGORY_COLORS[member.organ_id as keyof typeof CATEGORY_COLORS] || CATEGORY_COLORS.technique;
+                  return (
+                    <motion.div
+                      key={`member-${member.id}`}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.08, duration: 0.5 }}
+                      onClick={() => handleMemberClick(member)}
+                      className="group relative cursor-pointer"
+                    >
                       <div className={cn(
-                        "relative w-28 h-28 rounded-full mb-6 overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105",
-                        colors.icon
+                        "bg-white rounded-[2.5rem] p-7 border border-slate-100 shadow-lg hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 flex flex-col items-center text-center ring-4 ring-transparent",
+                        colors.ring
                       )}>
-                        {member.photo ? (
-                          <img src={member.photo} alt={t(member.nameKey)} className="w-full h-full object-cover" />
-                        ) : (
-                          <User size={48} className="text-slate-400 opacity-60" />
-                        )}
+                        {/* Avatar */}
+                        <div className={cn(
+                          "relative w-28 h-28 rounded-full mb-6 overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105",
+                          colors.icon
+                        )}>
+                          {member.photo_url ? (
+                            <img src={getImageUrl(member.photo_url)} alt={member.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <User size={48} className="text-slate-400 opacity-60" />
+                          )}
+                        </div>
+
+                        {/* Name */}
+                        <h3 className="text-lg font-black text-slate-900 leading-tight group-hover:text-primary transition-colors mb-1">
+                          {member.name}
+                        </h3>
+
+                        {/* Post */}
+                        <p className="text-sm text-primary font-semibold mb-4 leading-relaxed">
+                          {(member.role as any)?.[locale] || member.role?.fr || member.role?.en || ""}
+                        </p>
+
+                        {/* Category badge */}
+                        <span className={cn(
+                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
+                          colors.badge
+                        )}>
+                          {member.organ_id ? t(`aboutPage.humanResources.team.categories.${member.organ_id}`, { fallback: member.organ_id }) : "HR"}
+                        </span>
                       </div>
-
-                      {/* Name */}
-                      <h3 className="text-lg font-black text-slate-900 leading-tight group-hover:text-primary transition-colors mb-1">
-                        {t(member.nameKey)}
-                      </h3>
-
-                      {/* Post */}
-                      <p className="text-sm text-primary font-semibold mb-4 leading-relaxed">
-                        {t(member.postKey)}
-                      </p>
-
-                      {/* Category badge */}
-                      <span className={cn(
-                        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
-                        colors.badge
-                      )}>
-                        {t(`aboutPage.humanResources.team.categories.${member.key}`)}
-                      </span>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
       </section>
+
+      <MemberDetailDialog
+        member={selectedMember}
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+      />
 
       {/* CTA Section */}
       <section className="py-28 bg-primary relative overflow-hidden">

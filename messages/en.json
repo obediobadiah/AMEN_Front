@@ -18,7 +18,16 @@
     "strategicOrientations": "Strategic Orientations",
     "humanResources": "Human Resources",
     "valuesPrinciples": "Values & Principles",
-    "partnershipsNetworks": "Partnerships & Networks"
+    "partnershipsNetworks": "Partnerships & Networks",
+    "memberDetail": {
+      "roleLabel": "Perspective & Role",
+      "organLabel": "Department / Organ",
+      "sinceLabel": "Member Since",
+      "closeButton": "Close Profile",
+      "biography": "Professional Biography",
+      "backToTeam": "Back to Team",
+      "activeStatus": "Active Member"
+    }
   },
   "aboutPage": {
     "humanResources": {
@@ -29,6 +38,8 @@
       "team": {
         "sectionTitle": "Our Team",
         "subtitle": "Meet the People Behind AMEN",
+        "noMembers": "No members found",
+        "loading": "Loading team members...",
         "categories": {
           "all": "All",
           "dirigeante": "Leadership Team",
@@ -199,7 +210,9 @@
         "description": "Integral leadership for sustainable impact at the heart of households.",
         "filterAll": "All",
         "filterLabel": "Filter by department:",
-        "transparencyBadge": "Transparency & Accountability"
+        "transparencyBadge": "Transparency & Accountability",
+        "noMembers": "No members found",
+        "loading": "Loading team members..."
       },
       "values": [
         {
@@ -1688,9 +1701,22 @@
     },
     "governance": {
       "description": "Manage organizational structure and team member profiles.",
+      "hrDesc": "Manage human resources",
+      "loading": "Synchronizing Data...",
+      "groups": {
+        "governance": "Governance Board",
+        "hr": "Human Resources"
+      },
+      "titles": {
+        "governance": "Governance Management",
+        "hr": "HR Management"
+      },
+      "searchPlaceholder": "Search by name or role...",
       "columns": {
-        "name": "Name",
+        "name": "Member Name",
         "role": "Role",
+        "organ": "Category / Organ",
+        "order": "Order",
         "department": "Department",
         "status": "Status"
       },
@@ -1699,7 +1725,10 @@
         "ag": "General Assembly (AG)",
         "cd": "Board of Directors (CD)",
         "pe": "Executive Secretariat (PE)",
-        "dg": "General Management (DG)"
+        "dg": "General Management (DG)",
+        "dirigeante": "Leadership Team",
+        "technique": "Technical & Admin",
+        "volontaires": "Volunteers & Experts"
       },
       "sort": {
         "order": "Custom Order",
@@ -1710,6 +1739,7 @@
         "createTitle": "Add New Member",
         "editDesc": "Modify role, biography, and organizational details.",
         "createDesc": "Register a new officer or board member.",
+        "groupType": "Group Type",
         "nameLabel": "Full Name",
         "namePlaceholder": "John Doe...",
         "roleLabel": "Professional Role",

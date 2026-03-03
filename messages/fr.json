@@ -18,7 +18,16 @@
     "strategicOrientations": "Orientations Stratégiques",
     "humanResources": "Ressources Humaines",
     "valuesPrinciples": "Valeurs et Principes",
-    "partnershipsNetworks": "Partenariats et Réseaux"
+    "partnershipsNetworks": "Partenariats et Réseaux",
+    "memberDetail": {
+      "roleLabel": "Perspective & Rôle",
+      "organLabel": "Département / Organe",
+      "sinceLabel": "Membre Depuis",
+      "closeButton": "Fermer le Profil",
+      "biography": "Biographie Professionnelle",
+      "backToTeam": "Retour à l'Équipe",
+      "activeStatus": "Membre Actif"
+    }
   },
   "aboutPage": {
     "humanResources": {
@@ -29,6 +38,8 @@
       "team": {
         "sectionTitle": "Notre Équipe",
         "subtitle": "Rencontrez les Personnes qui Font AMEN",
+        "noMembers": "Aucun membre trouvé",
+        "loading": "Chargement des membres de l'équipe...",
         "categories": {
           "all": "Tous",
           "dirigeante": "Équipe dirigeante",
@@ -264,7 +275,9 @@
         "description": "Un leadership intègre pour un impact durable au cœur des ménages.",
         "filterAll": "Tous",
         "filterLabel": "Filtrer par département :",
-        "transparencyBadge": "Transparence & Responsabilité"
+        "transparencyBadge": "Transparence & Responsabilité",
+        "noMembers": "Aucun membre trouvé",
+        "loading": "Chargement des membres de l'équipe..."
       },
       "values": [
         {
@@ -1702,9 +1715,22 @@
     },
     "governance": {
       "description": "Gérez la structure organisationnelle et les profils des membres de l'équipe.",
+      "hrDesc": "Gérer les ressources humaines",
+      "loading": "Synchronisation des données...",
+      "groups": {
+        "governance": "Conseil de Gouvernance",
+        "hr": "Ressources Humaines"
+      },
+      "titles": {
+        "governance": "Gestion de la Gouvernance",
+        "hr": "Gestion des RH"
+      },
+      "searchPlaceholder": "Rechercher par nom ou rôle...",
       "columns": {
         "name": "Nom",
         "role": "Rôle",
+        "organ": "Catégorie / Organe",
+        "order": "Ordre",
         "department": "Département",
         "status": "Statut"
       },
@@ -1713,7 +1739,10 @@
         "ag": "Assemblée Générale (AG)",
         "cd": "Conseil d'Administration (CD)",
         "pe": "Secrétariat Exécutif (PE)",
-        "dg": "Direction Générale (DG)"
+        "dg": "Direction Générale (DG)",
+        "dirigeante": "Équipe Dirigeante",
+        "technique": "Technique et Administratif",
+        "volontaires": "Volontaires et Experts"
       },
       "sort": {
         "order": "Ordre personnalisé",
@@ -1724,6 +1753,7 @@
         "createTitle": "Ajouter un Membre",
         "editDesc": "Modifiez le rôle, la biographie et les détails organisationnels.",
         "createDesc": "Enregistrez un nouvel officier ou membre du conseil.",
+        "groupType": "Type de Groupe",
         "nameLabel": "Nom Complet",
         "namePlaceholder": "Jean Dupont...",
         "roleLabel": "Rôle Professionnel",

@@ -38,6 +38,7 @@ const govSchema = zod.object({
     photo_url: zod.string().optional().or(zod.literal("")),
     organ_id: zod.string().optional(),
     order: zod.number().default(0),
+    group_type: zod.string().default("governance"),
     source_lang: zod.string(),
 });
 
@@ -68,6 +69,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
             photo_url: "",
             organ_id: "pe",
             order: 0,
+            group_type: "governance",
             source_lang: locale,
         },
     });
@@ -81,6 +83,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                 photo_url: member.photo_url || "",
                 organ_id: member.organ_id || "pe",
                 order: member.order || 0,
+                group_type: member.group_type || "governance",
                 source_lang: locale,
             });
             setPreviewUrl(getImageUrl(member.photo_url) || "");
@@ -92,6 +95,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                 photo_url: "",
                 organ_id: "pe",
                 order: 0,
+                group_type: "governance",
                 source_lang: locale,
             });
             setPreviewUrl("");
@@ -121,7 +125,7 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[750px] max-h-[90vh] overflow-y-auto rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
+            <DialogContent className="sm:max-w-[1000px] max-h-[90vh] overflow-y-auto rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
                 <div className="bg-slate-50/80 backdrop-blur-md p-10 border-b border-slate-100 sticky top-0 z-10">
                     <DialogHeader>
                         <DialogTitle className="text-4xl font-black text-slate-900 tracking-tight">
@@ -138,57 +142,66 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                         <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-8">
                             <div className="flex flex-col md:flex-row gap-10 items-start">
                                 {/* Photo Upload Section */}
-                                <div className="w-full md:w-1/3 space-y-4">
-                                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("uploadLabel")}</FormLabel>
-                                    <div
-                                        onClick={() => fileInputRef.current?.click()}
-                                        className={cn(
-                                            "relative aspect-[3/4] rounded-[2rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
-                                            (previewUrl || form.watch("photo_url")) && "border-none shadow-2xl"
-                                        )}
-                                    >
-                                        {isUploading ? (
-                                            <div className="flex flex-col items-center gap-4">
-                                                <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                                                <span className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">Processing...</span>
-                                            </div>
-                                        ) : (previewUrl || form.watch("photo_url")) ? (
-                                            <>
-                                                <img src={previewUrl || getImageUrl(form.watch("photo_url"))} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                                                    <div className="bg-white/90 backdrop-blur-md p-3 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
-                                                        <Upload className="w-5 h-5 text-primary" />
-                                                    </div>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        setPreviewUrl("");
-                                                        form.setValue("photo_url", "");
-                                                    }}
-                                                    className="absolute top-4 right-4 p-2 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20"
+                                <FormField
+                                    control={form.control}
+                                    name="photo_url"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full md:w-1/3 space-y-4">
+                                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("uploadLabel")}</FormLabel>
+                                            <FormControl>
+                                                <div
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                    className={cn(
+                                                        "relative aspect-[3/4] rounded-[2rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                        (previewUrl || field.value) && "border-none shadow-2xl"
+                                                    )}
                                                 >
-                                                    <X size={14} />
-                                                </button>
-                                            </>
-                                        ) : (
-                                            <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
-                                                <div className="p-5 bg-white rounded-2xl shadow-lg border border-slate-100 transition-transform group-hover:scale-110">
-                                                    <User size={32} strokeWidth={1.5} />
+                                                    {isUploading ? (
+                                                        <div className="flex flex-col items-center gap-4">
+                                                            <Loader2 className="w-10 h-10 text-primary animate-spin" />
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">Processing...</span>
+                                                        </div>
+                                                    ) : (previewUrl || field.value) ? (
+                                                        <>
+                                                            <img src={previewUrl || getImageUrl(field.value)} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                                                                <div className="bg-white/90 backdrop-blur-md p-3 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
+                                                                    <Upload className="w-5 h-5 text-primary" />
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setPreviewUrl("");
+                                                                    field.onChange("");
+                                                                }}
+                                                                className="absolute top-4 right-4 p-2 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20"
+                                                            >
+                                                                <X size={14} />
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <div className="flex flex-col items-center gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
+                                                            <div className="p-5 bg-white rounded-2xl shadow-lg border border-slate-100 transition-transform group-hover:scale-110">
+                                                                <User size={32} strokeWidth={1.5} />
+                                                            </div>
+                                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] italic text-center px-4">Upload Professional Shot</span>
+                                                        </div>
+                                                    )}
+                                                    <input
+                                                        type="file"
+                                                        ref={fileInputRef}
+                                                        className="hidden"
+                                                        accept="image/*"
+                                                        onChange={handleFileChange}
+                                                    />
                                                 </div>
-                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] italic text-center px-4">Upload Professional Shot</span>
-                                            </div>
-                                        )}
-                                        <input
-                                            type="file"
-                                            ref={fileInputRef}
-                                            className="hidden"
-                                            accept="image/*"
-                                            onChange={handleFileChange}
-                                        />
-                                    </div>
-                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
                                 {/* Form Fields Section */}
                                 <div className="flex-1 space-y-8 w-full">
@@ -223,6 +236,32 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                         <FormField
                                             control={form.control}
+                                            name="group_type"
+                                            render={({ field }) => (
+                                                <FormItem className="space-y-4">
+                                                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("groupType")}</FormLabel>
+                                                    <Select onValueChange={(val) => {
+                                                        field.onChange(val);
+                                                        // Reset organ_id when group_type changes
+                                                        form.setValue("organ_id", val === "governance" ? "pe" : "technique");
+                                                    }} value={field.value}>
+                                                        <FormControl>
+                                                            <SelectTrigger className="h-14 rounded-2xl bg-white border-slate-100 font-bold focus:ring-primary/20 transition-all">
+                                                                <SelectValue placeholder={t("groupType")} />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
+                                                            <SelectItem value="governance" className="rounded-xl font-bold py-3">{tGov("groups.governance")}</SelectItem>
+                                                            <SelectItem value="hr" className="rounded-xl font-bold py-3">{tGov("groups.hr")}</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
                                             name="organ_id"
                                             render={({ field }) => (
                                                 <FormItem className="space-y-4">
@@ -234,10 +273,20 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                                                             </SelectTrigger>
                                                         </FormControl>
                                                         <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                            <SelectItem value="ag" className="rounded-xl font-bold py-3">{tGov("filters.ag")}</SelectItem>
-                                                            <SelectItem value="cd" className="rounded-xl font-bold py-3">{tGov("filters.cd")}</SelectItem>
-                                                            <SelectItem value="pe" className="rounded-xl font-bold py-3">{tGov("filters.pe")}</SelectItem>
-                                                            <SelectItem value="dg" className="rounded-xl font-bold py-3">{tGov("filters.dg")}</SelectItem>
+                                                            {form.watch("group_type") === "governance" ? (
+                                                                <>
+                                                                    <SelectItem value="ag" className="rounded-xl font-bold py-3">{tGov("filters.ag")}</SelectItem>
+                                                                    <SelectItem value="cd" className="rounded-xl font-bold py-3">{tGov("filters.cd")}</SelectItem>
+                                                                    <SelectItem value="pe" className="rounded-xl font-bold py-3">{tGov("filters.pe")}</SelectItem>
+                                                                    <SelectItem value="dg" className="rounded-xl font-bold py-3">{tGov("filters.dg")}</SelectItem>
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <SelectItem value="dirigeante" className="rounded-xl font-bold py-3">{tGov("filters.dirigeante")}</SelectItem>
+                                                                    <SelectItem value="technique" className="rounded-xl font-bold py-3">{tGov("filters.technique")}</SelectItem>
+                                                                    <SelectItem value="volontaires" className="rounded-xl font-bold py-3">{tGov("filters.volontaires")}</SelectItem>
+                                                                </>
+                                                            )}
                                                         </SelectContent>
                                                     </Select>
                                                     <FormMessage />

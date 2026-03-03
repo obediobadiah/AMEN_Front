@@ -21,11 +21,25 @@ import { PageHero } from "@/components/PageHero";
 import { useState } from "react";
 import React from "react";
 import { cn } from "@/lib/utils";
+import { useGovernance } from "@/hooks/use-governance";
+import { getImageUrl } from "@/lib/api-config";
+import { useLocale } from "next-intl";
+import { MemberDetailDialog } from "@/components/MemberDetailDialog";
+import { GovernanceMember } from "@/hooks/use-governance";
 
 export default function Governance() {
+    const locale = useLocale();
+    const { members, isLoading } = useGovernance("governance");
     const t = useTranslations('aboutPage.governance');
     const tTeam = useTranslations('aboutPage.governance.teamSection');
     const [activeFilter, setActiveFilter] = useState('all');
+    const [selectedMember, setSelectedMember] = useState<GovernanceMember | null>(null);
+    const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+    const handleMemberClick = (member: GovernanceMember) => {
+        setSelectedMember(member);
+        setIsDetailOpen(true);
+    };
 
     const organs: Organ[] = [
         { id: "ag", icon: Users, color: "text-blue-600 bg-blue-50" },
@@ -44,9 +58,8 @@ export default function Governance() {
     const valueIcons = [Shield, Users, Gavel, Settings];
 
     // Helper function to get members for an organ
-    const getOrganMembers = (organId: string): Member[] => {
-        const membersData = t.raw(`organs.${organId}.members`);
-        return Array.isArray(membersData) ? membersData : [];
+    const getOrganMembers = (organId: string) => {
+        return members?.filter(m => m.organ_id === organId).sort((a, b) => (a.order || 0) - (b.order || 0)) || [];
     };
 
     return (
@@ -145,7 +158,7 @@ export default function Governance() {
                         >
                             {tTeam('subtitle')}
                         </motion.h2>
-                        <motion.p
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -153,7 +166,7 @@ export default function Governance() {
                             className="text-xl text-slate-500 font-medium max-w-3xl mx-auto"
                         >
                             <p className="w-full text-center text-sm text-slate-500 mb-4">{tTeam('filterLabel')}</p>
-                        </motion.p>
+                        </motion.div>
                     </div>
 
                     {/* Filter buttons */}
@@ -161,8 +174,8 @@ export default function Governance() {
                         <button
                             onClick={() => setActiveFilter('all')}
                             className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wide transition-colors ${activeFilter === 'all'
-                                    ? 'bg-primary text-white'
-                                    : 'bg-white text-slate-700 hover:bg-slate-100'
+                                ? 'bg-primary text-white'
+                                : 'bg-white text-slate-700 hover:bg-slate-100'
                                 }`}
                         >
                             {tTeam('filterAll')}
@@ -172,8 +185,8 @@ export default function Governance() {
                                 key={organ.id}
                                 onClick={() => setActiveFilter(organ.id)}
                                 className={`px-6 py-2.5 rounded-full font-bold text-sm uppercase tracking-wide transition-colors flex items-center gap-2 ${activeFilter === organ.id
-                                        ? `bg-primary text-white`
-                                        : 'bg-white text-slate-700 hover:bg-slate-100'
+                                    ? `bg-primary text-white`
+                                    : 'bg-white text-slate-700 hover:bg-slate-100'
                                     }`}
                             >
                                 <organ.icon size={16} />
@@ -184,49 +197,70 @@ export default function Governance() {
 
                     {/* Team Members Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                        {organs
-                            .filter(organ => activeFilter === 'all' || activeFilter === organ.id)
-                            .flatMap(organ =>
-                                getOrganMembers(organ.id).map((member, index) => (
-                                    <motion.div
-                                        key={`${organ.id}-${index}`}
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                                        className="group relative overflow-hidden rounded-3xl bg-white p-0.5"
-                                    >
-                                        <div className="absolute inset-0.5 bg-white/80 backdrop-blur-sm rounded-[1.1rem] group-hover:bg-white/90 transition-all duration-500" />
-                                        <div className="relative p-6 h-full flex flex-col items-center text-center">
-                                            <div className="w-32 h-32 rounded-full bg-slate-100 mb-6 overflow-hidden relative group-hover:ring-4 group-hover:ring-primary/20 transition-all duration-500">
-                                                <div className="w-full h-full flex items-center justify-center text-slate-300">
-                                                    <User size={48} className="opacity-50" />
+                        {isLoading ? (
+                            <div className="col-span-full py-20 text-center text-slate-500 font-bold uppercase tracking-widest text-sm animate-pulse">
+                                {tTeam('loading')}
+                            </div>
+                        ) : members?.length === 0 ? (
+                            <div className="col-span-full py-20 text-center text-slate-400 font-bold uppercase tracking-widest text-sm">
+                                {tTeam('noMembers')}
+                            </div>
+                        ) : (
+                            organs
+                                .filter(organ => activeFilter === 'all' || activeFilter === organ.id)
+                                .flatMap(organ =>
+                                    getOrganMembers(organ.id).map((member, index) => (
+                                        <motion.div
+                                            key={`${organ.id}-${index}`}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                                            onClick={() => handleMemberClick(member)}
+                                            className="group relative overflow-hidden rounded-3xl bg-white p-0.5 cursor-pointer"
+                                        >
+                                            <div className="absolute inset-0.5 bg-white/80 backdrop-blur-sm rounded-[1.1rem] group-hover:bg-white/90 transition-all duration-500" />
+                                            <div className="relative p-6 h-full flex flex-col items-center text-center">
+                                                <div className="w-32 h-32 rounded-full bg-slate-100 mb-6 overflow-hidden relative group-hover:ring-4 group-hover:ring-primary/20 transition-all duration-500">
+                                                    {member.photo_url ? (
+                                                        <Image src={getImageUrl(member.photo_url)} alt={member.name} fill className="object-cover" />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                            <User size={48} className="opacity-50" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <h3 className="text-xl font-black text-slate-900 mb-1 leading-tight group-hover:text-primary transition-colors">
+                                                    {member.name}
+                                                </h3>
+                                                <p className="text-sm text-primary font-semibold mb-3">
+                                                    {(member.role as any)?.[locale] || member.role?.fr || member.role?.en || ""}
+                                                </p>
+                                                <p className="text-xs text-slate-500 uppercase tracking-wider font-medium mb-4">
+                                                    {t(`organs.${organ.id}.title`)}
+                                                </p>
+                                                <div className="mt-auto pt-4 border-t border-slate-100 w-full">
+                                                    <div className="flex justify-center gap-3">
+                                                        {organ.id === 'ag' && <Award className="text-amber-500" size={18} />}
+                                                        {organ.id === 'cd' && <Gavel className="text-blue-500" size={18} />}
+                                                        {organ.id === 'pe' && <Briefcase className="text-emerald-500" size={18} />}
+                                                        {organ.id === 'dg' && <Building2 className="text-indigo-500" size={18} />}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <h3 className="text-xl font-black text-slate-900 mb-1 leading-tight group-hover:text-primary transition-colors">
-                                                {member.name}
-                                            </h3>
-                                            <p className="text-sm text-primary font-semibold mb-3">
-                                                {member.title}
-                                            </p>
-                                            <p className="text-xs text-slate-500 uppercase tracking-wider font-medium mb-4">
-                                                {t(`organs.${organ.id}.title`)}
-                                            </p>
-                                            <div className="mt-auto pt-4 border-t border-slate-100 w-full">
-                                                <div className="flex justify-center gap-3">
-                                                    {organ.id === 'ag' && <Award className="text-amber-500" size={18} />}
-                                                    {organ.id === 'cd' && <Gavel className="text-blue-500" size={18} />}
-                                                    {organ.id === 'pe' && <Briefcase className="text-emerald-500" size={18} />}
-                                                    {organ.id === 'dg' && <Building2 className="text-indigo-500" size={18} />}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))
-                            )}
+                                        </motion.div>
+                                    ))
+                                )
+                        )}
                     </div>
                 </div>
             </section>
+
+            <MemberDetailDialog
+                member={selectedMember}
+                isOpen={isDetailOpen}
+                onClose={() => setIsDetailOpen(false)}
+            />
 
             {/* Values Section */}
             <section className="py-24 bg-[#0f172a] overflow-hidden relative">

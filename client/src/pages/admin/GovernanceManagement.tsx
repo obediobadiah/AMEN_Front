@@ -22,7 +22,8 @@ export default function GovernanceManagement() {
     const tCommon = useTranslations("admin.common");
     const locale = useLocale();
 
-    const { members, isLoading, createMember, updateMember, deleteMember, isCreating } = useGovernance();
+    const [groupType, setGroupType] = useState("governance");
+    const { members, isLoading, createMember, updateMember, deleteMember, isCreating } = useGovernance(groupType);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState<GovernanceMember | null>(null);
@@ -55,16 +56,27 @@ export default function GovernanceManagement() {
         },
         {
             key: "organ_id",
-            label: "Organ",
-            render: (item: GovernanceMember) => (
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">
-                    {item.organ_id || "-"}
-                </span>
-            )
+            label: tGov("columns.organ"),
+            render: (item: GovernanceMember) => {
+                let display = item.organ_id || "-";
+                if (item.group_type === "hr") {
+                    if (item.organ_id === "dirigeante") display = tGov(`filters.dirigeante`);
+                    else if (item.organ_id === "technique") display = tGov(`filters.technique`);
+                    else if (item.organ_id === "volontaires") display = tGov(`filters.volontaires`);
+                } else if (item.organ_id && ["ag", "cd", "pe", "dg"].includes(item.organ_id)) {
+                    display = tGov(`filters.${item.organ_id}`);
+                }
+
+                return (
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">
+                        {display}
+                    </span>
+                );
+            }
         },
         {
             key: "order",
-            label: "Order",
+            label: tGov("columns.order"),
             render: (item: GovernanceMember) => (
                 <span className="text-sm font-bold text-slate-400">#{item.order || 0}</span>
             )
@@ -142,21 +154,52 @@ export default function GovernanceManagement() {
                 {tCommon("filters")}
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="mx-2 bg-slate-100" />
-            {["all", "ag", "cd", "pe", "dg"].map((f) => (
-                <DropdownMenuItem
-                    key={f}
-                    onClick={() => {
-                        setFilter(f);
-                        setCurrentPage(1);
-                    }}
-                    className={cn(
-                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
-                        filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
-                    )}
-                >
-                    {tGov(`filters.${f}`)}
-                </DropdownMenuItem>
-            ))}
+            <DropdownMenuItem
+                onClick={() => {
+                    setFilter("all");
+                    setCurrentPage(1);
+                }}
+                className={cn(
+                    "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                    filter === "all" ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                )}
+            >
+                {tGov(`filters.all`)}
+            </DropdownMenuItem>
+
+            {groupType === "governance" ? (
+                ["ag", "cd", "pe", "dg"].map((f) => (
+                    <DropdownMenuItem
+                        key={f}
+                        onClick={() => {
+                            setFilter(f);
+                            setCurrentPage(1);
+                        }}
+                        className={cn(
+                            "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                            filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                        )}
+                    >
+                        {tGov(`filters.${f}`)}
+                    </DropdownMenuItem>
+                ))
+            ) : (
+                ["dirigeante", "technique", "volontaires"].map((f) => (
+                    <DropdownMenuItem
+                        key={f}
+                        onClick={() => {
+                            setFilter(f);
+                            setCurrentPage(1);
+                        }}
+                        className={cn(
+                            "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                            filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                        )}
+                    >
+                        {tGov(`filters.${f}`)}
+                    </DropdownMenuItem>
+                ))
+            )}
         </>
     );
 
@@ -181,13 +224,57 @@ export default function GovernanceManagement() {
         </>
     );
 
+    const renderCard = (item: GovernanceMember) => {
+        let displayOrgan = item.organ_id || "-";
+        if (item.group_type === "hr") {
+            if (item.organ_id === "dirigeante") displayOrgan = tGov(`filters.dirigeante`);
+            else if (item.organ_id === "technique") displayOrgan = tGov(`filters.technique`);
+            else if (item.organ_id === "volontaires") displayOrgan = tGov(`filters.volontaires`);
+        } else if (item.organ_id && ["ag", "cd", "pe", "dg"].includes(item.organ_id)) {
+            displayOrgan = tGov(`filters.${item.organ_id}`);
+        }
+
+        return (
+            <div className="flex flex-col items-center text-center space-y-5 pt-4">
+                <div className="relative group/avatar">
+                    <Avatar className="h-28 w-28 border-8 border-slate-50 shadow-2xl group-hover:scale-105 transition-transform duration-700">
+                        <AvatarImage src={getImageUrl(item.photo_url)} className="object-cover" />
+                        <AvatarFallback className="bg-primary/5 text-primary text-3xl font-black uppercase">
+                            {item.name.substring(0, 1)}
+                        </AvatarFallback>
+                    </Avatar>
+                    <div className="absolute -bottom-1 -right-1 bg-white shadow-xl rounded-xl px-3 py-1 border border-slate-100 scale-90 group-hover:scale-100 transition-transform duration-500">
+                        <span className="text-[10px] font-black text-slate-400">#{item.order || 0}</span>
+                    </div>
+                </div>
+
+                <div className="space-y-2">
+                    <h3 className="font-black text-slate-900 text-xl tracking-tight leading-tight group-hover:text-primary transition-colors decoration-primary/30 decoration-2 underline-offset-4">
+                        {item.name}
+                    </h3>
+                    <div className="flex flex-col items-center gap-1">
+                        <p className="text-[11px] font-bold text-primary/70 uppercase tracking-[0.15em] px-2 bg-primary/5 rounded-md py-0.5">
+                            {(item.role as any)[locale] || item.role.fr || item.role.en || "-"}
+                        </p>
+                    </div>
+                </div>
+
+                <div className="w-full pt-4 border-t border-slate-50">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                        {displayOrgan}
+                    </span>
+                </div>
+            </div>
+        );
+    };
+
     if (isLoading) {
         return (
             <AdminLayout>
                 <div className="flex items-center justify-center h-[60vh]">
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tGov("loading") || "Synchronizing Human Resources..."}</p>
+                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tGov("loading")}</p>
                     </div>
                 </div>
             </AdminLayout>
@@ -196,10 +283,31 @@ export default function GovernanceManagement() {
 
     return (
         <AdminLayout>
+            <div className="flex gap-4 mb-8 bg-slate-100 p-2 rounded-2xl w-full">
+                <button
+                    onClick={() => { setGroupType("governance"); setFilter("all"); setCurrentPage(1); }}
+                    className={cn(
+                        "px-6 py-3 rounded-xl font-bold text-sm transition-all w-full",
+                        groupType === "governance" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"
+                    )}
+                >
+                    {tGov("groups.governance")}
+                </button>
+                <button
+                    onClick={() => { setGroupType("hr"); setFilter("all"); setCurrentPage(1); }}
+                    className={cn(
+                        "px-6 py-3 rounded-xl font-bold text-sm transition-all w-full",
+                        groupType === "hr" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"
+                    )}
+                >
+                    {tGov("groups.hr")}
+                </button>
+            </div>
+
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <AdminEntityList
-                    title={tSidebar("governance")}
-                    description={tGov("description")}
+                    title={groupType === "governance" ? tGov("titles.governance") : tGov("titles.hr")}
+                    description={groupType === "governance" ? tGov("description") : tGov("hrDesc")}
                     items={paginatedItems}
                     columns={columns}
                     onAdd={handleAdd}
@@ -215,7 +323,9 @@ export default function GovernanceManagement() {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={setCurrentPage}
-                    searchPlaceholder="Search by name or role..."
+                    searchPlaceholder={tGov("searchPlaceholder")}
+                    renderCard={renderCard}
+                    defaultView="grid"
                 />
             </div>
             <GovernanceDialog

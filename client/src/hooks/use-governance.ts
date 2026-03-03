@@ -9,6 +9,7 @@ export interface GovernanceMember {
     photo_url?: string;
     organ_id?: string;
     order?: number;
+    group_type?: string;
     created_at: string;
 }
 
@@ -19,6 +20,7 @@ export interface GovernanceCreate {
     photo_url?: string;
     organ_id?: string;
     order?: number;
+    group_type?: string;
     source_lang: string;
 }
 
@@ -29,18 +31,20 @@ export interface GovernanceUpdate {
     photo_url?: string;
     organ_id?: string;
     order?: number;
+    group_type?: string;
     source_lang?: string;
 }
 
 const GOVERNANCE_API_URL = `${API_BASE_URL}/api/v1/governance`;
 
-export function useGovernance() {
+export function useGovernance(groupType?: string) {
     const queryClient = useQueryClient();
 
     const governanceQuery = useQuery<GovernanceMember[]>({
-        queryKey: ["/api/v1/governance"],
+        queryKey: ["/api/v1/governance", groupType],
         queryFn: async () => {
-            const res = await fetch(GOVERNANCE_API_URL);
+            const url = groupType ? `${GOVERNANCE_API_URL}?group_type=${groupType}` : GOVERNANCE_API_URL;
+            const res = await fetch(url);
             if (!res.ok) throw new Error("Failed to fetch governance members");
             return res.json();
         }
