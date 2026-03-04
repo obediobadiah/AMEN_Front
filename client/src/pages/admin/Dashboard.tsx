@@ -213,7 +213,7 @@ export default function AdminDashboard() {
           </div>
           <div className="flex flex-wrap items-center sm:justify-end lg:justify-center gap-3">
             <Link 
-              href="#"
+              href="/admin/news"
               className="p-3 flex-1 sm:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl bg-primary items-center justify-center shadow-lg shadow-primary/20 hover:shadow-primary/30 font-bold transition-all text-sm md:text-base group relative overflow-hidden text-white"
             >
               <div className="inset-0 bg-gradient-to-r from-transparent via-white/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
               </span>
             </Link>
             <Link 
-              href="#"
+              href="/admin/projects"
               className="p-3 flex-1 sm:flex-none h-11 md:h-12 px-4 md:px-6 rounded-xl border-slate-200 bg-white items-center justify-center shadow-sm font-bold text-slate-600 hover:bg-slate-50 hover:border-primary transition-all text-sm md:text-base group relative overflow-hidden"
             >
                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-50 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
