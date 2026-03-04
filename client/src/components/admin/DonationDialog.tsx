@@ -256,9 +256,9 @@ export function DonationDialog({ open, onOpenChange, onSubmit, donation, isSubmi
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                    <SelectItem value="completed" className="rounded-xl font-bold py-3">Completed</SelectItem>
-                                                    <SelectItem value="pending" className="rounded-xl font-bold py-3">Pending</SelectItem>
-                                                    <SelectItem value="failed" className="rounded-xl font-bold py-3">Failed</SelectItem>
+                                                    <SelectItem value="completed" className="rounded-xl font-bold py-3">{tCommon("completed")}</SelectItem>
+                                                    <SelectItem value="pending" className="rounded-xl font-bold py-3">{tCommon("pending")}</SelectItem>
+                                                    <SelectItem value="failed" className="rounded-xl font-bold py-3">{tCommon("failed")}</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage />
@@ -284,7 +284,7 @@ export function DonationDialog({ open, onOpenChange, onSubmit, donation, isSubmi
                                     {isSubmitting ? (
                                         <div className="flex items-center gap-3">
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span className="animate-pulse italic">Processing...</span>
+                                            <span className="animate-pulse italic">{tCommon("processing")}</span>
                                         </div>
                                     ) : (
                                         <div className="flex items-center gap-3">

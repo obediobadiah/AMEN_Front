@@ -588,8 +588,7 @@
     "notFound": "Project not found",
     "backToProjects": "Back to Projects",
     "innovation": {
-      "title": "Empowering Communities Through {emphasis}",
-      "emphasis": "Innovation",
+      "title": "Empowering Communities Through Innovation",
       "titleMain": "Driving Change Through",
       "titleHighlight": "Innovative Initiatives",
       "subtitle": "We believe that sustainable development requires thinking outside the box. Our initiatives combine traditional wisdom with modern technology to create resilient solutions.",
@@ -1046,7 +1045,9 @@
       "emailVal": "info@amen-ngo.org",
       "office": "Main Office",
       "hours": "Working Hours",
-      "hoursVal": "Mon - Fri: 8:00 AM - 5:00 PM"
+      "hoursVal": "Mon - Fri: 8:00 AM - 5:00 PM",
+      "support247": "24/7 Support",
+      "exceptHolidays": "Except Holidays"
     }
   },
   "hero": {
@@ -1368,7 +1369,20 @@
       "saveError": "An error occurred while saving {type}",
       "exportSuccess": "Export started",
       "exportError": "Failed to export {type}",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "uploadSuccess": "File uploaded successfully",
+      "uploadError": "Failed to upload file",
+      "imageUploadSuccess": "Image uploaded successfully",
+      "imageUploadError": "Failed to upload image",
+      "coverImageUploadSuccess": "Cover image uploaded successfully",
+      "coverImageUploadError": "Failed to upload cover image",
+      "photoUploadSuccess": "Photo uploaded successfully",
+      "photoUploadError": "Failed to upload photo",
+      "fileSizeExceeded": "File {fileName} exceeds size limit",
+      "processing": "Processing...",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed"
     },
     "news": {
       "description": "Manage your global articles, stories, and press releases.",
@@ -1599,6 +1613,13 @@
         "categoryPlaceholder": "E.g. Nature, Community...",
         "albumLabel": "Select Album",
         "albumPlaceholder": "Move to album (optional)...",
+        "uploadLabel": "Media Files",
+        "thumbnailLabel": "Thumbnail",
+        "urlLabel": "External URL",
+        "urlPlaceholder": "Or paste an external URL (e.g. https://youtube.com/...)",
+        "videoAssets": "Video Asset(s) or URL",
+        "photoAssets": "Photo Asset(s)",
+        "noneGeneralLibrary": "None (General Library)",
         "save": "Save",
         "update": "Update",
         "cancel": "Cancel"

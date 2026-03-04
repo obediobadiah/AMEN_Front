@@ -127,6 +127,26 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         }
     };
 
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("file_url", result.file_url);
+            form.setValue("file_type", result.file_type || file.type || file.name.split('.').pop()?.toUpperCase() || "");
+            form.setValue("file_size", result.file_size || `${(file.size / (1024 * 1024)).toFixed(2)} MB`);
+            if (result.thumbnail_url) {
+                form.setValue("thumbnail_url", result.thumbnail_url);
+                setThumbnailPreview(getImageUrl(result.thumbnail_url));
+            }
+            setFileName(file.name);
+            toast.success(tMsg("uploadSuccess"));
+        } catch (error) {
+            toast.error(tMsg("uploadError"));
+            console.error(error);
+        }
+    };
+
     const handleFormSubmit = async (data: any) => {
         await onSubmit(data);
         form.reset();
@@ -218,6 +238,14 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative min-h-[180px] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     fileUrl && "border-none shadow-2xl bg-white"

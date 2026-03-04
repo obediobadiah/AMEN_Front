@@ -110,9 +110,23 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
             const result = await uploadFile(file);
             form.setValue("photo_url", result.url);
             setPreviewUrl(getImageUrl(result.url));
-            toast.success("Photo téléchargée avec succès");
+            toast.success(commonT("photoUploadSuccess"));
         } catch (error) {
-            toast.error("Échec du téléchargement de la photo");
+            toast.error(commonT("photoUploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("photo_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("photoUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("photoUploadError"));
             console.error(error);
         }
     };
@@ -151,6 +165,14 @@ export function GovernanceDialog({ open, onOpenChange, onSubmit, member, isSubmi
                                             <FormControl>
                                                 <div
                                                     onClick={() => fileInputRef.current?.click()}
+                                                    onDragOver={(e) => e.preventDefault()}
+                                                    onDrop={(e) => {
+                                                        e.preventDefault();
+                                                        const file = e.dataTransfer.files?.[0];
+                                                        if (file) {
+                                                            handleDropFile(file);
+                                                        }
+                                                    }}
                                                     className={cn(
                                                         "relative aspect-[3/4] rounded-[2rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                         (previewUrl || field.value) && "border-none shadow-2xl"

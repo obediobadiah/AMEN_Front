@@ -53,8 +53,10 @@ interface NewsDialogProps {
 
 export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting }: NewsDialogProps) {
     const t = useTranslations("admin.news.dialog");
+    const tNews = useTranslations("admin.news");
     const commonT = useTranslations("admin.common");
     const locale = useLocale();
+
     const { uploadFile, isUploading } = useNews();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [previewUrl, setPreviewUrl] = useState<string>("");
@@ -113,9 +115,23 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
 
             form.setValue("thumbnail_url", result.url);
             setPreviewUrl(getImageUrl(result.url));
-            toast.success("Image téléchargée avec succès");
+            toast.success(commonT("imageUploadSuccess"));
         } catch (error) {
-            toast.error("Échec du téléchargement de l'image");
+            toast.error(commonT("imageUploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("thumbnail_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("imageUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("imageUploadError"));
             console.error(error);
         }
     };
@@ -283,6 +299,14 @@ export function NewsDialog({ open, onOpenChange, onSubmit, article, isSubmitting
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative aspect-[21/9] rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"

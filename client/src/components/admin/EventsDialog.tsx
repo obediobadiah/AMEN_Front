@@ -54,6 +54,7 @@ interface EventsDialogProps {
 
 export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting }: EventsDialogProps) {
     const t = useTranslations("admin.events.dialog");
+    const tEvents = useTranslations("admin.events");
     const commonT = useTranslations("admin.common");
     const locale = useLocale();
 
@@ -64,14 +65,14 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
     const form = useForm({
         resolver: zodResolver(eventSchema),
         defaultValues: {
+            category: "workshop",
+            status: "upcoming",
             title: "",
             description: "",
             start_date: "",
             end_date: "",
             location: "",
-            status: "Upcoming",
             registration_link: "",
-            category: "Workshop",
             thumbnail_url: "",
             source_lang: locale,
         },
@@ -80,28 +81,28 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
     useEffect(() => {
         if (event) {
             form.reset({
+                category: event.category || "workshop",
+                status: event.status || "upcoming",
                 title: (event.title as any)[locale] || event.title.fr || event.title.en || "",
                 description: event.description ? ((event.description as any)[locale] || event.description.fr || event.description.en || "") : "",
                 start_date: event.start_date ? new Date(event.start_date).toISOString().slice(0, 16) : "",
                 end_date: event.end_date ? new Date(event.end_date).toISOString().slice(0, 16) : "",
                 location: event.location ? ((event.location as any)[locale] || event.location.fr || event.location.en || "") : "",
-                status: (event.status as any) || "Upcoming",
                 registration_link: event.registration_link || "",
-                category: event.category || "Workshop",
                 thumbnail_url: event.thumbnail_url || "",
                 source_lang: locale,
             });
             setPreviewUrl(getImageUrl(event.thumbnail_url) || "");
         } else {
             form.reset({
+                category: "workshop",
+                status: "upcoming",
                 title: "",
                 description: "",
                 start_date: "",
                 end_date: "",
                 location: "",
-                status: "Upcoming",
                 registration_link: "",
-                category: "Workshop",
                 thumbnail_url: "",
                 source_lang: locale,
             });
@@ -118,9 +119,23 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
 
             form.setValue("thumbnail_url", result.url);
             setPreviewUrl(getImageUrl(result.url));
-            toast.success("Image téléchargée avec succès");
+            toast.success(commonT("imageUploadSuccess"));
         } catch (error) {
-            toast.error("Échec du téléchargement de l'image");
+            toast.error(commonT("imageUploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("thumbnail_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("imageUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("imageUploadError"));
             console.error(error);
         }
     };
@@ -290,6 +305,14 @@ export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative aspect-[21/9] rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"

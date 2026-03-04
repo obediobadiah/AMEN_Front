@@ -86,8 +86,8 @@ export default function Contact() {
                 {[
                   { icon: MapPin, title: t('contactPage.info.address'), details: t('contactPage.info.addressVal'), sub: t('contactPage.info.office') },
                   { icon: Phone, title: t('contactPage.info.phone'), details: t('contactPage.info.phoneVal'), sub: t('contactPage.info.hoursVal') },
-                  { icon: Mail, title: t('contactPage.info.email'), details: t('contactPage.info.emailVal'), sub: "24/7 Support" },
-                  { icon: Clock, title: t('contactPage.info.hours'), details: t('contactPage.info.hoursVal'), sub: "Except Holidays" }
+                  { icon: Mail, title: t('contactPage.info.email'), details: t('contactPage.info.emailVal'), sub: t('contactPage.info.support247') },
+                  { icon: Clock, title: t('contactPage.info.hours'), details: t('contactPage.info.hoursVal'), sub: t('contactPage.info.exceptHolidays') }
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}

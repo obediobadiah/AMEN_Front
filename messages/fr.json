@@ -1050,7 +1050,9 @@
       "emailVal": "info@amen-ngo.org",
       "office": "Bureau Principal",
       "hours": "Heures de Travail",
-      "hoursVal": "Lun - Ven : 08:00 - 17:00"
+      "hoursVal": "Lun - Ven : 08:00 - 17:00",
+      "support247": "Support 24/7",
+      "exceptHolidays": "Sauf Jours Fériés"
     }
   },
   "hero": {
@@ -1381,7 +1383,20 @@
       "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
       "exportSuccess": "Exportation démarrée",
       "exportError": "Échec de l'exportation de {type}",
-      "saving": "Enregistrement..."
+      "saving": "Enregistrement...",
+      "uploadSuccess": "Fichier téléchargé avec succès",
+      "uploadError": "Échec du téléchargement du fichier",
+      "imageUploadSuccess": "Image téléchargée avec succès",
+      "imageUploadError": "Échec du téléchargement de l'image",
+      "coverImageUploadSuccess": "Image de couverture téléchargée avec succès",
+      "coverImageUploadError": "Échec du téléchargement de l'image de couverture",
+      "photoUploadSuccess": "Photo téléchargée avec succès",
+      "photoUploadError": "Échec du téléchargement de la photo",
+      "fileSizeExceeded": "Le fichier {fileName} dépasse la limite de taille",
+      "processing": "Traitement...",
+      "completed": "Terminé",
+      "pending": "En attente",
+      "failed": "Échec"
     },
     "news": {
       "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
@@ -1613,6 +1628,13 @@
         "categoryPlaceholder": "Ex: Nature, Communauté...",
         "albumLabel": "Choisir un Album",
         "albumPlaceholder": "Déplacer vers l'album (optionnel)...",
+        "uploadLabel": "Fichiers Média",
+        "thumbnailLabel": "Miniature",
+        "urlLabel": "URL Externe",
+        "urlPlaceholder": "Ou collez une URL externe (ex: https://youtube.com/...)",
+        "videoAssets": "Asset(s) Vidéo ou URL",
+        "photoAssets": "Asset(s) Photo",
+        "noneGeneralLibrary": "Aucun (Bibliothèque Générale)",
         "save": "Enregistrer",
         "update": "Mettre à jour",
         "cancel": "Annuler"

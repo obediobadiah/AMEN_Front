@@ -100,9 +100,25 @@ export function AlbumDialog({ open, onOpenChange, onSubmit, album, isSubmitting 
             const result = await uploadFile(file);
             form.setValue("thumbnail_url", result.url);
             setPreviewUrl(getImageUrl(result.url));
-            toast.success("Cover image uploaded");
+            toast.success(commonT("coverImageUploadSuccess"));
         } catch (error) {
-            toast.error("Upload failed");
+            toast.error(commonT("coverImageUploadError"));
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            setIsUploading(true);
+            const result = await uploadFile(file);
+            form.setValue("thumbnail_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("coverImageUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("coverImageUploadError"));
         } finally {
             setIsUploading(false);
         }
@@ -188,6 +204,14 @@ export function AlbumDialog({ open, onOpenChange, onSubmit, album, isSubmitting 
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative aspect-[16/6] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"

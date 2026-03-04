@@ -122,9 +122,30 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
             if (result.file_size) form.setValue("file_size", result.file_size);
             if (result.file_type) form.setValue("file_type", result.file_type);
 
-            toast.success("Fichier téléchargé avec succès");
+            toast.success(commonT("uploadSuccess"));
         } catch (error) {
-            toast.error("Échec du téléchargement du fichier");
+            toast.error(commonT("uploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+
+            form.setValue("file_url", result.file_url);
+            if (result.thumbnail_url) {
+                form.setValue("thumbnail_url", result.thumbnail_url);
+                setPreviewUrl(getImageUrl(result.thumbnail_url));
+            }
+            if (result.file_size) form.setValue("file_size", result.file_size);
+            if (result.file_type) form.setValue("file_type", result.file_type);
+
+            toast.success(commonT("uploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("uploadError"));
             console.error(error);
         }
     };
@@ -235,6 +256,14 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative aspect-[21/9] rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"

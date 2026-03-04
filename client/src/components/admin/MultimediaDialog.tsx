@@ -63,6 +63,7 @@ export function MultimediaDialog({
 }: MultimediaDialogProps) {
     const t = useTranslations("admin.multimedia.dialog");
     const tMedia = useTranslations("admin.multimedia");
+    const commonT = useTranslations("admin.common");
     const [uploading, setUploading] = useState(false);
     const { uploadFile } = useMultimedia();
     const { albums } = useAlbums();
@@ -105,8 +106,17 @@ export function MultimediaDialog({
         }
     }, [media, form, locale, open]);
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: "media_url" | "thumbnail_url") => {
-        const files = Array.from(e.target.files || []);
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>, field: "media_url" | "thumbnail_url") => {
+        let files: File[] = [];
+        
+        if ('target' in e && (e.target as HTMLInputElement).files) {
+            // Handle file input change
+            files = Array.from((e.target as HTMLInputElement).files!);
+        } else if ('dataTransfer' in e && e.dataTransfer.files) {
+            // Handle drag and drop
+            files = Array.from(e.dataTransfer.files);
+        }
+        
         if (files.length === 0) return;
 
         try {
@@ -117,7 +127,7 @@ export function MultimediaDialog({
                 const uploadedUrls: string[] = [];
                 for (const file of files) {
                     if (isVideo && file.size > 50 * 1024 * 1024) {
-                        toast.error(`File ${file.name} exceeds 50MB limit`);
+                        toast.error(commonT("fileSizeExceeded", { fileName: file.name }));
                         continue;
                     }
                     const { url } = await uploadFile(file);
@@ -131,7 +141,7 @@ export function MultimediaDialog({
             } else {
                 const file = files[0];
                 if (field === "media_url" && isVideo && file.size > 50 * 1024 * 1024) {
-                    toast.error(`File ${file.name} exceeds 50MB limit`);
+                    toast.error(commonT("fileSizeExceeded", { fileName: file.name }));
                     return;
                 }
                 const { url } = await uploadFile(file);
@@ -139,7 +149,7 @@ export function MultimediaDialog({
             }
         } catch (error) {
             console.error("Upload failed:", error);
-            toast.error("Upload failed");
+            toast.error(commonT("uploadError"));
         } finally {
             setUploading(false);
         }
@@ -242,7 +252,7 @@ export function MultimediaDialog({
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
-                                                    <SelectItem value="none" className="rounded-xl font-bold py-3 text-slate-400">None (General Library)</SelectItem>
+                                                    <SelectItem value="none" className="rounded-xl font-bold py-3 text-slate-400">{tMedia("dialog.noneGeneralLibrary")}</SelectItem>
                                                     {albums.map((album) => (
                                                         <SelectItem key={album.id} value={album.id.toString()} className="rounded-xl font-bold py-3">
                                                             {(album.name as any)[locale] || album.name.fr || album.name.en}
@@ -267,14 +277,14 @@ export function MultimediaDialog({
                                         return (
                                             <FormItem className="col-span-1 md:col-span-2 space-y-2 sm:space-y-4">
                                                 <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">
-                                                    {isVideo ? "Video Asset(s) or URL" : "Photo Asset(s)"}
+                                                    {isVideo ? tMedia("dialog.videoAssets") : tMedia("dialog.photoAssets")}
                                                 </FormLabel>
 
                                                 {isVideo && (
                                                     <Input
                                                         value={!Array.isArray(field.value) ? field.value as string : ""}
                                                         onChange={(e) => field.onChange(e.target.value)}
-                                                        placeholder="Or paste an external URL (e.g. https://youtube.com/...)"
+                                                        placeholder={tMedia("dialog.urlPlaceholder")}
                                                         className="h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-6 text-xs sm:text-sm focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300"
                                                     />
                                                 )}
@@ -322,7 +332,15 @@ export function MultimediaDialog({
                                                             )}
                                                         </div>
                                                     ) : (
-                                                        <div className="relative h-40 sm:h-48 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-4 group mt-4">
+                                                        <div 
+                                                            className="relative h-40 sm:h-48 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-4 group mt-4 cursor-pointer"
+                                                            onDragOver={(e) => e.preventDefault()}
+                                                            onDrop={(e) => {
+                                                                e.preventDefault();
+                                                                handleFileUpload(e, "media_url");
+                                                            }}
+                                                            onClick={() => document.getElementById('file-input-media-url')?.click()}
+                                                        >
                                                             <div className="p-4 sm:p-6 bg-white rounded-xl sm:rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
                                                                 <Upload className="text-primary w-6 h-6 sm:w-8 sm:h-8" />
                                                             </div>
@@ -333,10 +351,11 @@ export function MultimediaDialog({
                                                                 <span className="text-[8px] sm:text-[10px] text-slate-400 font-medium mt-1">Max size 50MB per video</span>
                                                             )}
                                                             <Input
+                                                                id="file-input-media-url"
                                                                 type="file"
                                                                 accept={accept}
                                                                 multiple={isMultipleMode}
-                                                                className="absolute inset-0 opacity-0 cursor-pointer"
+                                                                className="hidden"
                                                                 onChange={(e) => handleFileUpload(e, "media_url")}
                                                                 disabled={uploading}
                                                             />
@@ -376,15 +395,24 @@ export function MultimediaDialog({
                                                             </Button>
                                                         </div>
                                                     ) : (
-                                                        <div className="relative h-40 sm:h-48 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-4 group">
+                                                        <div 
+                                                            className="relative h-40 sm:h-48 rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-primary/50 transition-all duration-500 flex flex-col items-center justify-center gap-4 group cursor-pointer"
+                                                            onDragOver={(e) => e.preventDefault()}
+                                                            onDrop={(e) => {
+                                                                e.preventDefault();
+                                                                handleFileUpload(e, "thumbnail_url");
+                                                            }}
+                                                            onClick={() => document.getElementById('file-input-thumbnail-url')?.click()}
+                                                        >
                                                             <div className="p-4 sm:p-6 bg-white rounded-xl sm:rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
                                                                 <ImageIcon className="text-primary w-6 h-6 sm:w-8 sm:h-8" size={32} />
                                                             </div>
                                                             <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary transition-colors italic text-center px-4 sm:px-10">Upload Video Thumbnail</span>
                                                             <Input
+                                                                id="file-input-thumbnail-url"
                                                                 type="file"
                                                                 accept="image/*"
-                                                                className="absolute inset-0 opacity-0 cursor-pointer"
+                                                                className="hidden"
                                                                 onChange={(e) => handleFileUpload(e, "thumbnail_url")}
                                                                 disabled={uploading}
                                                             />

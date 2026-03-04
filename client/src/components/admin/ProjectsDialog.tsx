@@ -154,6 +154,20 @@ export function ProjectsDialog({ open, onOpenChange, onSubmit, project, isSubmit
         }
     };
 
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("image_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(t("uploadSuccess"));
+        } catch (error) {
+            toast.error(t("uploadError"));
+            console.error(error);
+        }
+    };
+
     const addGoal = () => {
         const newGoals = [...goals, ""];
         setGoals(newGoals);
@@ -469,6 +483,14 @@ export function ProjectsDialog({ open, onOpenChange, onSubmit, project, isSubmit
                                         <FormControl>
                                             <div
                                                 onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
                                                 className={cn(
                                                     "relative aspect-[21/9] rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
                                                     (previewUrl || field.value) && "border-none shadow-2xl"
