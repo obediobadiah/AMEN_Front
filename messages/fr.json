@@ -1249,6 +1249,23 @@
     "description": "Organisation humanitaire dédiée à l'autonomisation des communautés, à la protection de l'environnement et au développement durable."
   },
   "admin": {
+    "login": {
+      "badge": "Portail Admin Sécurisé",
+      "title": "AMEN",
+      "titleHighlight": "Plateforme",
+      "cardTitle": "Bon Retour",
+      "cardDesc": "Entrez vos identifiants administrateur",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "admin@amen-ngo.org",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Se Connecter au Tableau de Bord",
+      "authenticating": "Authentification...",
+      "defaultCredentials": "Identifiants par défaut (première connexion)",
+      "encryptedSession": "Session Chiffrée",
+      "poweredBy": "Propulsé par l'Infrastructure AMEN • ",
+      "errorFallback": "Identifiants invalides. Veuillez réessayer."
+    },
     "sidebar": {
       "dashboard": "Tableau de Bord",
       "news": "Actualités & Articles",
@@ -1260,12 +1277,16 @@
       "governance": "Gouvernance & Équipe",
       "donations": "Registres des Dons",
       "contacts": "Messages Entrants",
+      "users": "Gestion des Utilisateurs",
       "settings": "Paramètres du Portail",
       "viewWebsite": "Voir le Site",
       "logout": "Déconnexion",
       "welcomeAdmin": "Administrateur Système",
       "portalTitle": "PORTAIL ADMIN AMEN",
       "role": "Administrateur",
+      "roleAdmin": "Administrateur",
+      "roleStaff": "Membre du Personnel",
+      "adminZone": "Zone Admin",
       "systemLive": "Système En Direct"
     },
     "dashboard": {
@@ -1336,7 +1357,8 @@
       "saveSuccess": "{type} enregistré avec succès",
       "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
       "exportSuccess": "Exportation démarrée",
-      "exportError": "Échec de l'exportation de {type}"
+      "exportError": "Échec de l'exportation de {type}",
+      "saving": "Enregistrement..."
     },
     "news": {
       "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
@@ -1866,12 +1888,17 @@
     "settings": {
       "title": "Paramètres du Portail",
       "description": "Configurez les paramètres globaux du portail et les protocoles de sécurité.",
+      "loading": "Chargement des paramètres...",
+      "readOnlyMode": "Mode Lecture Seule",
       "main": {
         "title": "Configurations Principales",
         "description": "Visibilité du site et métadonnées de base.",
         "orgName": "Nom de l'Organisation",
         "email": "Email de Contact Principal",
-        "updateBtn": "Mettre à jour le Portail"
+        "websiteUrl": "URL du Site Web",
+        "updateBtn": "Mettre à jour le Portail",
+        "saving": "Enregistrement...",
+        "lastUpdated": "Dernière mise à jour"
       },
       "security": {
         "title": "Accès Sécurisé",
@@ -1883,7 +1910,90 @@
         "disabled": "Désactivé",
         "active": "Actif",
         "enableBtn": "Activer",
-        "viewLogsBtn": "Voir les Journaux"
+        "viewLogsBtn": "Voir les Journaux",
+        "enabledMsg": "Authentification à deux facteurs activée",
+        "disabledMsg": "Authentification à deux facteurs désactivée",
+        "loggingEnabledMsg": "Journalisation des activités activée",
+        "loggingDisabledMsg": "Journalisation des activités désactivée"
+      },
+      "maintenance": {
+        "title": "Mode Maintenance",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "enabledMsg": "Mode maintenance activé",
+        "disabledMsg": "Mode maintenance désactivé"
+      },
+      "info": {
+        "title": "Informations sur la Plateforme",
+        "description": "Détails techniques et état du système.",
+        "platformVersion": "Version de la Plateforme",
+        "dbStatus": "Base de Données",
+        "apiStatus": "Framework API",
+        "environment": "Environnement"
+      },
+      "messages": {
+        "saveSuccess": "Paramètres mis à jour avec succès",
+        "error": "Échec de la mise à jour des paramètres"
+      }
+    },
+    "users": {
+      "title": "Gestion des Utilisateurs",
+      "description": "Gérez l'accès au portail. Seuls les administrateurs peuvent accéder à cette page.",
+      "searchPlaceholder": "Rechercher par nom ou email...",
+      "roles": {
+        "admin": "Administrateur",
+        "staff": "Personnel"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif"
+      },
+      "columns": {
+        "name": "Utilisateur",
+        "role": "Rôle",
+        "status": "Statut",
+        "lastLogin": "Dernière Connexion",
+        "you": "Vous",
+        "never": "Jamais"
+      },
+      "filters": {
+        "all": "Tous les Utilisateurs",
+        "admin": "Administrateurs Uniquement",
+        "staff": "Personnel Uniquement",
+        "active": "Comptes Actifs",
+        "inactive": "Comptes Désactivés"
+      },
+      "sort": {
+        "newest": "Plus Récents en Premier",
+        "oldest": "Plus Anciens en Premier",
+        "name": "Nom (A–Z)"
+      },
+      "dialog": {
+        "createTitle": "Créer un Utilisateur du Portail",
+        "editTitle": "Modifier l'Utilisateur du Portail",
+        "createDesc": "Créez un nouveau compte pour accorder l'accès à ce portail administrateur.",
+        "editDesc": "Mettez à jour les informations, le rôle ou réinitialisez le mot de passe.",
+        "nameLabel": "Nom Complet",
+        "namePlaceholder": "Jane Dupont",
+        "emailLabel": "Adresse Email",
+        "passwordLabel": "Mot de Passe",
+        "passwordOptionalLabel": "Nouveau Mot de Passe (laisser vide pour conserver)",
+        "roleLabel": "Rôle d'Accès",
+        "staffDesc": "Gestion du contenu uniquement",
+        "adminDesc": "Accès complet au portail",
+        "activeLabel": "Compte Actif",
+        "activeDesc": "Les utilisateurs inactifs ne peuvent pas se connecter.",
+        "save": "Créer l'Utilisateur",
+        "update": "Enregistrer les Modifications"
+      },
+      "messages": {
+        "createSuccess": "Utilisateur créé avec succès",
+        "updateSuccess": "Utilisateur mis à jour",
+        "deleteConfirm": "Supprimer définitivement l'accès de cet utilisateur ?",
+        "deleteSuccess": "Utilisateur supprimé",
+        "cannotDeleteSelf": "Vous ne pouvez pas supprimer votre propre compte",
+        "passwordRequired": "Le mot de passe est requis pour les nouveaux utilisateurs",
+        "error": "Opération échouée"
       }
     }
   }

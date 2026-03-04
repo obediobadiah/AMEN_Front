@@ -11,7 +11,6 @@ import {
   Settings,
   LogOut,
   Menu,
-  X,
   Heart,
   Image,
   MessageSquare,
@@ -21,19 +20,25 @@ import {
   Briefcase,
   Database,
   ChevronRight,
-  UserCheck
+  UserCheck,
+  ShieldCheck,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { useTranslations, useLocale } from "next-intl";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/hooks/use-auth";
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -42,6 +47,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const t = useTranslations("admin");
+  const { user, isAuthenticated, isAdmin, logout, isLoading } = useAuth();
 
   const switchLocale = (newLocale: string) => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
@@ -53,6 +59,18 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     setHasMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (hasMounted && !isLoading && !isAuthenticated) {
+      router.push("/admin/login");
+    }
+  }, [hasMounted, isLoading, isAuthenticated, router]);
+
+  const handleLogout = () => {
+    logout();
+    router.push("/admin/login");
+  };
+
+  // All nav items — no admin-only items here anymore
   const sidebarItems = [
     { name: t("sidebar.dashboard"), href: "/admin/dashboard", icon: LayoutDashboard },
     { name: t("sidebar.news"), href: "/admin/news", icon: FileText },
@@ -64,23 +82,24 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
     { name: t("sidebar.governance"), href: "/admin/governance", icon: UserCheck },
     { name: t("sidebar.donations"), href: "/admin/donations", icon: Heart },
     { name: t("sidebar.contacts"), href: "/admin/contacts", icon: MessageSquare },
-    { name: t("sidebar.settings"), href: "/admin/settings", icon: Settings },
   ];
+
+  const userInitials = user?.name
+    ? user.name.split(" ").map((n) => n[0]).join("").substring(0, 2).toUpperCase()
+    : "??";
 
   const SidebarContent = (
     <div className="flex flex-col h-full bg-[#0f172a] text-slate-300 border-r border-slate-800">
       {/* Logo & Brand */}
       <div className="p-8 flex items-center gap-4 border-b border-slate-800/50">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="text-white p-2.5 rounded-2xl"
-        >
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="text-white p-2.5 rounded-2xl">
           <img src="/images/logo amen w.svg" alt="AMEN" className="h-8 w-auto" />
         </motion.div>
         <div className="flex flex-col">
           <span className="font-heading font-black text-white text-base tracking-tighter leading-none">{t("sidebar.portalTitle")}</span>
-          <span className="text-[10px] font-bold text-primary tracking-[0.2em] mt-1 uppercase opacity-80">{t("sidebar.role")}</span>
+          <span className="text-[10px] font-bold text-primary tracking-[0.2em] mt-1 uppercase opacity-80">
+            {isAdmin ? t("sidebar.roleAdmin") : t("sidebar.roleStaff")}
+          </span>
         </div>
       </div>
 
@@ -114,33 +133,22 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         ))}
       </nav>
 
-      {/* User Session */}
-      <div className="p-6 border-t border-slate-800/50 bg-slate-900/50">
-        <div className="flex items-center gap-4 mb-6 px-2">
-          <div className="relative">
-            <Avatar className="h-12 w-12 border-2 border-primary/20">
-              <AvatarImage src="/images/avatar-placeholder.png" />
-              <AvatarFallback className="bg-slate-800 text-primary font-bold">AD</AvatarFallback>
-            </Avatar>
-            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#0f172a] rounded-full" />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-black text-white truncate leading-tight">{t("sidebar.welcomeAdmin")}</span>
-            <span className="text-xs text-slate-500 font-medium truncate italic">admin@amen-ngo.org</span>
-          </div>
-        </div>
-        <Button
-          variant="outline"
-          className="w-full justify-center gap-3 h-12 rounded-xl border-slate-800 bg-transparent text-slate-400 hover:bg-destructive hover:text-white hover:border-destructive transition-all duration-300 font-bold text-xs uppercase tracking-widest"
-          asChild
+      {/* Bottom: View Website */}
+      <div className="p-6 border-t border-slate-800/50">
+        <Link
+          href="/"
+          target="_blank"
+          className="flex items-center justify-center gap-2 w-full h-11 rounded-2xl text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-primary hover:bg-white/[0.03] transition-all"
         >
-          <Link href="/admin/login">
-            <LogOut size={16} /> {t("sidebar.logout")}
-          </Link>
-        </Button>
+          <Globe size={14} />
+          {t("sidebar.viewWebsite")}
+        </Link>
       </div>
     </div>
   );
+
+  if (!hasMounted || isLoading) return null;
+  if (!isAuthenticated) return null;
 
   return (
     <div className="min-h-screen bg-[#f8fafc] flex font-sans selection:bg-primary selection:text-white">
@@ -151,30 +159,29 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
       {/* Mobile Trigger */}
       <div className="lg:hidden fixed top-6 left-6 z-50">
-        {hasMounted ? (
-          <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl bg-white shadow-xl border-slate-100 text-slate-600 hover:text-primary transition-all">
-                <Menu size={24} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-80 border-none bg-transparent">
-              {SidebarContent}
-            </SheetContent>
-          </Sheet>
-        ) : (
-          <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl bg-white shadow-xl border-slate-100 text-slate-600">
-            <Menu size={24} />
-          </Button>
-        )}
+        <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl bg-white shadow-xl border-slate-100 text-slate-600 hover:text-primary transition-all">
+              <Menu size={24} />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="p-0 w-80 border-none bg-transparent">
+            {SidebarContent}
+          </SheetContent>
+        </Sheet>
       </div>
 
       {/* Main Content Area */}
       <main className="flex-1 lg:ml-80 min-h-screen flex flex-col relative w-full overflow-hidden">
+        {/* Top Header */}
         <header className="bg-white/80 backdrop-blur-xl border-b border-slate-100 h-20 md:h-24 flex items-center justify-between px-4 sm:px-8 md:px-12 sticky top-0 z-40">
           <div className="flex flex-col ml-14 lg:ml-0">
             <h1 className="font-heading font-black text-lg sm:text-2xl text-slate-900 tracking-tight line-clamp-1">
-              {sidebarItems.find(i => i.href === pathname)?.name || t("sidebar.dashboard")}
+              {sidebarItems.find((i) => i.href === pathname)?.name
+                /* also check admin-only routes not in sidebarItems list */
+                || (pathname === "/admin/users" ? t("sidebar.users") : null)
+                || (pathname === "/admin/settings" ? t("sidebar.settings") : null)
+                || t("sidebar.dashboard")}
             </h1>
             <div className="flex items-center gap-2 mt-0.5 md:mt-1">
               <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500 animate-pulse" />
@@ -183,28 +190,24 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <Button variant="ghost" size="sm" className="hidden xl:flex gap-2.5 h-11 px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all" asChild>
-              <Link href="/" target="_blank">
-                <Globe size={18} /> {t("sidebar.viewWebsite")}
-              </Link>
-            </Button>
-
+            {/* Language switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="flex gap-1.5 md:gap-2.5 h-10 md:h-11 px-3 md:px-5 rounded-xl font-bold text-slate-600 hover:bg-slate-50 hover:text-primary transition-all">
-                  <Globe size={16} className="md:size-[18px]" /> <span className="text-sm md:text-base">{locale === 'fr' ? 'FR' : 'EN'}</span>
+                  <Globe size={16} className="md:size-[18px]" />
+                  <span className="text-sm md:text-base">{locale === "fr" ? "FR" : "EN"}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-[140px] rounded-2xl p-2 bg-white/90 backdrop-blur-xl border-slate-100 shadow-2xl">
                 <DropdownMenuItem
                   onClick={() => switchLocale("fr")}
-                  className={cn("rounded-xl font-bold py-3 transition-colors", locale === 'fr' ? "bg-primary/10 text-primary" : "text-slate-600 hover:bg-slate-50")}
+                  className={cn("rounded-xl font-bold py-3 transition-colors", locale === "fr" ? "bg-primary/10 text-primary" : "text-slate-600 hover:bg-slate-50")}
                 >
                   Français (FR)
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => switchLocale("en")}
-                  className={cn("rounded-xl font-bold py-3 transition-colors", locale === 'en' ? "bg-primary/10 text-primary" : "text-slate-600 hover:bg-slate-50")}
+                  className={cn("rounded-xl font-bold py-3 transition-colors", locale === "en" ? "bg-primary/10 text-primary" : "text-slate-600 hover:bg-slate-50")}
                 >
                   English (EN)
                 </DropdownMenuItem>
@@ -212,12 +215,108 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenu>
 
             <div className="w-px h-6 md:h-8 bg-slate-100 mx-1 md:mx-2 hidden sm:block" />
-            <Avatar className="h-8 w-8 md:h-10 md:w-10 border border-slate-100 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
-              <AvatarFallback className="bg-slate-50 text-slate-400 text-[10px] md:text-xs font-bold uppercase">AD</AvatarFallback>
-            </Avatar>
+
+            {/* ── User Avatar Dropdown ── */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="relative flex items-center gap-2 rounded-2xl p-1 pr-3 hover:bg-slate-100 transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  aria-label="User menu"
+                >
+                  <div className="relative">
+                    <Avatar className="h-9 w-9 md:h-10 md:w-10 border-2 border-slate-100 group-hover:border-primary/30 transition-all">
+                      <AvatarFallback className="bg-primary/10 text-primary font-black text-xs">
+                        {userInitials}
+                      </AvatarFallback>
+                    </Avatar>
+                    {/* Online dot */}
+                    <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
+                  </div>
+                  <div className="hidden md:flex flex-col items-start">
+                    <span className="text-xs font-black text-slate-800 leading-tight max-w-[120px] truncate">{user?.name}</span>
+                    <span className={cn(
+                      "text-[9px] font-black uppercase tracking-wider",
+                      isAdmin ? "text-primary" : "text-slate-400"
+                    )}>
+                      {isAdmin ? t("sidebar.roleAdmin") : t("sidebar.roleStaff")}
+                    </span>
+                  </div>
+                </button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                align="end"
+                sideOffset={8}
+                className="w-72 rounded-2xl p-2 bg-white border-slate-100 shadow-2xl shadow-slate-200/60"
+              >
+                {/* User info header */}
+                <div className="px-3 py-3 flex items-center gap-3">
+                  <Avatar className="h-12 w-12 border-2 border-primary/20">
+                    <AvatarFallback className="bg-primary/10 text-primary font-black text-sm">{userInitials}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-black text-slate-900 text-sm truncate">{user?.name}</p>
+                    <p className="text-[11px] text-slate-400 font-medium truncate">{user?.email}</p>
+                    <Badge variant="outline" className={cn(
+                      "mt-1 text-[9px] font-black uppercase tracking-widest px-2 py-0 rounded-full",
+                      isAdmin ? "border-primary/30 text-primary bg-primary/5" : "border-slate-200 text-slate-500 bg-slate-50"
+                    )}>
+                      {isAdmin ? <><ShieldCheck size={8} className="mr-1" />{t("sidebar.roleAdmin")}</> : <><User size={8} className="mr-1" />{t("sidebar.roleStaff")}</>}
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* <DropdownMenuSeparator className="my-1 bg-slate-100" /> */}
+
+                {/* Profile link */}
+                {/* <DropdownMenuItem
+                  className="rounded-xl px-3 py-2.5 font-bold text-sm text-slate-700 hover:bg-slate-50 hover:text-primary cursor-pointer gap-2.5"
+                  onClick={() => router.push("/admin/dashboard")}
+                >
+                  <User size={16} className="text-slate-400" />
+                  {t("userMenu.profile")}
+                </DropdownMenuItem> */}
+
+                {/* Admin-only items */}
+                {isAdmin && (
+                  <>
+                    <DropdownMenuSeparator className="my-1 bg-slate-100" />
+                    <DropdownMenuLabel className="px-3 py-1 text-[9px] font-black uppercase tracking-widest text-slate-400">
+                      {t("sidebar.adminZone")}
+                    </DropdownMenuLabel>
+                    <DropdownMenuItem
+                      className="rounded-xl px-3 py-2.5 font-bold text-sm text-slate-700 hover:bg-slate-50 hover:text-primary cursor-pointer gap-2.5"
+                      onClick={() => router.push("/admin/users")}
+                    >
+                      <Users size={16} className="text-slate-400" />
+                      {t("sidebar.users")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="rounded-xl px-3 py-2.5 font-bold text-sm text-slate-700 hover:bg-slate-50 hover:text-primary cursor-pointer gap-2.5"
+                      onClick={() => router.push("/admin/settings")}
+                    >
+                      <Settings size={16} className="text-slate-400" />
+                      {t("sidebar.settings")}
+                    </DropdownMenuItem>
+                  </>
+                )}
+
+                <DropdownMenuSeparator className="my-1 bg-slate-100" />
+
+                {/* Sign Out */}
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="rounded-xl px-3 py-2.5 font-bold text-sm text-red-500 hover:bg-red-50 hover:text-red-600 cursor-pointer gap-2.5"
+                >
+                  <LogOut size={16} />
+                  {t("sidebar.logout")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
+        {/* Page Content */}
         <div className="p-4 sm:p-8 md:p-10 lg:p-12 xl:p-16 max-w-7xl w-full mx-auto flex-1">
           <AnimatePresence mode="wait">
             <motion.div
@@ -232,7 +331,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </AnimatePresence>
         </div>
 
-        {/* Subtle decorative background */}
+        {/* Subtle bg glow */}
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
       </main>
     </div>

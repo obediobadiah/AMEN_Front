@@ -1236,6 +1236,23 @@
     "description": "Humanitarian Organization dedicated to community empowerment, environmental protection, and sustainable development."
   },
   "admin": {
+    "login": {
+      "badge": "Secure Admin Portal",
+      "title": "AMEN",
+      "titleHighlight": "Platform",
+      "cardTitle": "Welcome Back",
+      "cardDesc": "Enter your administrator credentials",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "admin@amen-ngo.org",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Sign In to Dashboard",
+      "authenticating": "Authenticating...",
+      "defaultCredentials": "Default credentials (first run)",
+      "encryptedSession": "Encrypted Session",
+      "poweredBy": "Powered by AMEN Infrastructure • ",
+      "errorFallback": "Invalid credentials. Please try again."
+    },
     "sidebar": {
       "dashboard": "Dashboard",
       "news": "News & Articles",
@@ -1247,12 +1264,16 @@
       "governance": "Governance & Team",
       "donations": "Donation Records",
       "contacts": "Incoming Messages",
+      "users": "User Management",
       "settings": "Portal Settings",
       "viewWebsite": "View Website",
       "logout": "Sign Out",
       "welcomeAdmin": "System Administrator",
       "portalTitle": "AMEN ADMIN PORTAL",
       "role": "Administrator",
+      "roleAdmin": "Administrator",
+      "roleStaff": "Staff Member",
+      "adminZone": "Admin Zone",
       "systemLive": "System Live"
     },
     "dashboard": {
@@ -1323,7 +1344,8 @@
       "saveSuccess": "{type} saved successfully",
       "saveError": "An error occurred while saving {type}",
       "exportSuccess": "Export started",
-      "exportError": "Failed to export {type}"
+      "exportError": "Failed to export {type}",
+      "saving": "Saving..."
     },
     "news": {
       "description": "Manage your global articles, stories, and press releases.",
@@ -1852,12 +1874,17 @@
     "settings": {
       "title": "Portal Settings",
       "description": "Configure portal-wide settings and security protocols.",
+      "loading": "Loading settings...",
+      "readOnlyMode": "Read-Only Mode",
       "main": {
         "title": "Main Configurations",
         "description": "Site visibility and core metadata.",
         "orgName": "Organization Name",
         "email": "Primary Contact Email",
-        "updateBtn": "Update Portal"
+        "websiteUrl": "Website URL",
+        "updateBtn": "Update Portal",
+        "saving": "Saving...",
+        "lastUpdated": "Last updated"
       },
       "security": {
         "title": "Secure Access",
@@ -1869,7 +1896,90 @@
         "disabled": "Disabled",
         "active": "Active",
         "enableBtn": "Enable",
-        "viewLogsBtn": "View Logs"
+        "viewLogsBtn": "View Logs",
+        "enabledMsg": "Two-factor authentication enabled",
+        "disabledMsg": "Two-factor authentication disabled",
+        "loggingEnabledMsg": "Activity logging enabled",
+        "loggingDisabledMsg": "Activity logging disabled"
+      },
+      "maintenance": {
+        "title": "Maintenance Mode",
+        "active": "Active",
+        "inactive": "Inactive",
+        "enabledMsg": "Maintenance mode activated",
+        "disabledMsg": "Maintenance mode deactivated"
+      },
+      "info": {
+        "title": "Platform Information",
+        "description": "Technical details and system status.",
+        "platformVersion": "Platform Version",
+        "dbStatus": "Database",
+        "apiStatus": "API Framework",
+        "environment": "Environment"
+      },
+      "messages": {
+        "saveSuccess": "Settings updated successfully",
+        "error": "Failed to update settings"
+      }
+    },
+    "users": {
+      "title": "User Management",
+      "description": "Manage portal access. Only admins can reach this page.",
+      "searchPlaceholder": "Search by name or email...",
+      "roles": {
+        "admin": "Admin",
+        "staff": "Staff"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "columns": {
+        "name": "User",
+        "role": "Role",
+        "status": "Status",
+        "lastLogin": "Last Login",
+        "you": "You",
+        "never": "Never"
+      },
+      "filters": {
+        "all": "All Users",
+        "admin": "Admins Only",
+        "staff": "Staff Only",
+        "active": "Active Accounts",
+        "inactive": "Disabled Accounts"
+      },
+      "sort": {
+        "newest": "Newest First",
+        "oldest": "Oldest First",
+        "name": "Name (A–Z)"
+      },
+      "dialog": {
+        "createTitle": "Create Portal User",
+        "editTitle": "Edit Portal User",
+        "createDesc": "Create a new account to grant access to this admin portal.",
+        "editDesc": "Update user details, role, or reset password.",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "Jane Doe",
+        "emailLabel": "Email Address",
+        "passwordLabel": "Password",
+        "passwordOptionalLabel": "New Password (leave blank to keep)",
+        "roleLabel": "Access Role",
+        "staffDesc": "Manage content only",
+        "adminDesc": "Full portal access",
+        "activeLabel": "Account Active",
+        "activeDesc": "Inactive users cannot log in.",
+        "save": "Create User",
+        "update": "Save Changes"
+      },
+      "messages": {
+        "createSuccess": "User created successfully",
+        "updateSuccess": "User updated",
+        "deleteConfirm": "Permanently remove this user's access?",
+        "deleteSuccess": "User removed",
+        "cannotDeleteSelf": "You cannot delete your own account",
+        "passwordRequired": "Password is required for new users",
+        "error": "Operation failed"
       }
     }
   }
