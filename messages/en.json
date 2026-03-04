@@ -1282,13 +1282,37 @@
       "stats": {
         "totalDonations": "Total Revenue",
         "activeProjects": "Active Initiatives",
-        "communitiesReached": "Impact Reach",
         "pendingTasks": "Pending Reviews",
         "growth": "{value}% from last period"
       },
+      "secondaryStats": {
+        "totalUsers": "Total Users",
+        "publishedNews": "Published News",
+        "articlesPublished": "Articles published",
+        "upcomingEvents": "Upcoming Events",
+        "total": "Total",
+        "resources": "Resources",
+        "multimediaFiles": "multimedia files"
+      },
+      "subtitles": {
+        "noDonationsThisMonth": "No donations this month",
+        "lastMonthThisMonth": "Last month: {lastMonth} • This month: {thisMonth}",
+        "completedTotal": "{completed} completed • {total} total",
+        "noActiveProjects": "No active projects",
+        "completionRate": "{rate}% completion rate",
+        "totalInquiriesResolved": "{total} total inquiries • {resolved} resolved",
+        "allCaughtUp": "All caught up!",
+        "needAttention": "{count} need attention"
+      },
+      "activities": {
+        "donationOf": "Donation of ${amount} from {donor}",
+        "inquiryFrom": "{type} inquiry from {name}",
+        "newUserRegistered": "New {role} user registered: {name}",
+        "newsPublished": "News article published: {title}",
+        "noRecentActivity": "No recent activity"
+      },
       "charts": {
         "donationImpact": "Funding & Impact Distribution",
-        "monthlyGrowth": "Community Growth Trend",
         "monthly": "Monthly",
         "weekly": "Weekly",
         "analyticsDesc": "Analytics for the current fiscal quarter"
@@ -1305,7 +1329,6 @@
         "time": "{time} ago"
       },
       "quickActions": {
-        "title": "Quick Actions",
         "newArticle": "Write Article",
         "newProject": "Launch Project",
         "uploadMedia": "Add Media"
