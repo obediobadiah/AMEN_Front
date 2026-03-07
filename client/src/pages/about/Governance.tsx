@@ -74,35 +74,37 @@ export default function Governance() {
             <section className="py-24 bg-white relative overflow-hidden">
                 <div className="container mx-auto px-4 max-w-5xl">
 
-                    {/* Filter buttons */}
-                    <div className="flex flex-wrap justify-center gap-3 mb-12">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-[0.2em]"
-                        >
-                            <Shield size={14} className="text-primary" /> {tTeam('transparencyBadge')}
-                        </motion.div>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mt-16 text-center"
-                        >
-                            {t('organsTitle')}
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="text-xl text-slate-500 font-medium max-w-3xl mx-auto leading-relaxed text-center"
-                        >
-                            {t('intro')}
-                        </motion.p>
-                    </div>
+                    {/* Transparency Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-900 font-black text-xs uppercase tracking-[0.2em] w-fit mx-auto mb-12"
+                    >
+                        <Shield size={14} className="text-primary" /> {tTeam('transparencyBadge')}
+                    </motion.div>
+
+                    {/* Section Title */}
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight text-center"
+                    >
+                        {t('organsTitle')}
+                    </motion.h2>
+
+                    {/* Section Description */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="text-xl text-slate-500 font-medium max-w-3xl mx-auto leading-relaxed text-center mt-6 mb-12"
+                    >
+                        {t('intro')}
+                    </motion.p>
 
                     {/* Organs Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
