@@ -1121,6 +1121,9 @@
       "by": "By",
       "news": "News",
       "readMore": "Read More",
+      "noArticles": "No Articles",
+      "noArticlesTitle": "Sorry",
+      "noArticlesDesc": "We currently have no articles to display.",
       "article1": {
         "title": "The Dignity of Human Beings to Work",
         "excerpt": "Exploring how dignity in labor transforms communities and builds self-reliance."
@@ -1159,7 +1162,8 @@
     "newsletter": "Newsletter",
     "newsletterDescription": "Subscribe to our newsletter to get the latest news and updates.",
     "emailPlaceholder": "Your email address",
-    "subscribe": "Subscribe",
+    "contact": "Contact-Us",
+    "involve": "Get Involve",
     "copyright": "All rights reserved.",
     "adminLogin": "Admin Login",
     "privacyPolicy": "Privacy Policy",

@@ -1126,6 +1126,9 @@
       "by": "Par",
       "news": "Nouvelles",
       "readMore": "Lire la suite",
+      "noArticles": "Aucune nouvelle disponible",
+      "noArticlesTitle": "Désolé",
+      "noArticlesDesc": "Nous n'avons actuellement aucune nouvelle à afficher.",
       "article1": {
         "title": "La Dignité des Êtres Humains au Travail",
         "excerpt": "Explorer comment la dignité dans le travail transforme les communautés et renforce l'autonomie."
@@ -1165,6 +1168,8 @@
     "newsletterDescription": "Abonnez-vous à notre newsletter pour recevoir les dernières nouvelles et mises à jour.",
     "emailPlaceholder": "Votre adresse email",
     "subscribe": "S'abonner",
+    "contact": "Contactez-Nous",
+    "involve": "Impliquez-Vous",
     "copyright": "Tous droits réservés.",
     "adminLogin": "Connexion Admin",
     "privacyPolicy": "Politique de Confidentialité",

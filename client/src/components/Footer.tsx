@@ -87,14 +87,20 @@ export function Footer() {
             <h3 className="text-secondary-foreground font-heading text-xl mb-6">{t('footer.newsletter')}</h3>
             <p className="text-secondary-foreground/70 text-sm mb-4">{t('footer.newsletterDescription')}</p>
             <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder={t('footer.emailPlaceholder')}
-                className="w-full bg-secondary/50 border border-secondary-foreground/10 rounded-lg px-4 py-3 text-sm text-secondary-foreground placeholder:text-secondary-foreground/40 focus:outline-none focus:border-primary transition-colors"
-              />
-              <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 rounded-lg text-sm transition-colors uppercase tracking-wide">
-                {t('footer.subscribe')}
-              </button>
+
+              <Link
+                href="/get-involved"
+                className="block w-full text-center bg-accent text-primary hover:bg-accent/90 font-medium py-3 rounded-2xl text-sm transition-colors uppercase tracking-wide"
+              >
+                {t('footer.involve')}
+              </Link>
+
+              <Link
+                href="/contact"
+                className="block w-full text-center bg-primary hover:bg-primary/90 font-medium py-3 rounded-2xl text-sm transition-colors uppercase tracking-wide"
+              >
+                {t('footer.contact')}
+              </Link>
             </form>
           </div>
         </div>
