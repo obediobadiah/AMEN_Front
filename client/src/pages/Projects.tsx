@@ -9,7 +9,16 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, ArrowRight, Activity, CheckCircle, Clock, Lightbulb } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Key } from "react";
+import { useState, Key } from "react";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 
 
 
@@ -21,6 +30,22 @@ export default function Projects() {
     const t = useTranslations();
     const locale = useLocale() as "en" | "fr";
     const { projects, isLoading } = useProjects();
+    const [currentPage, setCurrentPage] = useState(1);
+    const projectsPerPage = 6;
+
+    const totalPages = Math.ceil(projects.length / projectsPerPage);
+    const startIndex = (currentPage - 1) * projectsPerPage;
+    const currentProjects = projects.slice(startIndex, startIndex + projectsPerPage);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        const element = document.getElementById('projects-grid');
+        if (element) {
+            const yOffset = -100; // Account for the sticky header
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    };
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -56,7 +81,7 @@ export default function Projects() {
             <PageHero
                 title={t('projectsPage.title')}
                 subtitle={t('projectsPage.subtitle')}
-                image={images.news2}
+                image={images.heroProjects}
             />
 
             {/* Intro & Stats Section */}
@@ -102,12 +127,12 @@ export default function Projects() {
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-4">
-                                    <img src={images.news1} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt1')} />
-                                    <img src={images.programWomen} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt2')} />
+                                    <img src={images.heroAutonomisation} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt1')} />
+                                    <img src={images.heroWomen} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt2')} />
                                 </div>
                                 <div className="space-y-4 pt-8">
-                                    <img src={images.programNature} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt3')} />
-                                    <img src={images.news2} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt4')} />
+                                    <img src={images.heroHeal} className="rounded-2xl shadow-xl aspect-[3/4] object-cover" alt={t('projectsPage.introImages.alt3')} />
+                                    <img src={images.heroNature} className="rounded-2xl shadow-xl aspect-square object-cover" alt={t('projectsPage.introImages.alt4')} />
                                 </div>
                             </div>
                             <div className="absolute -z-10 -bottom-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
@@ -118,16 +143,16 @@ export default function Projects() {
             </section>
 
             {/* Projects Grid */}
-            <section className="py-24 bg-background/50">
+            <section id="projects-grid" className="py-24 bg-background/50">
                 <div className="container mx-auto px-4">
                     <motion.div
+                        key={currentPage}
                         variants={containerVariants}
                         initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
+                        animate="visible"
                         className="grid grid-cols-1 md:grid-cols-2 gap-10"
                     >
-                        {projects.map((item) => {
+                        {currentProjects.map((item) => {
                             const title = item.title[locale] || item.title.fr || item.title.en;
                             const description = item.description ? (item.description[locale] || item.description.fr || item.description.en) : "";
                             const location = item.location ? (item.location[locale] || item.location.fr || item.location.en) : "";
@@ -139,7 +164,7 @@ export default function Projects() {
                                     <Card className="group overflow-hidden border border-border/50 hover:border-primary/30 transition-all duration-500 bg-card hover:shadow-xl rounded-3xl h-full flex flex-col">
                                         <div className="relative h-80 overflow-hidden shrink-0">
                                             <img
-                                                src={item.image_url ? getImageUrl(item.image_url) : images.news3}
+                                                src={item.image_url ? getImageUrl(item.image_url) : images.heroProjects}
                                                 alt={title}
                                                 className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                                             />
@@ -202,6 +227,73 @@ export default function Projects() {
                             );
                         })}
                     </motion.div>
+
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                        <div className="mt-16">
+                            <Pagination>
+                                <PaginationContent>
+                                    <PaginationItem>
+                                        <PaginationPrevious
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (currentPage > 1) handlePageChange(currentPage - 1);
+                                            }}
+                                            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                        />
+                                    </PaginationItem>
+
+                                    {[...Array(totalPages)].map((_, i) => {
+                                        const page = i + 1;
+                                        // Simple logic to show current, first, last and 1 neighbor
+                                        if (
+                                            page === 1 ||
+                                            page === totalPages ||
+                                            (page >= currentPage - 1 && page <= currentPage + 1)
+                                        ) {
+                                            return (
+                                                <PaginationItem key={page}>
+                                                    <PaginationLink
+                                                        href="#"
+                                                        isActive={currentPage === page}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handlePageChange(page);
+                                                        }}
+                                                        className="cursor-pointer"
+                                                    >
+                                                        {page}
+                                                    </PaginationLink>
+                                                </PaginationItem>
+                                            );
+                                        } else if (
+                                            page === currentPage - 2 ||
+                                            page === currentPage + 2
+                                        ) {
+                                            return (
+                                                <PaginationItem key={page}>
+                                                    <PaginationEllipsis />
+                                                </PaginationItem>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            href="#"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                                            }}
+                                            className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                        />
+                                    </PaginationItem>
+                                </PaginationContent>
+                            </Pagination>
+                        </div>
+                    )}
                 </div>
             </section>
 

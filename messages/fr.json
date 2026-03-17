@@ -891,7 +891,11 @@
       "all": "Toutes les Publications",
       "annual": "Rapports Annuels",
       "technical": "Guides Techniques",
-      "research": "Documents de Recherche"
+      "research": "Documents de Recherche",
+      "report": "Rapports",
+      "article": "Articles",
+      "guide": "Guide",
+      "newsletter": "Newsletter"
     },
     "download": "Télécharger le PDF",
     "fileSize": "Taille",
@@ -928,8 +932,10 @@
     "subtitle": "L'Impact à travers l'Objectif",
     "intro": "Explorez notre travail à travers des photos et des vidéos capturant l'essence de la résilience communautaire et la beauté environnementale.",
     "tabs": {
-      "photos": "Photos",
-      "videos": "Vidéos"
+      "all": "Tout",
+      "photo": "Photos",
+      "video": "Vidéos",
+      "albums": "Albums"
     },
     "viewLarge": "Agrandir",
     "watchVideo": "Regarder la Vidéo",

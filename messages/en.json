@@ -886,7 +886,11 @@
       "all": "All Publications",
       "annual": "Annual Reports",
       "technical": "Technical Guides",
-      "research": "Research Papers"
+      "research": "Research Papers",
+      "report": "Reports",
+      "article": "Articles",
+      "guide": "Guide",
+      "newsletter": "Newsletter"
     },
     "download": "Download PDF",
     "fileSize": "Size",
@@ -923,8 +927,10 @@
     "subtitle": "Impact Through the Lens",
     "intro": "Explore our work through photos and videos capturing the essence of community resilience and environmental beauty.",
     "tabs": {
-      "photos": "Photos",
-      "videos": "Videos"
+      "all": "All",
+      "photo": "Photos",
+      "video": "Videos",
+      "albums": "Albums"
     },
     "viewLarge": "View Larger",
     "watchVideo": "Watch Video",

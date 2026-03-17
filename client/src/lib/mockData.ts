@@ -6,7 +6,7 @@ export const programs = [
     id: 1,
     title: "Accueil humanitaire et services sociaux de base",
     description: "Fourniture d'une assistance humanitaire et de services sociaux essentiels aux communautés vulnérables.",
-    image: images.programWomen,
+    image: images.homeCauseAutonomisation,
     category: "Humanitaire",
     raised: 18000,
     goal: 30000,
@@ -16,7 +16,7 @@ export const programs = [
     id: 2,
     title: "Agriculture durable et conservation de la nature",
     description: "Promotion de pratiques agricoles durables et protection de l'environnement pour un avenir plus vert.",
-    image: images.programNature,
+    image: images.homeCauseProtection,
     category: "Environnement",
     raised: 12000,
     goal: 35000,
@@ -26,31 +26,11 @@ export const programs = [
     id: 3,
     title: "Logistique, commerce équitable et chaînes de valeur",
     description: "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
-    image: images.programWater,
+    image: images.homeCauseWater,
     category: "Développement",
     raised: 25000,
     goal: 50000,
     icon: Globe
-  },
-  {
-    id: 4,
-    title: "Leadership féminin et participation citoyenne",
-    description: "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
-    image: images.news1,
-    category: "Égalité",
-    raised: 15000,
-    goal: 40000,
-    icon: Users
-  },
-  {
-    id: 5,
-    title: "Protection et défense de la personne humaine",
-    description: "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
-    image: images.news2,
-    category: "Droits Humains",
-    raised: 30000,
-    goal: 60000,
-    icon: ShieldCheck
   }
 ];
 
@@ -68,7 +48,7 @@ export const news = [
     excerpt: "Exploring how dignity in labor transforms communities and builds self-reliance.",
     date: "Aug 25, 2025",
     author: "Admin",
-    image: images.programWomen
+    image: images.heroWomen
   },
   {
     id: 2,
@@ -76,7 +56,7 @@ export const news = [
     excerpt: "Community-led initiatives are showing remarkable results in the fight against extreme poverty.",
     date: "Aug 20, 2025",
     author: "Sarah J.",
-    image: images.programWater
+    image: images.heroWomen
   },
   {
     id: 3,
@@ -84,7 +64,7 @@ export const news = [
     excerpt: "Education remains the single most effective tool for breaking the cycle of poverty.",
     date: "Aug 15, 2025",
     author: "Mike T.",
-    image: images.programNature
+    image: images.heroHeal
   }
 ];
 

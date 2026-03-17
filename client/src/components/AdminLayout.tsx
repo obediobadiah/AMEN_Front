@@ -67,7 +67,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
   const handleLogout = () => {
     logout();
-    router.push("/admin/login");
+    router.push("/");
   };
 
   // All nav items — no admin-only items here anymore

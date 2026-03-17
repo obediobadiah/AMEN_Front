@@ -52,7 +52,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img src={images.programNature} alt="About AMEN" className="w-full h-auto object-cover" />
+                <img src={images.homeAbout} alt="About AMEN" className="w-full h-auto object-cover" />
               </div>
               <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block">
                 <div className="flex items-center gap-4 mb-4">
@@ -243,9 +243,9 @@ export default function Home() {
                       {article.title?.[locale] || "Untitled Article"}
                     </h3>
                     <p className="text-muted-foreground text-sm font-light line-clamp-2 leading-relaxed">
-                      {article.excerpt?.[locale] || 
-                        (article.content?.[locale] ? 
-                          article.content[locale].substring(0, 150) + "..." : 
+                      {article.excerpt?.[locale] ||
+                        (article.content?.[locale] ?
+                          article.content[locale].substring(0, 150) + "..." :
                           "No excerpt available"
                         )
                       }
@@ -281,7 +281,7 @@ export default function Home() {
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{
-              backgroundImage: 'url(/images/hero-home.jpg)',
+              backgroundImage: 'url(/images/hero-home-.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'

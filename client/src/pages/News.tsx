@@ -7,20 +7,32 @@ import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight, Tag } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useNews, NewsArticle } from "@/hooks/use-news";
 import { useLocale } from "next-intl";
 import { getImageUrl } from "@/lib/api-config";
 import { format } from "date-fns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export default function News() {
   const t = useTranslations();
   const locale = useLocale();
   const [filter, setFilter] = useState("all");
-  const [visibleCount, setVisibleCount] = useState(10);
   const { news, isLoading } = useNews();
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const publishedNews = news.filter(article => {
     const statusFr = (article.status as any)?.fr;
@@ -47,6 +59,31 @@ export default function News() {
       return false;
     });
 
+  // Derived pagination values
+  const totalPages = Math.ceil((filter === "all" ? filteredArticles.length - 1 : filteredArticles.length) / itemsPerPage);
+
+  const paginatedArticles = useMemo(() => {
+    // If filter is all, we skip the first one (featured)
+    const articlesToPaginate = filter === "all" ? filteredArticles.slice(1) : filteredArticles;
+    const start = (currentPage - 1) * itemsPerPage;
+    return articlesToPaginate.slice(start, start + itemsPerPage);
+  }, [filteredArticles, filter, currentPage, itemsPerPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const element = document.getElementById('news-grid');
+    if (element) {
+      const yOffset = -100;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const handleFilterChange = (cat: string) => {
+    setFilter(cat);
+    setCurrentPage(1);
+  };
+
   if (isLoading) {
     return (
       <Layout>
@@ -67,7 +104,7 @@ export default function News() {
       <PageHero
         title={t('actualitesPage.title')}
         subtitle={t('actualitesPage.subtitle')}
-        image={images.news2}
+        image={images.heroNews}
       />
 
       {/* Intro & Filters */}
@@ -101,7 +138,7 @@ export default function News() {
               {["all", "press", "field", "impact"].map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setFilter(cat)}
+                  onClick={() => handleFilterChange(cat)}
                   className={cn(
                     "px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-500",
                     filter === cat
@@ -125,7 +162,7 @@ export default function News() {
             >
               <div className="relative aspect-[16/10] md:aspect-[21/9] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/5 border border-border/50">
                 <img
-                  src={getImageUrl(filteredArticles[0].thumbnail_url) || images.news2}
+                  src={getImageUrl(filteredArticles[0].thumbnail_url) || images.heroNews}
                   alt={filteredArticles[0].title[locale] || filteredArticles[0].title.fr}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
@@ -161,76 +198,128 @@ export default function News() {
           )}
 
           {/* News Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
-            {filteredArticles.slice(filter === "all" ? 1 : 0, visibleCount).map((article, idx) => (
-              <motion.div
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group flex flex-col bg-card rounded-[2.5rem] border border-border/40 overflow-hidden hover:border-primary/30 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-500"
-              >
-                {/* Image Container */}
-                <div className="relative aspect-[16/11] overflow-hidden">
-                  <img
-                    src={getImageUrl(article.thumbnail_url) || images.news1}
-                    alt={article.title[locale] || article.title.fr}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  <div className="absolute bottom-6 left-6 px-4 py-1.5 rounded-2xl bg-white/10 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
-                    {(article.category as any)?.[locale] || (article.category as any)?.fr || (article.category as any)?.en || 'all'}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-10 flex-grow flex flex-col space-y-6">
-                  <div className="flex items-center gap-6 text-xs font-black text-muted-foreground uppercase tracking-[0.15em]">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={14} className="text-primary" />
-                      <span>{format(new Date(article.published_date), "dd MMM yyyy")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <User size={14} className="text-primary" />
-                      <span>{article.author}</span>
+          <div id="news-grid" className="scroll-mt-24 space-y-20">
+            <motion.div
+              key={`${filter}-${currentPage}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12"
+            >
+              {paginatedArticles.map((article, idx) => (
+                <motion.div
+                  key={article.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group flex flex-col bg-card rounded-[2.5rem] border border-border/40 overflow-hidden hover:border-primary/30 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-500"
+                >
+                  {/* Image Container */}
+                  <div className="relative aspect-[16/11] overflow-hidden">
+                    <img
+                      src={getImageUrl(article.thumbnail_url) || images.heroNews}
+                      alt={article.title[locale] || article.title.fr}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute bottom-6 left-6 px-4 py-1.5 rounded-2xl bg-white/10 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
+                      {(article.category as any)?.[locale] || (article.category as any)?.fr || (article.category as any)?.en || 'all'}
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
-                    {article.title[locale] || article.title.fr || article.title.en}
-                  </h3>
+                  {/* Content */}
+                  <div className="p-10 flex-grow flex flex-col space-y-6">
+                    <div className="flex items-center gap-6 text-xs font-black text-muted-foreground uppercase tracking-[0.15em]">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={14} className="text-primary" />
+                        <span>{format(new Date(article.published_date), "dd MMM yyyy")}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <User size={14} className="text-primary" />
+                        <span>{article.author}</span>
+                      </div>
+                    </div>
 
-                  <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light text-lg">
-                    {article.excerpt?.[locale] || article.excerpt?.fr || article.excerpt?.en || ""}
-                  </p>
+                    <h3 className="text-2xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                      {article.title[locale] || article.title.fr || article.title.en}
+                    </h3>
 
-                  <div className="pt-6 mt-auto">
-                    <Link href={`/news/actualites/${article.id}`}>
-                      <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
-                        {t('actualitesPage.readMore')}
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
-                          <ArrowRight size={16} />
-                        </div>
-                      </Button>
-                    </Link>
+                    <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light text-lg">
+                      {article.excerpt?.[locale] || article.excerpt?.fr || article.excerpt?.en || ""}
+                    </p>
+
+                    <div className="pt-6 mt-auto">
+                      <Link href={`/news/actualites/${article.id}`}>
+                        <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
+                          {t('actualitesPage.readMore')}
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
+                            <ArrowRight size={16} />
+                          </div>
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) handlePageChange(currentPage - 1);
+                      }}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+
+                  {[...Array(totalPages)].map((_, i) => {
+                    const page = i + 1;
+                    if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationLink
+                            href="#"
+                            isActive={currentPage === page}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handlePageChange(page);
+                            }}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (page === currentPage - 2 || page === currentPage + 2) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
+                  })}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                      }}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
-
-          {/* Load More */}
-          {filteredArticles.length > visibleCount && (
-            <div className="mt-24 text-center">
-              <Button
-                onClick={() => setVisibleCount(prev => prev + 10)}
-                className="h-16 px-16 rounded-[2rem] bg-slate-950 hover:bg-primary text-white font-black text-xl shadow-2xl shadow-black/10 transition-all hover:-translate-y-1 active:scale-95"
-              >
-                {t('actualitesPage.loadMore')}
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
