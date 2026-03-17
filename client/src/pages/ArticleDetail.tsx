@@ -62,7 +62,7 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
         author: dbArticle.author || "Admin",
         date: format(new Date(dbArticle.published_date), "dd MMM yyyy"),
         content: dbArticle.content[locale] || dbArticle.content.fr || dbArticle.content.en,
-        image: getImageUrl(dbArticle.thumbnail_url) || images.news1,
+        image: getImageUrl(dbArticle.thumbnail_url) || images.heroNews,
         category: dbArticle.category || "impact",
         readingTime: dbArticle.reading_time || 5
     };
