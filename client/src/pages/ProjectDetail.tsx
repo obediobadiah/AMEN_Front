@@ -56,7 +56,7 @@ export default function ProjectDetail({ id }: ProjectDetailProps) {
         goals: projectData.goals ? (projectData.goals[locale] || projectData.goals.fr || projectData.goals.en || []) : [],
         achievements: projectData.achievements ? (projectData.achievements[locale] || projectData.achievements.fr || projectData.achievements.en || []) : [],
         impact: formatImpact(projectData.impact_stats ? (projectData.impact_stats[locale] || projectData.impact_stats.fr || projectData.impact_stats.en) : ""),
-        image: projectData.image_url ? getImageUrl(projectData.image_url) : images.news3,
+        image: projectData.image_url ? getImageUrl(projectData.image_url) : images.heroProjects,
     };
 
     return (
