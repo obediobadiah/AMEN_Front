@@ -135,7 +135,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {programs.map((program, index) => {
-              const programKey = index === 0 ? 'womenEmpowerment' : index === 1 ? 'environmentalProtection' : 'cleanWater';
+              const programKey = index === 0 ? 'womenEmpowerment' : index === 1 ? 'environmentalProtection' : index === 2 ? 'cleanWater' : index === 2 ? 'womenLeadership' : "defenseProtection";
               return (
                 <Card key={program.id} className="border-none shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
                   <div className="relative h-64 overflow-hidden">

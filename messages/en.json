@@ -1116,6 +1116,16 @@
         "description": "Installing wells and water purification systems in remote villages to ensure access to safe drinking water.",
         "category": "Health"
       },
+      "womenLeadership": {
+        "title": "Women's Leadership and Civic Participation",
+        "description": "Strengthening women's leadership and their active participation in community life.",
+        "category": "Equality"
+      },
+      "defenseProtection": {
+        "title": "Protection and Defense of Human Dignity",
+        "description": "Defense of human rights and protection of vulnerable people in our communities.",
+        "category": "Human Rights"
+      },
       "raised": "Raised",
       "goal": "Goal",
       "donateNow": "Donate Now"

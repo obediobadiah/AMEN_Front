@@ -1121,6 +1121,16 @@
         "description": "Installation de puits et de systèmes de purification d'eau dans les villages reculés pour assurer l'accès à l'eau potable.",
         "category": "Santé"
       },
+      "womenLeadership": {
+        "title": "Leadership féminin et participation citoyenne",
+        "description": "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
+        "category": "Égalité"
+      },
+      "defenseProtection": {
+        "title": "Protection et défense de la personne humaine",
+        "description": "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
+        "category": "Droits Humains"
+      },
       "raised": "Levez",
       "goal": "Objectif",
       "donateNow": "Faire un Don"
