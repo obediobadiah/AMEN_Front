@@ -7,90 +7,100 @@ import { images } from "@/lib/images";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FileText, Download, Search, Filter, BookOpen, Presentation, Database, ExternalLink, ArrowRight, X } from "lucide-react";
+import { FileText, Download, Search, Filter, BookOpen, Presentation, Database, ExternalLink, ArrowRight, X, FileQuestion, Eye } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Key } from "react";
 import { cn } from "@/lib/utils";
+import { useResources, ResourceItem } from "@/hooks/use-resources";
+import { useLocale } from "next-intl";
+import { getImageUrl } from "@/lib/api-config";
+import { format } from "date-fns";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
+
+// Map category string to an icon component
+function getCategoryIcon(category?: string) {
+    const cat = (category || "").toLowerCase();
+    if (cat === "guide") return BookOpen;
+    if (cat === "infographic") return Presentation;
+    if (cat === "database") return Database;
+    return FileText;
+}
 
 export default function Resources() {
     const t = useTranslations();
+    const locale = useLocale();
     const [searchQuery, setSearchQuery] = useState("");
     const [activeType, setActiveType] = useState("all");
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const { resources, isLoading, recordDownload } = useResources();
 
-    const resourceTypes = ["all", "report", "guide", "infographic", "policy", "database"];
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
 
-    const resources = useMemo(() => [
-        {
-            id: 1,
-            title: t('resourcesPage.resources.annualReport.title'),
-            description: t('resourcesPage.resources.annualReport.description'),
-            type: "report",
-            size: "4.5 MB",
-            date: "Jan 2024",
-            icon: FileText
-        },
-        {
-            id: 2,
-            title: t('resourcesPage.resources.forestryGuide.title'),
-            description: t('resourcesPage.resources.forestryGuide.description'),
-            type: "guide",
-            size: "12.2 MB",
-            date: "Mar 2024",
-            icon: BookOpen
-        },
-        {
-            id: 3,
-            title: t('resourcesPage.resources.agricultureGuide.title'),
-            description: t('resourcesPage.resources.agricultureGuide.description'),
-            type: "guide",
-            size: "8.1 MB",
-            date: "Feb 2024",
-            icon: Presentation
-        },
-        {
-            id: 4,
-            title: t('resourcesPage.resources.policyBrief.title'),
-            description: t('resourcesPage.resources.policyBrief.description'),
-            type: "policy",
-            size: "2.3 MB",
-            date: "Nov 2023",
-            icon: Database
-        },
-        {
-            id: 5,
-            title: t('resourcesPage.resources.environmentalData.title'),
-            description: t('resourcesPage.resources.environmentalData.description'),
-            type: "database",
-            size: t('resourcesPage.common.varies'),
-            date: t('resourcesPage.common.updatedWeekly'),
-            icon: FileText
-        },
-        {
-            id: 6,
-            title: t('resourcesPage.resources.businessToolkit.title'),
-            description: t('resourcesPage.resources.businessToolkit.description'),
-            type: "guide",
-            size: "15.4 MB",
-            date: "Dec 2023",
-            icon: BookOpen
+    const resourceTypes = ["all", "guide", "infographic", "database", "toolkit"];
+
+    // Translate a localised JSONB dict to display string
+    const getLocalTitle = (item: ResourceItem) =>
+        (item.title as any)[locale] || item.title?.fr || item.title?.en || "";
+
+    const getLocalDesc = (item: ResourceItem) =>
+        item.description
+            ? ((item.description as any)[locale] || item.description?.fr || item.description?.en || "")
+            : "";
+
+    const filteredResources = useMemo(() => {
+        return resources.filter(item => {
+            const title = getLocalTitle(item).toLowerCase();
+            const desc = getLocalDesc(item).toLowerCase();
+            const search = searchQuery.toLowerCase();
+            const matchesSearch = title.includes(search) || desc.includes(search);
+            const matchesType = activeType === "all" || item.category?.toLowerCase() === activeType.toLowerCase();
+            return matchesSearch && matchesType;
+        });
+    }, [resources, searchQuery, activeType, locale]);
+
+    // Derived pagination values
+    const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
+    const paginatedResources = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        return filteredResources.slice(start, start + itemsPerPage);
+    }, [filteredResources, currentPage, itemsPerPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        const element = document.getElementById('resources-grid');
+        if (element) {
+            const yOffset = -100;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
         }
-    ], [t]);
+    };
 
-    const filteredResources = resources.filter(resource => {
-        const matchesSearch = resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            resource.description.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesType = activeType === "all" || resource.type === activeType;
-        return matchesSearch && matchesType;
-    });
+    // Reset page when filtering
+    const handleSearchChange = (val: string) => {
+        setSearchQuery(val);
+        setCurrentPage(1);
+    };
+
+    const handleTypeChange = (type: string) => {
+        setActiveType(type);
+        setCurrentPage(1);
+    };
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {
-                staggerChildren: 0.1
-            }
+            transition: { staggerChildren: 0.1 }
         }
     };
 
@@ -104,12 +114,25 @@ export default function Resources() {
         }
     };
 
+    const handleDownload = async (item: ResourceItem) => {
+        try { await recordDownload(item.id); } catch (e) { /* silently ignore */ }
+        if (item.file_url) window.open(getImageUrl(item.file_url), "_blank");
+    };
+
+    const handleView = (item: ResourceItem) => {
+        if (item.file_url) {
+            const url = getImageUrl(item.file_url);
+            // Open in a new tab so the browser handles PDF viewing natively
+            window.open(url, "_blank", "noopener,noreferrer");
+        }
+    };
+
     return (
         <Layout>
             <PageHero
                 title={t('resourcesPage.title')}
                 subtitle={t('resourcesPage.subtitle')}
-                image={images.programWomen}
+                image={images.heroResourcesCenter}
             />
 
             {/* Resource Center Intro & Search */}
@@ -118,7 +141,7 @@ export default function Resources() {
                     <div className="max-w-4xl mx-auto space-y-12">
                         <div className="text-center space-y-6">
                             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground leading-tight">
-                                {t('resourcesPage.knowledgeHub.title')}
+                                {t('resourcesPage.ResourceCenter.title')}
                             </h2>
                             <p className="text-muted-foreground text-lg leading-relaxed">
                                 {t('resourcesPage.intro')}
@@ -132,13 +155,13 @@ export default function Resources() {
                                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
                                     <Input
                                         value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        placeholder={t('resourcesPage.knowledgeHub.searchPlaceholder')}
+                                        onChange={(e) => handleSearchChange(e.target.value)}
+                                        placeholder={t('resourcesPage.ResourceCenter.searchPlaceholder')}
                                         className="pl-14 h-16 bg-background/50 border border-border/50 rounded-2xl focus-visible:ring-primary text-lg hover:border-primary/50 transition-all"
                                     />
                                     {searchQuery && (
                                         <button
-                                            onClick={() => setSearchQuery("")}
+                                            onClick={() => handleSearchChange("")}
                                             className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                                         >
                                             <X size={20} />
@@ -154,16 +177,16 @@ export default function Resources() {
                                             isFilterOpen && "bg-primary text-white shadow-lg shadow-primary/20"
                                         )}
                                     >
-                                        <Filter size={20} /> {t('resourcesPage.knowledgeHub.filterButton')}
+                                        <Filter size={20} /> {t('resourcesPage.ResourceCenter.filterButton')}
                                     </Button>
                                     <Button className="h-16 px-10 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5 transition-all active:translate-y-0 group">
-                                        {t('resourcesPage.knowledgeHub.searchButton')}
+                                        {t('resourcesPage.ResourceCenter.searchButton')}
                                         <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                                     </Button>
                                 </div>
                             </div>
 
-                            {/* Filters Expansion */}
+                            {/* Filter Type Pills */}
                             <AnimatePresence>
                                 {isFilterOpen && (
                                     <motion.div
@@ -176,14 +199,16 @@ export default function Resources() {
                                             {resourceTypes.map((type) => (
                                                 <Button
                                                     key={type}
-                                                    onClick={() => setActiveType(type)}
+                                                    onClick={() => handleTypeChange(type)}
                                                     variant={activeType === type ? "default" : "outline"}
                                                     className={cn(
                                                         "rounded-xl h-12 px-6 font-bold transition-all duration-300",
                                                         activeType === type ? "bg-primary text-white shadow-md shadow-primary/10" : "hover:border-primary/50"
                                                     )}
                                                 >
-                                                    {type === "all" ? "All Resources" : t(`resourcesPage.types.${type}`)}
+                                                    {type === "all"
+                                                        ? t('resourcesPage.types.all')
+                                                        : t(`resourcesPage.types.${type}`)}
                                                 </Button>
                                             ))}
                                         </div>
@@ -196,67 +221,173 @@ export default function Resources() {
             </section>
 
             {/* Resources Grid */}
-            <section className="py-24 bg-background/50">
+            <section id="resources-grid" className="py-24 bg-background/50">
                 <div className="container mx-auto px-4">
-                    {filteredResources.length > 0 ? (
-                        <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                        >
-                            <AnimatePresence mode="popLayout">
-                                {filteredResources.map((resource) => (
-                                    <motion.div
-                                        key={resource.id}
-                                        layout
-                                        variants={itemVariants}
-                                        initial="hidden"
-                                        animate="visible"
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                    >
-                                        <Card className="h-full bg-card border border-border/50 hover:border-primary/30 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-[2rem] overflow-hidden group">
-                                            <div className="p-10 flex flex-col h-full justify-between space-y-8">
-                                                <div className="space-y-6">
-                                                    <div className="flex justify-between items-start">
-                                                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-inner">
-                                                            <resource.icon size={32} />
-                                                        </div>
-                                                        <span className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/30 transition-colors">
-                                                            {t(`resourcesPage.types.${resource.type}`)}
-                                                        </span>
-                                                    </div>
-                                                    <div className="space-y-3">
-                                                        <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors leading-tight">
-                                                            {resource.title}
-                                                        </h3>
-                                                        <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light">
-                                                            {resource.description}
-                                                        </p>
-                                                    </div>
-                                                </div>
+                    {isLoading ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {[...Array(6)].map((_, i) => (
+                                <div key={i} className="rounded-[2rem] bg-card border border-border/30 h-80 animate-pulse" />
+                            ))}
+                        </div>
+                    ) : paginatedResources.length > 0 ? (
+                        <div className="space-y-16">
+                            <motion.div
+                                key={currentPage}
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate="visible"
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
+                            >
+                                <AnimatePresence mode="popLayout">
+                                    {paginatedResources.map((resource) => {
+                                        const Icon = getCategoryIcon(resource.category);
+                                        const title = getLocalTitle(resource);
+                                        const desc = getLocalDesc(resource);
+                                        const dateStr = resource.created_at
+                                            ? format(new Date(resource.created_at), "MMM yyyy")
+                                            : "";
 
-                                                <div className="space-y-6">
-                                                    <div className="flex items-center justify-between text-sm font-medium text-muted-foreground border-t border-border pt-6">
-                                                        <div className="flex items-center gap-2">
-                                                            <ExternalLink size={14} className="text-primary" />
-                                                            <span>{resource.date}</span>
+                                        return (
+                                            <motion.div
+                                                key={resource.id}
+                                                layout
+                                                variants={itemVariants}
+                                                initial="hidden"
+                                                animate="visible"
+                                                exit={{ opacity: 0, scale: 0.9 }}
+                                                className="h-full"
+                                            >
+                                                <Card className="flex flex-col bg-card border border-border/50 hover:border-primary/30 shadow-lg hover:shadow-2xl transition-all duration-500 rounded-[2rem] overflow-hidden group h-full">
+                                                    {/* Thumbnail — first page of the PDF */}
+                                                    {resource.thumbnail_url && (
+                                                        <div className="relative w-full h-48 flex-shrink-0 overflow-hidden">
+                                                            <img
+                                                                src={getImageUrl(resource.thumbnail_url)}
+                                                                alt={title}
+                                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                                onError={(e) => {
+                                                                    (e.target as HTMLImageElement).parentElement!.style.display = "none";
+                                                                }}
+                                                            />
+                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                                                            <span className="absolute top-3 right-3 text-[10px] font-black uppercase tracking-widest text-white bg-primary/80 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                                                                {resource.file_type || "PDF"}
+                                                            </span>
                                                         </div>
-                                                        <div className="flex items-center gap-2">
-                                                            <Database size={14} className="text-primary" />
-                                                            <span>{resource.size}</span>
+                                                    )}
+
+                                                    {/* Card body — grows to fill remaining space */}
+                                                    <div className="flex flex-col flex-1 p-8 gap-6">
+                                                        {/* Top: icon + category badge + title + desc */}
+                                                        <div className="space-y-5 flex-1">
+                                                            <div className="flex justify-between items-start">
+                                                                {!resource.thumbnail_url && (
+                                                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-inner">
+                                                                        <Icon size={28} />
+                                                                    </div>
+                                                                )}
+                                                                <span className={cn(
+                                                                    "text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/30 transition-colors",
+                                                                    resource.thumbnail_url && "ml-auto"
+                                                                )}>
+                                                                    {resource.category
+                                                                        ? (["report", "guide", "infographic", "policy", "database"].includes(resource.category.toLowerCase())
+                                                                            ? t(`resourcesPage.types.${resource.category.toLowerCase()}`)
+                                                                            : resource.category)
+                                                                        : t('resourcesPage.types.report')}
+                                                                </span>
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <h3 className="text-xl font-bold font-heading text-foreground group-hover:text-primary transition-colors leading-tight cursor-pointer" onClick={() => handleView(resource)}>
+                                                                    {title}
+                                                                </h3>
+                                                                {desc && (
+                                                                    <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light text-sm">
+                                                                        {desc}
+                                                                    </p>
+                                                                )}
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Bottom: meta + buttons — always at the bottom */}
+                                                        <div className="space-y-4 mt-auto">
+                                                            <div className="flex items-center justify-between text-sm font-medium text-muted-foreground border-t border-border pt-4">
+                                                                <div className="flex items-center gap-2">
+                                                                    <ExternalLink size={14} className="text-primary" />
+                                                                    <span>{dateStr}</span>
+                                                                </div>
+                                                                <div className="flex items-center gap-2">
+                                                                    <Database size={14} className="text-primary" />
+                                                                    <span>{resource.file_size || "-"}</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <Button className="w-full h-14 rounded-2xl bg-background border-2 border-primary/20 hover:border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-bold text-lg group/btn shadow-sm hover:shadow-md">
-                                                        {t('resourcesPage.download')} <Download className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-y-1" />
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    </motion.div>
-                                ))}
-                            </AnimatePresence>
-                        </motion.div>
+                                                </Card>
+                                            </motion.div>
+                                        );
+
+                                    })}
+                                </AnimatePresence>
+                            </motion.div>
+
+                            {/* Pagination Controls */}
+                            {totalPages > 1 && (
+                                <Pagination>
+                                    <PaginationContent>
+                                        <PaginationItem>
+                                            <PaginationPrevious
+                                                href="#"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage > 1) handlePageChange(currentPage - 1);
+                                                }}
+                                                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                            />
+                                        </PaginationItem>
+
+                                        {[...Array(totalPages)].map((_, i) => {
+                                            const page = i + 1;
+                                            if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
+                                                return (
+                                                    <PaginationItem key={page}>
+                                                        <PaginationLink
+                                                            href="#"
+                                                            isActive={currentPage === page}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                handlePageChange(page);
+                                                            }}
+                                                            className="cursor-pointer"
+                                                        >
+                                                            {page}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                );
+                                            } else if (page === currentPage - 2 || page === currentPage + 2) {
+                                                return (
+                                                    <PaginationItem key={page}>
+                                                        <PaginationEllipsis />
+                                                    </PaginationItem>
+                                                );
+                                            }
+                                            return null;
+                                        })}
+
+                                        <PaginationItem>
+                                            <PaginationNext
+                                                href="#"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                                                }}
+                                                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                            />
+                                        </PaginationItem>
+                                    </PaginationContent>
+                                </Pagination>
+                            )}
+                        </div>
                     ) : (
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -264,31 +395,30 @@ export default function Resources() {
                             className="text-center py-20 space-y-6 bg-card/30 rounded-[3rem] border border-dashed border-border/50"
                         >
                             <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto text-muted-foreground">
-                                <Search size={40} />
+                                <FileQuestion size={40} />
                             </div>
                             <div className="space-y-2">
-                                <h3 className="text-2xl font-bold">No resources found</h3>
-                                <p className="text-muted-foreground">Try adjusting your search or filters to find what you're looking for.</p>
+                                <h3 className="text-2xl font-bold">{t('resourcesPage.noResults.title')}</h3>
+                                <p className="text-muted-foreground">{t('resourcesPage.noResults.description')}</p>
                             </div>
                             <Button onClick={() => { setSearchQuery(""); setActiveType("all"); }} variant="outline" className="rounded-xl">
-                                Clear all filters
+                                {t('resourcesPage.noResults.clearFilters')}
                             </Button>
                         </motion.div>
                     )}
 
                     <div className="mt-20 text-center">
                         <Button variant="link" className="text-primary text-lg font-bold gap-2 hover:no-underline group">
-                            {t('resourcesPage.knowledgeHub.contactCta')} <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
+                            {t('resourcesPage.ResourceCenter.contactCta')} <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
                         </Button>
                     </div>
                 </div>
             </section>
 
-            {/* Subscription/Help Section */}
+            {/* Subscription / Help Section */}
             <section className="py-24 bg-background/80 backdrop-blur-sm">
                 <div className="container mx-auto px-4">
                     <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-2xl">
-                        {/* Decorative background logo or pattern */}
                         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-[120px]" />
                         <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-[80px]" />
 
@@ -300,7 +430,6 @@ export default function Resources() {
                                 <p className="text-xl text-white/70 leading-relaxed max-w-xl">
                                     {t('resourcesPage.subscription.description')}
                                 </p>
-
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <Input
                                         placeholder={t('resourcesPage.subscription.emailPlaceholder')}

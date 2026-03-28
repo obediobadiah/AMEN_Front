@@ -2,57 +2,387 @@
 
 import { AdminLayout } from "@/components/AdminLayout";
 import { AdminEntityList } from "@/components/AdminEntityList";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Badge } from "@/components/ui/badge";
+import { useNews, NewsArticle, NewsCreate } from "@/hooks/use-news";
+import { useState, useMemo } from "react";
+import { NewsDialog } from "@/components/admin/NewsDialog";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { getImageUrl } from "@/lib/api-config";
+import {
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator
+} from "@/components/ui/dropdown-menu";
 
 export default function NewsManagement() {
-    const t = useTranslations("admin.sidebar");
+    const tSidebar = useTranslations("admin.sidebar");
+    const tNews = useTranslations("admin.news");
+    const tCommon = useTranslations("admin.common");
+    const locale = useLocale();
+    const { news, isLoading, createNews, updateNews, deleteNews, isCreating } = useNews();
+
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filter, setFilter] = useState("all");
+    const [sort, setSort] = useState("newest");
 
     const columns = [
-        { key: "id", label: "ID" },
         {
             key: "title",
-            label: "Article Title",
-            render: (item: any) => (
-                <div className="flex flex-col gap-1">
-                    <span className="text-sm font-black text-slate-900 group-hover:text-primary transition-colors">{item.title}</span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category}</span>
+            label: tNews("articleDetails"),
+            render: (item: NewsArticle) => (
+                <div className="flex items-center gap-4">
+                    <div className="w-16 h-12 rounded-xl bg-slate-100 overflow-hidden border border-slate-200 shrink-0">
+                        {item.thumbnail_url ? (
+                            <img src={getImageUrl(item.thumbnail_url)} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-300 font-black text-xs">NO IMG</div>
+                        )}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <span className="text-sm font-black text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
+                            {(item.title as any)[locale] || item.title.fr || item.title.en}
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
+                            <span className="text-[10px] font-bold text-primary/60 uppercase tracking-widest">• {item.reading_time || 0} min read</span>
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        {
+            key: "translations",
+            label: "Traductions",
+            render: (item: NewsArticle) => (
+                <div className="flex gap-2">
+                    <Badge className={cn(
+                        "rounded-md px-1.5 py-0 text-[9px] font-black uppercase tracking-tighter",
+                        item.title.fr ? "bg-blue-50 text-blue-600 border-blue-100" : "bg-slate-100 text-slate-400"
+                    )}>FR</Badge>
+                    <Badge className={cn(
+                        "rounded-md px-1.5 py-0 text-[9px] font-black uppercase tracking-tighter",
+                        item.title.en ? "bg-indigo-50 text-indigo-600 border-indigo-100" : "bg-slate-100 text-slate-400"
+                    )}>EN</Badge>
+                </div>
+            )
+        },
+        {
+            key: "author",
+            label: tNews("publishedBy"),
+            render: (item: NewsArticle) => (
+                <div className="flex flex-col">
+                    <span className="text-sm font-bold text-slate-700">{item.author}</span>
+                    <span className="text-[10px] text-slate-400 font-medium">{item.published_date ? format(new Date(item.published_date), "MMM dd, yyyy") : "Draft"}</span>
                 </div>
             )
         },
         {
             key: "status",
             label: "Status",
-            render: (item: any) => (
-                <Badge className={cn(
-                    "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest",
-                    item.status === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100" : "bg-amber-50 text-amber-600 border-amber-100"
-                )}>
-                    {item.status}
-                </Badge>
-            )
+            render: (item: NewsArticle) => {
+                const status = item.status || "Draft";
+                return (
+                    <Badge className={cn(
+                        "rounded-full px-3 py-0.5 text-[10px] font-black uppercase tracking-widest border",
+                        (status as any)?.[locale] === "Published" || (status as any)?.fr === "Publié" || (status as any)?.en === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100" :
+                            (status as any)?.[locale] === "Archived" || (status as any)?.fr === "Archivé" || (status as any)?.en === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
+                                "bg-amber-50 text-amber-600 border-amber-100"
+                    )}>
+                        {(status as any)?.[locale] || (status as any)?.fr || (status as any)?.en}
+                    </Badge>
+                );
+            }
         },
-        { key: "date", label: "Date" },
-        { key: "author", label: "Author" },
     ];
 
-    const items = [
-        { id: "NW-001", title: "Sustainable Farming in Goma", category: "Agriculture", status: "Published", date: "2024-02-15", author: "Admin" },
-        { id: "NW-002", title: "New Water Source in Kasai", category: "Water", status: "Draft", date: "2024-02-14", author: "Sarah M." },
-        { id: "NW-003", title: "Women Empowerment Workshop", category: "Community", status: "Published", date: "2024-02-10", author: "Admin" },
-    ];
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const filteredItems = useMemo(() => {
+        let result = news.filter(item => {
+            const titleFr = item.title?.fr?.toLowerCase() || "";
+            const titleEn = item.title?.en?.toLowerCase() || "";
+            const search = searchQuery.toLowerCase();
+            const matchesSearch = titleFr.includes(search) || titleEn.includes(search) || item.author?.toLowerCase().includes(search);
+
+            // Handle both flat string categories and translated object categories
+            const categoryValue = typeof item.category === 'object' && item.category !== null
+                ? ((item.category as any).fr || (item.category as any).en)
+                : item.category;
+
+            // Handle both flat string status and translated object status
+            const statusValue = typeof item.status === 'object' && item.status !== null
+                ? ((item.status as any).fr || (item.status as any).en)
+                : item.status;
+
+            const categoryMatch = filter === "all" ||
+                (filter === "impact" && (categoryValue === "Social Impact" || categoryValue === "Impact social")) ||
+                (filter === "field" && (categoryValue === "Field Stories" || categoryValue === "Histoires de terrain")) ||
+                (filter === "press" && (categoryValue === "Press Release" || categoryValue === "Communiqué de presse")) ||
+                (filter === "draft" && (statusValue === "Draft" || statusValue === "Brouillon")) ||
+                (filter === "published" && (statusValue === "Published" || statusValue === "Publié")) ||
+                (filter === "archived" && (statusValue === "Archived" || statusValue === "Archivé"));
+
+            return matchesSearch && categoryMatch;
+        });
+
+        // Sorting
+        result.sort((a, b) => {
+            if (sort === "newest") return new Date(b.published_date || 0).getTime() - new Date(a.published_date || 0).getTime();
+            if (sort === "oldest") return new Date(a.published_date || 0).getTime() - new Date(b.published_date || 0).getTime();
+            if (sort === "readingTime") return (b.reading_time || 0) - (a.reading_time || 0);
+            if (sort === "title") {
+                const titleA = (a.title as any)[locale] || a.title?.fr || "";
+                const titleB = (b.title as any)[locale] || b.title?.fr || "";
+                return titleA.localeCompare(titleB);
+            }
+            return 0;
+        });
+
+        return result;
+    }, [news, searchQuery, filter, sort, locale]);
+
+    const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+    const paginatedItems = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        return filteredItems.slice(start, start + itemsPerPage);
+    }, [filteredItems, currentPage]);
+
+    const handleAdd = () => {
+        setSelectedArticle(null);
+        setIsDialogOpen(true);
+    };
+
+    const handleEdit = (item: NewsArticle) => {
+        setSelectedArticle(item);
+        setIsDialogOpen(true);
+    };
+
+    const handleDelete = async (item: NewsArticle) => {
+        if (confirm(tNews("deleteConfirm"))) {
+            try {
+                await deleteNews(item.id);
+                toast.success(tNews("deleteSuccess"));
+            } catch (err) {
+                toast.error(tNews("deleteError"));
+            }
+        }
+    };
+
+    const handleExport = () => {
+        const headers = ["ID", "Title (FR)", "Title (EN)", "Author", "Category", "Date"];
+        const rows = filteredItems.map(item => [
+            item.id,
+            item.title.fr,
+            item.title.en,
+            item.author,
+            item.category,
+            item.published_date
+        ]);
+
+        const csvContent = "data:text/csv;charset=utf-8,"
+            + headers.join(",") + "\n"
+            + rows.map(e => e.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `amen_news_export_${format(new Date(), "yyyy-MM-dd")}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success(tNews("exportSuccess"));
+    };
+
+    const onSubmit = async (data: any) => {
+        try {
+            if (selectedArticle) {
+                // For update, the backend expects Dict[str, str] for title/content
+                // But our NewsDialog returns single string and source_lang.
+                // We need to either handle translation in frontend or backend.
+                // Backend handle it for NewsCreate. For NewsUpdate, we'd need to adapt.
+                // For simplicity now, let's treat partial updates as needing translation if text changed.
+                // Actually, let's just use create logic or update as is if we have both.
+                // A better way: Backend update could also handle auto-translation if source_lang is provided.
+                await updateNews({ id: selectedArticle.id, data });
+                toast.success(tNews("saveSuccess"));
+            } else {
+                await createNews(data as NewsCreate);
+                toast.success(tNews("saveSuccess"));
+            }
+        } catch (err) {
+            toast.error(tNews("saveError"));
+            console.error(err);
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <AdminLayout>
+                <div className="flex items-center justify-center h-[60vh]">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                        <p className="font-bold text-slate-400 animate-pulse tracking-widest uppercase text-xs">{tNews("loading")}</p>
+                    </div>
+                </div>
+            </AdminLayout>
+        );
+    }
+
+    const renderCard = (item: NewsArticle) => {
+        const name = (item.title as any)[locale] || item.title.fr || item.title.en;
+        return (
+            <div className="flex flex-col gap-4 sm:gap-5 pt-1 sm:pt-2">
+                {/* Image Section */}
+                <div className="relative aspect-video sm:aspect-[16/10] rounded-2xl sm:rounded-[2rem] overflow-hidden bg-slate-50 border border-slate-100">
+                    {item.thumbnail_url ? (
+                        <img src={getImageUrl(item.thumbnail_url)} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center text-slate-200 bg-slate-50 font-black text-[8px] sm:text-[10px] tracking-widest uppercase">No Image</div>
+                    )}
+                    <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
+                        <div className="bg-white/90 backdrop-blur-md text-slate-900 border border-white/20 shadow-xl rounded-lg sm:rounded-xl font-black text-[8px] sm:text-[9px] uppercase tracking-widest px-2 sm:px-3 py-1 sm:py-1.5 flex items-center gap-1 sm:gap-1.5">
+                            <span className="opacity-40">ITEM</span> #{item.id}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="flex flex-col gap-3 sm:gap-4 px-1">
+                    <div className="flex items-center justify-between">
+                        <Badge className={cn(
+                            "rounded-full px-2 sm:px-3 py-0.5 sm:py-1 text-[8px] sm:text-[10px] font-black uppercase tracking-widest border shadow-sm",
+                            (item.status as any)?.[locale] === "Published" || (item.status as any)?.fr === "Publié" || (item.status as any)?.en === "Published" ? "bg-emerald-50 text-emerald-600 border-emerald-100/50" :
+                                (item.status as any)?.[locale] === "Archived" || (item.status as any)?.fr === "Archivé" || (item.status as any)?.en === "Archived" ? "bg-slate-50 text-slate-400 border-slate-200" :
+                                    "bg-amber-50 text-amber-600 border-amber-100/50"
+                        )}>
+                            {(item.status as any)?.[locale] || (item.status as any)?.fr || (item.status as any)?.en}
+                        </Badge>
+                        <span className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.category ? (item.category as any)[locale] || item.category.fr || item.category.en : ""}</span>
+                    </div>
+
+                    <h3 className="text-lg sm:text-xl font-black text-slate-900 line-clamp-2 leading-[1.2] group-hover:text-primary transition-colors duration-300">
+                        {name}
+                    </h3>
+
+                    <div className="grid grid-cols-2 gap-y-3 sm:gap-y-4 pt-4 sm:pt-5 border-t border-slate-50">
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("author")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-slate-700 flex items-center gap-1.5 sm:gap-2">
+                                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-primary/20" />
+                                <span className="line-clamp-1">{item.author}</span>
+                            </span>
+                        </div>
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("published")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-slate-700">
+                                {item.published_date ? format(new Date(item.published_date), "MMM dd, yyyy") : "—"}
+                            </span>
+                        </div>
+                        <div className="flex flex-col gap-0.5 sm:gap-1">
+                            <span className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest">{tNews("readTime")}</span>
+                            <span className="text-[10px] sm:text-xs font-bold text-primary">
+                                {item.reading_time || 0} {tNews("minRead")}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const filterContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tNews("filters.all")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["all", "impact", "field", "press", "draft", "published", "archived"].map((f) => (
+                <DropdownMenuItem
+                    key={f}
+                    onClick={() => {
+                        setFilter(f);
+                        setCurrentPage(1);
+                    }}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        filter === f ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tNews(`filters.${f}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
+
+    const sortContent = (
+        <>
+            <DropdownMenuLabel className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                {tCommon("sort")}
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator className="mx-2 bg-slate-100" />
+            {["newest", "oldest", "readingTime", "title"].map((s) => (
+                <DropdownMenuItem
+                    key={s}
+                    onClick={() => setSort(s)}
+                    className={cn(
+                        "rounded-xl px-3 py-2.5 cursor-pointer font-bold text-sm transition-colors",
+                        sort === s ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50"
+                    )}
+                >
+                    {tNews(`sort.${s}`)}
+                </DropdownMenuItem>
+            ))}
+        </>
+    );
 
     return (
         <AdminLayout>
-            <AdminEntityList
-                title={t("news")}
-                description="Manage your articles, stories and global press releases."
-                items={items}
-                columns={columns}
-                onAdd={() => console.log("Add New")}
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <AdminEntityList
+                    title={tSidebar("news")}
+                    description={tNews("description")}
+                    items={paginatedItems}
+                    columns={columns}
+                    renderCard={renderCard}
+                    defaultView="grid"
+                    onAdd={handleAdd}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onView={(item) => window.open(`/news/actualites/${item.id}`, "_blank")}
+                    onExport={handleExport}
+                    filterContent={filterContent}
+                    sortContent={sortContent}
+                    searchValue={searchQuery}
+                    onSearchChange={(val) => {
+                        setSearchQuery(val);
+                        setCurrentPage(1);
+                    }}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                    searchPlaceholder={tNews("searchPlaceholder")}
+                />
+            </div>
+
+            <NewsDialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+                onSubmit={onSubmit}
+                article={selectedArticle}
+                isSubmitting={isCreating}
             />
+
+            <div className="hidden">
+                {/* This is a hack to trigger the export from AdminEntityList if needed, 
+                     but AdminEntityList already has an export button. We should probably pass handleExport to it.
+                 */}
+            </div>
         </AdminLayout>
     );
 }
-
-import { cn } from "@/lib/utils";

@@ -38,7 +38,7 @@ export default function Programs() {
       <PageHero
         title={t('programsPage.title')}
         subtitle={t('programsPage.subtitle')}
-        image={images.programNature}
+        image={images.heroHeal}
       />
 
       {/* Intro Section */}
@@ -66,57 +66,57 @@ export default function Programs() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {programs.map((program) => (
-                <motion.div key={program.id} variants={itemVariants}>
-                  <Card className="h-full border border-border/50 overflow-hidden group hover:shadow-xl transition-all duration-500 bg-card hover:border-primary/30">
-                    <div className="relative h-72 overflow-hidden">
-                      <div className="absolute top-4 left-4 bg-primary text-primary-foreground border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider z-10 shadow-lg hover:bg-primary/90 transition-colors">
-                        {t(`programsPage.programs.${program.id}.category`)}
-                      </div>
-                      <img
-                        src={program.image}
-                        alt={t(`programsPage.programs.${program.id}.title`)}
-                        className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <motion.div key={program.id} variants={itemVariants}>
+                <Card className="h-full border border-border/50 overflow-hidden group hover:shadow-xl transition-all duration-500 bg-card hover:border-primary/30">
+                  <div className="relative h-72 overflow-hidden">
+                    <div className="absolute top-4 left-4 bg-primary text-primary-foreground border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider z-10 shadow-lg hover:bg-primary/90 transition-colors">
+                      {t(`programsPage.programs.${program.id}.category`)}
                     </div>
-                    <CardContent className="p-8 space-y-6">
-                      <div className="space-y-3">
-                        <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors duration-300">
-                          {t(`programsPage.programs.${program.id}.title`)}
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed line-clamp-3">
-                          {t(`programsPage.programs.${program.id}.description`)}
-                        </p>
-                      </div>
+                    <img
+                      src={program.image}
+                      alt={t(`programsPage.programs.${program.id}.title`)}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                  <CardContent className="p-8 space-y-6">
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors duration-300">
+                        {t(`programsPage.programs.${program.id}.title`)}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed line-clamp-3">
+                        {t(`programsPage.programs.${program.id}.description`)}
+                      </p>
+                    </div>
 
-                      <div className="space-y-3">
-                        <div className="flex justify-between text-sm font-bold">
-                          <span className="text-primary">{t('programsPage.raised')}</span>
-                          <span className="text-muted-foreground">{t('programsPage.goal')}</span>
-                        </div>
-                        <div className="relative h-2.5 w-full bg-muted rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${(program.raised / program.goal) * 100}%` }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                            className="absolute top-0 left-0 h-full bg-primary rounded-full"
-                          />
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          {/* <span className="font-bold">${program.raised.toLocaleString()}</span>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm font-bold">
+                        <span className="text-primary">{t('programsPage.raised')}</span>
+                        <span className="text-muted-foreground">{t('programsPage.goal')}</span>
+                      </div>
+                      <div className="relative h-2.5 w-full bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(program.raised / program.goal) * 100}%` }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                          className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                        />
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        {/* <span className="font-bold">${program.raised.toLocaleString()}</span>
                           <span className="text-muted-foreground">${program.goal.toLocaleString()}</span> */}
-                        </div>
                       </div>
+                    </div>
 
-                      <div className="pt-2">
-                        <Button className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 hover:shadow-primary/30">
-                          <a href="/donate" className="flex items-center gap-2">{t('programsPage.donateNow')} <Heart className="ml-2 h-4 w-4 fill-current" /></a>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                    <div className="pt-2">
+                      <Button className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 hover:shadow-primary/30">
+                        <a href="/donate" className="flex items-center gap-2">{t('programsPage.donateNow')} <Heart className="ml-2 h-4 w-4 fill-current" /></a>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -136,7 +136,7 @@ export default function Programs() {
               <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight">
                 {t('programsPage.impactSection.title', {
                   emphasis: t('programsPage.impactSection.emphasis')
-                }).replace('{emphasis}', 
+                }).replace('{emphasis}',
                   `<span class="text-primary italic">${t('programsPage.impactSection.emphasis')}</span>`
                 )}
               </h2>
@@ -160,7 +160,7 @@ export default function Programs() {
             </div>
             <div className="relative">
               <img
-                src={images.news1}
+                src={images.imageProgram}
                 alt="Impact"
                 className="rounded-2xl shadow-2xl relative z-10 border-4 border-white/5"
               />

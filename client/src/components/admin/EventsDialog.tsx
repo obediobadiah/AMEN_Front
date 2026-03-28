@@ -1,0 +1,400 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogFooter
+} from "@/components/ui/dialog";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Event, EventCreate, useEvents } from "@/hooks/use-events";
+import { useEffect, useState, useRef } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { Loader2, ImageIcon, Upload, X } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getImageUrl } from "@/lib/api-config";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+
+const eventSchema = zod.object({
+    title: zod.string().min(3, "Title must be at least 3 characters"),
+    description: zod.string().optional(),
+    start_date: zod.string().optional(),
+    end_date: zod.string().optional(),
+    location: zod.string().optional(),
+    status: zod.enum(["Upcoming", "Past"]),
+    registration_link: zod.string().optional(),
+    category: zod.string().optional(),
+    thumbnail_url: zod.string().optional().or(zod.literal("")),
+    source_lang: zod.string(),
+});
+
+interface EventsDialogProps {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    onSubmit: (data: any) => Promise<void>;
+    event?: Event | null;
+    isSubmitting: boolean;
+}
+
+export function EventsDialog({ open, onOpenChange, onSubmit, event, isSubmitting }: EventsDialogProps) {
+    const t = useTranslations("admin.events.dialog");
+    const tEvents = useTranslations("admin.events");
+    const commonT = useTranslations("admin.common");
+    const locale = useLocale();
+
+    const { uploadFile, isUploading } = useEvents();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [previewUrl, setPreviewUrl] = useState<string>("");
+
+    const form = useForm({
+        resolver: zodResolver(eventSchema),
+        defaultValues: {
+            category: "workshop",
+            status: "upcoming",
+            title: "",
+            description: "",
+            start_date: "",
+            end_date: "",
+            location: "",
+            registration_link: "",
+            thumbnail_url: "",
+            source_lang: locale,
+        },
+    });
+
+    useEffect(() => {
+        if (event) {
+            form.reset({
+                category: event.category || "workshop",
+                status: event.status || "upcoming",
+                title: (event.title as any)[locale] || event.title.fr || event.title.en || "",
+                description: event.description ? ((event.description as any)[locale] || event.description.fr || event.description.en || "") : "",
+                start_date: event.start_date ? new Date(event.start_date).toISOString().slice(0, 16) : "",
+                end_date: event.end_date ? new Date(event.end_date).toISOString().slice(0, 16) : "",
+                location: event.location ? ((event.location as any)[locale] || event.location.fr || event.location.en || "") : "",
+                registration_link: event.registration_link || "",
+                thumbnail_url: event.thumbnail_url || "",
+                source_lang: locale,
+            });
+            setPreviewUrl(getImageUrl(event.thumbnail_url) || "");
+        } else {
+            form.reset({
+                category: "workshop",
+                status: "upcoming",
+                title: "",
+                description: "",
+                start_date: "",
+                end_date: "",
+                location: "",
+                registration_link: "",
+                thumbnail_url: "",
+                source_lang: locale,
+            });
+            setPreviewUrl("");
+        }
+    }, [event, form, locale, open]);
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+
+            form.setValue("thumbnail_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("imageUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("imageUploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleDropFile = async (file: File) => {
+        if (!file) return;
+
+        try {
+            const result = await uploadFile(file);
+            form.setValue("thumbnail_url", result.url);
+            setPreviewUrl(getImageUrl(result.url));
+            toast.success(commonT("imageUploadSuccess"));
+        } catch (error) {
+            toast.error(commonT("imageUploadError"));
+            console.error(error);
+        }
+    };
+
+    const handleFormSubmit = async (data: any) => {
+        // Prepare data dates for ISO format 
+        const payload = { ...data };
+        if (payload.start_date) payload.start_date = new Date(payload.start_date).toISOString();
+        else payload.start_date = null;
+        if (payload.end_date) payload.end_date = new Date(payload.end_date).toISOString();
+        else payload.end_date = null;
+
+        await onSubmit(payload);
+        form.reset();
+        onOpenChange(false);
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={onOpenChange}>
+            <DialogContent className="sm:max-w-[800px] w-[95vw] sm:w-full max-h-[90vh] overflow-y-auto rounded-3xl sm:rounded-[2.5rem] border-none shadow-2xl p-0 selection:bg-primary selection:text-white">
+                <div className="bg-slate-50/80 backdrop-blur-md p-6 sm:p-10 border-b border-slate-100 sticky top-0 z-10">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                            {event ? t("editTitle") : t("createTitle")}
+                        </DialogTitle>
+                        <DialogDescription className="text-sm sm:text-lg text-slate-500 font-medium mt-1 sm:mt-3 max-w-xl">
+                            {event ? t("editDesc") : t("createDesc")}
+                        </DialogDescription>
+                    </DialogHeader>
+                </div>
+
+                <div className="p-5 sm:p-8">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-6 sm:space-y-8 text-slate-900">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                                <FormField
+                                    control={form.control}
+                                    name="status"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("statusLabel")}</FormLabel>
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger className="h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold text-slate-700 focus:ring-primary/20 transition-all text-sm sm:text-base">
+                                                        <SelectValue placeholder="Status" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="rounded-2xl border-slate-100 p-2 shadow-2xl">
+                                                    <SelectItem value="Upcoming" className="rounded-xl font-bold py-3 text-emerald-600">{t("upcoming") || "Upcoming"}</SelectItem>
+                                                    <SelectItem value="Past" className="rounded-xl font-bold py-3 text-slate-400">{t("past") || "Past"}</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="category"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("categoryLabel")}</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder="Workshop, Summit..." className="h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
+                                            </FormControl>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("titleLabel")}</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder={t("titlePlaceholder")} className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-base sm:text-lg focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 placeholder:font-medium" {...field} />
+                                        </FormControl>
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("descLabel")}</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                placeholder={t("descPlaceholder")}
+                                                className="min-h-[100px] sm:min-h-[140px] rounded-xl sm:rounded-[2rem] bg-white border-slate-100 shadow-sm font-medium p-4 sm:p-8 resize-none text-slate-600 leading-relaxed focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300 text-sm sm:text-base"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                                <FormField
+                                    control={form.control}
+                                    name="start_date"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("startDateLabel")}</FormLabel>
+                                            <FormControl>
+                                                <Input type="datetime-local" className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all" {...field} />
+                                            </FormControl>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="end_date"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-2 sm:space-y-4">
+                                            <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("endDateLabel")}</FormLabel>
+                                            <FormControl>
+                                                <Input type="datetime-local" className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all" {...field} />
+                                            </FormControl>
+                                            <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            <FormField
+                                control={form.control}
+                                name="location"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("locationLabel")}</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder={t("locationPlaceholder")} className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
+                                        </FormControl>
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="registration_link"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">{t("linkLabel")}</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder={t("linkPlaceholder")} type="url" className="h-12 sm:h-16 rounded-xl sm:rounded-2xl bg-white border-slate-100 shadow-sm font-bold px-4 sm:px-8 text-sm sm:text-base focus-visible:ring-primary/20 focus-visible:border-primary transition-all placeholder:text-slate-300" {...field} />
+                                        </FormControl>
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="thumbnail_url"
+                                render={({ field }) => (
+                                    <FormItem className="space-y-2 sm:space-y-4">
+                                        <FormLabel className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-1">Cover Image</FormLabel>
+                                        <FormControl>
+                                            <div
+                                                onClick={() => fileInputRef.current?.click()}
+                                                onDragOver={(e) => e.preventDefault()}
+                                                onDrop={(e) => {
+                                                    e.preventDefault();
+                                                    const file = e.dataTransfer.files?.[0];
+                                                    if (file) {
+                                                        handleDropFile(file);
+                                                    }
+                                                }}
+                                                className={cn(
+                                                    "relative aspect-[21/9] rounded-2xl sm:rounded-[2.5rem] border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-white hover:border-primary/50 group overflow-hidden shadow-sm hover:shadow-xl",
+                                                    (previewUrl || field.value) && "border-none shadow-2xl"
+                                                )}
+                                            >
+                                                {isUploading ? (
+                                                    <div className="flex flex-col items-center gap-2 lg:gap-4">
+                                                        <Loader2 className="w-8 h-8 lg:w-10 lg:h-10 text-primary animate-spin" />
+                                                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-primary animate-pulse italic">Uploading...</span>
+                                                    </div>
+                                                ) : (previewUrl || field.value) ? (
+                                                    <>
+                                                        <img src={previewUrl || getImageUrl(field.value)} alt="Preview" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                                                            <div className="bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-full shadow-2xl transform scale-75 group-hover:scale-100 transition-all duration-500">
+                                                                <Upload className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setPreviewUrl("");
+                                                                field.onChange("");
+                                                            }}
+                                                            className="absolute top-2 lg:top-6 right-2 lg:right-6 p-2 lg:p-2.5 bg-rose-500 text-white rounded-full shadow-2xl hover:bg-rose-600 transition-all z-20 scale-90 lg:scale-100"
+                                                        >
+                                                            <X size={16} />
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <div className="flex flex-col items-center gap-2 lg:gap-4 text-slate-400 group-hover:text-primary transition-all duration-500">
+                                                        <div className="p-4 lg:p-6 bg-white rounded-xl lg:rounded-[2rem] shadow-xl shadow-slate-200/50 transition-transform duration-500 group-hover:scale-110">
+                                                            <ImageIcon size={24} className="text-primary lg:size-[32px]" />
+                                                        </div>
+                                                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] leading-relaxed italic text-center px-4 lg:px-10">Select an event cover</span>
+                                                    </div>
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    ref={fileInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    onChange={handleFileChange}
+                                                />
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage className="text-xs font-bold text-rose-500 pl-1" />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <DialogFooter className="pt-6 sm:pt-10 border-t border-slate-50 mt-6 sm:mt-10 flex flex-col sm:flex-row gap-3">
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    onClick={() => onOpenChange(false)}
+                                    className="h-12 sm:h-16 px-6 sm:px-10 rounded-xl sm:rounded-2xl text-slate-500 font-bold hover:bg-slate-100 transition-all text-sm sm:text-base w-full sm:w-auto order-2 sm:order-1"
+                                >
+                                    {commonT("cancel")}
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    disabled={isSubmitting || isUploading}
+                                    className="h-12 sm:h-16 px-8 sm:px-14 rounded-xl sm:rounded-2xl bg-primary shadow-2xl shadow-primary/30 hover:shadow-primary/50 font-black text-base sm:text-lg transition-all w-full sm:w-auto min-w-0 sm:min-w-[200px] order-1 sm:order-2"
+                                >
+                                    {isSubmitting || isUploading ? (
+                                        <div className="flex items-center gap-3">
+                                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                                            <span className="animate-pulse italic text-sm sm:text-base">Synchronizing...</span>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center gap-3">
+                                            {event ? t("update") : t("save")}
+                                        </div>
+                                    )}
+                                </Button>
+                            </DialogFooter>
+                        </form>
+                    </Form>
+                </div>
+            </DialogContent>
+        </Dialog>
+    );
+}

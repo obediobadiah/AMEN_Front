@@ -2,85 +2,85 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Calendar, ArrowRight, BookOpen } from "lucide-react";
+import { FileText, Download, Calendar, ArrowRight, BookOpen, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { usePublications } from "@/hooks/use-publications";
+import { getImageUrl } from "@/lib/api-config";
+import { useMemo } from "react";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
+import { format } from "date-fns";
 
 export default function Publications() {
     const t = useTranslations();
-    const [filter, setFilter] = useState("all");
+    const locale = useLocale();
+    const [activeCategory, setActiveCategory] = useState("all");
+    const { publications, isLoading, recordDownload } = usePublications();
 
-    const publications = [
-        {
-            id: 1,
-            title: t('publicationsPage.items.1.title'),
-            description: t('publicationsPage.items.1.description'),
-            category: "annual",
-            date: "Jan 2024",
-            size: "4.2 MB",
-            type: "PDF"
-        },
-        {
-            id: 2,
-            title: t('publicationsPage.items.2.title'),
-            description: t('publicationsPage.items.2.description'),
-            category: "technical",
-            date: "Nov 2023",
-            size: "12.5 MB",
-            type: "PDF"
-        },
-        {
-            id: 3,
-            title: t('publicationsPage.items.3.title'),
-            description: t('publicationsPage.items.3.description'),
-            category: "technical",
-            date: "Aug 2023",
-            size: "8.1 MB",
-            type: "PDF"
-        },
-        {
-            id: 4,
-            title: t('publicationsPage.items.4.title'),
-            description: t('publicationsPage.items.4.description'),
-            category: "research",
-            date: "Jun 2023",
-            size: "5.7 MB",
-            type: "PDF"
-        },
-        {
-            id: 5,
-            title: t('publicationsPage.items.5.title'),
-            description: t('publicationsPage.items.5.description'),
-            category: "annual",
-            date: "Feb 2022",
-            size: "2.8 MB",
-            type: "PDF"
-        },
-        {
-            id: 6,
-            title: t('publicationsPage.items.6.title'),
-            description: t('publicationsPage.items.6.description'),
-            category: "technical",
-            date: "Oct 2023",
-            size: "3.4 MB",
-            type: "PDF"
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
+
+    const filteredPublications = useMemo(() => {
+        return activeCategory === "all"
+            ? publications
+            : publications.filter(pub => {
+                const pubCat = (pub.category as any)?.[locale] || (pub.category as any)?.fr || pub.category;
+                return pubCat === activeCategory;
+            });
+    }, [publications, activeCategory, locale]);
+
+    const handleDownload = async (url: string, id: number) => {
+        try {
+            await recordDownload(id);
+            // After recording download, open the file in a new tab to download/view
+            window.open(getImageUrl(url), "_blank");
+        } catch (error) {
+            console.error("Failed to record download", error);
+            // Still try to download even if tracking fails
+            window.open(getImageUrl(url), "_blank");
         }
-    ];
+    };
 
-    const filteredPubs = filter === "all"
-        ? publications
-        : publications.filter(pub => pub.category === filter);
+    const totalPages = Math.ceil(filteredPublications.length / itemsPerPage);
+    const paginatedPublications = useMemo(() => {
+        const start = (currentPage - 1) * itemsPerPage;
+        return filteredPublications.slice(start, start + itemsPerPage);
+    }, [filteredPublications, currentPage, itemsPerPage]);
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        const element = document.getElementById('publications-grid');
+        if (element) {
+            const yOffset = -100;
+            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+    };
+
+    const handleCategoryChange = (cat: string) => {
+        setActiveCategory(cat);
+        setCurrentPage(1);
+    };
 
     return (
         <Layout>
             <PageHero
                 title={t('publicationsPage.title')}
                 subtitle={t('publicationsPage.subtitle')}
-                image={images.heroActivities}
+                image={images.heroPublication}
             />
 
             <section className="py-24 bg-background relative overflow-hidden">
@@ -106,16 +106,16 @@ export default function Publications() {
                         </p>
 
                         {/* Filter Tabs - Premium Styled */}
-                        <div className="flex flex-wrap justify-center gap-3 p-2 bg-muted/40 rounded-[2.5rem] w-fit mx-auto border border-border/50 backdrop-blur-xl shadow-inner">
-                            {["all", "annual", "technical", "research"].map((cat) => (
+                        <div className="flex flex-wrap gap-2 p-1.5 bg-muted/30 rounded-full border border-border/50 backdrop-blur-sm">
+                            {["all", "report", "article", "guide", "newsletter"].map((cat) => (
                                 <button
                                     key={cat}
-                                    onClick={() => setFilter(cat)}
+                                    onClick={() => handleCategoryChange(cat)}
                                     className={cn(
-                                        "px-10 py-3.5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-700 relative",
-                                        filter === cat
-                                            ? "bg-primary text-white shadow-2xl shadow-primary/30"
-                                            : "text-muted-foreground hover:text-foreground"
+                                        "px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500",
+                                        activeCategory === cat
+                                            ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                                     )}
                                 >
                                     {t(`publicationsPage.categories.${cat}`)}
@@ -124,58 +124,141 @@ export default function Publications() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
-                        {filteredPubs.map((pub, idx) => (
-                            <motion.div
-                                key={pub.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="group relative bg-card p-8 md:p-12 rounded-[3.5rem] border border-border/40 hover:border-primary/40 transition-all duration-700 hover:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.08)] flex flex-col sm:flex-row gap-10 items-start overflow-hidden"
-                            >
-                                {/* Decorative background gradient on hover */}
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    {isLoading ? (
+                        <div className="flex justify-center items-center py-20">
+                            <Loader2 className="w-12 h-12 text-primary animate-spin" />
+                        </div>
+                    ) : filteredPublications.length === 0 ? (
+                        <div className="text-center py-20 text-muted-foreground text-xl">
+                            {t('publicationsPage.noRecords')}
+                        </div>
+                    ) : (
+                        <>
+                            {/* Publications List */}
+                            <div id="publications-grid" className="scroll-mt-24 space-y-16">
+                                <motion.div
+                                    key={`${activeCategory}-${currentPage}`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                                >
+                                    {paginatedPublications.map((pub, idx) => (
+                                        <motion.div
+                                            key={pub.id}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: idx * 0.1 }}
+                                            className="group flex flex-col bg-card rounded-[2rem] border border-border/40 overflow-hidden hover:border-primary/30 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500"
+                                        >
+                                            {/* ... same article content ... */}
+                                            <div className="relative aspect-[3/4] overflow-hidden">
+                                                <img
+                                                    src={getImageUrl(pub.thumbnail_url) || images.heroPublication}
+                                                    alt={(pub.title as any)[locale] || (pub.title as any).fr}
+                                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                                                <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                                                    <div className="px-3 py-1 rounded-lg bg-primary/90 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest">
+                                                        {(pub.category as any)?.[locale] || (pub.category as any)?.fr || pub.category}
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                <div className="relative w-full sm:w-32 aspect-[3/4] bg-muted/30 rounded-[1.5rem] flex-shrink-0 flex items-center justify-center group-hover:bg-primary/5 transition-colors duration-700 overflow-hidden border border-border/50 shadow-lg group-hover:shadow-primary/10">
-                                    <FileText size={64} className="text-muted-foreground/30 group-hover:text-primary/40 transform transition-transform group-hover:scale-110" />
-                                    <div className="absolute inset-0 border-r-8 border-primary/10 group-hover:border-primary transition-all duration-500" />
-                                    <div className="absolute bottom-0 left-0 w-full h-2 bg-primary/20 group-hover:h-4 group-hover:bg-primary transition-all duration-500" />
-                                </div>
+                                            <div className="p-8 flex-grow flex flex-col space-y-4">
+                                                <div className="flex items-center gap-2 text-[10px] font-black text-muted-foreground uppercase tracking-widest">
+                                                    <FileText size={12} className="text-primary" />
+                                                    <span>AMEN Platform</span>
+                                                </div>
 
-                                <div className="flex-grow space-y-6">
-                                    <div className="flex flex-wrap items-center gap-6">
-                                        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary bg-primary/10 px-4 py-1.5 rounded-full border border-primary/20">
-                                            {t(`publicationsPage.categories.${pub.category}`)}
-                                        </span>
-                                        <div className="flex items-center gap-2 text-xs text-muted-foreground font-black uppercase tracking-widest">
-                                            <Calendar size={14} className="text-primary" />
-                                            {pub.date}
-                                        </div>
-                                    </div>
+                                                <h3 className="text-xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                                                    {(pub.title as any)[locale] || (pub.title as any).fr || (pub.title as any).en}
+                                                </h3>
 
-                                    <h3 className="text-2xl md:text-3xl font-black font-heading text-foreground group-hover:text-primary transition-colors leading-tight">
-                                        {pub.title}
-                                    </h3>
+                                                <p className="text-sm text-muted-foreground font-light leading-relaxed line-clamp-3">
+                                                    {(pub.description as any)?.[locale] || (pub.description as any)?.fr || ""}
+                                                </p>
 
-                                    <p className="text-lg text-muted-foreground leading-relaxed line-clamp-2 font-light">
-                                        {pub.description}
-                                    </p>
+                                                <div className="pt-4 mt-auto">
+                                                    {pub.file_url ? (
+                                                        <Button
+                                                            onClick={() => handleDownload(pub.file_url!, pub.id)}
+                                                            className="w-full h-12 rounded-xl bg-slate-900 hover:bg-primary text-white font-black uppercase tracking-widest text-[10px] group/btn flex items-center justify-center gap-3 transition-all"
+                                                        >
+                                                            <Download size={14} className="group-hover/btn:-translate-y-1 transition-transform" />
+                                                            {t('publicationsPage.download')}
+                                                        </Button>
+                                                    ) : (
+                                                        <Button disabled className="w-full h-12 rounded-xl bg-muted text-muted-foreground font-black uppercase tracking-widest text-[10px]">
+                                                            Available Soon
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
 
-                                    <div className="pt-8 flex flex-wrap items-center justify-between gap-6 border-t border-border/30">
-                                        <div className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-3">
-                                            <span className="w-2 h-2 rounded-full bg-primary" />
-                                            {pub.type} <span className="opacity-30">•</span> {pub.size}
-                                        </div>
-                                        <Button className="h-14 px-10 rounded-2xl bg-foreground hover:bg-primary text-background font-black uppercase tracking-widest text-xs transition-all flex items-center gap-3 group/btn shadow-xl shadow-black/10 hover:-translate-y-1">
-                                            {t('publicationsPage.download')}
-                                            <Download size={20} className="transition-transform group-hover/btn:translate-y-1" />
-                                        </Button>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
+                                {/* Pagination Controls */}
+                                {totalPages > 1 && (
+                                    <Pagination>
+                                        <PaginationContent>
+                                            <PaginationItem>
+                                                <PaginationPrevious
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        if (currentPage > 1) handlePageChange(currentPage - 1);
+                                                    }}
+                                                    className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                                />
+                                            </PaginationItem>
+
+                                            {[...Array(totalPages)].map((_, i) => {
+                                                const page = i + 1;
+                                                if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
+                                                    return (
+                                                        <PaginationItem key={page}>
+                                                            <PaginationLink
+                                                                href="#"
+                                                                isActive={currentPage === page}
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    handlePageChange(page);
+                                                                }}
+                                                                className="cursor-pointer"
+                                                            >
+                                                                {page}
+                                                            </PaginationLink>
+                                                        </PaginationItem>
+                                                    );
+                                                } else if (page === currentPage - 2 || page === currentPage + 2) {
+                                                    return (
+                                                        <PaginationItem key={page}>
+                                                            <PaginationEllipsis />
+                                                        </PaginationItem>
+                                                    );
+                                                }
+                                                return null;
+                                            })}
+
+                                            <PaginationItem>
+                                                <PaginationNext
+                                                    href="#"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                                                    }}
+                                                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                                                />
+                                            </PaginationItem>
+                                        </PaginationContent>
+                                    </Pagination>
+                                )}
+                            </div>
+                        </>
+                    )}
                 </div>
             </section>
         </Layout>

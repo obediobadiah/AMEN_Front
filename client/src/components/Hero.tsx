@@ -14,7 +14,7 @@ export function Hero() {
   const slides = [
     {
       id: 1,
-      image: images.heroHome,
+      image: images.heroHeal,
       title: t('hero.slide1.title'),
       highlight: t('hero.slide1.highlight'),
       description: t('hero.slide1.description'),
@@ -22,7 +22,7 @@ export function Hero() {
     },
     {
       id: 2,
-      image: images.programNature,
+      image: images.heroNature,
       title: t('hero.slide2.title'),
       highlight: t('hero.slide2.highlight'),
       description: t('hero.slide2.description'),
@@ -30,7 +30,7 @@ export function Hero() {
     },
     {
       id: 3,
-      image: images.news1,
+      image: images.heroAutonomisation,
       title: t('hero.slide3.title'),
       highlight: t('hero.slide3.highlight'),
       description: t('hero.slide3.description'),

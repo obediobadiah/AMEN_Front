@@ -7,81 +7,104 @@ import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight, Tag } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useNews, NewsArticle } from "@/hooks/use-news";
+import { useLocale } from "next-intl";
+import { getImageUrl } from "@/lib/api-config";
+import { format } from "date-fns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export default function News() {
   const t = useTranslations();
+  const locale = useLocale();
   const [filter, setFilter] = useState("all");
+  const { news, isLoading } = useNews();
 
-  const newsArticles = [
-    {
-      id: 1,
-      title: t('actualitesPage.articles.1.title'),
-      excerpt: t('actualitesPage.articles.1.excerpt'),
-      author: t('actualitesPage.articles.1.author'),
-      date: t('actualitesPage.articles.1.date'),
-      category: "impact",
-      image: images.news1
-    },
-    {
-      id: 2,
-      title: t('actualitesPage.articles.2.title'),
-      excerpt: t('actualitesPage.articles.2.excerpt'),
-      author: t('actualitesPage.articles.2.author'),
-      date: t('actualitesPage.articles.2.date'),
-      category: "field",
-      image: images.news2
-    },
-    {
-      id: 3,
-      title: t('actualitesPage.articles.3.title'),
-      excerpt: t('actualitesPage.articles.3.excerpt'),
-      author: t('actualitesPage.articles.3.author'),
-      date: t('actualitesPage.articles.3.date'),
-      category: "press",
-      image: images.news3
-    },
-    {
-      id: 4,
-      title: t('actualitesPage.articles.4.title'),
-      excerpt: t('actualitesPage.articles.4.excerpt'),
-      author: t('actualitesPage.articles.4.author'),
-      date: t('actualitesPage.articles.4.date'),
-      category: "field",
-      image: images.heroProjects
-    },
-    {
-      id: 5,
-      title: t('actualitesPage.articles.5.title'),
-      excerpt: t('actualitesPage.articles.5.excerpt'),
-      author: t('actualitesPage.articles.5.author'),
-      date: t('actualitesPage.articles.5.date'),
-      category: "press",
-      image: images.heroContact
-    },
-    {
-      id: 6,
-      title: t('actualitesPage.articles.6.title'),
-      excerpt: t('actualitesPage.articles.6.excerpt'),
-      author: t('actualitesPage.articles.6.author'),
-      date: t('actualitesPage.articles.6.date'),
-      category: "impact",
-      image: images.heroActivities
-    }
-  ];
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const publishedNews = news.filter(article => {
+    const statusFr = (article.status as any)?.fr;
+    const statusEn = (article.status as any)?.en;
+    const statusLocale = (article.status as any)?.[locale];
+    return statusLocale === "Published" || statusFr === "Publié" || statusEn === "Published" || (article.status as any) === "Published" || (article.status as any) === "Publié";
+  });
 
   const filteredArticles = filter === "all"
-    ? newsArticles
-    : newsArticles.filter(article => article.category === filter);
+    ? publishedNews
+    : publishedNews.filter(article => {
+      const catFr = ((article.category as any)?.fr || "").toLowerCase();
+      const catEn = ((article.category as any)?.en || "").toLowerCase();
+      const catLocale = ((article.category as any)?.[locale] || "").toLowerCase();
+      const searchFilter = filter.toLowerCase();
+
+      // Match against translation values
+      if (catLocale === searchFilter || catFr === searchFilter || catEn === searchFilter) return true;
+      // Match against original keys (impact, field, press)
+      if (searchFilter === "impact" && (catEn === "impact" || catFr === "impact")) return true;
+      if (searchFilter === "field" && (catEn === "field" || catFr === "terrain")) return true;
+      if (searchFilter === "press" && (catEn === "press" || catFr === "presse")) return true;
+
+      return false;
+    });
+
+  // Derived pagination values
+  const totalPages = Math.ceil((filter === "all" ? filteredArticles.length - 1 : filteredArticles.length) / itemsPerPage);
+
+  const paginatedArticles = useMemo(() => {
+    // If filter is all, we skip the first one (featured)
+    const articlesToPaginate = filter === "all" ? filteredArticles.slice(1) : filteredArticles;
+    const start = (currentPage - 1) * itemsPerPage;
+    return articlesToPaginate.slice(start, start + itemsPerPage);
+  }, [filteredArticles, filter, currentPage, itemsPerPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const element = document.getElementById('news-grid');
+    if (element) {
+      const yOffset = -100;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const handleFilterChange = (cat: string) => {
+    setFilter(cat);
+    setCurrentPage(1);
+  };
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+            <p className="font-bold text-muted-foreground animate-pulse tracking-widest uppercase text-xs">
+              {t('common.loading')}
+            </p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       <PageHero
         title={t('actualitesPage.title')}
         subtitle={t('actualitesPage.subtitle')}
-        image={images.news2}
+        image={images.heroNews}
       />
 
       {/* Intro & Filters */}
@@ -115,7 +138,7 @@ export default function News() {
               {["all", "press", "field", "impact"].map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setFilter(cat)}
+                  onClick={() => handleFilterChange(cat)}
                   className={cn(
                     "px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-500",
                     filter === cat
@@ -135,37 +158,37 @@ export default function News() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mb-20 group relative"
+              className="mb-16 md:mb-24 group relative"
             >
-              <div className="relative aspect-[21/9] rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/5 border border-border/50">
+              <div className="relative aspect-[16/10] md:aspect-[21/9] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/5 border border-border/50">
                 <img
-                  src={filteredArticles[0].image}
-                  alt={filteredArticles[0].title}
+                  src={getImageUrl(filteredArticles[0].thumbnail_url) || images.heroNews}
+                  alt={filteredArticles[0].title[locale] || filteredArticles[0].title.fr}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 
-                <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 space-y-6">
-                  <div className="flex flex-wrap items-center gap-6 text-white/70 text-sm font-bold uppercase tracking-widest">
-                    <span className="bg-primary px-4 py-1.5 rounded-full text-white text-xs font-black">
-                      {t(`actualitesPage.categories.${filteredArticles[0].category}`)}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-16 space-y-4 md:space-y-6">
+                  <div className="flex flex-wrap items-center gap-4 md:gap-6 text-white/70 text-[10px] md:text-sm font-bold uppercase tracking-widest">
+                    <span className="bg-primary px-3 md:px-4 py-1 md:py-1.5 rounded-full text-white text-[9px] md:text-xs font-black">
+                      {(filteredArticles[0].category as any)?.[locale] || (filteredArticles[0].category as any)?.fr || (filteredArticles[0].category as any)?.en || 'all'}
                     </span>
                     <div className="flex items-center gap-2">
                       <Calendar size={16} className="text-primary" />
-                      <span>{filteredArticles[0].date}</span>
+                      <span>{format(new Date(filteredArticles[0].published_date), "dd MMM yyyy")}</span>
                     </div>
                   </div>
                   <h3 className="text-3xl md:text-5xl lg:text-6xl font-heading font-black text-white leading-tight max-w-4xl">
-                    {filteredArticles[0].title}
+                    {filteredArticles[0].title[locale] || filteredArticles[0].title.fr}
                   </h3>
                   <p className="text-white/70 text-lg md:text-xl font-light max-w-2xl line-clamp-2">
-                    {filteredArticles[0].excerpt}
+                    {filteredArticles[0].excerpt?.[locale] || filteredArticles[0].excerpt?.fr || ""}
                   </p>
-                  <div className="pt-4">
+                  <div className="pt-2 md:pt-4">
                     <Link href={`/news/actualites/${filteredArticles[0].id}`}>
-                      <Button className="h-14 px-10 rounded-2xl bg-white text-slate-900 hover:bg-primary hover:text-white font-black text-lg transition-all flex items-center gap-3">
+                      <Button className="h-12 md:h-14 px-8 md:px-10 rounded-xl md:rounded-2xl bg-white text-slate-900 hover:bg-primary hover:text-white font-black text-sm md:text-lg transition-all flex items-center gap-2 md:gap-3">
                         {t('actualitesPage.readMore')}
-                        <ArrowRight size={20} />
+                        <ArrowRight size={18} />
                       </Button>
                     </Link>
                   </div>
@@ -175,70 +198,127 @@ export default function News() {
           )}
 
           {/* News Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
-            {filteredArticles.slice(filter === "all" ? 1 : 0).map((article, idx) => (
-              <motion.div
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group flex flex-col bg-card rounded-[2.5rem] border border-border/40 overflow-hidden hover:border-primary/30 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-500"
-              >
-                {/* Image Container */}
-                <div className="relative aspect-[16/11] overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  <div className="absolute bottom-6 left-6 px-4 py-1.5 rounded-2xl bg-white/10 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
-                    {t(`actualitesPage.categories.${article.category}`)}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-10 flex-grow flex flex-col space-y-6">
-                  <div className="flex items-center gap-6 text-xs font-black text-muted-foreground uppercase tracking-[0.15em]">
-                    <div className="flex items-center gap-2">
-                      <Calendar size={14} className="text-primary" />
-                      <span>{article.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <User size={14} className="text-primary" />
-                      <span>{article.author}</span>
+          <div id="news-grid" className="scroll-mt-24 space-y-20">
+            <motion.div
+              key={`${filter}-${currentPage}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12"
+            >
+              {paginatedArticles.map((article, idx) => (
+                <motion.div
+                  key={article.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group flex flex-col bg-card rounded-[2.5rem] border border-border/40 overflow-hidden hover:border-primary/30 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-500"
+                >
+                  {/* Image Container */}
+                  <div className="relative aspect-[16/11] overflow-hidden">
+                    <img
+                      src={getImageUrl(article.thumbnail_url) || images.heroNews}
+                      alt={article.title[locale] || article.title.fr}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute bottom-6 left-6 px-4 py-1.5 rounded-2xl bg-white/10 backdrop-blur-xl text-white text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
+                      {(article.category as any)?.[locale] || (article.category as any)?.fr || (article.category as any)?.en || 'all'}
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
-                    {article.title}
-                  </h3>
+                  {/* Content */}
+                  <div className="p-10 flex-grow flex flex-col space-y-6">
+                    <div className="flex items-center gap-6 text-xs font-black text-muted-foreground uppercase tracking-[0.15em]">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={14} className="text-primary" />
+                        <span>{format(new Date(article.published_date), "dd MMM yyyy")}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <User size={14} className="text-primary" />
+                        <span>{article.author}</span>
+                      </div>
+                    </div>
 
-                  <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light text-lg">
-                    {article.excerpt}
-                  </p>
+                    <h3 className="text-2xl font-heading font-black text-foreground group-hover:text-primary transition-colors leading-tight line-clamp-2">
+                      {article.title[locale] || article.title.fr || article.title.en}
+                    </h3>
 
-                  <div className="pt-6 mt-auto">
-                    <Link href={`/news/actualites/${article.id}`}>
-                      <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
-                        {t('actualitesPage.readMore')}
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
-                          <ArrowRight size={16} />
-                        </div>
-                      </Button>
-                    </Link>
+                    <p className="text-muted-foreground leading-relaxed line-clamp-3 font-light text-lg">
+                      {article.excerpt?.[locale] || article.excerpt?.fr || article.excerpt?.en || ""}
+                    </p>
+
+                    <div className="pt-6 mt-auto">
+                      <Link href={`/news/actualites/${article.id}`}>
+                        <Button variant="link" className="p-0 h-auto text-primary font-black uppercase tracking-widest text-xs group/btn flex items-center gap-3 hover:no-underline hover:text-primary/80">
+                          {t('actualitesPage.readMore')}
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-2">
+                            <ArrowRight size={16} />
+                          </div>
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </motion.div>
 
-          {/* Load More */}
-          <div className="mt-24 text-center">
-            <Button className="h-16 px-16 rounded-[2rem] bg-slate-950 hover:bg-primary text-white font-black text-xl shadow-2xl shadow-black/10 transition-all hover:-translate-y-1 active:scale-95">
-              {t('actualitesPage.loadMore')}
-            </Button>
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) handlePageChange(currentPage - 1);
+                      }}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+
+                  {[...Array(totalPages)].map((_, i) => {
+                    const page = i + 1;
+                    if (page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1)) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationLink
+                            href="#"
+                            isActive={currentPage === page}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handlePageChange(page);
+                            }}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (page === currentPage - 2 || page === currentPage + 2) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
+                  })}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                      }}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
         </div>
       </section>

@@ -18,7 +18,16 @@
     "strategicOrientations": "Orientations Stratégiques",
     "humanResources": "Ressources Humaines",
     "valuesPrinciples": "Valeurs et Principes",
-    "partnershipsNetworks": "Partenariats et Réseaux"
+    "partnershipsNetworks": "Partenariats et Réseaux",
+    "memberDetail": {
+      "roleLabel": "Perspective & Rôle",
+      "organLabel": "Département / Organe",
+      "sinceLabel": "Membre Depuis",
+      "closeButton": "Fermer le Profil",
+      "biography": "Biographie Professionnelle",
+      "backToTeam": "Retour à l'Équipe",
+      "activeStatus": "Membre Actif"
+    }
   },
   "aboutPage": {
     "humanResources": {
@@ -29,6 +38,8 @@
       "team": {
         "sectionTitle": "Notre Équipe",
         "subtitle": "Rencontrez les Personnes qui Font AMEN",
+        "noMembers": "Aucun membre trouvé",
+        "loading": "Chargement des membres de l'équipe...",
         "categories": {
           "all": "Tous",
           "dirigeante": "Équipe dirigeante",
@@ -264,7 +275,9 @@
         "description": "Un leadership intègre pour un impact durable au cœur des ménages.",
         "filterAll": "Tous",
         "filterLabel": "Filtrer par département :",
-        "transparencyBadge": "Transparence & Responsabilité"
+        "transparencyBadge": "Transparence & Responsabilité",
+        "noMembers": "Aucun membre trouvé",
+        "loading": "Chargement des membres de l'équipe..."
       },
       "values": [
         {
@@ -563,15 +576,27 @@
       "completed": "Terminé",
       "upcoming": "À venir"
     },
+    "introImages": {
+      "alt1": "Initiative de projet 1",
+      "alt2": "Initiative de projet 2",
+      "alt3": "Initiative de projet 3",
+      "alt4": "Initiative de projet 4"
+    },
     "viewLocation": "Voir sur la carte",
     "projectDetails": "Détails du Projet",
+    "notFound": "Projet non trouvé",
+    "backToProjects": "Retour aux projets",
     "innovation": {
       "title": "Autonomiser les communautés par l'innovation",
+      "titleMain": "Conduire le changement par",
+      "titleHighlight": "des initiatives innovantes",
       "subtitle": "Nous croyons que le développement durable nécessite de sortir des sentiers battus. Nos initiatives combinent sagesse traditionnelle et technologie moderne pour créer des solutions résilientes.",
       "ourApproach": "Notre Approche",
       "stats": {
         "sustainability": "Taux de Durabilité",
+        "sustainabilityValue": "85%",
         "partnerships": "Partenariats Locaux",
+        "partnershipsValue": "50+",
         "evolution": "Évolution Continue",
         "delivery": "Livraison dans les Délais"
       },
@@ -585,7 +610,8 @@
     "globalFootprint": {
       "title": "Notre Empreinte Mondiale",
       "description": "Partout où il y a un besoin, nous sommes prêts à répondre. Nos projets s'étendent sur plusieurs provinces, atteignant les coins les plus reculés de la région.",
-      "cta": "Voir sur la carte"
+      "cta": "Voir sur la carte",
+      "mapAlt": "Carte d'impact"
     },
     "stats": {
       "activeProjects": "{count} Projets Actifs",
@@ -698,16 +724,16 @@
     "intro": "Accédez à notre bibliothèque de rapports, de guides et de matériel pédagogique. Nous croyons au partage des connaissances pour favoriser un changement plus large dans tout le bassin du Congo.",
     "types": {
       "all": "Toutes les ressources",
-      "report": "Rapport Annuel",
       "guide": "Guide Technique",
       "infographic": "Infographie",
-      "policy": "Note d'Orientation",
-      "database": "Base de Données"
+      "database": "Base de Données",
+      "toolkit": "Boîte à Outils"
     },
     "search": "Rechercher",
     "filter": "Filtrer",
+    "view": "Voir la Ressource",
     "download": "Télécharger",
-    "knowledgeHub": {
+    "ResourceCenter": {
       "title": "Centre de Connaissances pour l'Action",
       "searchPlaceholder": "Rechercher des ressources...",
       "filterButton": "Filtrer",
@@ -774,6 +800,11 @@
     "common": {
       "varies": "Variable",
       "updatedWeekly": "Mise à jour hebdomadaire"
+    },
+    "noResults": {
+      "title": "Aucune ressource trouvée",
+      "description": "Essayez d'ajuster votre recherche ou vos filtres pour trouver ce que vous cherchez.",
+      "clearFilters": "Effacer tous les filtres"
     }
   },
   "newsSection": {
@@ -855,11 +886,16 @@
     "title": "Publications",
     "subtitle": "Rapports, Guides & Recherche",
     "intro": "Nos publications fournissent une analyse approfondie et des conseils techniques sur le développement durable dans le bassin du Congo.",
+    "noRecords": "Aucune publication trouvée",
     "categories": {
       "all": "Toutes les Publications",
       "annual": "Rapports Annuels",
       "technical": "Guides Techniques",
-      "research": "Documents de Recherche"
+      "research": "Documents de Recherche",
+      "report": "Rapports",
+      "article": "Articles",
+      "guide": "Guide",
+      "newsletter": "Newsletter"
     },
     "download": "Télécharger le PDF",
     "fileSize": "Taille",
@@ -896,8 +932,10 @@
     "subtitle": "L'Impact à travers l'Objectif",
     "intro": "Explorez notre travail à travers des photos et des vidéos capturant l'essence de la résilience communautaire et la beauté environnementale.",
     "tabs": {
-      "photos": "Photos",
-      "videos": "Vidéos"
+      "all": "Tout",
+      "photo": "Photos",
+      "video": "Vidéos",
+      "albums": "Albums"
     },
     "viewLarge": "Agrandir",
     "watchVideo": "Regarder la Vidéo",
@@ -1003,7 +1041,11 @@
         "message": "Écrivez votre message ici..."
       },
       "success": "Message envoyé avec succès !",
-      "error": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
+      "successTitle": "Message Envoyé",
+      "successMessage": "Merci de nous avoir contactés. Nous vous répondrons sous peu.",
+      "error": "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer.",
+      "errorTitle": "Erreur",
+      "errorMessage": "Une erreur est survenue. Veuillez réessayer plus tard."
     },
     "info": {
       "address": "Notre Adresse",
@@ -1014,7 +1056,9 @@
       "emailVal": "info@amen-ngo.org",
       "office": "Bureau Principal",
       "hours": "Heures de Travail",
-      "hoursVal": "Lun - Ven : 08:00 - 17:00"
+      "hoursVal": "Lun - Ven : 08:00 - 17:00",
+      "support247": "Support 24/7",
+      "exceptHolidays": "Sauf Jours Fériés"
     }
   },
   "hero": {
@@ -1088,6 +1132,9 @@
       "by": "Par",
       "news": "Nouvelles",
       "readMore": "Lire la suite",
+      "noArticles": "Aucune nouvelle disponible",
+      "noArticlesTitle": "Désolé",
+      "noArticlesDesc": "Nous n'avons actuellement aucune nouvelle à afficher.",
       "article1": {
         "title": "La Dignité des Êtres Humains au Travail",
         "excerpt": "Explorer comment la dignité dans le travail transforme les communautés et renforce l'autonomie."
@@ -1127,6 +1174,8 @@
     "newsletterDescription": "Abonnez-vous à notre newsletter pour recevoir les dernières nouvelles et mises à jour.",
     "emailPlaceholder": "Votre adresse email",
     "subscribe": "S'abonner",
+    "contact": "Contactez-Nous",
+    "involve": "Impliquez-Vous",
     "copyright": "Tous droits réservés.",
     "adminLogin": "Connexion Admin",
     "privacyPolicy": "Politique de Confidentialité",
@@ -1148,7 +1197,16 @@
     "previous": "Précédent",
     "learnMore": "En Savoir Plus",
     "readMore": "Lire la suite",
-    "viewAll": "Voir Tout"
+    "viewAll": "Voir Tout",
+    "warning": "Avertissement",
+    "info": "Info",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce {type} ?",
+    "deleteSuccess": "{type} supprimé avec succès",
+    "deleteError": "Échec de la suppression de {type}",
+    "saveSuccess": "{type} enregistré avec succès",
+    "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
+    "exportSuccess": "Exportation démarrée",
+    "exportError": "Échec de l'exportation de {type}"
   },
   "donatePage": {
     "title": "Soutenir le Changement",
@@ -1204,6 +1262,23 @@
     "description": "Organisation humanitaire dédiée à l'autonomisation des communautés, à la protection de l'environnement et au développement durable."
   },
   "admin": {
+    "login": {
+      "badge": "Portail Admin Sécurisé",
+      "title": "AMEN",
+      "titleHighlight": "Plateforme",
+      "cardTitle": "Bon Retour",
+      "cardDesc": "Entrez vos identifiants administrateur",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "admin@amen-ngo.org",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Se Connecter au Tableau de Bord",
+      "authenticating": "Authentification...",
+      "defaultCredentials": "Identifiants par défaut (première connexion)",
+      "encryptedSession": "Session Chiffrée",
+      "poweredBy": "Propulsé par l'Infrastructure AMEN • ",
+      "errorFallback": "Identifiants invalides. Veuillez réessayer."
+    },
     "sidebar": {
       "dashboard": "Tableau de Bord",
       "news": "Actualités & Articles",
@@ -1215,10 +1290,17 @@
       "governance": "Gouvernance & Équipe",
       "donations": "Registres des Dons",
       "contacts": "Messages Entrants",
+      "users": "Gestion des Utilisateurs",
       "settings": "Paramètres du Portail",
       "viewWebsite": "Voir le Site",
       "logout": "Déconnexion",
-      "welcomeAdmin": "Administrateur Système"
+      "welcomeAdmin": "Administrateur Système",
+      "portalTitle": "PORTAIL ADMIN AMEN",
+      "role": "Administrateur",
+      "roleAdmin": "Administrateur",
+      "roleStaff": "Membre du Personnel",
+      "adminZone": "Zone Admin",
+      "systemLive": "Système En Direct"
     },
     "dashboard": {
       "welcome": "Bon retour, Administrateur",
@@ -1226,13 +1308,40 @@
       "stats": {
         "totalDonations": "Revenus Totaux",
         "activeProjects": "Initiatives Actives",
-        "communitiesReached": "Portée de l'Impact",
         "pendingTasks": "Révisions en Attente",
         "growth": "{value}% par rapport à la période précédente"
       },
+      "secondaryStats": {
+        "totalUsers": "Utilisateurs Totaux",
+        "publishedNews": "Actualités Publiées",
+        "articlesPublished": "Articles publiés",
+        "upcomingEvents": "Événements à Venir",
+        "total": "Total",
+        "resources": "Ressources",
+        "multimediaFiles": "fichiers multimédia"
+      },
+      "subtitles": {
+        "noDonationsThisMonth": "Aucun don ce mois-ci",
+        "lastMonthThisMonth": "Mois dernier: {lastMonth} • Ce mois: {thisMonth}",
+        "completedTotal": "{completed} terminés • {total} total",
+        "noActiveProjects": "Aucun projet actif",
+        "completionRate": "{rate}% taux de réalisation",
+        "totalInquiriesResolved": "{total} demandes totales • {resolved} résolues",
+        "allCaughtUp": "Tout est à jour!",
+        "needAttention": "{count} nécessitent une attention"
+      },
+      "activities": {
+        "donationOf": "Don de ${amount} de {donor}",
+        "inquiryFrom": "Demande {type} de {name}",
+        "newUserRegistered": "Nouvel utilisateur {role} enregistré: {name}",
+        "newsPublished": "Article d'actualité publié: {title}",
+        "noRecentActivity": "Aucune activité récente"
+      },
       "charts": {
         "donationImpact": "Distribution du Financement et de l'Impact",
-        "monthlyGrowth": "Tendance de Croissance Communautaire"
+        "monthly": "Mensuel",
+        "weekly": "Hebdomadaire",
+        "analyticsDesc": "Analyses pour le trimestre fiscal en cours"
       },
       "recentActivity": {
         "title": "Flux d'Activité en Direct",
@@ -1240,23 +1349,708 @@
         "newDonation": "Nouveau don de {amount} reçu",
         "projectUpdate": "Le projet {name} a atteint un nouveau jalon",
         "newVolunteer": "Demande de bénévolat professionnel de {name}",
+        "newInquiry": "Nouvelle demande de partenariat de {name}",
+        "summitReg": "Phase d'inscription au sommet commencée",
+        "showAll": "Afficher toute l'activité",
         "time": "Il y a {time}"
       },
       "quickActions": {
-        "title": "Actions Rapides",
         "newArticle": "Écrire un Article",
         "newProject": "Lancer un Projet",
         "uploadMedia": "Ajouter un Média"
       }
     },
     "common": {
-      "edit": "Modifier l'Entrée",
-      "delete": "Supprimer l'Entrée",
-      "save": "Enregistrer les Changements",
-      "cancel": "Abandonner",
-      "search": "Filtrer par mots-clés...",
-      "status": "État Opérationnel",
-      "actions": "Actions sur le Registre"
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "loading": "Chargement...",
+      "search": "Rechercher...",
+      "status": "Statut",
+      "actions": "Actions",
+      "export": "Exporter",
+      "createNew": "Créer Nouveau",
+      "filters": "Filtres",
+      "sort": "Trier",
+      "list": "Liste",
+      "grid": "Grille",
+      "manageEntry": "Gérer l'Entrée",
+      "viewDetails": "Voir Détails",
+      "type": "Type",
+      "date": "Date",
+      "noRecords": "Aucun enregistrement trouvé",
+      "showing": "Affichage de",
+      "of": "sur",
+      "entries": "entrées",
+      "error": "Erreur",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "info": "Info",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce {type} ?",
+      "deleteSuccess": "{type} supprimé avec succès",
+      "deleteError": "Échec de la suppression de {type}",
+      "saveSuccess": "{type} enregistré avec succès",
+      "saveError": "Une erreur est survenue lors de l'enregistrement de {type}",
+      "exportSuccess": "Exportation démarrée",
+      "exportError": "Échec de l'exportation de {type}",
+      "saving": "Enregistrement...",
+      "uploadSuccess": "Fichier téléchargé avec succès",
+      "uploadError": "Échec du téléchargement du fichier",
+      "imageUploadSuccess": "Image téléchargée avec succès",
+      "imageUploadError": "Échec du téléchargement de l'image",
+      "coverImageUploadSuccess": "Image de couverture téléchargée avec succès",
+      "coverImageUploadError": "Échec du téléchargement de l'image de couverture",
+      "photoUploadSuccess": "Photo téléchargée avec succès",
+      "photoUploadError": "Échec du téléchargement de la photo",
+      "fileSizeExceeded": "Le fichier {fileName} dépasse la limite de taille",
+      "processing": "Traitement...",
+      "completed": "Terminé",
+      "pending": "En attente",
+      "failed": "Échec"
+    },
+    "news": {
+      "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
+      "searchPlaceholder": "Rechercher par titre ou auteur...",
+      "loading": "Chargement du contenu...",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet article ?",
+      "deleteSuccess": "Article supprimé avec succès",
+      "deleteError": "Échec de la suppression de l'article",
+      "saveSuccess": "Article enregistré avec succès",
+      "saveError": "Une erreur est survenue lors de l'enregistrement",
+      "exportSuccess": "Exportation démarrée",
+      "author": "Auteur",
+      "published": "Publié",
+      "readTime": "Temps de lecture",
+      "minRead": "MIN DE LECTURE",
+      "articleDetails": "Détails de l'article",
+      "publishedBy": "Publié par",
+      "dialog": {
+        "editTitle": "Modifier l'article",
+        "createTitle": "Créer un nouvel article",
+        "editDesc": "Mettez à jour les détails de votre article. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails de votre nouvelle histoire. Elle sera automatiquement traduite en anglais et en français.",
+        "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
+        "category": "Catégorie",
+        "impact": "Impact social",
+        "field": "Histoires de terrain",
+        "press": "Communiqué de presse",
+        "status": "Statut",
+        "draft": "Brouillon",
+        "published": "Publié",
+        "archived": "Archivé",
+        "titleLabel": "Titre de l'article",
+        "titlePlaceholder": "Entrez le titre...",
+        "excerptLabel": "Bref extrait (optionnel)",
+        "excerptPlaceholder": "Entrez un bref résumé...",
+        "contentLabel": "Contenu complet",
+        "contentPlaceholder": "Écrivez le contenu de votre article ici...",
+        "authorLabel": "Nom de l'auteur",
+        "authorPlaceholder": "Auteur...",
+        "readTimeLabel": "Temps de lecture (Min)",
+        "uploadLabel": "Image de couverture",
+        "uploadPlaceholder": "Cliquez pour télécharger une image",
+        "save": "Enregistrer l'Article",
+        "update": "Mettre à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "impact": "Impact social",
+        "field": "Histoires de terrain",
+        "press": "Communiqué de presse",
+        "draft": "Brouillon",
+        "published": "Publié",
+        "archived": "Archivé"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)",
+        "readingTime": "Temps de lecture"
+      }
+    },
+    "projects": {
+      "description": "Surveillez les progrès des projets sur le terrain, les mesures d'impact et la mise en œuvre locale.",
+      "searchPlaceholder": "Rechercher des projets par nom ou par lieu...",
+      "loading": "Chargement des projets...",
+      "columns": {
+        "name": "Nom du Projet",
+        "progress": "Progrès",
+        "focus": "Focus",
+        "impact": "Impact"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "environment": "Environnement",
+        "health": "Santé",
+        "education": "Éducation",
+        "humanitarian": "Humanitaire",
+        "infrastructure": "Infrastructure",
+        "active": "Actif",
+        "completed": "Terminé",
+        "upcoming": "À venir"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "progress": "Progrès",
+        "name": "Nom (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Projet",
+        "createTitle": "Créer un Nouveau Projet",
+        "editDesc": "Modifiez les détails du projet, le statut et les mesures d'impact.",
+        "createDesc": "Enregistrez une nouvelle initiative d'ONG avec des données de terrain complètes.",
+        "titleLabel": "Titre du Projet",
+        "titlePlaceholder": "Entrez le nom du projet...",
+        "descLabel": "Description Courte",
+        "descPlaceholder": "Décrivez brièvement le projet...",
+        "statusLabel": "Statut de Mise en Œuvre",
+        "active": "Actif",
+        "completed": "Terminé",
+        "upcoming": "À venir",
+        "locationLabel": "Lieu sur le Terrain",
+        "locationPlaceholder": "Province, District...",
+        "categoryLabel": "Domaine d'Intervention",
+        "startDateLabel": "Date de Début",
+        "endDateLabel": "Achèvement Prévu",
+        "uploadLabel": "Bannière du Projet",
+        "impactLabel": "Stats d'Impact (ex. 50k Arbres)",
+        "overviewLabel": "Aperçu Détaillé",
+        "overviewPlaceholder": "Entrez les détails complets du projet...",
+        "goalsLabel": "Objectifs du Projet",
+        "goalPlaceholder": "Objectif",
+        "addGoal": "+ Ajouter un Objectif",
+        "achievementsLabel": "Réalisations Clés",
+        "achievementPlaceholder": "Réalisation",
+        "addAchievement": "+ Ajouter une Réalisation",
+        "uploadingBanner": "Téléchargement de la bannière...",
+        "selectBanner": "Sélectionner la bannière du projet",
+        "synchronizing": "Synchronisation...",
+        "uploadSuccess": "Image téléchargée avec succès",
+        "uploadError": "Échec du téléchargement de l'image",
+        "save": "Enregistrer le Projet",
+        "update": "Mettre à jour le Projet"
+      },
+      "messages": {
+        "saveSuccess": "Projet enregistré avec succès",
+        "updateSuccess": "Projet mis à jour avec succès",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce projet ?",
+        "deleteSuccess": "Projet supprimé avec succès",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "events": {
+      "description": "Organisez et suivez les événements mondiaux à venir et les ateliers locaux.",
+      "dialog": {
+        "editTitle": "Modifier l'événement",
+        "createTitle": "Créer un nouvel événement",
+        "editDesc": "Mettez à jour les détails de votre événement. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails de votre nouvel événement. Il sera automatiquement traduit en anglais et en français.",
+        "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
+        "titleLabel": "Titre de l'événement",
+        "titlePlaceholder": "Entrez le titre de l'événement...",
+        "descLabel": "Description",
+        "descPlaceholder": "Entrez la description de l'événement...",
+        "categoryLabel": "Catégorie",
+        "statusLabel": "Statut",
+        "startDateLabel": "Date de début",
+        "endDateLabel": "Date de fin",
+        "locationLabel": "Lieu",
+        "locationPlaceholder": "Ex., Kinshasa, RDC ou Virtuel",
+        "linkLabel": "Lien d'inscription (Optionnel)",
+        "linkPlaceholder": "https://...",
+        "saving": "Enregistrement...",
+        "save": "Enregistrer",
+        "update": "Mettre à jour",
+        "cancel": "Annuler",
+        "upcoming": "À venir",
+        "past": "Passé"
+      },
+      "loading": "Chargement des événements...",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet événement ?",
+      "deleteSuccess": "Événement supprimé avec succès",
+      "deleteError": "Échec de la suppression de l'événement",
+      "saveSuccess": "Événement enregistré avec succès",
+      "saveError": "Échec de l'enregistrement de l'événement",
+      "columns": {
+        "name": "Nom de l'Événement",
+        "status": "Statut",
+        "date": "Date",
+        "attendees": "Participants",
+        "upcoming": "À venir",
+        "past": "Passé"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "workshop": "Ateliers",
+        "conference": "Conférences",
+        "field": "Activités de terrain",
+        "upcoming": "À venir",
+        "past": "Passés"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
+      }
+    },
+    "multimedia": {
+      "library": "Médiathèque",
+      "description": "Gerez les actifs de la galerie, les videos de projet et la bibliotheque de contenus visuels.",
+      "loading": "Chargement des medias...",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce media?",
+      "deleteSuccess": "Media supprimé avec succès",
+      "deleteError": "Échec de la suppression du media",
+      "saveSuccess": "Media enregistré avec succès",
+      "saveError": "Échec de l'enregistrement du media",
+      "columns": {
+        "title": "Titre",
+        "addedOn": "Ajoute le",
+        "content": "Contenu multimedia",
+        "type": "Type d'actif"
+      },
+      "filters": {
+        "all": "Tous les types",
+        "photo": "Photos",
+        "video": "Videos",
+        "document": "Documents"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Media",
+        "createTitle": "Ajouter un Nouveau Media",
+        "editDesc": "Mettre à jour les détails du média. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails du nouvel élément de la galerie. Il sera traduit automatiquement.",
+        "inputLang": "Langue de saisie",
+        "fr": "Français",
+        "en": "Anglais",
+        "titleLabel": "Titre de l'élément",
+        "titlePlaceholder": "Entrez le titre...",
+        "categoryLabel": "Catégorie",
+        "categoryPlaceholder": "Ex: Nature, Communauté...",
+        "albumLabel": "Choisir un Album",
+        "albumPlaceholder": "Déplacer vers l'album (optionnel)...",
+        "uploadLabel": "Fichiers Média",
+        "thumbnailLabel": "Miniature",
+        "urlLabel": "URL Externe",
+        "urlPlaceholder": "Ou collez une URL externe (ex: https://youtube.com/...)",
+        "videoAssets": "Asset(s) Vidéo ou URL",
+        "photoAssets": "Asset(s) Photo",
+        "noneGeneralLibrary": "Aucun (Bibliothèque Générale)",
+        "save": "Enregistrer",
+        "update": "Mettre à jour",
+        "cancel": "Annuler"
+      }
+    },
+    "albums": {
+      "title": "Albums Multimédia",
+      "digitalCollections": "Collections Numériques",
+      "newAlbum": "Nouvel Album",
+      "content": "Contenu",
+      "files": "Fichiers",
+      "deleteAlbum": "Supprimer l'Album",
+      "editDetails": "Modifier l'Album",
+      "description": "Organisez votre contenu multimédia en collections thématiques et gérez l'accès public.",
+      "columns": {
+        "name": "Nom de l'Album",
+        "count": "Éléments Média",
+        "visibility": "Visibilité"
+      },
+      "filters": {
+        "all": "Tous les Albums",
+        "public": "Public",
+        "private": "Privé"
+      },
+      "dialog": {
+        "editTitle": "Modifier l'Album",
+        "createTitle": "Créer un Nouvel Album",
+        "editDesc": "Modifiez les détails de l'album et les paramètres de visibilité.",
+        "createDesc": "Commencez une nouvelle collection pour vos actifs médias.",
+        "nameLabel": "Nom de l'Album",
+        "namePlaceholder": "ex: Sommet Annuel 2024...",
+        "descLabel": "Description Courte",
+        "descPlaceholder": "Racontez l'histoire de cette collection...",
+        "visibilityLabel": "Visibilité Publique",
+        "visibilityDesc": "Cet album et ses contenus seront visibles par le public.",
+        "uploadLabel": "Couverture de l'Album",
+        "save": "Créer l'Album",
+        "update": "Enregistrer les Modifications"
+      },
+      "messages": {
+        "saveSuccess": "Album créé avec succès",
+        "updateSuccess": "Album mis à jour",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet album ? Cela supprimera également définitivement tous les médias qu'il contient.",
+        "deleteSuccess": "Album supprimé"
+      }
+    },
+    "publications": {
+      "description": "Publiez et gérez les rapports annuels, guides et documents de recherche.",
+      "dialog": {
+        "editTitle": "Modifier la Publication",
+        "createTitle": "Créer une Nouvelle Publication",
+        "editDesc": "Mettez à jour les détails de la publication. Les modifications seront traduites automatiquement.",
+        "createDesc": "Remplissez les détails de la nouvelle publication. Elle sera automatiquement traduite en anglais et en français.",
+        "inputLang": "Langue de saisie",
+        "titleLabel": "Titre de la Publication",
+        "titlePlaceholder": "Entrez le titre...",
+        "descLabel": "Description",
+        "descPlaceholder": "Entrez la description...",
+        "categoryLabel": "Catégorie",
+        "dateLabel": "Date",
+        "langLabel": "Langue",
+        "fileLabel": "Fichier du Document",
+        "uploading": "Téléchargement...",
+        "fileAttached": "Fichier joint",
+        "selectFile": "Sélectionnez un fichier",
+        "annual": "Rapport Annuel",
+        "technical": "Guide Technique",
+        "research": "Document de Recherche",
+        "saving": "Enregistrement...",
+        "save": "Enregistrer",
+        "update": "Mettre à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "annual": "Rapports Annuels",
+        "technical": "Guides Techniques",
+        "research": "Documents de Recherche"
+      },
+      "sort": {
+        "newest": "Plux récents",
+        "oldest": "Plus anciens",
+        "downloads": "Plus téléchargés",
+        "title": "Titre (A-Z)"
+      },
+      "messages": {
+        "noRecordsToExport": "Aucune publication à exporter.",
+        "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette publication ?",
+        "saveSuccess": "Publication enregistrée avec succès",
+        "updateSuccess": "Publication mise à jour avec succès",
+        "deleteSuccess": "Publication supprimée avec succès",
+        "error": "Une erreur est survenue"
+      },
+      "columns": {
+        "title": "Titre du Document",
+        "type": "Type de Publication",
+        "year": "Année",
+        "downloads": "Téléchargements"
+      }
+    },
+    "resources": {
+      "description": "Archivez et organisez les outils institutionnels et les ressources documentaires.",
+      "loading": "Chargement des ressources...",
+      "searchPlaceholder": "Rechercher des ressources par titre...",
+      "columns": {
+        "title": "Nom de la Ressource",
+        "category": "Catégorie",
+        "size": "Taille",
+        "updated": "Mise à jour"
+      },
+      "filters": {
+        "all": "Toutes les catégories",
+        "guide": "Guides Techniques",
+        "infographic": "Infographies",
+        "database": "Bases de Données",
+        "toolkit": "Boîtes à Outils"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "title": "Titre (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier la Ressource",
+        "createTitle": "Publier une Ressource",
+        "editDesc": "Modifiez les métadonnées du document ou remplacez le fichier.",
+        "createDesc": "Ajoutez un nouveau document, rapport ou ensemble de données à la bibliothèque publique.",
+        "titleLabel": "Titre de la Ressource",
+        "titlePlaceholder": "ex. Rapport d'Impact Annuel 2023...",
+        "descLabel": "Description",
+        "descPlaceholder": "Décrivez brièvement le contenu...",
+        "categoryLabel": "Type de Matériel",
+        "uploadLabel": "Fichier Source",
+        "save": "Publier la Ressource",
+        "update": "Mettre à jour les Métadonnées",
+        "uploadingThumbnail": "Téléchargement & génération de miniature...",
+        "thumbnailGenerated": "Miniature générée",
+        "dropOrClick": "Déposez le fichier ou cliquez pour parcourir",
+        "supportedFormats": "Formats PDF, DOCX, XLS, PPTX supportés • Miniatures générées pour les PDFs",
+        "synchronizing": "Synchronisation..."
+      },
+      "messages": {
+        "saveSuccess": "Ressource publiée",
+        "updateSuccess": "Métadonnées mises à jour",
+        "deleteConfirm": "Supprimer cette ressource définitivement ?",
+        "deleteSuccess": "Ressource supprimée",
+        "error": "L'opération a échoué",
+        "uploadSuccess": "Fichier téléchargé avec succès",
+        "uploadError": "Échec du téléchargement du fichier"
+      }
+    },
+    "governance": {
+      "description": "Gérez la structure organisationnelle et les profils des membres de l'équipe.",
+      "hrDesc": "Gérer les ressources humaines",
+      "loading": "Synchronisation des données...",
+      "groups": {
+        "governance": "Conseil de Gouvernance",
+        "hr": "Ressources Humaines"
+      },
+      "titles": {
+        "governance": "Gestion de la Gouvernance",
+        "hr": "Gestion des RH"
+      },
+      "searchPlaceholder": "Rechercher par nom ou rôle...",
+      "columns": {
+        "name": "Nom",
+        "role": "Rôle",
+        "organ": "Catégorie / Organe",
+        "order": "Ordre",
+        "department": "Département",
+        "status": "Statut"
+      },
+      "filters": {
+        "all": "Tous les organes",
+        "ag": "Assemblée Générale (AG)",
+        "cd": "Conseil d'Administration (CD)",
+        "pe": "Secrétariat Exécutif (PE)",
+        "dg": "Direction Générale (DG)",
+        "dirigeante": "Équipe Dirigeante",
+        "technique": "Technique et Administratif",
+        "volontaires": "Volontaires et Experts"
+      },
+      "sort": {
+        "order": "Ordre personnalisé",
+        "name": "Nom (A-Z)"
+      },
+      "dialog": {
+        "editTitle": "Modifier le Membre",
+        "createTitle": "Ajouter un Membre",
+        "editDesc": "Modifiez le rôle, la biographie et les détails organisationnels.",
+        "createDesc": "Enregistrez un nouvel officier ou membre du conseil.",
+        "groupType": "Type de Groupe",
+        "nameLabel": "Nom Complet",
+        "namePlaceholder": "Jean Dupont...",
+        "roleLabel": "Rôle Professionnel",
+        "rolePlaceholder": "Directeur Exécutif...",
+        "bioLabel": "Biographie",
+        "bioPlaceholder": "Bref parcours professionnel...",
+        "organLabel": "Organe Administratif",
+        "orderLabel": "Priorité d'Affichage (0 = Défaut)",
+        "uploadLabel": "Photo Officielle",
+        "save": "Enregistrer le Membre",
+        "update": "Mettre à jour le Profil"
+      },
+      "messages": {
+        "saveSuccess": "Profil du membre enregistré",
+        "updateSuccess": "Profil mis à jour",
+        "deleteConfirm": "Révoquer le profil de ce membre ?",
+        "deleteSuccess": "Membre supprimé",
+        "error": "Erreur lors du traitement"
+      }
+    },
+    "donations": {
+      "description": "Gérer les enregistrements de dons, le suivi des contributions et l'impact du soutien.",
+      "columns": {
+        "donor": "Nom du Donateur",
+        "amount": "Contribution",
+        "date": "Date de Réception",
+        "method": "Mode de Paiement",
+        "status": "Statut Actuel",
+        "type": "Type de Don"
+      },
+      "filters": {
+        "all": "Toutes les Contributions",
+        "one-time": "Ponctuel",
+        "monthly": "Engagement Mensuel"
+      },
+      "sort": {
+        "newest": "Plus Récents en Premier",
+        "oldest": "Plus Anciens en Premier",
+        "amount": "Plus Haute Contribution"
+      },
+      "stats": {
+        "totalRaised": "Total des Fonds Collectés",
+        "totalDonors": "Donateurs Uniques",
+        "monthlyDonors": "Donateurs Mensuels",
+        "avgDonation": "Don Moyen"
+      },
+      "messages": {
+        "deleteConfirm": "Supprimer définitivement cet enregistrement de don ?",
+        "deleteSuccess": "Enregistrement de don supprimé",
+        "error": "Échec du traitement de la demande"
+      },
+      "dialog": {
+        "createTitle": "Enregistrer un Nouveau Don",
+        "editTitle": "Modifier l'Enregistrement du Don",
+        "createDesc": "Enregistrez manuellement un don physique ou hors ligne dans le système.",
+        "editDesc": "Modifiez un enregistrement de don existant pour plus d'exactitude.",
+        "donorLabel": "Nom du Donateur",
+        "donorPlaceholder": "Nom Complet ou Organisation",
+        "emailLabel": "Email de Contact",
+        "emailPlaceholder": "donateur@exemple.com",
+        "amountLabel": "Montant Payé",
+        "currencyLabel": "Devise",
+        "frequencyLabel": "Type de Fréquence",
+        "methodLabel": "Mode de Paiement",
+        "statusLabel": "Statut Opérationnel",
+        "save": "Enregistrer le Don",
+        "update": "Mettre à jour"
+      }
+    },
+    "contacts": {
+      "description": "Répondez aux demandes des donateurs, partenaires et futurs bénévoles.",
+      "columns": {
+        "id": "ID",
+        "sender": "Expéditeur",
+        "subject": "Objet",
+        "received": "Reçu le",
+        "type": "Type",
+        "message": "Message",
+        "status": "Statut"
+      },
+      "filters": {
+        "all": "Tous les types",
+        "contact": "Contact",
+        "volunteer": "Bénévole",
+        "partner": "Partenaire",
+        "newsletter": "Newsletter"
+      },
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens",
+        "name": "Nom (A-Z)"
+      },
+      "dialog": {
+        "viewTitle": "Détails du Message",
+        "markAsRead": "Marquer comme Lu",
+        "markAsUnread": "Marquer comme Non Lu",
+        "delete": "Supprimer le Message",
+        "additionalInfo": "Informations Supplémentaires"
+      },
+      "statusLabels": {
+        "Unread": "Non Lu",
+        "Read": "Lu"
+      }
+    },
+    "settings": {
+      "title": "Paramètres du Portail",
+      "description": "Configurez les paramètres globaux du portail et les protocoles de sécurité.",
+      "loading": "Chargement des paramètres...",
+      "readOnlyMode": "Mode Lecture Seule",
+      "main": {
+        "title": "Configurations Principales",
+        "description": "Visibilité du site et métadonnées de base.",
+        "orgName": "Nom de l'Organisation",
+        "email": "Email de Contact Principal",
+        "websiteUrl": "URL du Site Web",
+        "updateBtn": "Mettre à jour le Portail",
+        "saving": "Enregistrement...",
+        "lastUpdated": "Dernière mise à jour"
+      },
+      "security": {
+        "title": "Accès Sécurisé",
+        "description": "Gérez les couches de protection administrative.",
+        "twoFactor": "Authentification à deux facteurs",
+        "logging": "Journalisation de l'activité du système",
+        "status": "Statut",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "active": "Actif",
+        "enableBtn": "Activer",
+        "viewLogsBtn": "Voir les Journaux",
+        "enabledMsg": "Authentification à deux facteurs activée",
+        "disabledMsg": "Authentification à deux facteurs désactivée",
+        "loggingEnabledMsg": "Journalisation des activités activée",
+        "loggingDisabledMsg": "Journalisation des activités désactivée"
+      },
+      "maintenance": {
+        "title": "Mode Maintenance",
+        "active": "Actif",
+        "inactive": "Inactif",
+        "enabledMsg": "Mode maintenance activé",
+        "disabledMsg": "Mode maintenance désactivé"
+      },
+      "info": {
+        "title": "Informations sur la Plateforme",
+        "description": "Détails techniques et état du système.",
+        "platformVersion": "Version de la Plateforme",
+        "dbStatus": "Base de Données",
+        "apiStatus": "Framework API",
+        "environment": "Environnement"
+      },
+      "messages": {
+        "saveSuccess": "Paramètres mis à jour avec succès",
+        "error": "Échec de la mise à jour des paramètres"
+      }
+    },
+    "users": {
+      "title": "Gestion des Utilisateurs",
+      "description": "Gérez l'accès au portail. Seuls les administrateurs peuvent accéder à cette page.",
+      "searchPlaceholder": "Rechercher par nom ou email...",
+      "roles": {
+        "admin": "Administrateur",
+        "staff": "Personnel"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif"
+      },
+      "columns": {
+        "name": "Utilisateur",
+        "role": "Rôle",
+        "status": "Statut",
+        "lastLogin": "Dernière Connexion",
+        "you": "Vous",
+        "never": "Jamais"
+      },
+      "filters": {
+        "all": "Tous les Utilisateurs",
+        "admin": "Administrateurs Uniquement",
+        "staff": "Personnel Uniquement",
+        "active": "Comptes Actifs",
+        "inactive": "Comptes Désactivés"
+      },
+      "sort": {
+        "newest": "Plus Récents en Premier",
+        "oldest": "Plus Anciens en Premier",
+        "name": "Nom (A–Z)"
+      },
+      "dialog": {
+        "createTitle": "Créer un Utilisateur du Portail",
+        "editTitle": "Modifier l'Utilisateur du Portail",
+        "createDesc": "Créez un nouveau compte pour accorder l'accès à ce portail administrateur.",
+        "editDesc": "Mettez à jour les informations, le rôle ou réinitialisez le mot de passe.",
+        "nameLabel": "Nom Complet",
+        "namePlaceholder": "Jane Dupont",
+        "emailLabel": "Adresse Email",
+        "passwordLabel": "Mot de Passe",
+        "passwordOptionalLabel": "Nouveau Mot de Passe (laisser vide pour conserver)",
+        "roleLabel": "Rôle d'Accès",
+        "staffDesc": "Gestion du contenu uniquement",
+        "adminDesc": "Accès complet au portail",
+        "activeLabel": "Compte Actif",
+        "activeDesc": "Les utilisateurs inactifs ne peuvent pas se connecter.",
+        "save": "Créer l'Utilisateur",
+        "update": "Enregistrer les Modifications"
+      },
+      "messages": {
+        "createSuccess": "Utilisateur créé avec succès",
+        "updateSuccess": "Utilisateur mis à jour",
+        "deleteConfirm": "Supprimer définitivement l'accès de cet utilisateur ?",
+        "deleteSuccess": "Utilisateur supprimé",
+        "cannotDeleteSelf": "Vous ne pouvez pas supprimer votre propre compte",
+        "passwordRequired": "Le mot de passe est requis pour les nouveaux utilisateurs",
+        "error": "Opération échouée"
+      }
     }
   }
 }

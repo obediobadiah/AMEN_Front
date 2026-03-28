@@ -3,16 +3,43 @@
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
 import { useTranslations } from 'next-intl';
-import { programs, news, stats } from "@/lib/mockData";
+import { useNews } from "@/hooks/use-news";
+import { programs, stats } from "@/lib/mockData";
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ArrowRight, CheckCircle2, Globe, Heart, Users } from "lucide-react";
+import { ArrowRight, CheckCircle2, Globe, Heart, Users, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
+import { formatDistanceToNow } from "date-fns";
+import { fr, enUS } from "date-fns/locale";
+import { useLocale } from "next-intl";
+import { getImageUrl } from "@/lib/api-config";
 
 export default function Home() {
   const t = useTranslations();
+  const locale = useLocale();
+  const { news, isLoading: newsLoading } = useNews();
+
+  // Get latest 3 published news articles
+  const latestNews = news
+    .filter(article => article.status?.[locale] === "Published")
+    .slice(0, 3);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const localeObj = locale === 'fr' ? fr : enUS;
+    return date.toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const formatReadingTime = (readingTime?: number) => {
+    if (!readingTime) return "5 min read";
+    return `${readingTime} min read`;
+  };
 
   return (
     <Layout>
@@ -25,7 +52,7 @@ export default function Home() {
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img src={images.programNature} alt="About AMEN" className="w-full h-auto object-cover" />
+                <img src={images.homeAbout} alt="About AMEN" className="w-full h-auto object-cover" />
               </div>
               <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-2xl shadow-xl max-w-xs hidden md:block">
                 <div className="flex items-center gap-4 mb-4">
@@ -162,48 +189,88 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((id) => (
-              <Link href={`/news/actualites/${id}`} key={id} className="group cursor-pointer shadow-lg rounded-[2rem] bg-card border border-border/40 overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={id === 1 ? images.news1 : id === 2 ? images.news2 : images.news3}
-                    alt={t(`actualitesPage.articles.${id}.title`)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest text-primary z-10">
-                      {t('home.newsSection.news')}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 bg-primary text-white px-6 py-2 rounded-tr-[1.5rem]">
-                    <span className="text-xs font-black">{t(`actualitesPage.articles.${id}.date`)}</span>
-                  </div>
+          {newsLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-muted h-64 rounded-[2rem] mb-4"></div>
+                  <div className="bg-muted h-4 rounded w-3/4 mb-2"></div>
+                  <div className="bg-muted h-3 rounded w-full mb-2"></div>
+                  <div className="bg-muted h-3 rounded w-2/3"></div>
                 </div>
-                <div className="space-y-4 p-8">
-                  <div className="flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
-                    <span className="text-primary">{t(`actualitesPage.articles.${id}.author`)}</span>
-                    <span className="w-1 h-1 rounded-full bg-border" />
-                    <span>5 min read</span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-black font-heading leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                    {t(`actualitesPage.articles.${id}.title`)}
-                  </h3>
-                  <p className="text-muted-foreground text-sm font-light line-clamp-2 leading-relaxed">
-                    {t(`actualitesPage.articles.${id}.excerpt`)}
-                  </p>
-                  <div className="pt-4 flex items-center justify-between">
-                    <span className="inline-flex items-center text-xs font-black uppercase tracking-widest text-foreground underline decoration-primary/30 underline-offset-8 group-hover:decoration-primary group-hover:text-primary transition-all">
-                      {t('home.newsSection.readMore')}
-                    </span>
-                    <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
-                      <ArrowRight size={18} />
+              ))}
+            </div>
+          ) : latestNews.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {latestNews.map((article) => (
+                <Link href={`/news/actualites/${article.id}`} key={article.id} className="group cursor-pointer shadow-lg rounded-[2rem] bg-card border border-border/40 overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {article.thumbnail_url ? (
+                      <img
+                        src={getImageUrl(article.thumbnail_url)}
+                        alt={article.title?.[locale] || "News article"}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-muted flex items-center justify-center">
+                        <div className="text-muted-foreground text-center">
+                          <div className="w-16 h-16 mx-auto mb-2 bg-muted-foreground/20 rounded-full flex items-center justify-center">
+                            <Calendar size={24} />
+                          </div>
+                          <p className="text-sm">No image available</p>
+                        </div>
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-black uppercase tracking-widest text-primary z-10">
+                        {article.category?.[locale] || t('home.newsSection.news')}
+                      </span>
+                    </div>
+                    <div className="absolute bottom-0 left-0 bg-primary text-white px-6 py-2 rounded-tr-[1.5rem]">
+                      <span className="text-xs font-black">{formatDate(article.published_date)}</span>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  <div className="space-y-4 p-8">
+                    <div className="flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+                      <span className="text-primary">{article.author || t('home.newsSection.anonymous')}</span>
+                      <span className="w-1 h-1 rounded-full bg-border" />
+                      <div className="flex items-center gap-1">
+                        <Clock size={10} />
+                        <span>{formatReadingTime(article.reading_time)}</span>
+                      </div>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-black font-heading leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                      {article.title?.[locale] || "Untitled Article"}
+                    </h3>
+                    <p className="text-muted-foreground text-sm font-light line-clamp-2 leading-relaxed">
+                      {article.excerpt?.[locale] ||
+                        (article.content?.[locale] ?
+                          article.content[locale].substring(0, 150) + "..." :
+                          "No excerpt available"
+                        )
+                      }
+                    </p>
+                    <div className="pt-4 flex items-center justify-between">
+                      <span className="inline-flex items-center text-xs font-black uppercase tracking-widest text-foreground underline decoration-primary/30 underline-offset-8 group-hover:decoration-primary group-hover:text-primary transition-all">
+                        {t('home.newsSection.readMore')}
+                      </span>
+                      <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all transform group-hover:translate-x-1">
+                        <ArrowRight size={18} />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <div className="w-16 h-16 mx-auto mb-4 bg-muted-foreground/20 rounded-full flex items-center justify-center">
+                <Calendar size={24} className="text-muted-foreground" />
+              </div>
+              <h3 className="text-xl font-bold text-muted-foreground mb-2">{t('home.newsSection.noArticles')}</h3>
+              <p className="text-muted-foreground">{t('home.newsSection.noArticlesDesc')}</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -214,7 +281,7 @@ export default function Home() {
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{
-              backgroundImage: 'url(/images/hero-home.jpg)',
+              backgroundImage: 'url(/images/hero-home-.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'

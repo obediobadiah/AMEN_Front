@@ -57,7 +57,7 @@ export default function History() {
                             <div className="absolute inset-0 bg-primary/20 rounded-3xl transform rotate-3 scale-105 group-hover:rotate-6 transition-transform duration-500" />
                             <div className="absolute inset-0 bg-secondary/20 rounded-3xl transform -rotate-2 scale-105 group-hover:-rotate-4 transition-transform duration-500 delay-100" />
                             <img
-                                src={images.programWomen}
+                                src={images.imageHistory}
                                 className="rounded-3xl shadow-2xl relative z-10 w-full h-[500px] object-cover filter brightness-105 contrast-105"
                                 alt={t('aboutPage.history.title')}
                             />

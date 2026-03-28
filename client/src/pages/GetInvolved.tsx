@@ -83,7 +83,7 @@ export default function GetInvolved() {
                         >
                             <div className="absolute inset-0 z-0">
                                 <img
-                                    src={images.news1}
+                                    src={images.heroGetInvolved}
                                     className="w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000"
                                     alt=""
                                 />

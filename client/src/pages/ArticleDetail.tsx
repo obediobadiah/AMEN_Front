@@ -2,12 +2,15 @@
 
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Clock } from "lucide-react";
+import { Calendar, User, ArrowLeft, ArrowRight, Tag, Share2, Clock, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useNewsArticle } from "@/hooks/use-news";
+import { getImageUrl } from "@/lib/api-config";
+import { format } from "date-fns";
 
 interface ArticleDetailProps {
     id: string;
@@ -15,24 +18,53 @@ interface ArticleDetailProps {
 
 export default function ArticleDetail({ id }: ArticleDetailProps) {
     const t = useTranslations();
+    const locale = useLocale();
+    const { data: dbArticle, isLoading, error } = useNewsArticle(id);
 
-    // Basic validation for ID
-    const articleId = (parseInt(id) >= 1 && parseInt(id) <= 6) ? id : "1";
+    if (isLoading) {
+        return (
+            <Layout>
+                <div className="min-h-[70vh] flex flex-col items-center justify-center gap-6">
+                    <Loader2 className="w-16 h-16 text-primary animate-spin" />
+                    <p className="font-black text-xs uppercase tracking-[0.3em] text-muted-foreground animate-pulse">
+                        {t('common.loading')}
+                    </p>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (error || !dbArticle) {
+        return (
+            <Layout>
+                <div className="min-h-[70vh] flex flex-col items-center justify-center gap-8 px-6 text-center">
+                    <div className="w-24 h-24 rounded-[2rem] bg-rose-50 flex items-center justify-center text-rose-500">
+                        <Tag size={40} />
+                    </div>
+                    <div className="space-y-2">
+                        <h2 className="text-3xl font-heading font-black">{t('actualitesPage.detail.notFound')}</h2>
+                        <p className="text-muted-foreground max-w-md mx-auto">{t('actualitesPage.detail.notFoundDesc')}</p>
+                    </div>
+                    <Link href="/news/actualites">
+                        <Button className="h-14 px-10 rounded-2xl bg-slate-900 font-bold flex items-center gap-3">
+                            <ArrowLeft size={18} />
+                            {t('common.back')} {t('nav.news')}
+                        </Button>
+                    </Link>
+                </div>
+            </Layout>
+        );
+    }
 
     const article = {
-        title: t(`actualitesPage.articles.${articleId}.title`),
-        excerpt: t(`actualitesPage.articles.${articleId}.excerpt`),
-        author: t(`actualitesPage.articles.${articleId}.author`),
-        date: t(`actualitesPage.articles.${articleId}.date`),
-        content: t(`actualitesPage.articles.${articleId}.content`),
-        // Mapping images based on ID
-        image: articleId === "1" ? images.news1 :
-            articleId === "2" ? images.news2 :
-                articleId === "3" ? images.news3 :
-                    articleId === "4" ? images.heroProjects :
-                        articleId === "5" ? images.heroContact : images.heroActivities,
-        category: articleId === "1" || articleId === "6" ? t('actualitesPage.categories.impact') :
-            articleId === "2" || articleId === "4" ? t('actualitesPage.categories.field') : t('actualitesPage.categories.press')
+        title: dbArticle.title[locale] || dbArticle.title.fr || dbArticle.title.en,
+        excerpt: dbArticle.excerpt?.[locale] || dbArticle.excerpt?.fr || dbArticle.excerpt?.en || "",
+        author: dbArticle.author || "Admin",
+        date: format(new Date(dbArticle.published_date), "dd MMM yyyy"),
+        content: dbArticle.content[locale] || dbArticle.content.fr || dbArticle.content.en,
+        image: getImageUrl(dbArticle.thumbnail_url) || images.heroNews,
+        category: dbArticle.category || "impact",
+        readingTime: dbArticle.reading_time || 5
     };
 
     return (
@@ -80,14 +112,14 @@ export default function ArticleDetail({ id }: ArticleDetailProps) {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest opacity-50">{t('actualitesPage.detail.readingTime')}</p>
-                                        <p className="font-bold text-foreground">{t('actualitesPage.detail.readingTimeValue')}</p>
+                                        <p className="font-bold text-foreground">{article.readingTime} min</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-4">
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary bg-primary/10 px-6 py-2.5 rounded-full border border-primary/20 shadow-sm">
-                                    {article.category}
+                                    {(article.category as any)?.[locale] || (article.category as any)?.fr || (article.category as any)?.en || 'all'}
                                 </span>
                             </div>
                         </motion.div>

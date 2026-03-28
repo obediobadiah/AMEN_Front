@@ -8,8 +8,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "localhost", pathname: "/**" },
+      { protocol: "https", hostname: "amen-rdc.vercel.app", pathname: "/**" },
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
     ],
+    loader: 'custom',
+    loaderFile: './client/src/lib/image-loader.js',
   },
   // Empty turbopack config - webpack fallbacks not needed for standard Next.js
   turbopack: {},

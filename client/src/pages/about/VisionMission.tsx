@@ -158,7 +158,7 @@ export default function VisionMission() {
                             <div className="absolute -inset-4 bg-primary/10 rounded-[3rem] blur-2xl transform rotate-3" />
                             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-700">
                                 <img
-                                    src={images.programNature}
+                                    src={images.heroHeal}
                                     className="w-full h-[600px] object-cover"
                                     alt={t('natureLabel')}
                                 />
