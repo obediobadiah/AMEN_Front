@@ -57,13 +57,13 @@ export default function Programs() {
 
       {/* Programs Grid */}
       <section className="py-20 bg-background/50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-2">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {programs.map((program) => (
               <motion.div key={program.id} variants={itemVariants}>

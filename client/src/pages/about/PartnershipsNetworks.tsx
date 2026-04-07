@@ -58,27 +58,27 @@ const TYPE_STYLES = [
 // Partner Logos (Using reliable sources: Clearbit for international orgs, Unsplash for others)
 const PARTNERS_BY_TYPE: Record<number, { name: string; logo: string }[]> = {
   0: [
-    { name: "UN Women", logo: "https://logo.clearbit.com/unwomen.org" },
-    { name: "UNICEF", logo: "https://logo.clearbit.com/unicef.org" },
-    { name: "FAO", logo: "https://logo.clearbit.com/fao.org" },
-    { name: "USAID", logo: "https://logo.clearbit.com/usaid.gov" },
+    // { name: "FAO", logo: "https://logo.clearbit.com/fao.org" },
+    // { name: "USAID", logo: "https://logo.clearbit.com/usaid.gov" },
   ],
   1: [
-    { name: "AFEM", logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=200&q=80" },
-    { name: "Coalition", logo: "https://images.unsplash.com/photo-1506719040632-7d58d7c0c057?w=200&h=200&q=80" },
-    { name: "Wakilisha", logo: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=200&h=200&q=80" },
-    { name: "Rural Women", logo: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=200&h=200&q=80" },
+    { name: "ACNDC", logo: "/images/partners/ACNDC.png" },
+    // { name: "AFEM", logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=200&q=80" },
+    // { name: "Coalition", logo: "https://images.unsplash.com/photo-1506719040632-7d58d7c0c057?w=200&h=200&q=80" },
+    // { name: "Wakilisha", logo: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?w=200&h=200&q=80" },
+    // { name: "Rural Women", logo: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=200&h=200&q=80" },
   ],
   2: [
-    { name: "BRALIMA", logo: "https://logo.clearbit.com/heineken.com" }, // Bralima is part of Heineken
-    { name: "RAWBANK", logo: "https://logo.clearbit.com/rawbank.cd" },
-    { name: "Congo Futur", logo: "https://images.unsplash.com/photo-1599305090623-668078df7c5f?w=200&h=200&q=80" },
+    // { name: "BRALIMA", logo: "https://logo.clearbit.com/heineken.com" }, // Bralima is part of Heineken
+    // { name: "RAWBANK", logo: "https://logo.clearbit.com/rawbank.cd" },
+    // { name: "Congo Futur", logo: "https://images.unsplash.com/photo-1599305090623-668078df7c5f?w=200&h=200&q=80" },
   ],
   3: [
-    { name: "CIVICUS", logo: "https://logo.clearbit.com/civicus.org" },
-    { name: "AWEPON", logo: "https://images.unsplash.com/photo-1572044162444-ad60f128bde7?w=200&h=200&q=80" },
-    { name: "AFARD", logo: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&q=80" },
-    { name: "GROOTS", logo: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=200&q=80" },
+    { name: "FIMI", logo: "/images/partners/FIMI.JPG" },
+    // { name: "CIVICUS", logo: "https://logo.clearbit.com/civicus.org" },
+    // { name: "AWEPON", logo: "https://images.unsplash.com/photo-1572044162444-ad60f128bde7?w=200&h=200&q=80" },
+    // { name: "AFARD", logo: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&q=80" },
+    // { name: "GROOTS", logo: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=200&h=200&q=80" },
   ],
 };
 

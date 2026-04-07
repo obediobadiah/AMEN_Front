@@ -44,7 +44,7 @@
           "all": "All",
           "dirigeante": "Leadership Team",
           "technique": "Technical & Administrative Staff",
-          "volontaires": "Volunteers & Experts"
+          "volontaires": "Volunteers & Consultants"
         }
       },
       "member1": {
@@ -115,6 +115,10 @@
           "5": {
             "title": "Transparency & Accountability",
             "description": "We account for our actions and management of resources to all our stakeholders, ensuring open and honest communication at every level."
+          },
+          "6": {
+            "title": "Feminism",
+            "description": "We recognize the central role of women—especially Indigenous, rural, and mining women—in peacebuilding, climate resilience, and sustainable development."
           }
         }
       },
@@ -171,7 +175,7 @@
         "primaryButton": "Become a Partner",
         "secondaryButton": "Contact Our Team"
       },
-      "ecosystemTitle": "Our Partner Ecosystem",
+      "ecosystemTitle": "Our Partners",
       "filterAll": "All Partners",
       "viewingPartners": "View partners",
       "partnersCount": "Partners"
@@ -345,13 +349,13 @@
     "history": {
       "title": "Our History",
       "subtitle": "A Decade of Impact & Resilience",
-      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) was created in the context of the peace process, political transition, and post-conflict democratization in Africa between 1996 and 1998. This period was marked by a sharp deterioration in women's living conditions, characterized notably by:\n• The dominance of patriarchal social norms reinforced by the collapse of state authority;\n• The overload of women's household and social responsibilities;\n• Family separations due to forced displacement, sexual violence, and male mortality.\nAMEN was born from the active mobilization of surviving women.",
+      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) was created during the period of the peace process, political transition, and democratization following the African armed conflicts in the Democratic Republic of Congo in 1996 and 1998. During this time, the condition of women had seriously deteriorated. These conditions were marked, first, by the omnipresence and community regulation of social norms dominated by men (patriarchal, marital, and filial norms) inherited from ancestors and often reinforced by local public administration when state authority weakened or collapsed. Second, women faced heavy household and social responsibilities in ensuring family subsistence, particularly in food, education, and health. Third, many families experienced marital and family separations caused by population movements (forced internal displacement and refuge abroad), particular marital circumstances (disappearance, divorce, and abandonment related to rape and other forms of sexual violence), and male mortality resulting from massacres and targeted killings. It therefore became necessary for women who were survivors and victims of these situations to engage in improving these difficult conditions, which unfortunately continue to persist today. AMEN was officially established in 2005 as part of the active movement of local women and women around the world against violations of women's rights linked to armed conflicts. Faced with this harsh social reality, the legally married couple in community of property, Lugendo Musobokelwa and Zabantu Wandimoyi, created Alternatives Ménages, Nature et Marchés (AMEN) in order to provide solutions.",
       "journey": "Our journey is anchored in resilience and commitment to vulnerable communities, transforming challenges into opportunities for sustainable development.",
       "milestones": {
-        "1996": "Start of the mobilization of surviving women in the face of post-conflict crises.",
-        "1998": "Foundation of AMEN to promote economic and social dignity.",
-        "2012": "Expansion of the sustainable agriculture model across the region.",
-        "2024": "Impact on over 50,000 households and environmental leadership."
+        "2005": "Creation of Amen by Mr. Lugendo and Mrs. Zabantu",
+        "2012": "Inclusion of gender in the peace process with awareness-raising and advocacy with demobilization stakeholders for the protection of women and specific actions related to women's SRHR",
+        "2019": "Agricultural stabilization activities through the introduction of improved seeds and breeding stock, cash distribution for 1480 households led by women",
+        "2024": "Large-scale capacity-building program for 382 indigenous women on the food system"
       },
       "milestonesTitle": "Milestones & Achievements",
       "milestonesDesc": "Key moments that defined our journey."
@@ -360,7 +364,7 @@
       "title": "Vision & Mission",
       "subtitle": "Guiding Our Path forward",
       "visionTitle": "Our Vision",
-      "visionText": "A harmonious management of household life, respectful of nature and integrated into fair markets.",
+      "visionText": "To achieve a harmonious management of household life, respectful of nature and integrated into fair markets.",
       "missionTitle": "Our Mission",
       "missionText": "Support sustainable human development within and beyond the household.",
       "finalityTitle": "Our Purpose",
@@ -408,18 +412,19 @@
       }
     },
     "strategic": {
-      "title": "Strategic Orientations",
+      "title": "Our Strategic Orientations",
       "subtitle": "Our Pillars of Action",
       "introBan": "Shaping the Future",
       "intro": "Our strategic pillars in service of change",
       "introDesc": "Our work is guided by major strategic orientations that ensure our interventions are holistic, sustainable and human-centered.",
       "pillars": {
         "strategy": {
-          "title": "Key Strategies",
+          "shortTitle": "Key Strategies",
+          "title": "Our Key Strategies",
           "items": [
             {
-              "title": "Participatory Leadership",
-              "desc": "Development of skills, expertise, and citizen participation."
+              "title": "Leadership and Participation",
+              "desc": "Development of skills and citizen engagement."
             },
             {
               "title": "Family and Humanitarian Reception",
@@ -436,14 +441,13 @@
           ]
         },
         "domain": {
-          "title": "Areas of Intervention",
+          "shortTitle": "Areas of Intervention",
+          "title": "Our Areas of Intervention",
           "items": [
-            "Human Rights and Local Peace",
-            "Women, Gender, and Generations",
-            "Food Sovereignty",
-            "Environment and Territories",
-            "Solidarity Economy and Fair Markets",
-            "Culture, Audiovisual, and Events"
+            "Human Rights and Peace",
+            "Gender and the Next Generation of Indigenous and Rural Women",
+            "Food Systems",
+            "Environment and Climate"
           ]
         }
       },
@@ -473,29 +477,24 @@
     },
     "programs": {
       "1": {
-        "title": "Humanitarian Reception and Basic Social Services",
-        "description": "Provision of humanitarian assistance and essential social services to vulnerable communities.",
-        "category": "Humanitarian"
+        "title": "Legal Empowerment, Human Rights Advocacy and the Fight Against Gender-Based Violence",
+        "description": "Strengthening access to justice for women and vulnerable communities through legal awareness, psychosocial support, and advocacy initiatives. This program aims to prevent and combat gender-based violence while promoting the protection and respect of human rights.",
+        "category": "Human Rights"
       },
       "2": {
-        "title": "Sustainable Agriculture and Nature Conservation",
-        "description": "Promotion of sustainable agricultural practices and environmental protection for a greener future.",
-        "category": "Environment"
+        "title": "Capacity Building for Women on Gender, Peace and Development",
+        "description": "Training and mentoring women and young women to strengthen their leadership skills, civic participation, and conflict resolution capacities in order to foster a more inclusive, peaceful, and equitable society.",
+        "category": "Empowerment"
       },
       "3": {
-        "title": "Logistics, Fair Trade and Value Chains",
-        "description": "Development of fair and sustainable supply chains for local producers.",
-        "category": "Development"
+        "title": "Resilient Food Systems",
+        "description": "Promoting sustainable and resilient food systems that help rural and Indigenous communities improve food security, strengthen livelihoods, and adapt to the impacts of climate change.",
+        "category": "Food Security"
       },
       "4": {
-        "title": "Women's Leadership and Civic Participation",
-        "description": "Strengthening women's leadership and their active participation in community life.",
-        "category": "Equality"
-      },
-      "5": {
-        "title": "Protection and Defense of Human Dignity",
-        "description": "Defense of human rights and protection of vulnerable people in our communities.",
-        "category": "Human Rights"
+        "title": "Environment and Climate",
+        "description": "Protecting ecosystems, promoting sustainable climate solutions, and raising community awareness about environmentally responsible practices to preserve natural resources for future generations.",
+        "category": "Environment"
       }
     },
     "impact": "Impact Highlights",
@@ -1060,20 +1059,20 @@
     "badge": "Community Development Organization",
     "slide1": {
       "title": "Together We Can",
-      "highlight": "Heal The World",
-      "description": "AMEN is dedicated to sustainable development, empowering communities through education, health, and environmental protection.",
-      "cta": "Donate Now"
+      "highlight": "Heal the World",
+      "description": "Together, we are not just programs: we are a force of healing. Healing the world begins by empowering Indigenous, rural, and mining women. Lasting peace and development emerge when they become agents of their own destiny through education, health, human rights advocacy, and climate protection.",
+      "cta": "Donate"
     },
     "slide2": {
-      "title": "Protecting Our",
+      "title": "Protect Our",
       "highlight": "Environment",
-      "description": "Join us in preserving nature and creating sustainable solutions for future generations.",
+      "description": "Protecting our environment means ensuring resilient food systems for rural and mining women in the face of climate change. Their ancestral strength, combined with sustainable solutions, heals the earth and secures the future of our children. Without them, there can be no just ecological transition.",
       "cta": "Learn More"
     },
     "slide3": {
-      "title": "Empowering",
-      "highlight": "Communities",
-      "description": "Support our initiatives to provide education and resources to underprivileged communities.",
+      "title": "Legal Empowerment",
+      "highlight": "The Key to a World Without Violence",
+      "description": "Legal empowerment is not a favor: it is the key to a world where gender-based violence has no place. When an Indigenous woman knows her rights, she breaks the silence around violence. When a rural or mining woman defends her dignity, she transforms her community into a shield for peace.",
       "cta": "Get Involved"
     },
     "watchVideo": "Watch Video"
@@ -1081,12 +1080,14 @@
   "home": {
     "aboutSection": {
       "badge": "About AMEN",
-      "title": "We Are Here To Help",
-      "titleHighlight": "The Needy People",
-      "description": "AMEN (Alternatives Ménages, Nature et Marchés) is a non-profit organization committed to creating sustainable change. We focus on empowering vulnerable households, protecting our natural environment, and fostering fair market access for small producers.",
-      "feature1": "Community-led development initiatives",
-      "feature2": "Sustainable agriculture & environmental protection",
-      "feature3": "Women and youth empowerment programs",
+      "title": "We Are Here to Empower",
+      "titleHighlight": "Vulnerable Communities and Build a More Just World",
+      "description": "AMEN (Alternatives Ménages, Nature et Marchés) is a non-profit organization committed to sustainable development and community healing. We work to advance women's legal empowerment, defend human rights, and combat gender-based violence, particularly among Indigenous women, rural women, and those working in mining communities.",
+      "feature1": "Community empowerment: strengthening the capacities of women and young women in gender equality, peace, and development.",
+      "feature2": "Environmental protection and climate resilience: preserving nature and developing sustainable solutions to address climate change.",
+      "feature3": "Food security and resilient agriculture: supporting small producers—particularly Indigenous peoples and rural communities—toward sustainable food systems.",
+      "feature4": "Equitable access to markets: supporting vulnerable households and local women producers.",
+      "feature5": "Human rights advocacy and the fight against GBV: legal support programs, psychosocial assistance, and advocacy.",
       "cta": "Discover More",
       "totalDonation": "Total Donation",
       "latestContribution": "Latest Contribution"
@@ -1115,6 +1116,16 @@
         "title": "Clean Water Access",
         "description": "Installing wells and water purification systems in remote villages to ensure access to safe drinking water.",
         "category": "Health"
+      },
+      "womenLeadership": {
+        "title": "Women's Leadership and Civic Participation",
+        "description": "Strengthening women's leadership and their active participation in community life.",
+        "category": "Equality"
+      },
+      "defenseProtection": {
+        "title": "Protection and Defense of Human Dignity",
+        "description": "Defense of human rights and protection of vulnerable people in our communities.",
+        "category": "Human Rights"
       },
       "raised": "Raised",
       "goal": "Goal",
@@ -1809,7 +1820,7 @@
         "dg": "General Management (DG)",
         "dirigeante": "Leadership Team",
         "technique": "Technical & Admin",
-        "volontaires": "Volunteers & Experts"
+        "volontaires": "Volunteers & Consultants"
       },
       "sort": {
         "order": "Custom Order",

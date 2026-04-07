@@ -31,6 +31,16 @@ export const programs = [
     raised: 25000,
     goal: 50000,
     icon: Globe
+  },
+  {
+    id: 4,
+    title: "Leadership féminin et participation citoyenne",
+    description: "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
+    image: images.homeCauseWater,
+    category: "Leadership",
+    raised: 25000,
+    goal: 50000,
+    icon: Globe
   }
 ];
 

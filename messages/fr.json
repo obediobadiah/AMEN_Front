@@ -44,7 +44,7 @@
           "all": "Tous",
           "dirigeante": "Équipe dirigeante",
           "technique": "Personnel technique & administratif",
-          "volontaires": "Volontaires & experts"
+          "volontaires": "Volontaires & Consultants"
         }
       },
       "member1": {
@@ -115,6 +115,10 @@
           "5": {
             "title": "Transparence et redevabilité",
             "description": "Nous rendons compte de nos actions et de notre gestion des ressources à toutes nos parties prenantes, en garantissant une communication ouverte et honnête."
+          },
+          "6": {
+            "title": "Féminisme",
+            "description": "Nous reconnaissons le rôle central des femmes, en particulier autochtones, rurales et minières, dans la paix, la résilience climatique et le développement durable."
           }
         }
       },
@@ -171,7 +175,7 @@
         "primaryButton": "Devenir Partenaire",
         "secondaryButton": "Contacter Notre Équipe"
       },
-      "ecosystemTitle": "Notre Écosystème de Partenaires",
+      "ecosystemTitle": "Nos Partenaires",
       "filterAll": "Tous les Partenaires",
       "viewingPartners": "Voir les partenaires",
       "partnersCount": "Partenaires"
@@ -203,13 +207,13 @@
     "history": {
       "title": "Notre Historique",
       "subtitle": "Une décennie d'impact et de résilience",
-      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) a été créée dans le contexte du processus de paix, de transition politique et de démocratisation post-conflits armés africains de 1996 et 1998. Cette période a été marquée par une forte détérioration des conditions de vie des femmes, caractérisée notamment par :\n• La domination de normes sociales patriarcales renforcées par l’effondrement de l’autorité de l’État ;\n• La surcharge des responsabilités ménagères et sociales des femmes ;\n• Les séparations familiales dues aux déplacements forcés, aux violences sexuelles et à la mortalité masculine.\nAMEN est née de la mobilisation active des femmes survivantes.",
+      "intro": "Alternatives Ménages, Nature et Marchés (AMEN) fut créée dans la période du processus de paix, de transition politique et de démocratisation post conflit Armé africain en RDC de 1996 et 1998. A partir de ce temps, les conditions de la femme s’étaient gravement détériorées. Ces conditions furent marquées, primo par L’omniprésence et la réglementation communautaire par des normes sociales masculines (patriarcales, maritales et filiales) héritées des ancêtres et Jouissant de la complicité administrative publique locale lorsque l’autorité de l’Etat s’effondrait et devenait fragile, secundo, par les surcharges et là sur responsabilisation ménagère et sociale des femmes dans la subsistance familiale alimentaire, éducative et sanitaire, tertio par les séparations conjugales et familiales consécutives aux mouvements des populations (déplacement interne forcé et refuge à l’étranger), aux circonstances conjugales particulières (la disparition, le divorces et les abandons maritaux liés aux viols et autres violences sexuelles) et à la mortalité masculine (massacres et tueries sélectives). Il était devenu nécessaire que les femmes victimes survivantes et affectées puissent s’engager dans le redressement de ces mauvaises conditions féminines qui perdurent jusqu’aujourd’hui y compris à l’heure. AMEN a été créée en 2005 dans l'élan actif des femmes locales et du monde entier contre les violations des droits des femmes liées aux conflits armés. Devant cette triste réalité sociale, le couple légalisé en communauté universelle des biens Lugendo Musobokelwa et Zabantu Wandimoyi a créé Alternatives Ménages, Nature et Marchés (AMEN) afin d’y apporter des solutions. ",
       "journey": "Notre parcours est ancré dans la résilience et l'engagement envers les communautés vulnérables, en transformant les défis en opportunités de développement durable.",
       "milestones": {
-        "1996": "Début de la mobilisation des femmes survivantes face aux crises post-conflit.",
-        "1998": "Fondation de AMEN pour promouvoir la dignité économique et sociale.",
-        "2012": "Expansion du modèle d'agriculture durable à travers la région.",
-        "2024": "Impact sur plus de 50 000 ménages et leadership environnemental."
+        "2005": "Création de Amen par Monsieur Lugendo et Madame Zabantu",
+        "2012": "L'inclusion du genre dans le processus de paix avec la sensibilisation et le plaidoyer auprès des parties prenantes à la démobilisation pour la protection de la femme et des actions spécifiques liées aux DSSR des femmes",
+        "2019": "EActivités de stabilisation agricole à travers l'introduction des semences et géniteurs améliorées, la distribution de cash pour 1480 ménages dirigé par les femmes ",
+        "2024": "Vaste programme de renforcement des capacités de 382 femmes autochtones sur le système alimentaire."
       },
       "milestonesTitle": "Jalons et Réalisations",
       "milestonesDesc": "Les moments clés qui ont défini notre parcours."
@@ -218,7 +222,7 @@
       "title": "Vision & Mission",
       "subtitle": "Guider notre chemin vers l'avenir",
       "visionTitle": "Notre Vision",
-      "visionText": "Une gestion harmonieuse de la vie ménagère, respectueuse de la nature et intégrée à des marchés équitables.",
+      "visionText": "Parvenir à une vie harmonieuse ménagère respectueuse de la nature et intégrée à des marchés équitables.",
       "missionTitle": "Notre Mission",
       "missionText": "Appuyer le développement humain durable au sein et au-delà du ménage.",
       "finalityTitle": "Notre Finalité",
@@ -414,35 +418,35 @@
       "introDesc": "Notre travail est guidé par des orientations stratégiques majeures qui garantissent que nos interventions sont holistiques, durables et centrées sur l'humain.",
       "pillars": {
         "strategy": {
-          "title": "Stratégies clés",
+          "shortTitle": "Stratégies clés",
+          "title": "Nos Stratégies clés",
           "items": [
             {
-              "title": "Leadership participatif",
-              "desc": "Développement des compétences, de l'expertise et de la participation citoyenne."
+              "title": "Leadership and Participation",
+              "desc": "Development of skills and promotion of participatory civic engagement."
             },
             {
-              "title": "Accueil familial et humanitaire",
-              "desc": "Protection des personnes vulnérables et accès aux services sociaux de base."
+              "title": "Family Support and Social Protection",
+              "desc": "Protection of vulnerable individuals and access to essential social services."
             },
             {
-              "title": "Agriculture durable",
-              "desc": "Promotion de l'agriculture, de l'élevage, de la pêche, de la sylviculture et de la protection environnementale."
+              "title": "Sustainable Agriculture",
+              "desc": "Promotion of agriculture, livestock farming, fishing, forestry, and environmental protection."
             },
             {
-              "title": "Logistique marchande solidaire",
-              "desc": "Développement de filières économiques équitables, circulaires et inclusives."
+              "title": "Market Logistics",
+              "desc": "Development of fair, circular, and inclusive economic value chains."
             }
           ]
         },
         "domain": {
-          "title": "Domaines d'intervention",
+          "shortTitle": "Domaines d'intervention",
+          "title": "Nos Domaines d'intervention",
           "items": [
-            "Droits humains et paix locale",
-            "Femmes, genre et générations",
-            "Souveraineté alimentaire",
-            "Environnement et territoires",
-            "Économie solidaire et marchés équitables",
-            "Culture, audiovisuel et événementiel"
+            "Droits humains et paix",
+            "Genre et génération future féminine autochtones et rurales",
+            "Système alimentaire",
+            "Environnement et climat"
           ]
         }
       },
@@ -472,29 +476,24 @@
     },
     "programs": {
       "1": {
-        "title": "Accueil humanitaire et services sociaux de base",
-        "description": "Fourniture d'une assistance humanitaire et de services sociaux essentiels aux communautés vulnérables.",
-        "category": "Humanitaire"
+        "title": "Autonomisation juridique, défense des droits humains et lutte contre les violences basées sur le genre",
+        "description": "Renforcement de l'accès à la justice pour les femmes et les communautés vulnérables à travers l'information juridique, l'accompagnement psychosocial et le plaidoyer. Le programme vise à prévenir et combattre les violences basées sur le genre tout en promouvant le respect et la protection des droits humains.",
+        "category": "Droits Humains"
       },
       "2": {
-        "title": "Agriculture durable et conservation de la nature",
-        "description": "Promotion de pratiques agricoles durables et protection de l'environnement pour un avenir plus vert.",
-        "category": "Environnement"
+        "title": "Renforcement des capacités des femmes sur le genre, paix et développement",
+        "description": "Formation et accompagnement des femmes et jeunes femmes afin de développer leurs compétences en leadership, en participation citoyenne et en résolution pacifique des conflits pour favoriser une société plus inclusive et équitable.",
+        "category": "Autonomisation"
       },
       "3": {
-        "title": "Logistique, commerce équitable et chaînes de valeur",
-        "description": "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
-        "category": "Développement"
+        "title": "Alimentation résiliente",
+        "description": "Promotion de systèmes alimentaires durables et résilients permettant aux communautés rurales et autochtones d'améliorer leur sécurité alimentaire, d'augmenter leurs moyens de subsistance et de faire face aux impacts du changement climatique.",
+        "category": "Sécurité Alimentaire"
       },
       "4": {
-        "title": "Leadership féminin et participation citoyenne",
-        "description": "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
-        "category": "Égalité"
-      },
-      "5": {
-        "title": "Protection et défense de la personne humaine",
-        "description": "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
-        "category": "Droits Humains"
+        "title": "Environnement et climat",
+        "description": "Protection des écosystèmes, promotion de solutions climatiques durables et sensibilisation des communautés aux pratiques respectueuses de l'environnement afin de préserver les ressources naturelles pour les générations futures.",
+        "category": "Environnement"
       }
     },
     "impact": "Points Forts de l'Impact",
@@ -1066,19 +1065,19 @@
     "slide1": {
       "title": "Ensemble Nous Pouvons",
       "highlight": "Guérir Le Monde",
-      "description": "AMEN est dédiée au développement durable, autonomisant les communautés par l'éducation, la santé et la protection de l'environnement.",
+      "description": "Ensemble, nous ne sommes pas seulement des programmes : nous sommes une guérison. Guérir le monde commence par renforcer les femmes autochtones, rurales et minières. La paix durable et le développement naissent quand elles deviennent actrices de leur propre destin par l’éducation, la santé, la défense des droits humains et la protection du climat.",
       "cta": "Faire un Don"
     },
     "slide2": {
       "title": "Protéger Notre",
       "highlight": "Environnement",
-      "description": "Rejoignez-nous pour préserver la nature et créer des solutions durables pour les générations futures.",
+      "description": "Protéger notre environnement, c’est offrir aux femmes rurales et minières une alimentation résiliente face au dérèglement climatique. Leur force ancestrale, alliée à des solutions durables, guérit la terre et garantit l’avenir de nos enfants. Sans elles, pas de transition écologique juste",
       "cta": "En Savoir Plus"
     },
     "slide3": {
-      "title": "Autonomiser les",
-      "highlight": "Communautés",
-      "description": "Soutenez nos initiatives pour fournir éducation et ressources aux communautés défavorisées.",
+      "title": "L’autonomisation juridique",
+      "highlight": "Clé d’un monde sans violences",
+      "description": "L’autonomisation juridique n’est pas une faveur : c’est la clé d’un monde où les violences basées sur le genre n’ont plus leur place : Quand une femme autochtone connaît ses droits, elle brise le silence sur les violences. Quand une femme rurale ou minière défend sa dignité, elle transforme sa communauté en rempart pour la paix.",
       "cta": "S'Impliquer"
     },
     "watchVideo": "Regarder la Vidéo"
@@ -1086,12 +1085,14 @@
   "home": {
     "aboutSection": {
       "badge": "À Propos de AMEN",
-      "title": "Nous Sommes Ici Pour Aider",
-      "titleHighlight": "Les Personnes Nécessiteuses",
-      "description": "AMEN (Alternatives Ménages, Nature et Marchés) est une organisation à but non lucratif engagée à créer un changement durable. Nous nous concentrons sur l'autonomisation des ménages vulnérables, la protection de notre environnement naturel et la promotion d'un accès équitable au marché pour les petits producteurs.",
-      "feature1": "Initiatives de développement dirigées par la communauté",
-      "feature2": "Agriculture durable et protection de l'environnement",
-      "feature3": "Programmes d'autonomisation des femmes et des jeunes",
+      "title": "Nous Sommes ici Pour Autonomiser ",
+      "titleHighlight": "les communautés nécessiteuses et Bâtir un Monde Plus Juste",
+      "description": "AMEN (Alternatives Ménages, Nature et Marchés) est une organisation à but non lucratif engagée dans le développement durable et la guérison des communautés. Nous agissons pour l’autonomisation juridique des femmes, la défense des droits humains et la lutte contre les violences basées sur le genre, en particulier auprès des femmes autochtones, rurales et celles évoluant dans les carrières minières.",
+      "feature1": "Autonomisation des communautés : renforcement des capacités des femmes et des jeunes femmes sur le genre, la paix et le développement.",
+      "feature2": "Protection de l’environnement et résilience climatique : préservation de la nature et création de solutions durables face au dérèglement climatique.",
+      "feature3": "Sécurité alimentaire et agriculture résiliente : accompagnement vers une alimentation durable pour les petits producteurs particulièrement les peuples autochtones et autres communautés rurales.",
+      "feature4": "Accès équitable aux marchés : soutien aux ménages vulnérables et aux productrices locales.",
+      "feature5": "Défense des droits humains et lutte contre les VBG : programmes d’accompagnement juridique, psychosocial et plaidoyer.",
       "cta": "Découvrir Plus",
       "totalDonation": "Don Total",
       "latestContribution": "Dernière Contribution"
@@ -1120,6 +1121,16 @@
         "title": "Accès à l'Eau Potable",
         "description": "Installation de puits et de systèmes de purification d'eau dans les villages reculés pour assurer l'accès à l'eau potable.",
         "category": "Santé"
+      },
+      "womenLeadership": {
+        "title": "Leadership féminin et participation citoyenne",
+        "description": "Renforcement du leadership des femmes et de leur participation active dans la vie communautaire.",
+        "category": "Égalité"
+      },
+      "defenseProtection": {
+        "title": "Protection et défense de la personne humaine",
+        "description": "Défense des droits humains et protection des personnes vulnérables dans nos communautés.",
+        "category": "Droits Humains"
       },
       "raised": "Levez",
       "goal": "Objectif",
@@ -1825,7 +1836,7 @@
         "dg": "Direction Générale (DG)",
         "dirigeante": "Équipe Dirigeante",
         "technique": "Technique et Administratif",
-        "volontaires": "Volontaires et Experts"
+        "volontaires": "Volontaires et Consultants"
       },
       "sort": {
         "order": "Ordre personnalisé",
