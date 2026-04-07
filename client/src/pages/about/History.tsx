@@ -11,9 +11,9 @@ export default function History() {
     const t = useTranslations();
 
     const milestones = [
-        { year: "1996", title: t('aboutPage.history.milestones.1996'), icon: Flag },
-        { year: "1998", title: t('aboutPage.history.milestones.1998'), icon: TrendingUp },
-        { year: "2012", title: t('aboutPage.history.milestones.2012'), icon: Calendar },
+        { year: "2005", title: t('aboutPage.history.milestones.2005'), icon: Flag },
+        { year: "2012", title: t('aboutPage.history.milestones.2012'), icon: TrendingUp },
+        { year: "2019", title: t('aboutPage.history.milestones.2019'), icon: Calendar },
         { year: "2024", title: t('aboutPage.history.milestones.2024'), icon: Award },
     ];
 

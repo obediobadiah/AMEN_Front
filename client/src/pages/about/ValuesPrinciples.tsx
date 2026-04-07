@@ -4,12 +4,12 @@ import { Layout } from '@/components/Layout';
 import { useTranslations } from 'next-intl';
 import { PageHero } from "@/components/PageHero";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe2, TrendingUp, Award, Scale, ShieldCheck, UserCheck } from "lucide-react";
+import { Globe2, TrendingUp, Award, Scale, ShieldCheck, UserCheck, Venus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { images } from "@/lib/images";
 
-const VALUE_ICONS = [Globe2, TrendingUp, Award, Scale, ShieldCheck];
+const VALUE_ICONS = [Globe2, TrendingUp, Award, Scale, ShieldCheck, Venus];
 
 const VALUE_STYLES = [
   {
@@ -43,6 +43,14 @@ const VALUE_STYLES = [
     accent: "text-amber-600",
     border: "border-amber-200",
     number: "text-amber-300",
+  },
+  {
+    gradient: "from-rose-500 to-pink-600",
+    glow: "bg-rose-500/20",
+    light: "bg-rose-50",
+    accent: "text-rose-600",
+    border: "border-rose-200",
+    number: "text-rose-300",
   },
   {
     gradient: "from-rose-500 to-pink-600",
@@ -103,7 +111,7 @@ export default function ValuesPrinciples() {
 
           {/* Values Grid - 5 values in a masonry-style layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {[1, 2, 3, 4, 5].map((id, idx) => {
+            {[1, 2, 3, 4, 5, 6].map((id, idx) => {
               const style = VALUE_STYLES[idx];
               const Icon = VALUE_ICONS[idx];
               const isHovered = hoveredValue === id;

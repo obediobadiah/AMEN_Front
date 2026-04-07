@@ -144,7 +144,7 @@ export default function StrategicOrientations() {
                                                     pillar.badge
                                                 )}>
                                                     <Sparkles size={12} />
-                                                    {t(`pillars.${pillar.key}.title`)}
+                                                    {t(`pillars.${pillar.key}.shortTitle`)}
                                                 </span>
                                             </div>
 

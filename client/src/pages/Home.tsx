@@ -48,6 +48,20 @@ export default function Home() {
       {/* About Section Preview */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
+
+          <div className="text-center mb-16">
+            <span className="text-primary font-medium tracking-wide uppercase text-sm">{t('home.aboutSection.badge')}</span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-8 mb-8">
+              {t('home.aboutSection.title')} <br />
+              <span className="text-primary decoration-primary/30">{t('home.aboutSection.titleHighlight')}</span>
+            </h2>
+            <div className="mb-8 md:mx-32">
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                {t('home.aboutSection.description')}
+              </p>
+            </div>
+
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
@@ -71,27 +85,27 @@ export default function Home() {
             </div>
 
             <div className="space-y-6">
-              <span className="text-primary font-medium tracking-wide uppercase text-sm">{t('home.aboutSection.badge')}</span>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground">
-                {t('home.aboutSection.title')} <br />
-                <span className="text-primary decoration-primary/30">{t('home.aboutSection.titleHighlight')}</span>
-              </h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                {t('home.aboutSection.description')}
-              </p>
 
               <ul className="space-y-4 pt-4">
-                <li className="flex items-center gap-3">
+                <li className="flex items-center gap-3 text-[1rem]">
                   <CheckCircle2 className="text-primary h-6 w-6" />
                   <span className="font-medium">{t('home.aboutSection.feature1')}</span>
                 </li>
-                <li className="flex items-center gap-3">
+                <li className="flex items-center gap-3 text-[1rem]">
                   <CheckCircle2 className="text-primary h-6 w-6" />
                   <span className="font-medium">{t('home.aboutSection.feature2')}</span>
                 </li>
-                <li className="flex items-center gap-3">
+                <li className="flex items-center gap-3 text-[1rem]">
                   <CheckCircle2 className="text-primary h-6 w-6" />
                   <span className="font-medium">{t('home.aboutSection.feature3')}</span>
+                </li>
+                <li className="flex items-center gap-3 text-[1rem]">
+                  <CheckCircle2 className="text-primary h-6 w-6" />
+                  <span className="font-medium">{t('home.aboutSection.feature4')}</span>
+                </li>
+                <li className="flex items-center gap-3 text-[1rem]">
+                  <CheckCircle2 className="text-primary h-6 w-6" />
+                  <span className="font-medium">{t('home.aboutSection.feature5')}</span>
                 </li>
               </ul>
 
