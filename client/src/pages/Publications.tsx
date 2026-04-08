@@ -5,7 +5,7 @@ import { PageHero } from "@/components/PageHero";
 import { useTranslations, useLocale } from 'next-intl';
 import { images } from "@/lib/images";
 import { Button } from "@/components/ui/button";
-import { FileText, Download, Calendar, ArrowRight, BookOpen, Loader2 } from "lucide-react";
+import { FileText, Eye, Calendar, ArrowRight, BookOpen, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -22,12 +22,16 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 import { format } from "date-fns";
+import { FileViewer } from "@/components/FileViewer";
 
 export default function Publications() {
     const t = useTranslations();
     const locale = useLocale();
     const [activeCategory, setActiveCategory] = useState("all");
     const { publications, isLoading, recordDownload } = usePublications();
+
+    const [viewerOpen, setViewerOpen] = useState(false);
+    const [selectedPub, setSelectedPub] = useState<any>(null);
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,15 +46,14 @@ export default function Publications() {
             });
     }, [publications, activeCategory, locale]);
 
-    const handleDownload = async (url: string, id: number) => {
+    const handleView = async (pub: any) => {
+        if (!pub.file_url) return;
+        setSelectedPub(pub);
+        setViewerOpen(true);
         try {
-            await recordDownload(id);
-            // After recording download, open the file in a new tab to download/view
-            window.open(getImageUrl(url), "_blank");
+            await recordDownload(pub.id);
         } catch (error) {
-            console.error("Failed to record download", error);
-            // Still try to download even if tracking fails
-            window.open(getImageUrl(url), "_blank");
+            console.error("Failed to record view statistic", error);
         }
     };
 
@@ -183,11 +186,11 @@ export default function Publications() {
                                                 <div className="pt-4 mt-auto">
                                                     {pub.file_url ? (
                                                         <Button
-                                                            onClick={() => handleDownload(pub.file_url!, pub.id)}
+                                                            onClick={() => handleView(pub)}
                                                             className="w-full h-12 rounded-xl bg-slate-900 hover:bg-primary text-white font-black uppercase tracking-widest text-[10px] group/btn flex items-center justify-center gap-3 transition-all"
                                                         >
-                                                            <Download size={14} className="group-hover/btn:-translate-y-1 transition-transform" />
-                                                            {t('publicationsPage.download')}
+                                                            <Eye size={14} className="group-hover/btn:-translate-y-1 transition-transform" />
+                                                            {t('publicationsPage.view')}
                                                         </Button>
                                                     ) : (
                                                         <Button disabled className="w-full h-12 rounded-xl bg-muted text-muted-foreground font-black uppercase tracking-widest text-[10px]">
@@ -261,6 +264,13 @@ export default function Publications() {
                     )}
                 </div>
             </section>
+
+            <FileViewer
+                isOpen={viewerOpen}
+                onClose={() => setViewerOpen(false)}
+                url={selectedPub?.file_url ? getImageUrl(selectedPub.file_url) : null}
+                title={selectedPub ? (selectedPub.title[locale] || selectedPub.title.fr || selectedPub.title.en || "") : ""}
+            />
         </Layout>
     );
 }

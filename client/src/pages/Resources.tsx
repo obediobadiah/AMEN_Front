@@ -24,6 +24,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { FileViewer } from "@/components/FileViewer";
 
 // Map category string to an icon component
 function getCategoryIcon(category?: string) {
@@ -41,6 +42,10 @@ export default function Resources() {
     const [activeType, setActiveType] = useState("all");
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const { resources, isLoading, recordDownload } = useResources();
+
+    // Viewer state
+    const [viewerOpen, setViewerOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<ResourceItem | null>(null);
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -114,16 +119,11 @@ export default function Resources() {
         }
     };
 
-    const handleDownload = async (item: ResourceItem) => {
-        try { await recordDownload(item.id); } catch (e) { /* silently ignore */ }
-        if (item.file_url) window.open(getImageUrl(item.file_url), "_blank");
-    };
-
-    const handleView = (item: ResourceItem) => {
+    const handleView = async (item: ResourceItem) => {
         if (item.file_url) {
-            const url = getImageUrl(item.file_url);
-            // Open in a new tab so the browser handles PDF viewing natively
-            window.open(url, "_blank", "noopener,noreferrer");
+            setSelectedItem(item);
+            setViewerOpen(true);
+            try { await recordDownload(item.id); } catch (e) { /* silently ignore stats error */ }
         }
     };
 
@@ -469,6 +469,13 @@ export default function Resources() {
                     </div>
                 </div>
             </section>
+
+            <FileViewer
+                isOpen={viewerOpen}
+                onClose={() => setViewerOpen(false)}
+                url={selectedItem?.file_url ? getImageUrl(selectedItem.file_url) : null}
+                title={selectedItem ? getLocalTitle(selectedItem) : ""}
+            />
         </Layout>
     );
 }
