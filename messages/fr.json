@@ -896,7 +896,7 @@
       "guide": "Guide",
       "newsletter": "Newsletter"
     },
-    "download": "Télécharger le PDF",
+    "view": "Lire",
     "fileSize": "Taille",
     "publishDate": "Publié le",
     "items": {
@@ -1663,7 +1663,7 @@
       }
     },
     "albums": {
-      "title": "Albums Multimédia",
+      "title": "Albums",
       "digitalCollections": "Collections Numériques",
       "newAlbum": "Nouvel Album",
       "content": "Contenu",
