@@ -1403,7 +1403,8 @@
       "processing": "Processing...",
       "completed": "Completed",
       "pending": "Pending",
-      "failed": "Failed"
+      "failed": "Failed",
+      "pdfOnlyError": "Only PDF files are allowed. Please select a PDF file."
     },
     "news": {
       "description": "Manage your global articles, stories, and press releases.",
@@ -1788,7 +1789,8 @@
         "deleteSuccess": "Resource removed",
         "error": "Operation failed",
         "uploadSuccess": "File uploaded successfully",
-        "uploadError": "Failed to upload file"
+        "uploadError": "Failed to upload file",
+        "pdfOnlyError": "Only PDF files are allowed. Please select a PDF file."
       }
     },
     "governance": {

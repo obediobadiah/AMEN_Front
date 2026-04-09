@@ -111,6 +111,16 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
         const file = e.target.files?.[0];
         if (!file) return;
 
+        // Check if file is PDF
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
+            toast.error(commonT("pdfOnlyError"));
+            // Clear the file input
+            e.target.value = '';
+            return;
+        }
+
+
         try {
             const result = await uploadFile(file);
 
@@ -131,6 +141,14 @@ export function PublicationsDialog({ open, onOpenChange, onSubmit, publication, 
 
     const handleDropFile = async (file: File) => {
         if (!file) return;
+
+        // Check if file is PDF
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
+            toast.error(commonT("pdfOnlyError"));
+            return;
+        }
+
 
         try {
             const result = await uploadFile(file);

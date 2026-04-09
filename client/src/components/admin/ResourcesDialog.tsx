@@ -113,7 +113,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         // Check if file is PDF
         const fileExtension = file.name.split('.').pop()?.toLowerCase();
         if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
-            toast.error("Only PDF files are allowed. Please select a PDF file.");
+            toast.error(tMsg("pdfOnlyError"));
             // Clear the file input
             e.target.value = '';
             return;
@@ -142,7 +142,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         // Check if file is PDF
         const fileExtension = file.name.split('.').pop()?.toLowerCase();
         if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
-            toast.error("Only PDF files are allowed. Please select a PDF file.");
+            toast.error(tMsg("pdfOnlyError"));
             return;
         }
 
