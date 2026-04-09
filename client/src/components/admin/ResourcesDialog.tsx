@@ -115,9 +115,7 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
             toast.error("Only PDF files are allowed. Please select a PDF file.");
             // Clear the file input
-            if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-            }
+            e.target.value = '';
             return;
         }
 
