@@ -110,6 +110,17 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
         const file = e.target.files?.[0];
         if (!file) return;
 
+        // Check if file is PDF
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
+            toast.error("Only PDF files are allowed. Please select a PDF file.");
+            // Clear the file input
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
+            return;
+        }
+
         try {
             const result = await uploadFile(file);
             form.setValue("file_url", result.file_url);
@@ -129,6 +140,13 @@ export function ResourcesDialog({ open, onOpenChange, onSubmit, resource, isSubm
 
     const handleDropFile = async (file: File) => {
         if (!file) return;
+
+        // Check if file is PDF
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        if (fileExtension !== 'pdf' && file.type !== 'application/pdf') {
+            toast.error("Only PDF files are allowed. Please select a PDF file.");
+            return;
+        }
 
         try {
             const result = await uploadFile(file);
