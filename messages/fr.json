@@ -1418,7 +1418,8 @@
       "processing": "Traitement...",
       "completed": "Terminé",
       "pending": "En attente",
-      "failed": "Échec"
+      "failed": "Échec",
+      "pdfOnlyError": "Seuls les fichiers PDF sont autorisés. Veuillez sélectionner un fichier PDF."
     },
     "news": {
       "description": "Gérez vos articles, histoires et communiqués de presse mondiaux.",
