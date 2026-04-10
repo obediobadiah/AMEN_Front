@@ -110,7 +110,7 @@ export default function Publications() {
 
                         {/* Filter Tabs - Premium Styled */}
                         <div className="flex flex-wrap gap-2 p-1.5 bg-muted/30 rounded-full border border-border/50 backdrop-blur-sm">
-                            {["all", "report", "article", "guide", "newsletter"].map((cat) => (
+                            {["all", "annual", "technical", "research"].map((cat) => (
                                 <button
                                     key={cat}
                                     onClick={() => handleCategoryChange(cat)}
