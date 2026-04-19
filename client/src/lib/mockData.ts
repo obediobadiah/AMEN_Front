@@ -4,40 +4,28 @@ import { images } from "./images";
 export const programs = [
   {
     id: 1,
-    title: "Accueil humanitaire et services sociaux de base",
-    description: "Fourniture d'une assistance humanitaire et de services sociaux essentiels aux communautés vulnérables.",
     image: images.homeCauseAutonomisation,
-    category: "Humanitaire",
     raised: 18000,
     goal: 30000,
     icon: HandHeart
   },
   {
     id: 2,
-    title: "Agriculture durable et conservation de la nature",
-    description: "Promotion de pratiques agricoles durables et protection de l'environnement pour un avenir plus vert.",
     image: images.homeCauseProtection,
-    category: "Environnement",
     raised: 12000,
     goal: 35000,
     icon: Leaf
   },
   {
     id: 3,
-    title: "Logistique, commerce équitable et chaînes de valeur",
-    description: "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
-    image: images.homeCauseWater,
-    category: "Développement",
+    image: images.heroGetInvolved,
     raised: 25000,
     goal: 50000,
     icon: Globe
   },
   {
     id: 4,
-    title: "Leadership féminin et participation citoyenne",
-    description: "Développement de chaînes d'approvisionnement équitables et durables pour les producteurs locaux.",
     image: images.homeCauseWater,
-    category: "Leadership",
     raised: 25000,
     goal: 50000,
     icon: Globe

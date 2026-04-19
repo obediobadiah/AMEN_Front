@@ -1101,7 +1101,7 @@
     "programs": {
       "badge": "Our Causes",
       "title": "Check Our Popular Causes",
-      "description": "We focus on the most critical needs of our communities. From clean water to education, your support makes a direct impact.",
+      "description": "We focus on the most critical needs of our communities.",
       "womenEmpowerment": {
         "title": "Women Empowerment",
         "description": "Supporting women through vocational training and micro-finance initiatives to build sustainable livelihoods.",
@@ -1170,11 +1170,10 @@
     "quickLinks": "Quick Links",
     "ourCauses": "Our Causes",
     "causes": {
+      "humanRight":"Human Rights",
       "womenEmpowerment": "Women Empowerment",
-      "cleanWater": "Clean Water",
-      "education": "Education",
-      "environmentalProtection": "Environmental Protection",
-      "emergencyRelief": "Emergency Relief"
+      "foodSecurity": "Food Security",
+      "environmentalProtection": "Environmental Protection"
     },
     "newsletter": "Newsletter",
     "newsletterDescription": "Subscribe to our newsletter to get the latest news and updates.",
