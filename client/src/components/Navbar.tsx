@@ -281,13 +281,19 @@ export function Navbar() {
                 <span>+243 994 145 958</span>
               </a>
               <a
-                href="mailto:info@amen-ngo.org"
+                href="mailto:amen.amorg@gmail.com"
                 className="flex items-center gap-2 text-secondary-foreground/80 hover:text-primary transition-colors group"
               >
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Mail size={12} className="text-primary" />
                 </div>
-                <span>amen.amorg@gmail.com, amenasbla@gmail.com</span>
+                <span>amen.amorg@gmail.com</span>
+              </a>
+              <a
+                href="mailto:amenasbla@gmail.com"
+                className="flex items-center gap-2 text-secondary-foreground/80 hover:text-primary transition-colors group"
+              >
+                <span>amenasbla@gmail.com</span>
               </a>
             </div>
           </div>

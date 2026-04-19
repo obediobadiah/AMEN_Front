@@ -84,7 +84,7 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
                 {[
-                  { icon: MapPin, title: t('contactPage.info.address'), details: t('contactPage.info.addressVal'), sub: t('contactPage.info.office') },
+                  { icon: MapPin, title: t('contactPage.info.address'), details: t('contactPage.info.fullAddress'), sub: t('contactPage.info.office') },
                   { icon: Phone, title: t('contactPage.info.phone'), details: t('contactPage.info.phoneVal'), sub: t('contactPage.info.hoursVal') },
                   { icon: Mail, title: t('contactPage.info.email'), details: t('contactPage.info.emailVal'), sub: t('contactPage.info.support247') },
                   { icon: Clock, title: t('contactPage.info.hours'), details: t('contactPage.info.hoursVal'), sub: t('contactPage.info.exceptHolidays') }
@@ -224,7 +224,7 @@ export default function Contact() {
                 </div>
                 <div className="text-center space-y-3">
                   <h4 className="text-3xl font-black font-heading text-slate-900">{t('contactPage.info.office')}</h4>
-                  <p className="text-slate-500 text-lg font-light leading-relaxed">Kinshasa Gombe, Avenue de l'Equateur 12, RDC</p>
+                  <p className="text-slate-500 text-lg font-light leading-relaxed">{t('contactPage.info.fullAddress')}</p>
                 </div>
                 <Button className="w-full h-14 rounded-2xl bg-slate-950 text-white font-black uppercase tracking-widest text-xs shadow-xl shadow-black/10 hover:bg-primary transition-all">
                   {t('projectsPage.viewLocation')}
@@ -240,16 +240,16 @@ export default function Contact() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center space-y-4">
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-primary">Frequently Asked Questions</span>
-              <h2 className="text-4xl md:text-5xl font-heading font-black">How Can We Help You?</h2>
+              <span className="text-xs font-black uppercase tracking-[0.3em] text-primary">{t('contactPage.faq.title')}</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-black">{t('contactPage.faq.subtitle')}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
-                { q: "How can I volunteer for AMEN?", a: "You can apply through our 'Get Involved' page or by sending your CV to volunteer@amen-ngo.org." },
-                { q: "Where does the donation money go?", a: "90% of all donations go directly to project implementation. We provide annual reports for transparency." },
-                { q: "Do you offer internships?", a: "Yes, we have seasonal internship programs for students in social work, environment, and development." },
-                { q: "How can my company partner with you?", a: "Contact our partnership department at partner@amen-ngo.org for corporate social responsibility opportunities." }
+                { q: t('contactPage.faq.items.1.q'), a: t('contactPage.faq.items.1.a') },
+                { q: t('contactPage.faq.items.2.q'), a: t('contactPage.faq.items.2.a') },
+                { q: t('contactPage.faq.items.3.q'), a: t('contactPage.faq.items.3.a') },
+                { q: t('contactPage.faq.items.4.q'), a: t('contactPage.faq.items.4.a') }
               ].map((faq, idx) => (
                 <motion.div
                   key={idx}
