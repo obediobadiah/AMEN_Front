@@ -1022,6 +1022,28 @@
     "title": "Get in Touch",
     "subtitle": "We'd Love to Hear From You",
     "intro": "Have questions or want to collaborate? Reach out to our team through any of our channels.",
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "How Can We Help You?",
+      "items": {
+        "1": {
+          "q": "How can I volunteer for AMEN?",
+          "a": "You can apply through our 'Get Involved' page or by sending your CV to volunteer@amen-ngo.org."
+        },
+        "2": {
+          "q": "Where does the donation money go?",
+          "a": "90% of all donations go directly to project implementation. We provide annual reports for transparency."
+        },
+        "3": {
+          "q": "Do you offer internships?",
+          "a": "Yes, we have seasonal internship programs for students in social work, environment, and development."
+        },
+        "4": {
+          "q": "How can my company partner with you?",
+          "a": "Contact our partnership department at amen.amorg@gmail.com, amenasbla@gmail.com for corporate social responsibility opportunities."
+        }
+      }
+    },
     "form": {
       "name": "Full Name",
       "email": "Email Address",
@@ -1046,13 +1068,14 @@
       "phone": "Phone Number",
       "email": "Email",
       "addressVal": "123 Main Street, Kinshasa, DRC",
-      "phoneVal": "+243 999 999 999",
-      "emailVal": "info@amen-ngo.org",
+      "phoneVal": "+243 994 145 958",
+      "emailVal": "amen.amorg@gmail.com, amenasbla@gmail.com",
       "office": "Main Office",
       "hours": "Working Hours",
       "hoursVal": "Mon - Fri: 8:00 AM - 5:00 PM",
       "support247": "24/7 Support",
-      "exceptHolidays": "Except Holidays"
+      "exceptHolidays": "Except Holidays",
+      "fullAddress": "141 Ruzizi Avenue, Muhungu Cell, Ndendere Quarter, Ibanda Commune, Bukavu City, South Kivu Province"
     }
   },
   "hero": {

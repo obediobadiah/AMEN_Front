@@ -1025,8 +1025,30 @@
   },
   "contactPage": {
     "title": "Contactez-nous",
-    "subtitle": "Nous serions ravis de vous entendre",
-    "intro": "Vous avez des questions ou souhaitez collaborer ? Contactez notre équipe via l'un de nos canaux.",
+    "subtitle": "Entrer en contact",
+    "intro": "Nous sommes là pour vous aider et répondre à toutes vos questions. Nous avons hâte d'avoir de vos nouvelles.",
+    "faq": {
+      "title": "Questions Fréquemment Posées",
+      "subtitle": "Comment pouvons-nous vous aider ?",
+      "items": {
+        "1": {
+          "q": "Comment puis-je faire du bénévolat pour AMEN ?",
+          "a": "Vous pouvez postuler via notre page 'S'Impliquer' ou en envoyant votre CV à volunteer@amen-ngo.org."
+        },
+        "2": {
+          "q": "Où va l'argent des dons ?",
+          "a": "90% de tous les dons vont directement à la mise en œuvre des projets. Nous fournissons des rapports annuels pour la transparence."
+        },
+        "3": {
+          "q": "Offrez-vous des stages ?",
+          "a": "Oui, nous avons des programmes de stages saisonniers pour les étudiants en service social, environnement et développement."
+        },
+        "4": {
+          "q": "Comment mon entreprise peut-elle s'associer à vous ?",
+          "a": "Contactez notre département des partenariats à amen.amorg@gmail.com, amenasbla@gmail.com pour les opportunités de responsabilité sociale des entreprises."
+        }
+      }
+    },
     "form": {
       "name": "Nom Complet",
       "email": "Adresse E-mail",
@@ -1051,13 +1073,14 @@
       "phone": "Numéro de Téléphone",
       "email": "E-mail",
       "addressVal": "123 Rue Principale, Kinshasa, RDC",
-      "phoneVal": "+243 999 999 999",
-      "emailVal": "info@amen-ngo.org",
+      "phoneVal": "+243 994 145 958",
+      "emailVal": "amen.amorg@gmail.com, amenasbla@gmail.com",
       "office": "Bureau Principal",
       "hours": "Heures de Travail",
       "hoursVal": "Lun - Ven : 08:00 - 17:00",
       "support247": "Support 24/7",
-      "exceptHolidays": "Sauf Jours Fériés"
+      "exceptHolidays": "Sauf Jours Fériés",
+      "fullAddress": "141 Avenue Ruzizi, Cellule Muhungu, Quartier Ndendere, Commune d'Ibanda, Ville de Bukavu, Province du Sud-Kivu"
     }
   },
   "hero": {
