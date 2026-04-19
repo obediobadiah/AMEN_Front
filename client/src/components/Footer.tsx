@@ -40,13 +40,13 @@ export function Footer() {
               {t('footer.description')}
             </p>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/share/14cUdCxbvSk/" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
+              <a target="_blank" href="https://www.facebook.com/share/14cUdCxbvSk/" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
                 <Facebook size={18} />
               </a>
-              <a href="https://x.com/amen_asbl?t=GADBC1utx61K4itbplLJYg&s=08" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
+              <a target="_blank" href="https://x.com/amen_asbl?t=GADBC1utx61K4itbplLJYg&s=08" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
                 <Twitter size={18} />
               </a>
-              <a href="https://www.linkedin.com/company/amen-asbl-organisation-des-peuples-autochtones/" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
+              <a target="_blank" href="https://www.linkedin.com/company/amen-asbl-organisation-des-peuples-autochtones/" className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all text-secondary-foreground/60">
                 <Linkedin size={18} />
               </a>
             </div>
