@@ -15,6 +15,8 @@ import { formatDistanceToNow } from "date-fns";
 import { fr, enUS } from "date-fns/locale";
 import { useLocale } from "next-intl";
 import { getImageUrl } from "@/lib/api-config";
+import { motion, Variants } from "framer-motion";
+
 
 export default function Home() {
   const t = useTranslations();
@@ -39,6 +41,25 @@ export default function Home() {
   const formatReadingTime = (readingTime?: number) => {
     if (!readingTime) return "5 min read";
     return `${readingTime} min read`;
+  };
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
   };
 
   return (
@@ -147,43 +168,59 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((program, index) => {
-              const programKey = index === 0 ? 'womenEmpowerment' : index === 1 ? 'environmentalProtection' : index === 2 ? 'cleanWater' : index === 2 ? 'womenLeadership' : "defenseProtection";
-              return (
-                <Card key={program.id} className="border-none shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
-                  <div className="relative h-64 overflow-hidden">
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-primary z-10">
-                      {t(`home.programs.${programKey}.category`)}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-16">
+            {programs.map((program) => (
+              <motion.div key={program.id} variants={itemVariants}>
+                <Card className="h-full border border-border/50 overflow-hidden group hover:shadow-xl transition-all duration-500 bg-card hover:border-primary/30">
+                  <div className="relative h-72 overflow-hidden">
+                    <div className="absolute top-4 left-4 bg-primary text-primary-foreground border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider z-10 shadow-lg hover:bg-primary/90 transition-colors">
+                      {t(`programsPage.programs.${program.id}.category`)}
                     </div>
                     <img
                       src={program.image}
-                      alt={t(`home.programs.${programKey}.title`)}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      alt={t(`programsPage.programs.${program.id}.title`)}
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-                  <CardContent className="p-6 space-y-6">
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold font-heading group-hover:text-primary transition-colors">{t(`home.programs.${programKey}.title`)}</h3>
-                      <p className="text-muted-foreground text-sm line-clamp-2">{t(`home.programs.${programKey}.description`)}</p>
+                  <CardContent className="p-8 space-y-6">
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-bold font-heading text-foreground group-hover:text-primary transition-colors duration-300">
+                        {t(`programsPage.programs.${program.id}.title`)}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed line-clamp-3">
+                        {t(`programsPage.programs.${program.id}.description`)}
+                      </p>
                     </div>
 
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm font-medium">
-                        <span className="text-primary">{t('home.programs.raised')}</span>
-                        <span className="text-muted-foreground">{t('home.programs.goal')}</span>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm font-bold">
+                        <span className="text-primary">{t('programsPage.raised')}</span>
+                        <span className="text-muted-foreground">{t('programsPage.goal')}</span>
                       </div>
-                      <Progress value={(program.raised / program.goal) * 100} className="h-2" />
+                      <div className="relative h-2.5 w-full bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(program.raised / program.goal) * 100}%` }}
+                          transition={{ duration: 1, delay: 0.5 }}
+                          className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                        />
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        {/* <span className="font-bold">${program.raised.toLocaleString()}</span>
+                          <span className="text-muted-foreground">${program.goal.toLocaleString()}</span> */}
+                      </div>
                     </div>
 
-                    <Button variant="outline" className="w-full rounded-full border-primary/20 hover:bg-primary hover:text-white transition-all group-hover:border-primary">
-                      <a href="/donate" className="flex items-center justify-center gap-2 w-full">{t('home.programs.donateNow')} <Heart className="ml-2 h-4 w-4" /></a>
-                    </Button>
+                    <div className="pt-2">
+                      <Button className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-base font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 hover:shadow-primary/30">
+                        <a href="/donate" className="flex items-center gap-2">{t('programsPage.donateNow')} <Heart className="ml-2 h-4 w-4 fill-current" /></a>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
-              );
-            })}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

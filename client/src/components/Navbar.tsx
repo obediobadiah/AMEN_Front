@@ -252,14 +252,14 @@ export function Navbar() {
             <div className="flex items-center space-x-1">
               <span className="text-secondary-foreground/60 text-xs font-medium mr-2">{t('nav.followUs')}</span>
               {[
-                { icon: <Facebook size={12} />, label: "Facebook" },
-                { icon: <Twitter size={12} />, label: "Twitter" },
-                { icon: <Linkedin size={12} />, label: "LinkedIn" },
-                { icon: <Instagram size={12} />, label: "Instagram" }
+                { icon: <Facebook size={12} />, label: "Facebook", link:"https://www.facebook.com/share/14cUdCxbvSk/"},
+                { icon: <Twitter size={12} />, label: "Twitter", link:"https://x.com/amen_asbl?t=GADBC1utx61K4itbplLJYg&s=08"},
+                { icon: <Linkedin size={12} />, label: "LinkedIn", link:"https://www.linkedin.com/company/amen-asbl-organisation-des-peuples-autochtones/"},
+                // { icon: <Instagram size={12} />, label: "Instagram" }
               ].map((social, index) => (
                 <a
                   key={index}
-                  href="#"
+                  href={social.link}
                   className="w-6 h-6 rounded-full flex items-center justify-center text-secondary-foreground/60 hover:text-primary hover:bg-primary/10 transition-colors duration-200"
                   aria-label={social.label}
                 >
@@ -277,7 +277,7 @@ export function Navbar() {
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Phone size={12} className="text-primary" />
                 </div>
-                <span>+243 999 999 999</span>
+                <span>+243 994 145 958</span>
               </a>
               <a
                 href="mailto:info@amen-ngo.org"
@@ -286,7 +286,7 @@ export function Navbar() {
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                   <Mail size={12} className="text-primary" />
                 </div>
-                <span>info@amen-ngo.org</span>
+                <span>amen.amorg@gmail.com, amenasbla@gmail.com</span>
               </a>
             </div>
           </div>

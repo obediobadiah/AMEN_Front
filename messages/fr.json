@@ -1106,7 +1106,7 @@
     "programs": {
       "badge": "Nos Causes",
       "title": "Découvrez Nos Causes Populaires",
-      "description": "Nous nous concentrons sur les besoins les plus critiques de nos communautés. De l'eau potable à l'éducation, votre soutien a un impact direct.",
+      "description": "Nous nous concentrons sur les besoins les plus critiques de nos communautés.",
       "womenEmpowerment": {
         "title": "Autonomisation des Femmes",
         "description": "Soutenir les femmes par la formation professionnelle et les initiatives de micro-finance pour construire des moyens de subsistance durables.",
@@ -1175,11 +1175,10 @@
     "quickLinks": "Liens Rapides",
     "ourCauses": "Nos Causes",
     "causes": {
+      "humanRight": "Droits Humains",
       "womenEmpowerment": "Autonomisation des Femmes",
-      "cleanWater": "Eau Potable",
-      "education": "Éducation",
-      "environmentalProtection": "Protection de l'Environnement",
-      "emergencyRelief": "Secours d'Urgence"
+      "foodSecurity": "Food Security",
+      "environmentalProtection": "Protection de l'Environnement"
     },
     "newsletter": "Newsletter",
     "newsletterDescription": "Abonnez-vous à notre newsletter pour recevoir les dernières nouvelles et mises à jour.",
